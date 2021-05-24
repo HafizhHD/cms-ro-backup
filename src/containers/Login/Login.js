@@ -24,9 +24,9 @@ function Login({
             <div className="LoginBg">
             <div className="Login">
                 <div className="Login-top">
-                  {!isLoading && <img src={Logo} className="Login-top-img" alt="logo top" /> }  
+                    <img src={Logo} className="Login-top-img" alt="logo top" />
                 </div>
-                {!isLoading && (
+             
                 <div className="Login-middle">
                         <div className="Login-middle-left">
                             <img 
@@ -37,9 +37,7 @@ function Login({
                         </div>
                         <div className="Login-middle-right">
                             <div className="Login-middle-right-heading mb-small">
-                                <h1>Mulai Kelola</h1>
-                                <h1>Pelanggan Anda</h1>
-                                <h1>Sekarang.</h1>
+                                <h1>Mulai Kelola Pelanggan Anda Sekarang.</h1>
                             </div>
                             <form className="Login-middle-right-form" onSubmit={submitLogin}>
                                 <input
@@ -62,7 +60,7 @@ function Login({
                             <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <a href="#">Daftar Sekarang</a> </p>
                         </div>
                     </div> 
-                )}
+                
                 {isLoading && (
                 <div className="LoadingFullRk">
                     <img src={Logo} className="Login-top-img" alt="logo top" />
