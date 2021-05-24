@@ -60,7 +60,7 @@ function Login({
                     </div> 
                 )}
                 {isLoading && (
-                <div className="Login-middle-empty">
+                <div className="LoadingFullRk">
                     <img src={Logo} className="Login-top-img" alt="logo top" />
                     <Spinner />
                 </div>

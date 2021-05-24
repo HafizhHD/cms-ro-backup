@@ -143,17 +143,6 @@
       }
     }
   }
-  &-middle-empty {
-    grid-row: 2/3;
-    grid-column: 2 / 3;
-    background-color: rgba(#fff, 1);
-    border-radius: 1.5rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
 }
 
 .Input-control {
@@ -209,4 +198,18 @@
   &:focus {
     transform: scale(1.08);
   }
+}
+
+.LoadingFullRk {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(#fff, 1);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
