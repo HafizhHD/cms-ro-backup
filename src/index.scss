@@ -1,0 +1,45 @@
+:root {
+  --color-primary: #1e917b;
+
+  --color-white: #fff;
+  --color-grey-dark-1: #4c4d50;
+  --color-blue-light: #185adb;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  font-size: 62.5%;
+}
+
+.mb-tiny {
+  margin-bottom: 0.3rem;
+}
+
+.mb-small {
+  margin-bottom: 1rem;
+}
+.mb-medium {
+  margin-bottom: 2rem;
+}
+.mb-large {
+  margin-bottom: 3rem;
+}
+.mb-huge {
+  margin-top: 3.5rem;
+}

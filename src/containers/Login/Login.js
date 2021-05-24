@@ -1,0 +1,57 @@
+import React from 'react';
+import './Login.scss';
+import Logo from './../../assets/img/Logo_1.png'
+import DeviceImage from './../../assets/img/device.png';
+
+function Login() {
+    return (
+        <>
+            <div className="LoginBg">
+            <div className="Login">
+                <div className="Login-top">
+                    <img src={Logo} className="Login-top-img" alt="logo top" />
+                </div>
+                <div className="Login-middle">
+                    <div className="Login-middle-left">
+                        <img 
+                            src={DeviceImage} 
+                            alt="Device Image" 
+                            className="Login-middle-left-img"
+                        />
+                    </div>
+                    <div className="Login-middle-right">
+                        <div className="Login-middle-right-heading mb-small">
+                            <h1>Mulai Kelola</h1>
+                            <h1>Pelanggan Anda</h1>
+                            <h1>Sekarang.</h1>
+                        </div>
+                        <form className="Login-middle-right-form">
+                            <input 
+                                className="Input-control mb-tiny" 
+                                type="text"
+                                placeholder="example@mail.com"
+                            />
+                             <input 
+                                className="Input-control mb-tiny" 
+                                type="password"
+                                placeholder="Password"
+                            />
+                            <button
+                                className="btn btn-login"
+                            >
+                                Sign in
+                            </button>
+                        </form>
+                        <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <a href="#">Daftar Sekarang</a> </p>
+                    </div>
+                </div>
+                <div className="Login-bottom">
+                   
+                </div>
+            </div>
+            </div>
+        </>
+    )
+}
+
+export default Login
