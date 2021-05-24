@@ -19,11 +19,19 @@
   grid-template-columns: 13rem 1fr 13rem;
   height: 100vh;
 
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: 5rem 1fr 5rem;
+  }
+
   &-top {
     padding: 0 0 0 2rem;
     align-self: center;
     &-img {
       width: 300px;
+
+      @media only screen and (max-width: 600px) {
+        width: 100px;
+      }
     }
   }
 
@@ -36,7 +44,13 @@
     box-shadow: 1rem 1.4rem 2.8rem 0.2rem rgba(0, 0, 0, 0.2);
     border-radius: 1.5rem;
 
+    @media only screen and (max-width: 600px) {
+      grid-column: 1 / -1;
+      margin: 1rem;
+    }
+
     &-left {
+      grid-column: 1 / 2;
       background-color: #fff;
       border-top-left-radius: 1.3rem;
       border-bottom-left-radius: 1.3rem;
@@ -44,12 +58,21 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media only screen and (max-width: 700px) {
+        display: none;
+      }
+
       &-img {
         width: 250px;
+        @media only screen and (max-width: 600px) {
+          width: 120px;
+        }
       }
     }
 
     &-right {
+      grid-column: 2 / 3;
       background-color: rgba(#fff, 0.9);
       border-top-right-radius: 1.3rem;
       border-bottom-right-radius: 1.3rem;
@@ -57,6 +80,17 @@
       display: grid;
       grid-template-rows: 6rem min-content 1fr 1fr;
       grid-template-columns: 4rem 1fr 4rem;
+
+      @media only screen and (max-width: 700px) {
+        grid-column: 1 / -1;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      @media only screen and (max-width: 1000px) {
+        grid-template-columns: min-content 1fr min-content;
+        padding: 1rem;
+      }
 
       &-heading {
         grid-row: 2 / 3;
@@ -67,6 +101,10 @@
           font-size: 2.8vw;
           line-height: 1.2;
           font-family: inherit;
+
+          @media only screen and (max-width: 600px) {
+            font-size: 1.8rem;
+          }
         }
       }
 
@@ -76,6 +114,10 @@
         margin: 1vh 5vw;
 
         align-self: center;
+
+        @media only screen and (max-width: 1300px) {
+          margin: 0;
+        }
       }
 
       &-joinus {
@@ -89,6 +131,10 @@
         font-family: inherit;
         color: var(--color-grey-dark-1);
 
+        @media only screen and (max-width: 600px) {
+          font-size: 1rem;
+        }
+
         & > a {
           text-decoration: none;
           color: var(--color-primary);
@@ -96,6 +142,17 @@
         }
       }
     }
+  }
+  &-middle-empty {
+    grid-row: 2/3;
+    grid-column: 2 / 3;
+    background-color: rgba(#fff, 1);
+    border-radius: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }
 
@@ -142,6 +199,7 @@
   font-weight: 800;
   color: var(--color-primary);
   transition: all ease-in 0.3s;
+  box-shadow: 2px 3px 4px rgba(#000, 0.2);
 
   &:hover {
     background-color: var(--color-primary);
