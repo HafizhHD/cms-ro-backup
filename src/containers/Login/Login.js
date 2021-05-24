@@ -13,6 +13,10 @@ function Login({
     const submitLogin = e => {
         e.preventDefault();
         setIsLoading(true);
+
+        setTimeout( () => {
+            setIsLoading(false);
+        }, 3000);
     }
 
     return (
@@ -65,9 +69,7 @@ function Login({
                     <Spinner />
                 </div>
                 )}
-                <div className="Login-bottom">
-                   
-                </div>
+                <div className="Login-bottom"></div>
             </div>
             </div>
         </>
