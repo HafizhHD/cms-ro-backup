@@ -32,3 +32,31 @@ export const MenuCoBranding = [
         icon: <FiTool className="Aside__Nav_item-icon" />
     }
 ]
+
+export const MenuCs = [
+    {
+        path: '/',
+        pathName: 'Dashboard',
+        icon: <FiHome className="Aside__Nav_item-icon" />
+    },
+    {
+        path: '/helpdesk',
+        pathName: 'Helpdesk',
+        icon: <FiEdit className="Aside__Nav_item-icon" />
+    },
+    {
+        path: '/top-content',
+        pathName: 'Top Content',
+        icon: <FiActivity className="Aside__Nav_item-icon" />
+    },
+    {
+        path: '/cobranding',
+        pathName: 'Co Branding',
+        icon: <FiImage className="Aside__Nav_item-icon" />
+    },
+    {
+        path: '/ticket',
+        pathName: 'Ticket',
+        icon: <FiTool className="Aside__Nav_item-icon" />
+    }
+];

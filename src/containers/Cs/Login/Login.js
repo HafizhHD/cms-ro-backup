@@ -3,7 +3,12 @@ import './Login.scss';
 import Logo from './../../../assets/img/Logo_1.png';
 import InputComponent from './../../../components/UI/Input/Input';
 
-function Login() {
+function Login({
+    setIsLogin
+}) {
+
+    
+
     return (
         <div className="Login">
             <div className="Top"></div>
@@ -33,6 +38,7 @@ function Login() {
                     <button
                         className="btn btn-login"
                         type="submit"
+                        onClick={setIsLogin}
                     >
                         Sign in
                     </button>

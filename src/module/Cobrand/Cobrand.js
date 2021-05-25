@@ -32,7 +32,6 @@ function Cobrand({
                     </Suspense>
                 )}
             />
-      
         </Switch>
     )
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './../Layout.scss';
 import Logo from './../../assets/img/Logo_1.png';
 import Navigations from '../../components/Navigations/Navigations';
-import { MenuCoBranding } from './../../components/Navigations/routes';
+import { MenuCs } from './../../components/Navigations/routes';
 
 function Layout({
     children
@@ -15,7 +15,7 @@ function Layout({
                     className="Header__img"
                 />
             </header>
-            <Navigations MenuItems={MenuCoBranding} />
+            <Navigations MenuItems={MenuCs} />
             <main className="Main">
                 {children}
             </main>
