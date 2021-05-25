@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Login from '../../containers/CoBrand/Login/Login';
 import { Route, Switch } from 'react-router-dom';
+import Layout from '../../Layout/Layout';
 
 
 function Cobrand({
@@ -18,7 +19,7 @@ function Cobrand({
     if(isLogin) {
         routes = (
             <>
-                <h1>Welcome back</h1>
+                <Layout></Layout>
             </>
         )
     }
