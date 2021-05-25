@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Login from './../../containers/Cs/Login/Login';
 
 function Cs() {
     return (
         <div>
-            
+            <Login />
         </div>
     )
 }
