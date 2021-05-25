@@ -9,7 +9,7 @@
       rgba(255, 255, 255, 0.8) 0%,
       rgba(0, 113, 155, 0) 45%
     ),
-    url(./../../assets/img/1558939.jpg);
+    url(./../../../assets/img/1558939.jpg);
   background-size: cover;
 }
 
@@ -149,35 +149,6 @@
   }
 }
 
-.Input-control {
-  background-color: rgba(#f3f3f3, 0.9);
-  outline: none;
-  appearance: none;
-  border: none;
-  padding: 0.7rem;
-  border-radius: 8px;
-  color: rgb(51, 51, 51);
-  box-sizing: border-box;
-  transition: all ease-out 0.2s;
-  font-family: inherit;
-  display: block;
-  width: 100%;
-
-  &::-webkit-input-placeholder {
-    font-weight: 300;
-    color: rgb(173, 169, 169);
-  }
-  &::placeholder {
-    font-weight: 300;
-    color: rgb(173, 169, 169);
-  }
-
-  &:focus {
-    border: 1px solid var(--color-primary);
-    transform: scale(1.08);
-  }
-}
-
 .btn {
   cursor: pointer;
   width: 100%;
@@ -203,18 +174,4 @@
     transform: scale(0.9);
     -webkit-transform: scale(0.9);
   }
-}
-
-.LoadingFullRk {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(#fff, 1);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }

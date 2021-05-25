@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { HashRouter } from 'react-router-dom';
+import Cobrand from './module/Cobrand/Cobrand';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <HashRouter>
+      <Cobrand />
+    </HashRouter>
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 
