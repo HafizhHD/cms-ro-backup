@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Layout from '../../Layout/Layout';
+import Layout from '../../Layout/CoBrand/Layout';
 import RKLoader from '../../components/UI/RKLoader/RKLoader';
 
 const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'));

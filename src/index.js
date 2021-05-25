@@ -4,6 +4,7 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter } from 'react-router-dom';
 import Cobrand from './module/Cobrand/Cobrand';
+// import Cs from './module/Cs/Cs';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -4,7 +4,7 @@ import './Report';
 function Report() {
     return (
         <div>
-            <h1>Report</h1>
+            <h1>REPORT</h1>
         </div>
     )
 }
