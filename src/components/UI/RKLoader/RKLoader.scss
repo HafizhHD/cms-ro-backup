@@ -17,3 +17,14 @@
     font-size: 1.2rem;
   }
 }
+
+.LoadingFullRk__heading {
+  font-size: 5vw;
+  font-family: "intern";
+  font-weight: 800;
+  color: var(--color-grey-dark-1);
+}
+
+.LoadingFullRk__heading > span {
+  color: var(--color-primary);
+}

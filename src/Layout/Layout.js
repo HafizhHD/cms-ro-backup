@@ -1,7 +1,8 @@
 import React from 'react';
 import './Layout.scss';
 import Logo from './../assets/img/Logo_1.png';
-import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool  } from 'react-icons/fi'
+import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool  } from 'react-icons/fi';
+import { NavLink } from 'react-router-dom';
 
 function Layout({
     children
@@ -17,45 +18,48 @@ function Layout({
             <aside className="Aside">
                 <ul className="Aside__Nav">
                     <li className="Aside__Nav_item">
-                        <a className="Aside__Nav_item-link active" href="#">
+                        <NavLink 
+                            exact
+                            className="Aside__Nav_item-link" 
+                            to="/">
                             <FiHome className="Aside__Nav_item-icon" />
                             <p>Dashboard</p>
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="Aside__Nav_item">
-                        <a className="Aside__Nav_item-link" href="#">
+                        <NavLink to="/report" className="Aside__Nav_item-link" href="#">
                             <FiEdit className="Aside__Nav_item-icon" />
                             <p>Report</p>
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="Aside__Nav_item">
-                        <a className="Aside__Nav_item-link" href="#">
+                        <NavLink to="/program" className="Aside__Nav_item-link" href="#">
                             <FiActivity className="Aside__Nav_item-icon" />
                             <p>Program</p>
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="Aside__Nav_item">
-                        <a className="Aside__Nav_item-link" href="#">
+                        <NavLink to="/content" className="Aside__Nav_item-link" href="#">
                             <FiImage className="Aside__Nav_item-icon" />
                             <p>Content</p>
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="Aside__Nav_item">
-                        <a className="Aside__Nav_item-link" href="#">
+                        <NavLink to="/redzone" className="Aside__Nav_item-link" href="#">
                             <FiMapPin className="Aside__Nav_item-icon" />
                             <p>RedZone</p>
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="Aside__Nav_item">
-                        <a className="Aside__Nav_item-link" href="#">
+                        <NavLink to="/setting" className="Aside__Nav_item-link" href="#">
                             <FiTool className="Aside__Nav_item-icon" />
                             <p>Setting</p>
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </aside>
             <main className="Main">
-                Content
+                {children}
             </main>
        </div>
     )

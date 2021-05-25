@@ -2,6 +2,9 @@
   display: grid;
   grid-template-rows: 5rem minmax(100vh, min-content);
   grid-template-columns: 19rem 1fr;
+
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
 }
 
 .Header {
