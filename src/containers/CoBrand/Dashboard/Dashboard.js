@@ -65,42 +65,16 @@ function Dashboard() {
 
 
             {/* Content */}
-            {/* <h1>CONTENT LIST</h1>
-            <div className="Dashboard__contents">
+            <h1>CONTENT LIST</h1>
+            {/* <div className="Dashboard__contents">
                 <div className="Dashboard__contents__list">
                     <img 
                         src={'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1560&q=80'} 
                         alt="Card photo 1" 
                         className="Dashboard__contents__list-img"
                     />
+                    <h3>Mangga Senyum Menarik</h3>
                     <div className="Dashboard__contents__description">
-                        <h3>Mangga Senyum Menarik</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                    </div>
-                </div>
-                <div className="Dashboard__contents__list">
-                    <img 
-                        src={'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1560&q=80'} 
-                        alt="Card photo 1" 
-                        className="Dashboard__contents__list-img"
-                    />
-                    <div className="Dashboard__contents__description">
-                        <h3>Renata Anak Cantik</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                    </div>
-                </div>
-                <div className="Dashboard__contents__list">
-                    <img 
-                        src={'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1560&q=80'} 
-                        alt="Card photo 1" 
-                        className="Dashboard__contents__list-img"
-                    />
-                    <div className="Dashboard__contents__description">
-                        <h3>Hot Toys bikin Thr Abis</h3>
                         <p>
                         is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                         </p>

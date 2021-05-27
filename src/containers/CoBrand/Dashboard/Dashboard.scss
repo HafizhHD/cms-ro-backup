@@ -18,9 +18,19 @@
       background-color: #fff;
       box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
       border-radius: 1rem;
+      transition: all ease-out 0.5s;
 
       display: grid;
       grid-template-rows: 2rem 1fr max-content;
+
+      &:hover {
+        color: var(--color-primary);
+        transform: scale(1.09);
+      }
+
+      &:hover > .Dashboard__cards_item-details {
+        background-color: var(--color-primary);
+      }
 
       h3,
       h1 {
@@ -94,4 +104,6 @@
       }
     }
   }
+
+  //Contents
 }
