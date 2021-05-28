@@ -9,6 +9,7 @@
   grid-column: 1 / -1;
   background-color: var(--color-white);
   box-shadow: 1px 4px 8px rgba(#ddd, 0.4);
+  z-index: 99;
 
   position: fixed;
   top: 0;
