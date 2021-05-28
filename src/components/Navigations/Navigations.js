@@ -9,7 +9,7 @@ function Navigations({ MenuItems }) {
             <ul className="Aside__Nav">
                 {MenuItems.map((item, i) => {
                     return (
-                        <li className="Aside__Nav_item">
+                        <li key={i} className="Aside__Nav_item">
                             <NavLink exact to={item.path} className="Aside__Nav_item-link">
                                 {item.icon}
                                 <p>{item.pathName}</p>
