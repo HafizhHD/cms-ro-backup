@@ -7,14 +7,14 @@ export const MenuCoBranding = [
         icon: <FiHome className="Aside__Nav_item-icon" />
     },
     {
-        path: '/report',
-        pathName: 'Report',
-        icon: <FiEdit className="Aside__Nav_item-icon" />
-    },
-    {
         path: '/program',
         pathName: 'Program',
         icon: <FiActivity className="Aside__Nav_item-icon" />
+    },
+    {
+        path: '/report',
+        pathName: 'Report',
+        icon: <FiEdit className="Aside__Nav_item-icon" />
     },
     {
         path: '/content',
