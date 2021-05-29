@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import './../Layout.scss';
 import Logo from './../../assets/img/Logo_1.png';
 import Navigations from '../../components/Navigations/Navigations';
@@ -8,7 +10,8 @@ import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
 import { FiBell, FiUser, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 function Layout({
-    children
+    children,
+    location
 }) {
 
     const dropdownRef = useRef(null);
@@ -52,12 +55,13 @@ function Layout({
                     </nav>
                 </div>
             </header>
-            <Navigations MenuItems={MenuCoBranding} />
-            <main className="Main">
+            {location.pathname !== '/program' && <Navigations MenuItems={MenuCoBranding} /> }
+            
+            <main className={location.pathname !== '/program' ? 'Main' : 'FullMain'}>
                 {children}
             </main>
        </div>
     )
 }
 
-export default Layout
+export default withRouter(Layout)

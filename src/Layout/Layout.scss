@@ -81,6 +81,15 @@
   background: linear-gradient(180deg, #ffffff 0%, hsl(169, 100%, 92%) 100%);
 }
 
+.FullMain {
+  grid-row: 2 / -1;
+  grid-column: 1 / 3;
+
+  padding: 2rem;
+
+  background: linear-gradient(180deg, #ffffff 0%, hsl(169, 100%, 92%) 100%);
+}
+
 /* Menu Dropdown */
 .Menudropdown {
   background-color: #fff;
