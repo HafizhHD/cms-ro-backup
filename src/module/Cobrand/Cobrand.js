@@ -7,6 +7,7 @@ const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'))
 const DashboardAsync = lazy( () => import('./../../containers/CoBrand/Dashboard/Dashboard'));
 const ReportAsync = lazy( () => import('./../../containers/CoBrand/Report/Report'));
 const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
+const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
 const ContentAsync = lazy( () => import('./../../containers/CoBrand/Content/Content'));
 const RedZoneAsync = lazy( () => import('./../../containers/CoBrand/RedZone/RedZone'));
 const SettingAsync = lazy( () => import('./../../containers/CoBrand/Setting/Setting'));
@@ -66,6 +67,15 @@ function Cobrand({
                             render={(props) => (
                                 <Suspense fallback={<p>Loading...</p>} >
                                     <ProgramAsync {...props} />
+                                </Suspense>
+                            )}
+                        />
+                        <Route
+                            path="/program/add"
+                            exact
+                            render={(props) => (
+                                <Suspense fallback={<p>Loading...</p>}>
+                                    <AddProgramAsync {...props} />
                                 </Suspense>
                             )}
                         />

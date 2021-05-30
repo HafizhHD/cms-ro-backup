@@ -55,9 +55,12 @@ function Layout({
                     </nav>
                 </div>
             </header>
-            {location.pathname !== '/program' && <Navigations MenuItems={MenuCoBranding} /> }
+            {location.pathname !== '/program/add' && <Navigations MenuItems={MenuCoBranding} /> }
             
-            <main className={location.pathname !== '/program' ? 'Main' : 'FullMain'}>
+            
+            <main className={
+                location.pathname !== '/program/add' ? 'Main' : 'FullMain'
+            }>
                 {children}
             </main>
        </div>
