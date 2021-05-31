@@ -5,24 +5,30 @@ import Logo from './../../../assets/img/Logo_1.png'
 import DeviceImage from './../../../assets/img/device.png';
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import { useFormik } from 'formik';
+import { validationFormLogin } from './../../../helpers/validation/validation';
 
 function Login({
     setIsLogin
 }) {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
-    const submitLogin = e => {
-        e.preventDefault();
-        setIsLoading(true);
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validationSchema: validationFormLogin,
+        onSubmit: values => {
+            setIsLoading(true);
 
         setTimeout( () => {
             setIsLoading(false);
             setIsLogin(true);
         }, 3000);
-    }
+        }
+    })
 
     return (
         <>
@@ -44,18 +50,26 @@ function Login({
                             <div className="Login-middle-right-heading mb-small">
                                 <h1>Mulai Kelola Pelanggan Anda Sekarang.</h1>
                             </div>
-                            <form className="Login-middle-right-form" onSubmit={submitLogin}>
+                            <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 
                                     placeholder="example@mail.com"
                                     type="text"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    value={email}
+                                    name="email"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                    className="Input-control Input-control__with-focus mb-tiny"
+                                    isError={formik.touched.email && Boolean(formik.errors.email) }
+                                    message={formik.touched.email && formik.errors.email}
                                 />
                                 <InputComponent 
                                     placeholder="Password"
                                     type="password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    value={password}
+                                    name="password"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.password}
+                                    className="Input-control Input-control__with-focus mb-tiny"
+                                    isError={formik.touched.password && Boolean(formik.errors.password)}
+                                    message={formik.touched.password && formik.errors.password}
                                 />
                                 <button
                                     className="btn btn-login"

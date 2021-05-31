@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './Input.scss';
 
 function Input({
     placeholder,
     type,
     onChange,
-    value
+    value,
+    className,
+    message,
+    name,
+    isError
 }) {
     return (
-        <>
-        
+    <>
         <input
-            className="Input-control mb-tiny" 
+            name={name}
+            className={className} 
             type={type}
             placeholder={placeholder}
             onChange={onChange}
             value={value}
         />
-        
-        </>
+        {isError && (
+            <div className="message">
+                <span className="message__error">{message}</span>
+            </div>
+        )}
+    </>
     )
 }
 
-export default Input
+export default memo(Input) 
