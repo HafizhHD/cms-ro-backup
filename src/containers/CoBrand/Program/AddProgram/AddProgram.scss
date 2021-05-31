@@ -1,0 +1,52 @@
+.AddProgram {
+  width: 60%;
+  background-color: #fff;
+  box-shadow: 1px 1px 2px rgba(#ddd, 0.8s);
+  margin: auto;
+
+  display: grid;
+  grid-template-rows: repeat(6, max-content);
+  grid-row-gap: 2rem;
+  padding: 1rem;
+
+  h1 {
+    color: var(--color-primary);
+  }
+}
+
+.form-group {
+  label {
+    font-size: 1rem;
+    font-weight: 800;
+
+    display: block;
+  }
+
+  select {
+    background-color: rgba(#ccc, 0.4);
+    border: none;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+  }
+
+  &__input {
+    background-color: rgba(#ccc, 0.4);
+    border: none;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+
+    &--fullwidth {
+      width: 100%;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 150px;
+    background-color: rgba(#ccc, 0.4);
+    border: 1px solid #ccc;
+    resize: none;
+    padding: 1rem 1rem;
+    font-family: inherit;
+  }
+}
