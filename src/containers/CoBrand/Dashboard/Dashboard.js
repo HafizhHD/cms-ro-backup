@@ -2,11 +2,13 @@ import React from 'react';
 import './Dashboard.scss';
 import { FiArrowRightCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
+import Heading from '../../../components/UI/Heading/Heading';
 
 function Dashboard() {
     return (
         <div className="Dashboard">
-            <h1>SUBSCRIBER REPORT</h1>
+            <Heading headingName="SUBSCRIPTION" />
+            
 
             {/* Dashboard Cards  */}
             <div className="Dashboard__cards">
