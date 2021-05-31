@@ -29,10 +29,33 @@
 
   &__infoaccount {
     display: flex;
+
+    &__Notification {
+      position: relative;
+    }
+
+    &__profile {
+      position: relative;
+    }
   }
 
-  &__notification {
+  &__notification-btn {
     margin-right: 1rem;
+    position: relative;
+  }
+  &__notification-badge {
+    color: #fff;
+    font-weight: 800;
+    background-color: red;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__icon {
@@ -75,18 +98,14 @@
 .Main {
   grid-row: 2 / -1;
   grid-column: 2 / 3;
-
   padding: 2rem;
-
   background: linear-gradient(180deg, #ffffff 0%, hsl(169, 100%, 92%) 100%);
 }
 
 .FullMain {
   grid-row: 2 / -1;
   grid-column: 1 / 3;
-
   padding: 2rem;
-
   background: linear-gradient(180deg, #ffffff 0%, hsl(169, 100%, 92%) 100%);
 }
 
@@ -95,15 +114,19 @@
   background-color: #fff;
   border-radius: 8px;
   position: absolute;
-  top: 5rem;
-  right: 0;
-  width: 10rem;
+  right: -10px;
+  min-width: 12rem;
+  height: auto;
+  max-height: 15rem;
+  overflow: auto;
+
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-20px);
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   z-index: 3;
+
   ul {
     list-style: none;
     padding: 0;
@@ -111,12 +134,10 @@
 
     li {
       border-bottom: 1px solid #ddd;
-
+      padding: 0.6rem;
       a {
         text-decoration: none;
         color: var(--color-grey-dark-1);
-        padding: 0.4rem 2rem;
-        display: block;
         font-size: 0.7rem;
         font-weight: 500;
         transition: all ease-out 0.3s;

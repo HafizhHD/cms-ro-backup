@@ -14,9 +14,14 @@ function Layout({
     location
 }) {
 
-    const dropdownRef = useRef(null);
-    const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+    //dropdown profile
+    const dropdownRefProfile = useRef(null);
+    const [isActive, setIsActive] = useDetectOutsideClick(dropdownRefProfile, false);
     const onClickDropDown = () => setIsActive(!isActive);
+
+    const dropdownRefNotification = useRef(null);
+    const [isOpenNotif, setIsOpenNotif] = useDetectOutsideClick(dropdownRefNotification, true);
+    const onClickNotifButton = () => setIsOpenNotif(!isOpenNotif)
 
     return (
        <div className="Layout">
@@ -26,33 +31,88 @@ function Layout({
                     className="Header__img"
                 />
                 <div className="Header__infoaccount">
-                    <div className="Header__notification">
-                        <FiBell className="Header__icon" />
+                    <div className="Header__infoaccount__Notification">
+                        <div className="Header__notification-btn" onClick={onClickNotifButton}>
+                            <FiBell className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
+                            <div className="Header__notification-badge">6</div>
+                        </div>
+                        <nav 
+                            ref={dropdownRefNotification}
+                            className={`Menudropdown ${isOpenNotif ? 'active' : 'inactive'}`}
+                        >
+                            <ul>
+                                <li>
+                                    <NavLink to="/">
+                                        Anandosatria@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        galih@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        dimas@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        arief@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        theresia@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        nabiel@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        paiman@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <button className="Header__activeUser" onClick={onClickDropDown}>
-                        <FiUser className={`Header__icon ${isActive && 'Header__icon__active'}`} />
-                        <span>Bimbel Defhi</span>
-                        {isActive ? <FiChevronUp /> : <FiChevronDown /> }  
-                    </button>
-                    <nav 
-                        ref={dropdownRef}
-                        className={`Menudropdown ${isActive ? 'active' : 'inactive'}`}
-                    >
-                        <ul>
-                            <li>
-                                <NavLink to="/">Bantuan</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/">Profile</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/">Setting</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/">Logout</NavLink>
-                            </li>
-                        </ul>
-                    </nav>
+
+                    <div className="Header__infoaccount__profile">
+                        <button className="Header__activeUser" onClick={onClickDropDown}>
+                            <FiUser className={`Header__icon ${isActive && 'Header__icon__active'}`} />
+                            <span>Bimbel Defhi</span>
+                            {isActive ? <FiChevronUp /> : <FiChevronDown /> }  
+                        </button>
+                        <nav 
+                            ref={dropdownRefProfile}
+                            className={`Menudropdown ${isActive ? 'active' : 'inactive'}`}
+                        >
+                            <ul>
+                                <li>
+                                    <NavLink to="/">Bantuan</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/">Profile</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/">Setting</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/">Logout</NavLink>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </header>
             {location.pathname !== '/program/add' && <Navigations MenuItems={MenuCoBranding} /> }
