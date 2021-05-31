@@ -1,4 +1,4 @@
-export default [
+const Columns = [
     // {
     //     Header: 'ID',
     //     accessor: 'id'
@@ -34,3 +34,5 @@ export default [
         )
     }
 ]
+
+export default Columns;

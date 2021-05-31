@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Login.scss';
 import Logo from './../../../assets/img/Logo_1.png'
 import DeviceImage from './../../../assets/img/device.png';
@@ -35,7 +36,7 @@ function Login({
                         <div className="Login-middle-left">
                             <img 
                                 src={DeviceImage} 
-                                alt="Device Image" 
+                                alt="Device " 
                                 className="Login-middle-left-img"
                             />
                         </div>
@@ -63,7 +64,7 @@ function Login({
                                     Sign in
                                 </button>
                             </form>
-                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <a href="#">Daftar Sekarang</a> </p>
+                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/">Daftar Sekarang</NavLink> </p>
                         </div>
                     </div> 
                 

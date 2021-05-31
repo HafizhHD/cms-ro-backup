@@ -52,11 +52,13 @@
         color: #fff;
 
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
 
         a {
           display: flex;
           align-items: center;
+          text-decoration: none;
+          color: #fff;
         }
       }
 
@@ -154,6 +156,8 @@
       a {
         justify-self: end;
         align-items: center;
+        text-decoration: none;
+        color: #111;
       }
     }
   }

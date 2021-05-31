@@ -4,7 +4,7 @@ import './Table.css';
 
 function Table({ DATA, COLUMNS }) {
 
-    const data = useMemo( () => DATA , [])
+    const data = useMemo( () => DATA , [DATA])
     
     const {
         getTableProps,

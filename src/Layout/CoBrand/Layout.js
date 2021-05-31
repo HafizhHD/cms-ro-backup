@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 
 import './../Layout.scss';
 import Logo from './../../assets/img/Logo_1.png';
@@ -7,7 +7,7 @@ import Navigations from '../../components/Navigations/Navigations';
 import { MenuCoBranding } from './../../components/Navigations/routes';
 import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
 
-import { FiBell, FiUser, FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FiBell, FiUser, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 function Layout({
     children,
@@ -40,16 +40,16 @@ function Layout({
                     >
                         <ul>
                             <li>
-                                <a href="#">Bantuan</a>
+                                <NavLink to="/">Bantuan</NavLink>
                             </li>
                             <li>
-                                <a href="#">Profile</a>
+                                <NavLink to="/">Profile</NavLink>
                             </li>
                             <li>
-                                <a href="#">Setting</a>
+                                <NavLink to="/">Setting</NavLink>
                             </li>
                             <li>
-                                <a href="#">Logout</a>
+                                <NavLink to="/">Logout</NavLink>
                             </li>
                         </ul>
                     </nav>
