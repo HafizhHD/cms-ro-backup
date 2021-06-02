@@ -1,8 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Report.scss';
 import { FiInfo } from 'react-icons/fi';
+import ApexChart from 'react-apexcharts';
 
 function Report() {
+
+    
+
+    const [activeSubsState, setActiveSubsState] = useState({
+        series: [83],
+        options: {
+            chart: {
+                type: 'radialBar',
+            },
+          
+            plotOptions: {
+            radialBar: {
+                hollow: {
+                    size: '60%'
+                },
+                track: {
+                    show: true,
+                    startAngle: undefined,
+                    endAngle: undefined,
+                    background: '#ccc',
+                    strokeWidth: '97%',
+                    opacity: 1,
+                    margin: 1, 
+                    dropShadow: {
+                        enabled: false,
+                        top: 0,
+                        left: 0,
+                        blur: 3,
+                        opacity: 0.5
+                    }
+                },
+                dataLabels: {
+                    show: true,
+                    value: {
+                        show: true,
+                        fontSize: '4.5rem',
+                        fontFamily: undefined,
+                        fontWeight: 400,
+                        color: '#1e917b',
+                        offsetY: 16,
+                        formatter: function (val) {
+                            return val + '%'
+                        }
+                    },
+                }
+            },
+            },
+            colors: ['#1e917b'],
+            labels: [''],
+        },
+        
+    })
+
+
+
     return (
         <div className="Report">
             <h1>REPORT</h1>
@@ -14,7 +70,9 @@ function Report() {
                     <FiInfo className="card_report_heading-icon" />
                 </div>
                 <div className="card_report_content">
-                    Active Subscriber
+                    <div id="chart">
+                        <ApexChart options={activeSubsState.options} series={activeSubsState.series} type="radialBar" height={350} />
+                    </div>
                 </div>
             </div>
             <div className="Report__newssubscriber card_report">
