@@ -1,0 +1,97 @@
+.Report {
+  display: grid;
+  grid-template-rows:
+    [heading-start-page] max-content [heading-end-page]
+    max-content
+    repeat(2, minmax(20rem, max-content))
+    max-content minmax(25rem, max-content)
+    max-content minmax(25rem, max-content);
+  grid-template-columns:
+    [column-start] repeat(2, [col-middle-start] 1fr [col-middle-end])
+    [column-end];
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+
+  h1 {
+    grid-column: column-start / column-end;
+    grid-row: heading-start-page / heading-end-page;
+  }
+
+  &__subs__heading {
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+  }
+
+  &__activesubscriber {
+    grid-row: 3 / 4;
+    grid-column: column-start / col-middle-start;
+  }
+
+  &__newssubscriber {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+  }
+
+  &__subscriber {
+    grid-row: 4 / 5;
+    grid-column: 1 / -1;
+  }
+
+  &__program__heading {
+    grid-row: 5 / 6;
+    grid-column: 1 / -1;
+  }
+  &__programcategory {
+    grid-row: 6 / 7;
+    grid-column: 1 / 2;
+  }
+
+  &__programpublish {
+    grid-row: 6 / 7;
+    grid-column: 2 / 3;
+  }
+
+  &__content__heading {
+    grid-row: 7 / 8;
+    grid-column: 1 / -1;
+  }
+  &__contentcategory {
+  }
+
+  &__contentpublish {
+  }
+}
+
+.card_report {
+  border-radius: 1rem;
+  box-shadow: 2px 3px 4px rgba(#111, 0.2);
+  background-color: #f1f1f1;
+
+  &_heading {
+    background-color: var(--color-grey-dark-1);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    padding: 0.4rem 0.8rem;
+    display: flex;
+    align-items: center;
+
+    h3 {
+      color: #fff;
+      font-size: 1rem;
+      margin-right: 0.6rem;
+    }
+
+    &-icon {
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  &_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+  }
+}
