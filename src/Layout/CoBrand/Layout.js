@@ -20,7 +20,7 @@ function Layout({
     const onClickDropDown = () => setIsActive(!isActive);
 
     const dropdownRefNotification = useRef(null);
-    const [isOpenNotif, setIsOpenNotif] = useDetectOutsideClick(dropdownRefNotification, true);
+    const [isOpenNotif, setIsOpenNotif] = useDetectOutsideClick(dropdownRefNotification, false);
     const onClickNotifButton = () => setIsOpenNotif(!isOpenNotif)
 
     return (
@@ -50,36 +50,6 @@ function Layout({
                                 <li>
                                     <NavLink to="/">
                                         galih@gmail telah berlangganan
-                                    </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
-                                </li>
-                                <li>
-                                    <NavLink to="/">
-                                        dimas@gmail telah berlangganan
-                                    </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
-                                </li>
-                                <li>
-                                    <NavLink to="/">
-                                        arief@gmail telah berlangganan
-                                    </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
-                                </li>
-                                <li>
-                                    <NavLink to="/">
-                                        theresia@gmail telah berlangganan
-                                    </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
-                                </li>
-                                <li>
-                                    <NavLink to="/">
-                                        nabiel@gmail telah berlangganan
-                                    </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
-                                </li>
-                                <li>
-                                    <NavLink to="/">
-                                        paiman@gmail telah berlangganan
                                     </NavLink>
                                     <p>12:23 - 31 Mei 2021</p>
                                 </li>

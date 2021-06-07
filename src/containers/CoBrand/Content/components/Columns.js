@@ -1,8 +1,6 @@
+import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
+
 const Columns = [
-    // {
-    //     Header: 'ID',
-    //     accessor: 'id'
-    // },
     {
         Header: 'Category',
         accessor: 'category'
@@ -15,21 +13,29 @@ const Columns = [
         Header: 'Created Date',
         accessor: 'created_date'
     },
-    // {
-    //     Header: 'Attachment',
-    //     accessor: 'attachment'
-    // },
     {
         Header: 'Status',
         accessor: 'status'
     },
     {
         Header: 'Action',
-        Cell: ({value}) => (
+        Cell: (row) => (
             <>
-            <button onClick={() => console.log(value)}>Detail</button>
-            <button>Edit</button>
-            <button>Delete</button>
+                <button 
+                    className="btn_action"
+                    onClick={() => console.log(row)}>
+                    <FiEye className="btn_action-icon" />
+                </button>
+                <button
+                    className="btn_action"
+                >
+                    <FiEdit2 className="btn_action-icon" />
+                </button>
+                <button
+                    className="btn_action"
+                >
+                    <FiTrash2 className="btn_action-icon" />
+                </button>
             </>
         )
     }

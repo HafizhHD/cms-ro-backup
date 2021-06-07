@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
-import './Table.css';
+import './Table.scss';
 
 function Table({ DATA, COLUMNS }) {
 
