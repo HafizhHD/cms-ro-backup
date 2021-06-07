@@ -1,6 +1,6 @@
 import React from 'react';
 import './Dashboard.scss';
-import { FiArrowRightCircle } from 'react-icons/fi';
+import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 
@@ -13,8 +13,12 @@ function Dashboard() {
             {/* Dashboard Cards  */}
             <div className="Dashboard__cards">
                 <div className="Dashboard__cards_item">
-                    <h3>New Subsriber</h3>
+                    <div className="Dashboard__cards_item-heading">
+                        <h3>New Subsriber</h3>
+                        <FiAlertCircle className="Dashboard__cards_item-icon" />
+                    </div>
                     <h1>31</h1>
+                    
                     <div className="Dashboard__cards_item-details">
                         <NavLink to="/">Lihat Detail 
                             <FiArrowRightCircle className="Dashboard__cards_item-icon" />
@@ -22,7 +26,10 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="Dashboard__cards_item">
-                    <h3>Active Subs</h3>
+                    <div className="Dashboard__cards_item-heading">
+                        <h3>Active Devices</h3>
+                        <FiAlertCircle className="Dashboard__cards_item-icon" />
+                    </div>
                     <h1>4213</h1>
                     <div className="Dashboard__cards_item-details">
                         <NavLink to="/">Lihat Detail 
@@ -31,7 +38,10 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="Dashboard__cards_item">
-                    <h3>Inactive Subs</h3>
+                    <div className="Dashboard__cards_item-heading">
+                        <h3>Inactive Subs</h3>
+                        <FiAlertCircle className="Dashboard__cards_item-icon" />
+                    </div>
                     <h1>125</h1>
                     <div className="Dashboard__cards_item-details">
                         <NavLink to="/">

@@ -21,7 +21,7 @@ function Layout({
 
     const dropdownRefNotification = useRef(null);
     const [isOpenNotif, setIsOpenNotif] = useDetectOutsideClick(dropdownRefNotification, false);
-    const onClickNotifButton = () => setIsOpenNotif(!isOpenNotif)
+    const onClickNotifButton = () => setIsOpenNotif(true)
 
     return (
        <div className="Layout">
@@ -32,7 +32,9 @@ function Layout({
                 />
                 <div className="Header__infoaccount">
                     <div className="Header__infoaccount__Notification">
-                        <div className="Header__notification-btn" onClick={onClickNotifButton}>
+                        <div className="Header__notification-btn" 
+                            onClick={onClickNotifButton}
+                        >
                             <FiBell className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
                             <div className="Header__notification-badge">6</div>
                         </div>

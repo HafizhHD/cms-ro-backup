@@ -21,7 +21,7 @@
       transition: all ease-out 0.5s;
 
       display: grid;
-      grid-template-rows: 2rem 1fr max-content;
+      grid-template-rows: 2.2rem 1fr max-content;
 
       &:hover {
         color: var(--color-primary);
@@ -29,6 +29,17 @@
 
       &:hover > .Dashboard__cards_item-details {
         background-color: var(--color-primary);
+      }
+
+      &-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &-icon {
+        margin-right: 1rem;
+        font-size: 1rem;
       }
 
       h3,
