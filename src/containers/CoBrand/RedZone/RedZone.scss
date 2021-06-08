@@ -1,0 +1,32 @@
+%contentwrapper {
+  background-color: #fff;
+  box-shadow: 1px 2px 12px rgba(#ddd, 0.8);
+  border-radius: 0.8rem;
+  padding: 1rem;
+}
+
+.RedZone {
+  display: grid;
+  grid-template-rows: max-content repeat(2, minmax(25rem, max-content));
+  grid-row-gap: 2rem;
+
+  &__heading {
+    display: grid;
+    grid-template-columns: 1fr 12rem;
+    align-items: center;
+
+    h3 {
+      color: var(--color-primary);
+      font-size: 1rem;
+    }
+  }
+
+  &__map {
+    @extend %contentwrapper;
+    width: 100%;
+  }
+
+  &__list {
+    @extend %contentwrapper;
+  }
+}

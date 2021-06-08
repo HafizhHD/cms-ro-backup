@@ -30,12 +30,18 @@ table th {
   border: none;
   outline: none;
   background-color: var(--color-grey-dark-1);
-  height: 1.5rem;
-  width: 1.5rem;
+
   border-radius: 50%;
   cursor: pointer;
-
   transition: all ease-out 0.5s;
+
+  div {
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &:not(:last-child) {
     margin-right: 0.4rem;
@@ -48,4 +54,10 @@ table th {
   &-icon {
     color: #fff;
   }
+}
+
+.centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

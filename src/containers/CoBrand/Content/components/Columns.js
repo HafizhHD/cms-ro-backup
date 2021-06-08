@@ -24,17 +24,23 @@ const Columns = [
                 <button 
                     className="btn_action"
                     onClick={() => console.log(row)}>
-                    <FiEye className="btn_action-icon" />
+                    <div>
+                        <FiEye className="btn_action-icon" />
+                    </div>
                 </button>
                 <button
                     className="btn_action"
                 >
-                    <FiEdit2 className="btn_action-icon" />
+                    <div>
+                        <FiEdit2 className="btn_action-icon" />
+                    </div>
                 </button>
                 <button
                     className="btn_action"
                 >
-                    <FiTrash2 className="btn_action-icon" />
+                    <div>
+                        <FiTrash2 className="btn_action-icon" />
+                    </div>
                 </button>
             </>
         )
