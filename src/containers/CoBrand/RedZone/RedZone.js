@@ -2,6 +2,8 @@ import React from 'react';
 import './RedZone.scss';
 import Heading from './../../../components/UI/Heading/Heading';
 import InputComponent from './../../../components/UI/Input/Input';
+import MapComponent from './../../../components/UI/Map/Map';
+
 
 function RedZone() {
     return (
@@ -22,7 +24,7 @@ function RedZone() {
                     />
                 </div>
                 <div className="RedZone__data">
-             
+                    <MapComponent />
                 </div>
             </div>
 

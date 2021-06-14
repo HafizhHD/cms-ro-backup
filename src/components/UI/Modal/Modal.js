@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.scss';
 
@@ -9,20 +8,6 @@ const Modal = ({
     title,
     children
 }) => {
-
-    const closeOnEscapeKeyDown = e => {
-        if( (e.charCode|| e.keyCode) === 27){
-            onClose()
-        }
-    }
-
-    useEffect( () => {
-        document.body.addEventListener('keydown', closeOnEscapeKeyDown);
-
-        return () => {
-            document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
-        }
-    }, [ closeOnEscapeKeyDown ])
 
     return ReactDOM.createPortal(
         <div className={`modal ${isShow && 'show'}`} onClick={onClose}>
