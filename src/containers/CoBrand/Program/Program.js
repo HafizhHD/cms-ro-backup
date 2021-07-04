@@ -3,7 +3,7 @@ import './Program.scss';
 import TableProgram from './../../../components/UI/Table/Table';
 import columns from './components/Columns';
 import Data from './components/MOCK_DATA.json';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 
 // import Modal from '../../../components/UI/Modal/Modal';
@@ -19,6 +19,7 @@ function Program() {
 
     return (
         <div className="Program">
+         
             <h1>PROGRAM</h1>
             <NavLink to="/program/add">
                 <FiPlus className="IconAdd" />

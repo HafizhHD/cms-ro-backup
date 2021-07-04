@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
 import Logo from './../../../assets/img/Logo_1.png'
@@ -7,12 +7,14 @@ import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { useFormik } from 'formik';
 import { validationFormLogin } from './../../../helpers/validation/validation';
+import { connect } from 'react-redux';
+import { auth } from './../../../store/actions/auth';
 
 function Login({
-    setIsLogin
+    onLogin,
+    isLoading
 }) {
 
-    const [isLoading, setIsLoading] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -21,12 +23,7 @@ function Login({
         },
         validationSchema: validationFormLogin,
         onSubmit: values => {
-            setIsLoading(true);
-
-        setTimeout( () => {
-            setIsLoading(false);
-            setIsLogin(true);
-        }, 3000);
+            onLogin( values.email, values.password )
         }
     })
 
@@ -92,4 +89,16 @@ function Login({
     )
 }
 
-export default Login
+const mapStateToProps = state => {
+    return {
+        isLoading: state.auth.isLoading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (email, password) => dispatch( auth( email, password )  )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Login)

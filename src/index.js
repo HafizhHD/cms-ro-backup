@@ -6,11 +6,34 @@ import { HashRouter } from 'react-router-dom';
 import Cobrand from './module/Cobrand/Cobrand';
 // import Cs from './module/Cs/Cs';
 
+//redux 
+import {
+  applyMiddleware,
+  createStore,
+  compose
+} from 'redux';
+import { Provider } from 'react-redux';
+import rootReducers from './store/reducers/index';
+import thunk from 'redux-thunk';
+
+//composerEnhancers
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+let store = createStore( rootReducers );
+
+if(composeEnhancers) {
+  store = createStore( rootReducers, composeEnhancers(
+    applyMiddleware( thunk )
+    ) 
+  );
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <HashRouter>
-      <Cobrand />
-    </HashRouter>
+    <Provider store={store}>
+      <HashRouter>
+        <Cobrand  />
+      </HashRouter>
+    </Provider>
   </React.StrictMode>
   ,
   document.getElementById('root')

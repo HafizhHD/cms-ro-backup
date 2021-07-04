@@ -1,121 +1,82 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Layout from '../../Layout/CoBrand/Layout';
-import RKLoader from '../../components/UI/RKLoader/RKLoader';
-
-const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'));
-const DashboardAsync = lazy( () => import('./../../containers/CoBrand/Dashboard/Dashboard'));
-const ReportAsync = lazy( () => import('./../../containers/CoBrand/Report/Report'));
-const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
-const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
-const ContentAsync = lazy( () => import('./../../containers/CoBrand/Content/Content'));
-const RedZoneAsync = lazy( () => import('./../../containers/CoBrand/RedZone/RedZone'));
-const SettingAsync = lazy( () => import('./../../containers/CoBrand/Setting/Setting'));
-
+import PrivateRoute from '../../hoc/PrivateRoute';
+import { connect } from 'react-redux';
+import Login from './../../containers/CoBrand/Login/Login';
+import Dashboard from './../../containers/CoBrand/Dashboard/Dashboard';
+import Report from './../../containers/CoBrand/Report/Report';
+import Program from './../../containers/CoBrand/Program/Program';
+import AddProgram from './../../containers/CoBrand/Program/AddProgram/AddProgram';
+import Content from './../../containers/CoBrand/Content/Content';
+import RedZone from './../../containers/CoBrand/RedZone/RedZone';
+import Setting from './../../containers/CoBrand/Setting/Setting';
 
 function Cobrand({
-
+    isLogin
 }) {
 
-    const [isLogin, setIsLogin] = useState(false);
-
-    let routes = (
-        <Switch>
-            <Route 
-                exact
-                path="/"
-                render={(props) => (
-                    <Suspense fallback={<RKLoader text="Welcome back" />}>
-                        <LoginAsync 
-                            {...props}
-                            setIsLogin={ () => setIsLogin(!isLogin)}
-                        />
-                    </Suspense>
-                )}
-            />
-        </Switch>
-    )
-
-    if(isLogin) {
-        routes = (
-            <>
-                <Layout>
-                    <Switch>
-                        <Route 
-                            path="/"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>}>
-                                    <DashboardAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-
-                        <Route 
-                            path="/report"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>}>
-                                    <ReportAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-
-                        <Route 
-                            path="/program"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>} >
-                                    <ProgramAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-                        <Route
-                            path="/program/add"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>}>
-                                    <AddProgramAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-
-                        <Route 
-                            path="/content"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>} > 
-                                    <ContentAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-
-                        <Route 
-                            path="/redzone"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>}>
-                                    <RedZoneAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-
-                        <Route 
-                            path="/setting"
-                            exact
-                            render={(props) => (
-                                <Suspense fallback={<p>Loading...</p>}>
-                                    <SettingAsync {...props} />
-                                </Suspense>
-                            )}
-                        />
-                    </Switch>
-                </Layout>
-            </>
+    if(!isLogin){
+        return (
+        <Route 
+            path="/" 
+            component={Login}
+        />
         )
     }
-    
-    return routes;
+
+    return (
+            <Layout>
+                 <Switch>
+                    <PrivateRoute 
+                        exact
+                        path="/"
+                        component={Dashboard}
+                    />
+
+                    <PrivateRoute 
+                        exact
+                        path="/report"
+                        component={Report}
+                    />
+
+                    <PrivateRoute 
+                        path="/program"
+                        exact
+                        component={Program}
+                    />
+                    <PrivateRoute
+                        path="/program/add"
+                        exact
+                        component={AddProgram}
+                    />
+
+                    <PrivateRoute 
+                        path="/content"
+                        exact
+                        component={Content}
+                    />
+
+                    <PrivateRoute 
+                        path="/redzone"
+                        exact
+                        component={RedZone}
+                    />
+
+                    <PrivateRoute 
+                        path="/setting"
+                        exact
+                        component={Setting}
+                    />
+                 </Switch>
+             </Layout>
+    );
 }
 
-export default Cobrand
+const mapStateToProps = state => {
+    return {
+        isLogin: state.auth.isLogin
+    }
+}
+
+export default connect(mapStateToProps, null)(Cobrand)
