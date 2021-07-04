@@ -28,5 +28,9 @@
 
   &__list {
     @extend %contentwrapper;
+
+    &__data {
+      margin-top: 1rem;
+    }
   }
 }

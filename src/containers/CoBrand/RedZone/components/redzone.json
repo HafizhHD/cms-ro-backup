@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "Beer Garden",
+        "location": "Jl. Jend Sudirman No. 5 RT.5 / RW.3 Senayan City",
+        "lat": 106859585958,
+        "lon": -9484940494,
+        "created_at": "02-06-2021 12:00"
+    },
+    {
+        "id": 1,
+        "name": "Beer Garden",
+        "location": "Jl. SCBD No. 5 RT.5 / RW.3 Senayan City",
+        "lat": 506859585958,
+        "lon": -1484940494,
+        "created_at": "12-06-2021 12:00"
+    }
+]

@@ -3,6 +3,9 @@ import './RedZone.scss';
 import Heading from './../../../components/UI/Heading/Heading';
 import InputComponent from './../../../components/UI/Input/Input';
 import MapComponent from './../../../components/UI/Map/Map';
+import TableRedZone from './../../../components/UI/Table/Table';
+import Columns from './components/Columns';
+import Data from './components/redzone.json';
 
 
 function RedZone() {
@@ -39,7 +42,10 @@ function RedZone() {
                     />
                 </div>
                 <div className="RedZone__data">
-                    Table Goes Here
+                    <TableRedZone 
+                        COLUMNS={Columns}
+                        DATA={Data}
+                    />
                 </div>
             </div>
         </div>

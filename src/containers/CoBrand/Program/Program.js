@@ -5,14 +5,17 @@ import columns from './components/Columns';
 import Data from './components/MOCK_DATA.json';
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
-import Modal from '../../../components/UI/Modal/Modal';
+
+// import Modal from '../../../components/UI/Modal/Modal';
 
 function Program() {
     const [showModal, setShowModal] = useState(false);
 
+    /*
     const submitModal = () => {
         alert('ok')
     }
+    */
 
     return (
         <div className="Program">
@@ -32,18 +35,20 @@ function Program() {
                     DATA={Data}  
                 />
             </div>
-            <button 
+
+            {/* <button 
                 onClick={() => setShowModal(true)}>
                 Show Modal
-            </button>
-            <Modal 
+            </button> */}
+            
+            {/* <Modal 
                 isShow={showModal}
                 onClose={() => setShowModal(false)} 
                 onSubmit={submitModal}
                 title="Modal Title"
             >
                 <p>Hello Worlds</p>
-            </Modal>
+            </Modal> */}
         </div>
     )
 }
