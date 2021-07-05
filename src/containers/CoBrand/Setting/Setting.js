@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import Heading from '../../../components/UI/Heading/Heading';
 
 function Setting() {
     return (
         <div>
-            <h1>SETTING</h1>
+            <Heading 
+                headingName="Setting"
+                routes={[
+                    { name: 'Setting' }
+                ]}
+            />
         </div>
     )
 }
