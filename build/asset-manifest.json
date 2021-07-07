@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.d74acdda.chunk.css",
+    "main.css": "/static/css/main.38b0f32e.chunk.css",
     "main.js": "/static/js/main.1d5e15b4.chunk.js",
     "main.js.map": "/static/js/main.1d5e15b4.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.bb20d14f.js",
@@ -12,9 +12,8 @@
     "static/js/3.aa227f13.chunk.js.map": "/static/js/3.aa227f13.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.b4807e1b.chunk.css.map": "/static/css/2.b4807e1b.chunk.css.map",
-    "static/css/main.d74acdda.chunk.css.map": "/static/css/main.d74acdda.chunk.css.map",
+    "static/css/main.38b0f32e.chunk.css.map": "/static/css/main.38b0f32e.chunk.css.map",
     "static/js/2.1f2a245d.chunk.js.LICENSE.txt": "/static/js/2.1f2a245d.chunk.js.LICENSE.txt",
-    "static/media/Login.scss": "/static/media/1558939.74cd97e7.jpg",
     "static/media/Logo_1.9182185e.png": "/static/media/Logo_1.9182185e.png",
     "static/media/device.68ed995d.png": "/static/media/device.68ed995d.png"
   },
@@ -22,7 +21,7 @@
     "static/js/runtime-main.bb20d14f.js",
     "static/css/2.b4807e1b.chunk.css",
     "static/js/2.1f2a245d.chunk.js",
-    "static/css/main.d74acdda.chunk.css",
+    "static/css/main.38b0f32e.chunk.css",
     "static/js/main.1d5e15b4.chunk.js"
   ]
 }
