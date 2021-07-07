@@ -10,7 +10,7 @@ function Content() {
     return (
         <div className="Content">
             <h1>CONTENT</h1>
-            <NavLink to="/program/add">
+            <NavLink to="/content/add">
                 <FiPlus className="IconAdd" />
                <span>Create New Content</span>  
             </NavLink>

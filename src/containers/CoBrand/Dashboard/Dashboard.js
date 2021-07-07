@@ -167,7 +167,7 @@ function Dashboard() {
                 <div className="Dashboard__contents__item">
                     <div className="Dashboard__contents__cover">
                         <img 
-                            src={'https://images.unsplash.com/photo-1509966756634-9c23dd6e6815?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1010&q=80'} 
+                            src={'https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'} 
                             alt="Content 5" 
                             className="Dashboard__contents__cover-img"
                         />

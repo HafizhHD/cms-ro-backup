@@ -1,0 +1,48 @@
+.Setting {
+  &_card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: minmax(100vh, max-content);
+    box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
+
+    &_inputs {
+      background-color: #fff;
+      padding: 1rem;
+
+      &-item {
+        display: grid;
+        grid-template-rows: max-content max-content;
+        grid-row-gap: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #ddd;
+      }
+
+      &-upload {
+        display: grid;
+        grid-template-rows: max-content max-content;
+        grid-row-gap: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+
+    &_preview {
+      background-color: #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+label {
+  display: block;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  height: 10rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}

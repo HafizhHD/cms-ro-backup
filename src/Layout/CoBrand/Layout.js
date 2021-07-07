@@ -64,6 +64,18 @@ function Layout({
                                     </NavLink>
                                     <p>12:23 - 31 Mei 2021</p>
                                 </li>
+                                <li>
+                                    <NavLink to="/">
+                                        wahyu@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
+                                <li>
+                                    <NavLink to="/">
+                                        dimas@gmail telah berlangganan
+                                    </NavLink>
+                                    <p>12:23 - 31 Mei 2021</p>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -96,12 +108,14 @@ function Layout({
                     </div>
                 </div>
             </header>
-            {location.pathname !== '/program/add' && <Navigations MenuItems={MenuCoBranding} /> }
+            {   
+              
+                ['/program/add'].indexOf(location.pathname)
+                && <Navigations MenuItems={MenuCoBranding} /> 
+            }
             
             
-            <main className={
-                location.pathname !== '/program/add' ? 'Main' : 'FullMain'
-            }>
+            <main className={ location.pathname !== '/program/add' ? 'Main' : 'FullMain'}>
                 {children}
             </main>
        </div>

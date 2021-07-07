@@ -12,6 +12,7 @@ import Content from './../../containers/CoBrand/Content/Content';
 import RedZone from './../../containers/CoBrand/RedZone/RedZone';
 import Setting from './../../containers/CoBrand/Setting/Setting';
 import { authSuccess, authFailed, logout } from './../../store/actions/auth';
+import AddContent from '../../containers/CoBrand/Content/AddContent/AddContent';
 
 function Cobrand({
     isLogin,
@@ -79,6 +80,11 @@ function Cobrand({
                         path="/content"
                         exact
                         component={Content}
+                    />
+                    <PrivateRoute 
+                        path="/content/add"
+                        exact
+                        component={AddContent}
                     />
 
                     <PrivateRoute 
