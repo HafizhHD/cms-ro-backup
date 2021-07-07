@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Layout from '../../Layout/CoBrand/Layout';
 import PrivateRoute from '../../hoc/PrivateRoute';
@@ -11,10 +11,34 @@ import AddProgram from './../../containers/CoBrand/Program/AddProgram/AddProgram
 import Content from './../../containers/CoBrand/Content/Content';
 import RedZone from './../../containers/CoBrand/RedZone/RedZone';
 import Setting from './../../containers/CoBrand/Setting/Setting';
+import { authSuccess, authFailed, logout } from './../../store/actions/auth';
 
 function Cobrand({
-    isLogin
+    isLogin,
+    onAuthSuccess,
+    onAuthFailed,
+    onLogout
 }) {
+
+    const checkIsLogin = useCallback( () => {
+        
+        let check = localStorage.getItem('rkLoggedIn');
+
+        if( check ) {
+            onAuthSuccess()
+        }else{
+            onAuthFailed()
+        }
+
+
+    }, [ onAuthSuccess, onAuthFailed ])
+
+    useEffect( () => {
+        checkIsLogin()
+    }, [isLogin, checkIsLogin]);
+
+    const logoutHandler = () => onLogout()
+    
 
     if(!isLogin){
         return (
@@ -26,7 +50,7 @@ function Cobrand({
     }
 
     return (
-            <Layout>
+            <Layout logoutHandler={logoutHandler}>
                  <Switch>
                     <PrivateRoute 
                         exact
@@ -79,4 +103,12 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(Cobrand)
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuthSuccess: () => dispatch( authSuccess()  ),
+        onAuthFailed: () => dispatch( authFailed() ),
+        onLogout: () => dispatch( logout()  )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cobrand)

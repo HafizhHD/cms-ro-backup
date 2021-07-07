@@ -11,8 +11,11 @@ import { FiBell, FiUser, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 function Layout({
     children,
-    location
+    location,
+    logoutHandler
 }) {
+
+
 
     //dropdown profile
     const dropdownRefProfile = useRef(null);
@@ -22,6 +25,12 @@ function Layout({
     const dropdownRefNotification = useRef(null);
     const [isOpenNotif, setIsOpenNotif] = useDetectOutsideClick(dropdownRefNotification, false);
     const onClickNotifButton = () => setIsOpenNotif(true)
+
+    const onLogoutHandler = (e) => {
+        e.preventDefault();
+        onClickDropDown()
+        logoutHandler()
+    }
 
     return (
        <div className="Layout">
@@ -77,10 +86,10 @@ function Layout({
                                     <NavLink to="/">Profile</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/">Setting</NavLink>
+                                    <NavLink to="/setting" onClick={onClickDropDown}>Setting</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/">Logout</NavLink>
+                                    <a href="true" onClick={onLogoutHandler} >Logout</a>
                                 </li>
                             </ul>
                         </nav>
