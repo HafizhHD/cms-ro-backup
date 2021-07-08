@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,9 @@ const PrivateRoute = ({ component: Comp, isLogin,  ...rest }) => {
             {...rest}
             render={props => 
                 isLogin ? (
-                    <Comp {...props} />
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <Comp {...props} />
+                    </Suspense>
                 ) : (
                     <Redirect to={{ pathname: '/' }} /> 
                 )
