@@ -33,11 +33,9 @@ export const logout = () => {
 
         //Call API and remove token
 
-        setTimeout( () => {
-            localStorage.removeItem('rkLoggedIn');
-            dispatch({
-                type: AUTH_LOGOUT
-            })
+        localStorage.removeItem('rkLoggedIn');
+        dispatch({
+            type: AUTH_LOGOUT
         })
     }
 }
