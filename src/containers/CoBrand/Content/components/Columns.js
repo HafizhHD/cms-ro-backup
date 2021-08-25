@@ -1,4 +1,5 @@
 import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { NavLink } from 'react-router-dom'
 
 const Columns = [
     {
@@ -21,6 +22,10 @@ const Columns = [
         Header: 'Action',
         Cell: (row) => (
             <>
+                <NavLink
+                    to="/content/view"
+                    className="action_btn"
+                >
                 <button 
                     className="btn_action"
                     onClick={() => console.log(row)}>
@@ -28,13 +33,18 @@ const Columns = [
                         <FiEye className="btn_action-icon" />
                     </div>
                 </button>
-                <button
-                    className="btn_action"
+                </NavLink>
+                <NavLink
+                    to="/content/edit"
+                    className="nav_btn"
                 >
-                    <div>
-                        <FiEdit2 className="btn_action-icon" />
-                    </div>
-                </button>
+                    <button 
+                    className="btn_action">
+                        <div>
+                            <FiEdit2 className="btn_action-icon" />
+                        </div>
+                    </button>
+                </NavLink>
                 <button
                     className="btn_action"
                 >

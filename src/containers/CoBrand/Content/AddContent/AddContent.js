@@ -10,7 +10,7 @@ function AddContent() {
                 { path: '/content/add', name: 'Create new content' }
             ]} />
             <div className="AddContent">
-                <h1>Create new Content</h1>
+                <h1>Create New Content</h1>
                 <div className="form-group">
                     <label>Category</label>
                     <select>
@@ -39,6 +39,11 @@ function AddContent() {
                 <div className="form-group">
                     <label>Set Schedule</label>
                     <input type="date" className="form-group__input" />
+                </div>
+                <div>
+                    <button className="btn btn-submit">
+                        Post Content
+                    </button>
                 </div>
             </div>
         </>

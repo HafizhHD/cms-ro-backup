@@ -8,13 +8,16 @@ import { Suspense } from 'react';
 import RKLoader from '../../components/UI/RKLoader/RKLoader';
 
 const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'));
+const RegisterAsync = lazy( () => import('./../../containers/CoBrand/Register/Register'));
 const DashboardAsync = lazy( () => import('./../../containers/CoBrand/Dashboard/Dashboard'));
 const ReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/Report'));
 const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
 const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
+const EditProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
 const ContentAsync = lazy( () => import('./../../containers/CoBrand/Content/Content'));
 const RedZoneAsync = lazy( ( ) => import('./../../containers/CoBrand/RedZone/RedZone'));
 const AddContentAsync = lazy( () => import('./../../containers/CoBrand/Content/AddContent/AddContent'));
+const EditContentAsync = lazy( () => import('./../../containers/CoBrand/Content/EditContent/EditContent'));
 const SettingAsync = lazy( () => import('./../../containers/CoBrand/Setting/Setting'));
 
 function Cobrand({
@@ -46,16 +49,30 @@ function Cobrand({
 
     if(!isLogin){
         return (
-        <Route 
-            path="/" 
-            render={(props) => {
-               return (
-                <Suspense fallback={<RKLoader />}>
-                    <LoginAsync {...props} />
-                </Suspense>
-               )
-            }}
-        />
+        <Switch>
+            <Route 
+                exact
+                path="/" 
+                render={(props) => {
+                return (
+                    <Suspense fallback={<RKLoader />}>
+                        <LoginAsync {...props} />
+                    </Suspense>
+                )
+                }}
+            />
+            <Route 
+                exact
+                path="/register" 
+                render={(props) => {
+                    return (
+                        <Suspense fallback={<RKLoader />}>
+                            <RegisterAsync {...props} />
+                        </Suspense>
+                    )
+                    }}
+            />
+        </Switch>
         )
     }
 
@@ -84,6 +101,11 @@ function Cobrand({
                         exact
                         component={AddProgramAsync}
                     />
+                    <PrivateRoute
+                        path="/program/edit"
+                        exact
+                        component={EditProgramAsync}
+                    />
 
                     <PrivateRoute 
                         path="/content"
@@ -95,6 +117,12 @@ function Cobrand({
                         exact
                         component={AddContentAsync}
                     />
+                    <PrivateRoute 
+                        path="/content/edit"
+                        exact
+                        component={EditContentAsync}
+                    />
+                    
 
                     <PrivateRoute 
                         path="/redzone"

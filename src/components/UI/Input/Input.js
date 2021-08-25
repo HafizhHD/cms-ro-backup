@@ -11,7 +11,25 @@ function Input({
     name,
     isError
 }) {
-    return (
+    if(type === "textarea") {
+        return (
+        <>
+            <textarea
+                name={name}
+                className={className}
+                placeholder={placeholder}
+                onChange={onChange}
+                value={value}
+            />
+            {isError && (
+                <div className="message">
+                    <span className="message__error">{message}</span>
+                </div>
+            )}
+        </>
+        )
+    }
+    else return (
     <>
         <input
             name={name}

@@ -21,7 +21,7 @@ function Program() {
         <div className="Program">
          
             <h1>PROGRAM</h1>
-            <NavLink to="/program/add">
+            <NavLink to="/program/add" id="add_program">
                 <FiPlus className="IconAdd" />
                <span>Create New Program</span>  
             </NavLink>

@@ -1,0 +1,177 @@
+.RegisterBg {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(0, 113, 155, 0) 45%
+    );
+    // url(./../../../assets/img/1558939.jpg);
+    background-size: cover;
+  }
+  
+  .Register {
+    display: grid;
+    grid-template-rows: 6rem 1fr 6rem;
+    grid-template-columns: 13rem 1fr 13rem;
+    height: 100vh;
+  
+    @media only screen and (max-width: 1000px) {
+      grid-template-columns: 5rem 1fr 5rem;
+    }
+  
+    &-top {
+      padding: 0 0 0 2rem;
+      align-self: center;
+      &-img {
+        width: 300px;
+  
+        @media only screen and (max-width: 600px) {
+          width: 100px;
+        }
+      }
+    }
+  
+    &-middle {
+      grid-row: 2/3;
+      grid-column: 2 / 3;
+  
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      box-shadow: 1rem 1.4rem 2.8rem 0.2rem rgba(0, 0, 0, 0.2);
+      border-radius: 1.5rem;
+  
+      @media only screen and (max-width: 600px) {
+        grid-column: 1 / -1;
+        margin: 1rem;
+      }
+  
+      &-left {
+        grid-column: 1 / 2;
+        background-color: #fff;
+        border-top-left-radius: 1.3rem;
+        border-bottom-left-radius: 1.3rem;
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        @media only screen and (max-width: 700px) {
+          display: none;
+        }
+  
+        &-img {
+          width: 250px;
+          transition: all ease-out 0.9s;
+          &:hover {
+            transform: scale(1.3);
+          }
+          @media only screen and (max-width: 600px) {
+            width: 120px;
+          }
+        }
+      }
+  
+      &-right {
+        grid-column: 2 / 3;
+        background-color: rgba(#fff, 0.9);
+        border-top-right-radius: 1.3rem;
+        border-bottom-right-radius: 1.3rem;
+  
+        display: grid;
+        grid-template-rows: 2rem min-content;
+        grid-template-columns: 4rem 1fr 4rem;
+  
+        @media only screen and (max-width: 700px) {
+          grid-column: 1 / -1;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+  
+        @media only screen and (max-width: 1000px) {
+          grid-template-columns: min-content 1fr min-content;
+          padding: 1rem;
+        }
+  
+        &-heading {
+          grid-row: 2 / 3;
+          grid-column: 2 /3;
+          & > h1 {
+            font-weight: 600;
+            font-weight: bold;
+            font-size: 2vw;
+            line-height: 1.2;
+            font-family: inherit;
+  
+            @media only screen and (max-width: 600px) {
+              font-size: 1.8rem;
+            }
+          }
+        }
+  
+        &-form {
+          grid-row: 3 /4;
+          grid-column: 1 /3;
+          margin: 1vh 5vw;
+  
+          align-self: center;
+  
+          @media only screen and (max-width: 1300px) {
+            margin: 0;
+          }
+        }
+  
+        &-joinus {
+          grid-row: 4 / 5;
+          grid-column: 1 / 3;
+          justify-self: center;
+          align-self: end;
+          padding-bottom: 2rem;
+  
+          font-size: 1vw;
+          font-family: inherit;
+          color: var(--color-grey-dark-1);
+  
+          @media only screen and (max-width: 600px) {
+            font-size: 1rem;
+          }
+  
+          & > a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+  
+  .btn {
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .btn-register {
+    padding: 0.7rem;
+    border-radius: 8px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    font-weight: 800;
+    color: var(--color-primary);
+    transition: all ease-in 0.3s;
+    box-shadow: 2px 3px 4px rgba(#000, 0.2);
+  
+    &:hover {
+      background-color: var(--color-primary);
+      color: #fff;
+    }
+  
+    &:focus {
+      transform: scale(0.9);
+      -webkit-transform: scale(0.9);
+    }
+  }
+  

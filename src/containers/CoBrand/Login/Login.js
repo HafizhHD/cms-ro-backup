@@ -75,7 +75,7 @@ function Login({
                                     Sign in
                                 </button>
                             </form>
-                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/">Daftar Sekarang</NavLink> </p>
+                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>
                         </div>
                     </div> 
                 

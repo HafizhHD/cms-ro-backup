@@ -1,16 +1,16 @@
 import React from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
-import './AddProgram.scss';
+import './EditProgram.scss';
 
-function AddProgram() {
+function EditProgram() {
     return (
         <>
             <Heading headingName="Program" routes={[
                 { path: '/program', name: 'On Going Program' },
-                { path: '/program/add', name: 'Create new Program' }
+                { path: '/program/edit', name: 'Edit Selected Program' }
             ]} />
-            <div className="AddProgram">
-                <h1>Create New Program</h1>
+            <div className="EditProgram">
+                <h1>Edit Selected Program</h1>
                 <div className="form-group">
                     <label>Category</label>
                     <select>
@@ -42,7 +42,7 @@ function AddProgram() {
                 </div>
                 <div>
                     <button className="btn">
-                        Post Program
+                        Update Program
                     </button>
                 </div>
             </div>
@@ -50,4 +50,4 @@ function AddProgram() {
     )
 }
 
-export default AddProgram
+export default EditProgram

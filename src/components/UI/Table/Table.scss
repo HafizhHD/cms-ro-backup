@@ -34,6 +34,7 @@ table th {
   border-radius: 50%;
   cursor: pointer;
   transition: all ease-out 0.5s;
+  margin-right: 0.4rem;
 
   div {
     height: 1.5rem;
@@ -41,10 +42,6 @@ table th {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  &:not(:last-child) {
-    margin-right: 0.4rem;
   }
 
   &:hover {
