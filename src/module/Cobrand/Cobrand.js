@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, lazy } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Layout from '../../Layout/CoBrand/Layout';
 import PrivateRoute from '../../hoc/PrivateRoute';
 import { connect } from 'react-redux';
@@ -26,6 +26,7 @@ function Cobrand({
     onAuthFailed,
     onLogout
 }) {
+    const history = useHistory();
 
     const checkIsLogin = useCallback( () => {
         
@@ -44,7 +45,7 @@ function Cobrand({
         checkIsLogin()
     }, [isLogin, checkIsLogin]);
 
-    const logoutHandler = () => onLogout()
+    const logoutHandler = () => onLogout(history);
     
 
     if(!isLogin){
@@ -150,7 +151,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onAuthSuccess: () => dispatch( authSuccess()  ),
         onAuthFailed: () => dispatch( authFailed() ),
-        onLogout: () => dispatch( logout()  )
+        onLogout: (history) => dispatch( logout(history)  )
     }
 }
 

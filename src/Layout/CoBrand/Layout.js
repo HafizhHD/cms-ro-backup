@@ -32,6 +32,8 @@ function Layout({
         logoutHandler()
     }
 
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
     return (
        <div className="Layout">
             <header className="Header">
@@ -83,7 +85,7 @@ function Layout({
                     <div className="Header__infoaccount__profile">
                         <button className="Header__activeUser" onClick={onClickDropDown}>
                             <FiUser className={`Header__icon ${isActive && 'Header__icon__active'}`} />
-                            <span>Bimbel Defhi</span>
+                            <span>{userData.cobrandName}</span>
                             {isActive ? <FiChevronUp /> : <FiChevronDown /> }  
                         </button>
                         <nav 

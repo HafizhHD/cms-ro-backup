@@ -22,37 +22,47 @@ export const auth = ( email, password ) => {
             email,
             password
         };
-        //Call API ....
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
-            data: data,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
 
         setTimeout( () => {
-            localStorage.setItem('rkLoggedIn', true);
-            dispatch( authSuccess() )
-        }, 2000)
+            //Call API ....
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log(response.data);
+                let loginData = response.data;
+                if (loginData.resultCode === "OK" && loginData.resultData) {
+                    localStorage.setItem('accessToken', loginData.resultData.token);
+                    localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                    console.log('User Data: ', localStorage.getItem('userData'));
+                    dispatch( authSuccess() );
+                }
+                else {
+                    console.log("Login failed.");
+                    dispatch(authFailed());
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }, 2000);
     }
 
 }
 
-export const logout = () => {
+export const logout = (history) => {
     return dispatch => {
         dispatch( authStart() );
 
         //Call API and remove token
-
-        localStorage.removeItem('rkLoggedIn');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('userData');
+        history.push('/');
         dispatch({
             type: AUTH_LOGOUT
         })
@@ -97,7 +107,9 @@ export const registerAuth = ( email, accountName, cobrandName, photo, phoneNumbe
                 });
                 console.log(data);
                 history.push('/');
-                dispatch( authFailed() );
+                dispatch({
+                    type: AUTH_LOGOUT
+                });
             },2000)
         });
     }
