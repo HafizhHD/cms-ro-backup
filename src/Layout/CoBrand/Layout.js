@@ -112,12 +112,14 @@ function Layout({
             </header>
             {   
               
-                ['/program/add'].indexOf(location.pathname)
-                && <Navigations MenuItems={MenuCoBranding} /> 
+                //['/program/add'].indexOf(location.pathname) &&
+                <Navigations MenuItems={MenuCoBranding} /> 
             }
             
             
-            <main className={ location.pathname !== '/program/add' ? 'Main' : 'FullMain'}>
+            {//<main className={ location.pathname !== '/program/add' ? 'Main' : 'FullMain'}>
+                }
+            <main className='Main'>
                 {children}
             </main>
        </div>

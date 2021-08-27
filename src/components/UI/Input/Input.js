@@ -5,6 +5,7 @@ function Input({
     placeholder,
     type,
     onChange,
+    onBlur,
     value,
     className,
     message,
@@ -16,9 +17,11 @@ function Input({
         <>
             <textarea
                 name={name}
+                id={name}
                 className={className}
                 placeholder={placeholder}
                 onChange={onChange}
+                onBlur={onBlur}
                 value={value}
             />
             {isError && (
@@ -37,6 +40,7 @@ function Input({
             type={type}
             placeholder={placeholder}
             onChange={onChange}
+            onBlur={onBlur}
             value={value}
         />
         {isError && (

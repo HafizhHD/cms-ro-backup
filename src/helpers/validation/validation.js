@@ -13,6 +13,11 @@ export const validationFormRegister = yup.object({
     cobrandName: yup.string('Enter your brand name').required('Brand name is required'),
     thumbnail: yup.mixed('Insert your image, 2 MB max').required('Image is required')
         .test(
+            'imageType', "Incorrect file extension, must be .jpg, .jpeg, or .png",
+            (img) =>
+                img && ["image/png", "image/jpg", "image/jpeg"].includes(img.type)
+        )
+        .test(
             'imageSize', "Image file size too large, max image file size is 2 MB",
             (img) => {
                 if(img) {
@@ -22,11 +27,6 @@ export const validationFormRegister = yup.object({
                     return true;
                 }
             }
-        )
-        .test(
-            'imageType', "Incorrect file extension, must be .jpg, .jpeg, or .png",
-            (img) =>
-                img && ["image/png", "image/jpg", "image/jpeg"].includes(img.type)
         ),
     phoneNumber: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
     address: yup.string('Enter your address').required('Address is required'),
