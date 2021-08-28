@@ -100,7 +100,9 @@ function Cobrand({
                     <PrivateRoute
                         path="/program/add"
                         exact
-                        component={AddProgramAsync}
+                        component={ (props) => {
+                            return (<AddProgramAsync {...props}/>)
+                        }}
                     />
                     <PrivateRoute
                         path="/program/edit"

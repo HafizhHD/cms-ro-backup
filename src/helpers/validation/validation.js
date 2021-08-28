@@ -39,3 +39,26 @@ export const validationFormRegister = yup.object({
             })
         })
 })
+
+export const validationProgram = yup.object({
+    programName: yup.string('Enter your program title').required('Program title is required'),
+    programDescription: yup.string('Enter the program description').required('Program description is required'),
+    programThumbnail: yup.mixed('Insert your image, 2 MB max').required('Image is required')
+        .test(
+            'imageType', "Incorrect file extension, must be .jpg, .jpeg, or .png",
+            (img) =>
+                img && ["image/png", "image/jpg", "image/jpeg"].includes(img.type)
+        )
+        .test(
+            'imageSize', "Image file size too large, max image file size is 2 MB",
+            (img) => {
+                if(img) {
+                    return img.size <= 2097152;
+                }
+                else {
+                    return true;
+                }
+            }
+        ),
+    startDate: yup.date('Insert start date').required('Date is required')
+})
