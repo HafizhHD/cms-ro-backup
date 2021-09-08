@@ -37,10 +37,12 @@ function Layout({
     return (
        <div className="Layout">
             <header className="Header">
-                <img 
-                    src={Logo} alt="Logo Ruang Keluarga" 
-                    className="Header__img"
-                />
+                <NavLink to="/">
+                    <img 
+                        src={Logo} alt="Logo Ruang Keluarga" 
+                        className="Header__img"
+                    />
+                </NavLink>
                 <div className="Header__infoaccount">
                     <div className="Header__infoaccount__Notification">
                         <div className="Header__notification-btn" 

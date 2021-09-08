@@ -11,23 +11,25 @@ export const authStart = () => ({ type: AUTH_START });
 export const authFailed = () => ({ type: AUTH_FAILED });
 export const authSuccess = () => ({ type: AUTH_SUCCESS })
 
-export const addProgram = ( email, programName, programDescription, photo, startDate, history ) => {
+export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
     return dispatch => {
         dispatch( authStart() );
 
         const promise = toBase64(photo);
         promise.then((result) => {
-            console.log(result);
-            const programThumbnail = result;
+            console.log(typeof result);
+            const programthumnail = result;
 
             setTimeout( () => {
                 let data = {
-                    email,
+                    cobrandEmail,
                     programName,
-                    programDescription,
-                    programThumbnail,
+                    ProgramDescription,
+                    programthumnail,
                     startDate
                 };
+
+                console.log(data);
                 //Call API ....
                 
                 axios({
@@ -46,6 +48,54 @@ export const addProgram = ( email, programName, programDescription, photo, start
                 });
                 console.log(data);
                 history.push('/program');
+                dispatch(authFailed());
+            },2000)
+        });
+    }
+
+}
+
+export const addContent = ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, history ) => {
+    return dispatch => {
+        dispatch( authStart() );
+
+        const promise = toBase64(photo);
+        promise.then((result) => {
+            console.log(typeof result);
+            const contentThumbnail = result;
+
+            setTimeout( () => {
+                let data = {
+                    cobrandEmail,
+                    programId,
+                    contentName,
+                    contentDescription,
+                    contentType,
+                    contentSource,
+                    contentThumbnail,
+                    contents,
+                    startDate
+                };
+
+                console.log(data);
+                //Call API ....
+                
+                axios({
+                    method: 'post',
+                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentAdd',
+                    data: data,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => {
+                    console.log('Success:', response.data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+                console.log(data);
+                history.push('/content');
                 dispatch(authFailed());
             },2000)
         });

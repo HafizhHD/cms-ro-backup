@@ -62,3 +62,28 @@ export const validationProgram = yup.object({
         ),
     startDate: yup.date('Insert start date').required('Date is required')
 })
+
+export const validationContent = yup.object({
+    contentName: yup.string('Enter your content title').required('Content title is required'),
+    contentDescription: yup.string('Enter the content description').required('Content description is required'),
+    contents: yup.string('Enter the content description').required('Content description is required'),
+    contentSource: yup.string('Enter the content source').required('Content source is required'),
+    contentThumbnail: yup.mixed('Insert your image, 2 MB max').required('Image is required')
+        .test(
+            'imageType', "Incorrect file extension, must be .jpg, .jpeg, or .png",
+            (img) =>
+                img && ["image/png", "image/jpg", "image/jpeg"].includes(img.type)
+        )
+        .test(
+            'imageSize', "Image file size too large, max image file size is 2 MB",
+            (img) => {
+                if(img) {
+                    return img.size <= 2097152;
+                }
+                else {
+                    return true;
+                }
+            }
+        ),
+    startDate: yup.date('Insert start date').required('Date is required')
+})

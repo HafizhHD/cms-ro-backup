@@ -5,8 +5,115 @@ import TableContent from './../../../components/UI/Table/Table';
 import './Content.scss';
 import { FiPlus } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
+import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+
 
 function Content() {
+    const [isLoading, setLoading] = useState(true);
+    const [contentList, setContentList] = useState();
+
+    /*
+    const submitModal = () => {
+        alert('ok')
+    }
+    */
+    
+    //FOR LATER USE
+    /*const [program, setProgram] = useState();
+    //if(localStorage.getItem('programForContent')) {
+
+        console.log(localStorage.getItem('programForContent'));
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const programData = JSON.parse(localStorage.getItem('programForContent'));
+        const params = {
+            whereKeyValues: {
+                cobrandEmail: userData.email,
+                programName: programData.programName
+            }
+        };
+        
+        useEffect(() => {
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log("Response data: ", response.data);
+                setProgram(response.data.programs[0]);
+                console.log("This is ", program);
+        
+                const contentParams = {
+                    whereKeyValues: {
+                        programId: response.data.programs[0]
+                    }
+                }
+        
+                return (
+                    axios({
+                        method: 'post',
+                        url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+                        data: contentParams,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        console.log("Content list: ", response.data);
+                        setContentList(response.data.contents);
+                        setLoading(false);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setLoading(false);
+                    })
+                )
+        
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }, []);
+    //}*/
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const params = {
+        whereKeyValues: {
+            cobrandEmail: userData.email
+        }
+    };
+    
+    useEffect(() => {
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+            data: params,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            console.log("Content list: ", response.data);
+            setContentList(response.data.contents);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+    }, []);
+
+
+    if(isLoading) {
+        return <RKLoader/>
+    }
+
     return (
         <div className="Content">
             <h1>CONTENT</h1>
@@ -20,8 +127,13 @@ function Content() {
                     className="Content__table__input" 
                     placeholder="Search"
                 />
-                <TableContent COLUMNS={columns} DATA={Data}  />
+                <TableContent COLUMNS={columns} DATA={contentList}  />
             </div>
+            {
+            /*<div className="ProgramPreview">
+                <img src={program.programthumnail}/>
+            </div>*/
+            }
         </div>
     )
 }

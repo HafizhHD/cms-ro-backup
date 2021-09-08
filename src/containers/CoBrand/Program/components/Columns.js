@@ -3,36 +3,36 @@ import { NavLink } from 'react-router-dom';
 
 const Columns = [
     {
-        Header: 'Category',
-        accessor: 'category'
-    },
-    {
         Header: 'Title',
-        accessor: 'title'
+        accessor: 'programName'
     },
     {
-        Header: 'Created Date',
-        accessor: 'created_date'
+        Header: 'Start Date',
+        accessor: 'startDate'
     },
     {
         Header: 'Status',
         accessor: 'status',
-        Cell: ({ value}) => {
-            
+        Cell: ({ value }) => {
             return <p style={{ color: 'green', fontWeight: 'bold' }}>{value}</p>
         }
     },
     {
         Header: 'Action',
-        Cell: (row) => (
+        Cell: ({cell}) => (
             <>
-                <button 
-                    className="btn_action"
-                    onClick={() => console.log(row)}>
-                    <div>
-                        <FiEye className="btn_action-icon" />
-                    </div>
-                </button>
+                <NavLink to="/content" 
+                        onClick={() => {
+                            let programSelected = JSON.stringify(cell.row.values);
+                            localStorage.setItem('programForContent', programSelected);
+                        }}>
+                    <button 
+                        className="btn_action">
+                        <div>
+                            <FiEye className="btn_action-icon" />
+                        </div>
+                    </button>
+                </NavLink>
                 <NavLink to="/program/edit">
                     <button
                         className="btn_action"
