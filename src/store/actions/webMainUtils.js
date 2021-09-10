@@ -42,12 +42,12 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                 })
                 .then(response => {
                     console.log('Success:', response.data);
+                    history.push('/program');
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
                 console.log(data);
-                history.push('/program');
                 dispatch(authFailed());
             },2000)
         });
@@ -90,12 +90,12 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
                 })
                 .then(response => {
                     console.log('Success:', response.data);
+                    history.push('/content');
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
                 console.log(data);
-                history.push('/content');
                 dispatch(authFailed());
             },2000)
         });

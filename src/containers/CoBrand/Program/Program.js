@@ -33,6 +33,25 @@ function Program() {
     
     useEffect(() => {
         setLoading(true);
+        function retrieveList() {
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                setProgramList(response.data);
+                console.log(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setLoading(false);
+            });
+        }
         if(localStorage.getItem('programDeleting')) {
             const deleting = {
                 whereValues: {
@@ -51,29 +70,16 @@ function Program() {
             .then(response => {
                 console.log(response.data);
                 localStorage.removeItem('programDeleting');
+                retrieveList();
             })
             .catch(error => {
                 console.log(error);
                 localStorage.removeItem('programDeleting');
+                retrieveList();
             });
         }
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            setProgramList(response.data);
-            console.log(response.data);
-            setLoading(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setLoading(false);
-        });
+        else retrieveList();
+        localStorage.removeItem('programDeleting');
     }, []);
 
     if(isLoading) {

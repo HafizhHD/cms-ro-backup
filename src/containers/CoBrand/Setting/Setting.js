@@ -26,7 +26,7 @@ function Setting() {
                                 type="email"
                                 placeholder="example@test.com"
                                 onChange={e => alert(e)}
-                                value="anando@test.com"
+                                value={userData.email}
                             />
                         </div>
                         <div>
@@ -37,7 +37,7 @@ function Setting() {
                                 type="password"
                                 placeholder="example@test.com"
                                 onChange={e => console.log(e)}
-                                value="anando@test.com"
+                                value={userData.password}
                             />
                         </div>
                     </div>
@@ -57,14 +57,14 @@ function Setting() {
 
                     <div className="Setting_card_inputs-item mt-large">
                         <div>
-                            <label>Username</label>
+                            <label>Co-Brand Name</label>
                             <Input 
                                 name="username"
                                 className="Input-control"
                                 type="username"
                                 placeholder="example@test.com"
                                 onChange={e => alert(e)}
-                                value="username"
+                                value={userData.cobrandName}
                             />
                         </div>
                         <div>

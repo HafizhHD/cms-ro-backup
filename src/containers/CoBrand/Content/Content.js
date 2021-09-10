@@ -91,6 +91,25 @@ function Content() {
     
     useEffect(() => {
         setLoading(true);
+        function retrieveList() {
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log("Content list: ", response.data);
+                setContentList(response.data.contents);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setLoading(false);
+            });
+        }
         if(localStorage.getItem('contentDeleting')) {
             const deleting = {
                 whereValues: {
@@ -109,29 +128,16 @@ function Content() {
             .then(response => {
                 console.log(response.data);
                 localStorage.removeItem('contentDeleting');
+                retrieveList();
             })
             .catch(error => {
                 console.log(error);
                 localStorage.removeItem('contentDeleting');
+                retrieveList();
             });
         }
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            console.log("Content list: ", response.data);
-            setContentList(response.data.contents);
-            setLoading(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setLoading(false);
-        });
+        else retrieveList();
+        localStorage.removeItem('contentDeleting');
     }, []);
 
 
