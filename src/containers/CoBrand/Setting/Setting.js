@@ -4,6 +4,7 @@ import Input from '../../../components/UI/Input/Input';
 import './Setting.scss';
 
 function Setting() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
     return (
         <div className="Setting">
             <Heading 
@@ -76,7 +77,9 @@ function Setting() {
 
                 </div>
                 <div className="Setting_card_preview">
-                    <h1>Image Preview</h1>
+                    <h1>Profile Image Preview</h1>
+                    <img src={userData.thumbnail} className="Setting_card_preview_image"/>
+                    <h1>Profile Image Preview</h1>
                 </div>
             </div>
         </div>

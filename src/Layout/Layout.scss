@@ -78,6 +78,27 @@
     }
   }
 
+  &__profileImg {
+    object-fit: cover;
+    font-size: 1.3rem;
+    color: #fff;
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    padding: 0.2rem;
+    cursor: pointer;
+    transition: all ease-out 0.4s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &__active {
+      border: 3px solid var(--color-grey-dark-1);
+    }
+  }
+
   &__activeUser {
     display: grid;
     grid-template-columns: max-content max-content max-content;

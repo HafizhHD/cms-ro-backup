@@ -28,9 +28,21 @@
 
     &_preview {
       background-color: #ddd;
-      display: flex;
       justify-content: center;
       align-items: center;
+      display: grid;
+
+      &_image {
+        width: 40vw;
+        height: 40vw;
+        object-fit: cover;
+        font-size: 1.3rem;
+        padding: 0.2rem;
+      }
+
+      h1 {
+        text-align: center;
+      }
     }
   }
 }
