@@ -90,6 +90,31 @@ function Content() {
     };
     
     useEffect(() => {
+        setLoading(true);
+        if(localStorage.getItem('contentDeleting')) {
+            const deleting = {
+                whereValues: {
+                    cobrandEmail: userData.email,
+                    contentName: localStorage.getItem('contentDeleting')
+                }
+            }
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentRemove',
+                data: deleting,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log(response.data);
+                localStorage.removeItem('contentDeleting');
+            })
+            .catch(error => {
+                console.log(error);
+                localStorage.removeItem('contentDeleting');
+            });
+        }
         axios({
             method: 'post',
             url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',

@@ -4,15 +4,15 @@ import { NavLink } from 'react-router-dom'
 const Columns = [
     {
         Header: 'Category',
-        accessor: 'category'
+        accessor: 'contentType'
     },
     {
         Header: 'Title',
-        accessor: 'title'
+        accessor: 'contentName'
     },
     {
-        Header: 'Created Date',
-        accessor: 'created_date'
+        Header: 'Start Date',
+        accessor: 'startDate'
     },
     {
         Header: 'Status',
@@ -20,7 +20,7 @@ const Columns = [
     },
     {
         Header: 'Action',
-        Cell: (row) => (
+        Cell: ({cell}) => (
             <>
                 <NavLink
                     to="/content/view"
@@ -28,7 +28,7 @@ const Columns = [
                 >
                 <button 
                     className="btn_action"
-                    onClick={() => console.log(row)}>
+                >
                     <div>
                         <FiEye className="btn_action-icon" />
                     </div>
@@ -45,13 +45,21 @@ const Columns = [
                         </div>
                     </button>
                 </NavLink>
-                <button
-                    className="btn_action"
-                >
-                    <div>
-                        <FiTrash2 className="btn_action-icon" />
-                    </div>
-                </button>
+                
+                <NavLink to="/content"
+                    onClick={() => {
+                        localStorage.setItem('contentDeleting', cell.row.values.contentName);
+                        window.location.reload();
+                    }}
+                    replace>
+                    <button
+                        className="btn_action"
+                    >
+                        <div>
+                            <FiTrash2 className="btn_action-icon" />
+                        </div>
+                    </button>
+                </NavLink>
             </>
         )
     }

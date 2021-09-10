@@ -28,8 +28,35 @@ function Program() {
             cobrandEmail: userData.email
         }
     };
+
+    
     
     useEffect(() => {
+        setLoading(true);
+        if(localStorage.getItem('programDeleting')) {
+            const deleting = {
+                whereValues: {
+                    cobrandEmail: userData.email,
+                    programName: localStorage.getItem('programDeleting')
+                }
+            }
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programRemove',
+                data: deleting,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log(response.data);
+                localStorage.removeItem('programDeleting');
+            })
+            .catch(error => {
+                console.log(error);
+                localStorage.removeItem('programDeleting');
+            });
+        }
         axios({
             method: 'post',
             url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',

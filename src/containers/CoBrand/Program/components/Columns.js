@@ -21,11 +21,7 @@ const Columns = [
         Header: 'Action',
         Cell: ({cell}) => (
             <>
-                <NavLink to="/content" 
-                        onClick={() => {
-                            let programSelected = JSON.stringify(cell.row.values);
-                            localStorage.setItem('programForContent', programSelected);
-                        }}>
+                <NavLink to="/program/view">
                     <button 
                         className="btn_action">
                         <div>
@@ -42,13 +38,20 @@ const Columns = [
                         </div>
                     </button>
                 </NavLink>
-                <button
-                    className="btn_action"
-                >
-                    <div>
-                        <FiTrash2 className="btn_action-icon" />
-                    </div>
-                </button>
+                <NavLink to="/program"
+                    onClick={() => {
+                        localStorage.setItem('programDeleting', cell.row.values.programName);
+                        window.location.reload();
+                    }}
+                    replace>
+                    <button
+                        className="btn_action"
+                    >
+                        <div>
+                            <FiTrash2 className="btn_action-icon" />
+                        </div>
+                    </button>
+                </NavLink>
             </>
         )
     }

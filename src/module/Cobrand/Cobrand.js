@@ -30,7 +30,7 @@ function Cobrand({
 
     const checkIsLogin = useCallback( () => {
         
-        let check = localStorage.getItem('rkLoggedIn');
+        let check = localStorage.getItem('accessToken');
 
         if( check ) {
             onAuthSuccess()
@@ -118,7 +118,9 @@ function Cobrand({
                     <PrivateRoute 
                         path="/content/add"
                         exact
-                        component={AddContentAsync}
+                        component={ (props) => {
+                            return (<AddContentAsync {...props}/>)
+                        }}
                     />
                     <PrivateRoute 
                         path="/content/edit"
