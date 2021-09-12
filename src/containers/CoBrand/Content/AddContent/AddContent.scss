@@ -48,3 +48,28 @@
     font-family: inherit;
   }
 }
+
+.btn {
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-submit {
+  padding: 0.7rem;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid black;
+  font-weight: 800;
+  color: var(--color-primary);
+  transition: all ease-in 0.3s;
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  &:focus {
+    transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+  }
+}

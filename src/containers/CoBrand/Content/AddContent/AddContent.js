@@ -180,7 +180,7 @@ function AddContent({
                             <span className="message__error">{errors.startDate}</span>
                         </div>
                         <div>
-                            <button className="btn" type="submit">
+                            <button className="btn btn-submit" type="submit">
                                 Post Content
                             </button>
                         </div>

@@ -15,7 +15,7 @@ function Setting() {
             />
             <div className="Setting_card mt-medium">
                 <div className="Setting_card_inputs">
-                    <h2>Account</h2>
+                    <h2>Edit Account</h2>
 
                     <div className="Setting_card_inputs-item">
                         <div>
