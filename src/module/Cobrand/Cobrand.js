@@ -14,10 +14,12 @@ const ReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/Repor
 const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
 const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
 const EditProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
+const ViewProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/ViewProgram/ViewProgram'));
 const ContentAsync = lazy( () => import('./../../containers/CoBrand/Content/Content'));
-const RedZoneAsync = lazy( ( ) => import('./../../containers/CoBrand/RedZone/RedZone'));
 const AddContentAsync = lazy( () => import('./../../containers/CoBrand/Content/AddContent/AddContent'));
 const EditContentAsync = lazy( () => import('./../../containers/CoBrand/Content/EditContent/EditContent'));
+const ViewContentAsync = lazy( () => import('./../../containers/CoBrand/Content/ViewContent/ViewContent'));
+const RedZoneAsync = lazy( ( ) => import('./../../containers/CoBrand/RedZone/RedZone'));
 const SettingAsync = lazy( () => import('./../../containers/CoBrand/Setting/Setting'));
 
 function Cobrand({
@@ -109,6 +111,11 @@ function Cobrand({
                         exact
                         component={EditProgramAsync}
                     />
+                    <PrivateRoute
+                        path="/program/view"
+                        exact
+                        component={ViewProgramAsync}
+                    />
 
                     <PrivateRoute 
                         path="/content"
@@ -126,6 +133,11 @@ function Cobrand({
                         path="/content/edit"
                         exact
                         component={EditContentAsync}
+                    />
+                    <PrivateRoute
+                        path="/content/view"
+                        exact
+                        component={ViewContentAsync}
                     />
                     
 

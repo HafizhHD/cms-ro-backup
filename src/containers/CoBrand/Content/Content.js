@@ -23,7 +23,7 @@ function Content() {
     
     //FOR LATER USE
     /*const [program, setProgram] = useState();
-    //if(localStorage.getItem('programForContent')) {
+    if(localStorage.getItem('programForContent')) {
 
         console.log(localStorage.getItem('programForContent'));
         const userData = JSON.parse(localStorage.getItem('userData'));
@@ -114,7 +114,7 @@ function Content() {
             const deleting = {
                 whereValues: {
                     cobrandEmail: userData.email,
-                    contentName: localStorage.getItem('contentDeleting')
+                    _id: localStorage.getItem('contentDeleting')
                 }
             }
             axios({

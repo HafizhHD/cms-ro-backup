@@ -14,7 +14,7 @@ function Dashboard() {
             <div className="Dashboard__cards">
                 <div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
-                        <h3>New Subsriber</h3>
+                        <h3>New Subscriber</h3>
                         <FiAlertCircle className="Dashboard__cards_item-icon" />
                     </div>
                     <h1>31</h1>

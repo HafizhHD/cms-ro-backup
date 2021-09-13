@@ -56,7 +56,7 @@ function Program() {
             const deleting = {
                 whereValues: {
                     cobrandEmail: userData.email,
-                    programName: localStorage.getItem('programDeleting')
+                    _id: localStorage.getItem('programDeleting')
                 }
             }
             axios({

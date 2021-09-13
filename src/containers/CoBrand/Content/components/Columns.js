@@ -1,6 +1,12 @@
 import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom'
 
+
+
+const dateFormat = {
+    year: 'numeric', month: 'long', day: 'numeric'
+}
+
 const Columns = [
     {
         Header: 'Category',
@@ -12,7 +18,12 @@ const Columns = [
     },
     {
         Header: 'Start Date',
-        accessor: 'startDate'
+        accessor: 'startDate',
+        Cell: ({cell}) => (
+            <>
+                {new Date(cell.row.values.startDate).toLocaleDateString("en-UK", dateFormat)}
+            </>
+        )
     },
     {
         Header: 'Status',
@@ -20,11 +31,13 @@ const Columns = [
     },
     {
         Header: 'Action',
+        accessor: '_id',
         Cell: ({cell}) => (
             <>
                 <NavLink
-                    to="/content/view"
-                    className="action_btn"
+                    to={"/content/view/" + cell.row.values._id}
+                    className="nav_btn"
+                    title="View Detail"
                 >
                 <button 
                     className="btn_action"
@@ -37,6 +50,7 @@ const Columns = [
                 <NavLink
                     to="/content/edit"
                     className="nav_btn"
+                    title="Edit Content"
                 >
                     <button 
                     className="btn_action">
@@ -47,8 +61,10 @@ const Columns = [
                 </NavLink>
                 
                 <NavLink to="/content"
+                    className="nav_btn"
+                    title="Delete Content"
                     onClick={() => {
-                        localStorage.setItem('contentDeleting', cell.row.values.contentName);
+                        localStorage.setItem('contentDeleting', cell.row.values._id);
                         window.location.reload();
                     }}
                     replace>

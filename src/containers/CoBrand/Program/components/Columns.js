@@ -1,6 +1,10 @@
 import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 
+const dateFormat = {
+    year: 'numeric', month: 'long', day: 'numeric'
+}
+
 const Columns = [
     {
         Header: 'Title',
@@ -8,7 +12,12 @@ const Columns = [
     },
     {
         Header: 'Start Date',
-        accessor: 'startDate'
+        accessor: 'startDate',
+        Cell: ({cell}) => (
+            <>
+                {new Date(cell.row.values.startDate).toLocaleDateString("en-UK", dateFormat)}
+            </>
+        )
     },
     {
         Header: 'Status',
@@ -19,9 +28,16 @@ const Columns = [
     },
     {
         Header: 'Action',
+        accessor: '_id',
         Cell: ({cell}) => (
             <>
-                <NavLink to="/program/view">
+                <NavLink 
+                    to="/program/view"
+                    className="nav_btn"
+                    title="View Detail"
+                    onClick={() => {
+                        localStorage.setItem('programViewed', cell.row.values._id)
+                    }}>
                     <button 
                         className="btn_action">
                         <div>
@@ -29,7 +45,9 @@ const Columns = [
                         </div>
                     </button>
                 </NavLink>
-                <NavLink to="/program/edit">
+                <NavLink to="/program/edit"
+                    className="nav_btn"
+                    title="Edit Program">
                     <button
                         className="btn_action"
                     >
@@ -39,8 +57,10 @@ const Columns = [
                     </button>
                 </NavLink>
                 <NavLink to="/program"
+                    className="nav_btn"
+                    title="Delete Program"
                     onClick={() => {
-                        localStorage.setItem('programDeleting', cell.row.values.programName);
+                        localStorage.setItem('programDeleting', cell.row.values._id);
                         window.location.reload();
                     }}
                     replace>
