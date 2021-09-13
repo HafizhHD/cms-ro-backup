@@ -35,9 +35,12 @@ const Columns = [
         Cell: ({cell}) => (
             <>
                 <NavLink
-                    to={"/content/view/" + cell.row.values._id}
+                    to="/content/view/"
                     className="nav_btn"
                     title="View Detail"
+                    onClick={() => {
+                        localStorage.setItem('contentViewed', cell.row.values._id)
+                    }}
                 >
                 <button 
                     className="btn_action"

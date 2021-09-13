@@ -79,7 +79,7 @@ function ViewProgram() {
             </div>
             <div className="program_detail">
                 <div className="program_detail_top">
-                    <div className="program detail_top_img">
+                    <div className="program_detail_top_img">
                         <img src={program.programthumnail} className="program_detail_top_img_image"/>
                     </div>
                     <div className="program_detail_top_title">
