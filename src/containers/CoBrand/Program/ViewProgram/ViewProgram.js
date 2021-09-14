@@ -19,7 +19,7 @@ function ViewProgram() {
 
     useEffect(() => {
         setLoading(true);
-        const id = localStorage.getItem('programViewed');
+        const id = localStorage.getItem('programSelected');
         console.log(id);
         if(id) {
             const userData = JSON.parse(localStorage.getItem('userData'));

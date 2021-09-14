@@ -36,7 +36,7 @@ const Columns = [
                     className="nav_btn"
                     title="View Detail"
                     onClick={() => {
-                        localStorage.setItem('programViewed', cell.row.values._id)
+                        localStorage.setItem('programSelected', cell.row.values._id)
                     }}>
                     <button 
                         className="btn_action">
@@ -47,7 +47,10 @@ const Columns = [
                 </NavLink>
                 <NavLink to="/program/edit"
                     className="nav_btn"
-                    title="Edit Program">
+                    title="Edit Program"
+                    onClick={() => {
+                        localStorage.setItem('programSelected', cell.row.values._id)
+                    }}>
                     <button
                         className="btn_action"
                     >

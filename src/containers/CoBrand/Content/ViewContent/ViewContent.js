@@ -19,7 +19,7 @@ function ViewContent() {
 
     useEffect(() => {
         setLoading(true);
-        const id = localStorage.getItem('contentViewed');
+        const id = localStorage.getItem('contentSelected');
         console.log(id);
         if(id) {
             const userData = JSON.parse(localStorage.getItem('userData'));
