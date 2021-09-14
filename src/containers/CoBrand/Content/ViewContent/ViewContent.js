@@ -85,15 +85,15 @@ function ViewContent() {
                 </div>
                 <div className="content_detail_bottom">
                     <div className="content_detail_bottom_detail">
-                        <p><FiCalendar /> Start Date: <span>{startDate}</span></p>
-                        <p><FiFileText /> Type: <span>{content.contentType}</span> </p>
+                        <p className="content_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
+                        <p className="content_detail_group"><FiFileText /> Type: <span>{content.contentType}</span> </p>
                     </div>
                     <div className="content_detail_bottom_description">
-                        <p>Description:</p>
+                        <p className="content_detail_group">Description:</p>
                         <p>{content.contentDescription}</p>
                     </div>
                     <div className="content_detail_bottom_contents">
-                        <p>Contents:</p>
+                        <p className="content_detail_group">Contents:</p>
                         <p>{content.contents}</p>
                     </div>
                 </div>

@@ -50,10 +50,14 @@
         background-color: #eee;
         font-family: "Inter", sans-serif;
         font-size: 1.2rem;
-        font-weight: 10;
 
         &_date {
             padding-bottom: 1.5rem;
+            font-weight: 10;
         }
+    }
+
+    &_group {
+        font-weight: 800;
     }
 }

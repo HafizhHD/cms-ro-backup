@@ -85,7 +85,7 @@ function ViewProgram() {
                 </div>
                 <div className="program_detail_bottom">
                     <div className="program_detail_bottom_date">
-                        <p><FiCalendar /> Start Date: <span>{startDate}</span></p>
+                        <p className="program_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
                     </div>
                     <div className="program_detail_bottom_description">
                         <p>{program.ProgramDescription}</p>
