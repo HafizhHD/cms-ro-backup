@@ -1,7 +1,13 @@
 .action_btn {
     display: grid;
     width: 100%;
-    grid-template-columns: 13rem 1fr;
+    grid-template-columns: 13rem 1fr 13rem 1fr;
+    padding: 1rem;
+
+    &_nav {
+        text-decoration: none;
+        color: var(--color-primary);
+    }
 }
 
 .content_detail {

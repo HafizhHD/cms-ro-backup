@@ -64,17 +64,14 @@ function ViewProgram() {
                 { path: '/program/view', name: 'View Program Detail' }
             ]} />
             <div className="action_btn">
-                <NavLink to="/program">
-                    <FiArrowLeftCircle />
-                    <h3>Back to Program List</h3>
+                <NavLink to="/program" className="action_btn_nav">
+                    <h3><FiArrowLeftCircle /> Back to Program List</h3>
                 </NavLink>
-                <NavLink to="/program/edit">
-                    <FiEdit />
-                    <h3>Edit This Program</h3>
+                <NavLink to="/program/edit" className="action_btn_nav">
+                    <h3><FiEdit /> Edit This Program</h3>
                 </NavLink>
-                <NavLink to="/program">
-                    <FiTrash2 />
-                    <h3>Delete This Program</h3>
+                <NavLink to="/program" className="action_btn_nav">
+                    <h3><FiTrash2 /> Delete This Program</h3>
                 </NavLink>
             </div>
             <div className="program_detail">

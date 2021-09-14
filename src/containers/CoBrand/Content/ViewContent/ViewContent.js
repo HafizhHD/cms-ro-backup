@@ -64,17 +64,14 @@ function ViewContent() {
                 { path: '/content/view', name: 'View Content Detail' }
             ]} />
             <div className="action_btn">
-                <NavLink to="/content">
-                    <FiArrowLeftCircle />
-                    <h3>Back to Content List</h3>
+                <NavLink to="/content" className="action_btn_nav">
+                    <h3><FiArrowLeftCircle /> Back to Content List</h3>
                 </NavLink>
-                <NavLink to="/content/edit">
-                    <FiEdit />
-                    <h3>Edit This Content</h3>
+                <NavLink to="/content/edit" className="action_btn_nav">
+                    <h3><FiEdit /> Edit This Content</h3>
                 </NavLink>
-                <NavLink to="/content">
-                    <FiTrash2 />
-                    <h3>Delete This Content</h3>
+                <NavLink to="/content" className="action_btn_nav">
+                    <h3><FiTrash2 /> Delete This Content</h3>
                 </NavLink>
             </div>
             <div className="content_detail">
