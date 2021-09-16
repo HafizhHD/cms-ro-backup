@@ -63,6 +63,12 @@ export const validationProgram = yup.object({
     startDate: yup.date('Insert start date').required('Date is required')
 })
 
+export const validationProgramEdit = yup.object({
+    programName: yup.string('Enter your program title').required('Program title is required'),
+    programDescription: yup.string('Enter the program description').required('Program description is required'),
+    startDate: yup.date('Insert start date').required('Date is required')
+})
+
 export const validationContent = yup.object({
     contentName: yup.string('Enter your content title').required('Content title is required'),
     contentDescription: yup.string('Enter the content description').required('Content description is required'),
@@ -85,5 +91,13 @@ export const validationContent = yup.object({
                 }
             }
         ),
+    startDate: yup.date('Insert start date').required('Date is required')
+})
+
+export const validationContentEdit = yup.object({
+    contentName: yup.string('Enter your content title').required('Content title is required'),
+    contentDescription: yup.string('Enter the content description').required('Content description is required'),
+    contents: yup.string('Enter the content description').required('Content description is required'),
+    contentSource: yup.string('Enter the content source').required('Content source is required'),
     startDate: yup.date('Insert start date').required('Date is required')
 })
