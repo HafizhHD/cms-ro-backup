@@ -86,7 +86,8 @@ function AddContent({
                             >
                                 <option value="" disabled>--Select Content Type--</option>
                                 <option value="Artikel">Artikel</option>
-                                <option value="Lomba">Lomba</option>
+                                <option value="Image">Image</option>
+                                <option value="Video">Video</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -159,13 +160,34 @@ function AddContent({
                         </div>
                         <div className="form-group">
                             <label>Contents</label>
-                            <InputComponent
-                                type="textarea"
-                                name="contents"
-                                placeholder="Type Something..."
-                                value={values.contents}
-                                onChange={handleChange}
-                            />
+                            { values.contentType === "Artikel" ? (
+                                <InputComponent
+                                    type="textarea"
+                                    name="contents"
+                                    placeholder="Type Something..."
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                />
+                            ) : null }
+                            { values.contentType === "Image" ? (
+                                <InputComponent
+                                    type="textarea"
+                                    name="contents"
+                                    placeholder="Type Something..."
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                />
+                            ) : null }
+                            { values.contentType === "Video" ? (
+                                <InputComponent
+                                    type="text"
+                                    name="contents"
+                                    className="form-group__input form-group__input--fullwidth" 
+                                    placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                />
+                            ) : null }
                             <span className="message__error">{errors.contents}</span>
                         </div>
                         <div className="form-group">

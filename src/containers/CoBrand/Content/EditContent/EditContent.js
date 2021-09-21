@@ -119,7 +119,8 @@ function EditContent({
                             >
                                 <option value="" disabled>--Select Content Type--</option>
                                 <option value="Artikel">Artikel</option>
-                                <option value="Lomba">Lomba</option>
+                                <option value="Image">Image</option>
+                                <option value="Video">Video</option>
                             </select>
                         </div>
                         <div className="form-group">
