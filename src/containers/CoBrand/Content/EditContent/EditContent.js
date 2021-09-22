@@ -193,13 +193,35 @@ function EditContent({
                         </div>*/}
                         <div className="form-group">
                             <label>Contents</label>
-                            <InputComponent
-                                type="textarea"
-                                name="contents"
-                                placeholder="Type Something..."
-                                value={values.contents}
-                                onChange={handleChange}
-                            />
+                            { values.contentType === "Artikel" ? (
+                                <InputComponent
+                                    type="textarea"
+                                    name="contents"
+                                    placeholder="Type Something..."
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                />
+                            ) : null }
+                            { values.contentType === "Image" ? (
+                                <InputComponent
+                                    type="text"
+                                    name="contents"
+                                    className="form-group__input form-group__input--fullwidth" 
+                                    placeholder="Type Image URL... (https://example.com/something/something.jpg)"
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                />
+                            ) : null }
+                            { values.contentType === "Video" ? (
+                                <InputComponent
+                                    type="text"
+                                    name="contents"
+                                    className="form-group__input form-group__input--fullwidth" 
+                                    placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                />
+                            ) : null }
                             <span className="message__error">{errors.contents}</span>
                         </div>
                         <div className="form-group">

@@ -171,9 +171,10 @@ function AddContent({
                             ) : null }
                             { values.contentType === "Image" ? (
                                 <InputComponent
-                                    type="textarea"
+                                    type="text"
                                     name="contents"
-                                    placeholder="Type Something..."
+                                    className="form-group__input form-group__input--fullwidth" 
+                                    placeholder="Type Image URL... (https://example.com/something/something.jpg)"
                                     value={values.contents}
                                     onChange={handleChange}
                                 />
