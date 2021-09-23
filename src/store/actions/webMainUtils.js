@@ -155,6 +155,13 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
             console.log(typeof result);
             const contentThumbnail = result;
 
+            if(contentType === 'Video') {
+                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + contents + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+            }
+            else if(contentType === 'Image') {
+                contents = "<img src=\"" + contents + "\"/>"
+            }
+
             setTimeout( () => {
                 let data = {
                     cobrandEmail,
