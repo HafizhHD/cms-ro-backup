@@ -7,6 +7,54 @@ import {
 import axios from 'axios';
 import { toBase64 } from '../../helpers/fileHelper/fileHelper';
 
+function getEmbedUrl(url) {
+    // function for generating an embed link
+    let finalUrl = '';
+    let videoId = '';
+
+    if (url.includes('facebook.com/')) {
+        // Facebook Video
+        finalUrl = 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=1&width=200';
+
+    } else if(url.includes('vimeo.com/')) {
+        // Vimeo video
+        videoId = typeof(url.split("vimeo.com/")[1]) !== undefined ? url.split("vimeo.com/")[1] : null;
+        if (videoId.includes('&')){
+            videoId = videoId.split("&")[0];
+        }
+        finalUrl = 'https://player.vimeo.com/video/' + videoId;
+
+    } else if (url.includes('youtube.com/')) {
+        // Youtube video
+        videoId = typeof(url.split("v=")[1]) !== undefined ? url.split("v=")[1] : null;
+        if (videoId.includes('&')){
+            videoId = videoId.split("&")[0];
+        }
+        finalUrl = 'https://www.youtube.com/embed/' + videoId;
+
+    } else if(url.includes('youtu.be/')) {
+        // Youtube video
+        videoId = typeof(url.split("youtu.be/")[1]) !== undefined ? url.split("youtu.be/")[1] : null;
+        if (videoId.includes('&')) {
+            videoId = videoId.split("&")[0];
+        }
+        finalUrl = 'https://www.youtube.com/embed/' +  videoId;
+
+    } else if (url.includes('dailymotion.com/')) {
+        // Dailymotion Video
+        videoId = typeof(url.split("dailymotion.com/")[1]) !== undefined ? url.split("dailymotion.com/")[1] : null;
+        if (videoId.includes('&')) {
+            videoId = videoId.split("&")[0];
+        }
+        finalUrl = 'https://www.dailymotion.com/embed/' + videoId;
+
+    } else{
+        finalUrl = url;
+    }
+
+    return finalUrl;
+}
+
 export const authStart = () => ({ type: AUTH_START });
 export const authFailed = () => ({ type: AUTH_FAILED });
 export const authSuccess = () => ({ type: AUTH_SUCCESS })
@@ -156,11 +204,13 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
             const contentThumbnail = result;
 
             if(contentType === 'Video') {
-                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + contents + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
             }
             else if(contentType === 'Image') {
                 contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>"
             }
+
+            console.log(contents);
 
             setTimeout( () => {
                 let data = {
