@@ -108,7 +108,10 @@ function AddContent({
                             <select
                                 name="contentType"
                                 value={values.contentType}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setFieldValue("contentType", e.currentTarget.value);
+                                    setFieldValue("contents", '');
+                                }}
                             >
                                 <option value="" disabled>--Select Content Type--</option>
                                 <option value="Artikel">Artikel</option>
