@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { validationContent } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
+import RichTextEditor from 'react-rte';
 
 function AddContent({
     onAddContent,
@@ -17,6 +18,30 @@ function AddContent({
 
     const [isPageLoading, setPageLoading] = useState(true);
     const [programList, setProgramList] = useState();
+
+    const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
+    const toolbarConfig = {
+        // Optionally specify the groups to display (displayed in the order listed).
+        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
+        INLINE_STYLE_BUTTONS: [
+            {label: 'Bold', style: 'BOLD'},
+            {label: 'Italic', style: 'ITALIC'},
+            {label: 'Underline', style: 'UNDERLINE'},
+            {label: 'Strikethrough', style: 'STRIKETHROUGH'}
+        ],
+        BLOCK_TYPE_DROPDOWN: [
+            {label: 'Normal', style: 'unstyled'},
+            {label: 'Heading Large', style: 'header-one'},
+            {label: 'Heading Medium', style: 'header-two'},
+            {label: 'Heading Small', style: 'header-three'}
+        ],
+        BLOCK_TYPE_BUTTONS: [
+            {label: 'Unordered List', style: 'unordered-list-item'},
+            {label: 'Ordered List', style: 'ordered-list-item'},
+            {label: 'Blockquote', style: 'blockquote'}
+        ]
+    };
+
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
 
@@ -70,13 +95,14 @@ function AddContent({
                 validationSchema = {validationContent}
                 validateOnChange = {true}
                 onSubmit = { values => {
+                    window.scrollTo(0,0);
                     onAddContent( cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, history)
                 }}
             >
             {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="AddContent">
-                        <h1>Create New Content</h1>
+                        <h1 className="AddContent_title">Create New Content</h1>
                         <div className="form-group">
                             <label>Content Type</label>
                             <select
@@ -161,12 +187,25 @@ function AddContent({
                         <div className="form-group">
                             <label>Contents</label>
                             { values.contentType === "Artikel" ? (
-                                <InputComponent
+                                /*<InputComponent
                                     type="textarea"
                                     name="contents"
                                     placeholder="Type Something..."
                                     value={values.contents}
                                     onChange={handleChange}
+                                />*/
+
+                                <RichTextEditor
+                                    name="contents"
+                                    placeholder="Type your contents here..."
+                                    className="form-group__input form-group__input_rte"
+                                    value={textValue}
+                                    toolbarConfig={toolbarConfig}
+                                    onChange={ (e) => {
+                                        setTextValue(e);
+                                        setFieldValue("contents", e.toString("html"));
+                                        console.log(values.contents);
+                                    }}
                                 />
                             ) : null }
                             { values.contentType === "Image" ? (

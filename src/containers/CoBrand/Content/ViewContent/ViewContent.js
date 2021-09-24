@@ -94,7 +94,7 @@ function ViewContent() {
                     </div>
                     <div className="content_detail_bottom_contents">
                         <p className="content_detail_group">Contents:</p>
-                        {content.contentType === 'Video' || content.contentType === 'Image' ? (
+                        {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
                             <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
                         ) : (
                             <p>{content.contents}</p>
