@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
 import Logo from './../../../assets/img/Logo_1.png'
@@ -9,12 +9,14 @@ import { useFormik } from 'formik';
 import { validationFormLogin } from './../../../helpers/validation/validation';
 import { connect } from 'react-redux';
 import { auth } from './../../../store/actions/auth';
+import { FiHelpCircle, FiXCircle } from 'react-icons/fi'
+import LoginHelp from '../../../components/UI/Help/LoginHelp/LoginHelp';
 
 function Login({
     onLogin,
     isLoading
 }) {
-
+    const [showHelp, setShowHelp] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -29,6 +31,14 @@ function Login({
 
     return (
         <>
+            {showHelp ? <LoginHelp /> : null}
+            {showHelp ? (
+                <button 
+                    className="CloseHelp"
+                    onClick={() => {
+                    setShowHelp(false);
+                }}><FiXCircle/> </button>
+            ) : null}
             <div className="LoginBg">
             <div className="Login">
                 <div className="Login-top">
@@ -42,6 +52,12 @@ function Login({
                                 alt="Device " 
                                 className="Login-middle-left-img"
                             />
+                            <NavLink
+                                to="/" 
+                                className="Login-middle-left-help"
+                                onClick={() => {
+                                setShowHelp(true);
+                            }}><FiHelpCircle/>  Bantuan</NavLink>
                         </div>
                         <div className="Login-middle-right">
                             <div className="Login-middle-right-heading mb-small">
@@ -49,7 +65,7 @@ function Login({
                             </div>
                             <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 
-                                    placeholder="example@mail.com"
+                                    placeholder="Your E-mail (example@mail.com)"
                                     type="text"
                                     name="email"
                                     onChange={formik.handleChange}
@@ -72,7 +88,7 @@ function Login({
                                     className="btn btn-login"
                                     type="submit"
                                 >
-                                    Sign in
+                                    Login
                                 </button>
                             </form>
                             <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>

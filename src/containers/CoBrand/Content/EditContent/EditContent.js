@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { validationContentEdit } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
+import RichTextEditor from 'react-rte';
 
 function EditContent({
     onEditContent,
@@ -19,6 +20,29 @@ function EditContent({
     const [programList, setProgramList] = useState();
     const [content, setContent] = useState();
     const [contentStartDate, setContentStartDate] = useState();
+
+    const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
+    const toolbarConfig = {
+        // Optionally specify the groups to display (displayed in the order listed).
+        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
+        INLINE_STYLE_BUTTONS: [
+            {label: 'Bold', style: 'BOLD'},
+            {label: 'Italic', style: 'ITALIC'},
+            {label: 'Underline', style: 'UNDERLINE'},
+            {label: 'Strikethrough', style: 'STRIKETHROUGH'}
+        ],
+        BLOCK_TYPE_DROPDOWN: [
+            {label: 'Normal', style: 'unstyled'},
+            {label: 'Heading Large', style: 'header-one'},
+            {label: 'Heading Medium', style: 'header-two'},
+            {label: 'Heading Small', style: 'header-three'}
+        ],
+        BLOCK_TYPE_BUTTONS: [
+            {label: 'Unordered List', style: 'unordered-list-item'},
+            {label: 'Ordered List', style: 'ordered-list-item'},
+            {label: 'Blockquote', style: 'blockquote'}
+        ]
+    };
 
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
@@ -52,6 +76,7 @@ function EditContent({
             .then(response => {
                 console.log("Response data: ", response.data);
                 setContent(response.data.contents[0]);
+                setTextValue(RichTextEditor.createValueFromString(response.data.contents[0].contents, 'html'));
                 let date = response.data.contents[0].startDate.split('T')[0];
                 console.log(date);
                 setContentStartDate(date);
@@ -115,7 +140,10 @@ function EditContent({
                             <select
                                 name="contentType"
                                 value={values.contentType}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setFieldValue("contentType", e.currentTarget.value);
+                                    setFieldValue("contents", '');
+                                }}
                             >
                                 <option value="" disabled>--Select Content Type--</option>
                                 <option value="Artikel">Artikel</option>
@@ -194,12 +222,24 @@ function EditContent({
                         <div className="form-group">
                             <label>Contents</label>
                             { values.contentType === "Artikel" ? (
-                                <InputComponent
+                                /*<InputComponent
                                     type="textarea"
                                     name="contents"
                                     placeholder="Type Something..."
                                     value={values.contents}
                                     onChange={handleChange}
+                                />*/
+                                <RichTextEditor
+                                    name="contents"
+                                    placeholder="Type your contents here..."
+                                    className="form-group__input form-group__input_rte"
+                                    value={textValue}
+                                    toolbarConfig={toolbarConfig}
+                                    onChange={ (e) => {
+                                        setTextValue(e);
+                                        setFieldValue("contents", e.toString("html"));
+                                        console.log(values.contents);
+                                    }}
                                 />
                             ) : null }
                             { values.contentType === "Image" ? (

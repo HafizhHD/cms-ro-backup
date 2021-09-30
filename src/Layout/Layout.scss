@@ -1,3 +1,21 @@
+.CloseHelp {
+  position: absolute;
+  z-index: 50;
+  padding: 20px;
+  margin: 10% 15%;
+  background: none;
+  border-radius: 5px;
+  color: var(--color-primary);
+  border: 0px;
+
+  & > svg {
+    height: 3rem;
+    width: 3rem;
+    background-color: white;
+    border-radius: 50%;
+  }
+}
+
 .Layout {
   display: grid;
   grid-template-rows: 5rem minmax(100vh, min-content);

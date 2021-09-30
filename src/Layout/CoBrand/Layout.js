@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 
 import './../Layout.scss';
@@ -7,7 +7,9 @@ import Navigations from '../../components/Navigations/Navigations';
 import { MenuCoBranding } from './../../components/Navigations/routes';
 import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
 
-import { FiBell, FiUser, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { FiBell, FiUser, FiChevronDown, FiChevronUp, FiXCircle } from 'react-icons/fi';
+
+import DashboardHelp from '../../components/UI/Help/DashboardHelp/DashboardHelp';
 
 function Layout({
     children,
@@ -34,7 +36,18 @@ function Layout({
 
     const userData = JSON.parse(localStorage.getItem('userData'));
 
+    const [showHelp, setShowHelp] = useState(false);
+
     return (
+        <>
+        {showHelp ? <DashboardHelp /> : null}
+        {showHelp ? (
+            <button 
+                className="CloseHelp"
+                onClick={() => {
+                setShowHelp(false);
+            }}><FiXCircle/> </button>
+        ) : null}
        <div className="Layout">
             <header className="Header">
                 <NavLink to="/">
@@ -96,7 +109,10 @@ function Layout({
                         >
                             <ul>
                                 <li>
-                                    <NavLink to="/">Bantuan</NavLink>
+                                    <a href="javascript:void(0);"
+                                    onClick={() => {
+                                        setShowHelp(true);
+                                    }}>Bantuan</a>
                                 </li>
                                 <li>
                                     <NavLink to="/">Profile</NavLink>
@@ -125,6 +141,7 @@ function Layout({
                 {children}
             </main>
        </div>
+       </>
     )
 }
 

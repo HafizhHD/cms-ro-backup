@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import './Register.scss';
 import Logo from './../../../assets/img/Logo_1.png'
@@ -9,16 +9,27 @@ import { Formik } from 'formik';
 import { validationFormRegister } from './../../../helpers/validation/validation';
 import { connect } from 'react-redux';
 import { registerAuth } from './../../../store/actions/auth';
+import LoginHelp from '../../../components/UI/Help/LoginHelp/LoginHelp';
+import { FiHelpCircle, FiXCircle } from 'react-icons/fi'
 
 function Register({
     onRegister,
     isLoading
 }) {
+    const [showHelp, setShowHelp] = useState(false);
 
     const history = useHistory();
 
     return (
         <>
+            {showHelp ? <LoginHelp /> : null}
+            {showHelp ? (
+                <button 
+                    className="CloseHelp"
+                    onClick={() => {
+                    setShowHelp(false);
+                }}><FiXCircle/> </button>
+            ) : null}
             <div className="RegisterBg">
             <div className="Register">
                 <div className="Register-top">
@@ -32,6 +43,12 @@ function Register({
                                 alt="Device " 
                                 className="Register-middle-left-img"
                             />
+                            <NavLink
+                                to="/register" 
+                                className="Register-middle-left-help"
+                                onClick={() => {
+                                setShowHelp(true);
+                            }}><FiHelpCircle/>  Bantuan</NavLink>
                         </div>
                         <div className="Register-middle-right">
                             <div className="Register-middle-right-heading mb-small">
