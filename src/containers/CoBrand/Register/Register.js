@@ -134,6 +134,7 @@ function Register({
                                         isError={touched.address && Boolean(errors.address) }
                                         message={touched.address && errors.address}
                                     />
+                                    <label>Photo</label>
                                     <InputComponent 
                                         placeholder="Photo"
                                         type="file"

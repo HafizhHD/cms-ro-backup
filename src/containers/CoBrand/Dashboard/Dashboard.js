@@ -1,17 +1,109 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Dashboard.scss';
 import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
+import axios from 'axios';
+import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 
 function Dashboard() {
+
+    const [isLoading, setLoading] = useState(true);
+    const [programList, setProgramList] = useState();
+    const [contentList, setContentList] = useState();
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const programParams = {
+        whereKeyValues: {
+            cobrandEmail: userData.email
+        },
+        limit: 4
+    };
+    const contentParams = {
+        whereKeyValues: {
+            cobrandEmail: userData.email
+        },
+        limit: 6
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
+            data: programParams,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            let programs = response.data.programs.map((d) => (
+                <div className="Dashboard__programs__list">
+                    <h3>{d.programName}</h3>
+                    <p>{d.ProgramDescription}</p>
+                </div>
+            ));
+            setProgramList(programs);
+            console.log(programs);
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+                data: contentParams,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                let contents = response.data.contents.map((d) => (
+                    <div className="Dashboard__contents__item">
+                        <div className="Dashboard__contents__cover">
+                            <img 
+                                src={d.contentThumbnail} 
+                                className="Dashboard__contents__cover-img"
+                            />
+                            <div className="Dashboard__contents__shadow"></div>
+                        </div>
+                        <div className="Dashboard__contents__description">
+                            <h3>{d.contentName}</h3>
+                            <p>
+                                {d.contentDescription}
+                            </p>
+                            <NavLink to="/content/view"
+                                onClick={() => {
+                                    localStorage.setItem('contentSelected', d._id)
+                                }}>Lihat Detail 
+                                <FiArrowRightCircle className="Dashboard__cards_item-icon" />
+                            </NavLink>
+                        </div>
+                    </div>
+                ));
+                setContentList(contents);
+                console.log(contents);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setLoading(false);
+            });
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+        
+    }, []);
+
+    if(isLoading) {
+        return <RKLoader/>
+    }
+
     return (
         <div className="Dashboard">
-            <Heading headingName="SUBSCRIPTION" />
+            {/*<Heading headingName="SUBSCRIPTION" />*/}
             
 
             {/* Dashboard Cards  */}
-            <div className="Dashboard__cards">
+            {/*<div className="Dashboard__cards">
                 <div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
                         <h3>New Subscriber</h3>
@@ -49,7 +141,7 @@ function Dashboard() {
                         </NavLink>
                     </div>
                 </div>
-            </div>
+            </div>*/}
             {/* End Dashboard Cards  */}
 
 
@@ -57,24 +149,9 @@ function Dashboard() {
             <h1>ONGOING PROGRAM</h1>
 
             <div className="Dashboard__programs">
-                <div className="Dashboard__programs__list">
-                    
-                    <h3>Belajar Matematika</h3>
-                    
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
-                <div className="Dashboard__programs__list">
-                    <h3>Belajar kompetisi Kreatif</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
-                <div className="Dashboard__programs__list">
-                    <h3>Donasi</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
-                <div className="Dashboard__programs__list">
-                    <h3>Study Tour Bersama</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
+                {programList.length === 0 ? (
+                    <h3>Tidak Ada Program</h3>
+                ) : programList}
             </div>
             {/* End Program */}
 
@@ -82,127 +159,9 @@ function Dashboard() {
             {/* Content */}
             <h1>CONTENT LIST</h1>
             <div className="Dashboard__contents">
-                <div className="Dashboard__contents__item">
-                    <div className="Dashboard__contents__cover">
-                        <img 
-                            src={'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1560&q=80'} 
-                            alt="Content 1" 
-                            className="Dashboard__contents__cover-img"
-                        />
-                        <div className="Dashboard__contents__shadow"></div>
-                    </div>
-                    <div className="Dashboard__contents__description">
-                        <h3>Mangga Senyum Menarik</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                        <NavLink to="/">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                </div>
-
-                <div className="Dashboard__contents__item">
-                    <div className="Dashboard__contents__cover">
-                        <img 
-                            src={'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1502&q=80'} 
-                            alt="Content 2" 
-                            className="Dashboard__contents__cover-img"
-                        />
-                        <div className="Dashboard__contents__shadow"></div>
-                    </div>
-                    <div className="Dashboard__contents__description">
-                        <h3>Burger mengandung banyak kegunaan </h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                        <NavLink to="/">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                </div>
-
-
-                <div className="Dashboard__contents__item">
-                    <div className="Dashboard__contents__cover">
-                        <img 
-                            src={'https://images.unsplash.com/photo-1534080564583-6be75777b70a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'} 
-                            alt="Content 3" 
-                            className="Dashboard__contents__cover-img"
-                        />
-                        <div className="Dashboard__contents__shadow"></div>
-                    </div>
-                    <div className="Dashboard__contents__description">
-                        <h3>Enaknya menyantap seafood di bulan puasa</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                        <NavLink to="/">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                    
-                </div>
-
-                <div className="Dashboard__contents__item">
-                    <div className="Dashboard__contents__cover">
-                        <img 
-                            src={'https://images.unsplash.com/photo-1621570169694-4867389dcc66?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'} 
-                            alt="Content 4" 
-                            className="Dashboard__contents__cover-img"
-                        />
-                        <div className="Dashboard__contents__shadow"></div>
-                    </div>
-                    <div className="Dashboard__contents__description">
-                        <h3>Cinta menyatukan kita</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                        <NavLink to="/">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                </div>
-
-                <div className="Dashboard__contents__item">
-                    <div className="Dashboard__contents__cover">
-                        <img 
-                            src={'https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'} 
-                            alt="Content 5" 
-                            className="Dashboard__contents__cover-img"
-                        />
-                        <div className="Dashboard__contents__shadow"></div>
-                    </div>
-                    <div className="Dashboard__contents__description">
-                        <h3>Ayo belajar</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                        <NavLink to="/">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                </div>
-
-                <div className="Dashboard__contents__item">
-                    <div className="Dashboard__contents__cover">
-                        <img 
-                            src={'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2689&q=80'} 
-                            alt="Content 6" 
-                            className="Dashboard__contents__cover-img"
-                        />
-                        <div className="Dashboard__contents__shadow"></div>
-                    </div>
-                    <div className="Dashboard__contents__description">
-                        <h3>Kebersamaan di tengah pandemic</h3>
-                        <p>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                        <NavLink to="/">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                </div>
+                {contentList.length === 0 ? (
+                    <h3>Tidak Ada Konten</h3>
+                ) : contentList}
 
                 
                 
