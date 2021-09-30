@@ -17,11 +17,17 @@ function Dashboard() {
         whereKeyValues: {
             cobrandEmail: userData.email
         },
+        orderKeyValues: {
+            startDate: -1
+        },
         limit: 4
     };
     const contentParams = {
         whereKeyValues: {
             cobrandEmail: userData.email
+        },
+        orderKeyValues: {
+            startDate: -1
         },
         limit: 6
     }
