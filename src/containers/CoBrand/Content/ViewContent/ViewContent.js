@@ -74,31 +74,47 @@ function ViewContent() {
                     <h3><FiTrash2 /> Delete This Content</h3>
                 </NavLink>
             </div>
-            <div className="content_detail">
-                <div className="content_detail_top">
-                    <div className="content_detail_top_img">
-                        <img src={content.contentThumbnail} className="content_detail_top_img_image"/>
+            <div className="content">
+                <div className="content_detail">
+                    <h2>Content Detail</h2>
+
+                    <div className="content_detail_top">
+                        <div className="content_detail_top_img">
+                            <img src={content.contentThumbnail} className="content_detail_top_img_image"/>
+                        </div>
+                        <div className="content_detail_top_title">
+                            <h2>{content.contentName}</h2>
+                        </div>
                     </div>
-                    <div className="content_detail_top_title">
-                        <h2>{content.contentName}</h2>
+                    <div className="content_detail_bottom">
+                        <div className="content_detail_bottom_detail">
+                            <p className="content_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
+                            <p className="content_detail_group"><FiFileText /> Type: <span>{content.contentType}</span> </p>
+                        </div>
+                        <div className="content_detail_bottom_description">
+                            <p className="content_detail_group">Description:</p>
+                            <p>{content.contentDescription}</p>
+                        </div>
+                        <div className="content_detail_bottom_contents">
+                            <p className="content_detail_group">Contents:</p>
+                            {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
+                                <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                            ) : (
+                                <p>{content.contents}</p>
+                            )}
+                        </div>
                     </div>
                 </div>
-                <div className="content_detail_bottom">
-                    <div className="content_detail_bottom_detail">
-                        <p className="content_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
-                        <p className="content_detail_group"><FiFileText /> Type: <span>{content.contentType}</span> </p>
-                    </div>
-                    <div className="content_detail_bottom_description">
-                        <p className="content_detail_group">Description:</p>
-                        <p>{content.contentDescription}</p>
-                    </div>
-                    <div className="content_detail_bottom_contents">
-                        <p className="content_detail_group">Contents:</p>
-                        {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
-                            <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
-                        ) : (
-                            <p>{content.contents}</p>
-                        )}
+                <div className="content_preview">
+                    <h2>Content Preview pada Smartphone</h2>
+                    <div class="content_preview_smartphone">
+                        <div class="content_preview_smartphone_display">
+                            {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
+                                <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                            ) : (
+                                <p>{content.contents}</p>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -5,10 +5,10 @@ function DashboardHelp() {
     return (
         <div className="HelpOverlay">
             <div className="HelpOverlay-content">
-                <h1>Guide Cobrand Ruang Keluarga</h1>
-                <h2>Dashboard Cobrand Ruang Keluarga</h2>
+                <h1>Guide Co-Brand Ruang Keluarga</h1>
+                <h2>Dashboard Co-Brand Ruang Keluarga</h2>
                 <p><br/></p>
-                <p>Setelah berhasil login, Anda akan masuk ke halaman Dashboard Cobrand Ruang Keluarga. Pada tampilan awal, Anda akan menemukan tombol berikut di bagian<br/></p>
+                <p>Setelah berhasil login, Anda akan masuk ke halaman Dashboard Co-Brand Ruang Keluarga. Pada tampilan awal, Anda akan menemukan tombol berikut di bagian<br/></p>
                 <ol>
                     <li>Kanan atas, yaitu:<br/>
                         <ul>

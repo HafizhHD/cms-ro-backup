@@ -105,11 +105,11 @@ function Dashboard() {
 
     return (
         <div className="Dashboard">
-            {/*<Heading headingName="SUBSCRIPTION" />*/}
+            <Heading headingName="SUBSCRIPTION" />
             
 
             {/* Dashboard Cards  */}
-            {/*<div className="Dashboard__cards">
+            <div className="Dashboard__cards">
                 <div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
                         <h3>New Subscriber</h3>
@@ -125,7 +125,7 @@ function Dashboard() {
                 </div>
                 <div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
-                        <h3>Active Devices</h3>
+                        <h3>Active Subs</h3>
                         <FiAlertCircle className="Dashboard__cards_item-icon" />
                     </div>
                     <h1>4213</h1>
@@ -147,7 +147,7 @@ function Dashboard() {
                         </NavLink>
                     </div>
                 </div>
-            </div>*/}
+            </div>
             {/* End Dashboard Cards  */}
 
 

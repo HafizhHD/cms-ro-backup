@@ -109,7 +109,7 @@ function Layout({
                         >
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0);"
+                                    <a href="#/"
                                     onClick={() => {
                                         setShowHelp(true);
                                     }}>Bantuan</a>

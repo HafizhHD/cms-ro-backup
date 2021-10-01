@@ -1,8 +1,7 @@
 .action_btn {
     display: grid;
     width: 100%;
-    grid-template-columns: 13rem 1fr 13rem 1fr;
-    padding: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
 
     &_nav {
         text-decoration: none;
@@ -10,65 +9,127 @@
     }
 }
 
-.content_detail {
+.content {
     display: grid;
-    box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
-    border-radius: 10px;
+    position: absolute;
+    height: 60vh;
+    grid-template-columns: 1fr 1fr;
 
-    &_top {
-        background-color: #fff;
-        grid-template-rows: max-content max-content max-content;
-        border-bottom: 1px solid #ddd;
-        border-radius: 10px 10px 0 0;
+    &_detail {
+        grid-column: 1/2;
+        border-radius: 10px;
+        overflow-y: scroll;
+
+        &_top {
+            background-color: #fff;
+            grid-template-rows: max-content max-content max-content;
+            border-bottom: 1px solid #ddd;
+            border-radius: 10px 10px 0 0;
+            
+            &_img {
+
+                &_image {
+                    border-radius: 10px 10px 0 0;
+                    width: 100%;
+                    height: 20vw;
+                    object-fit: cover;
+                }
+            }
+
+            &_title {
+                display: grid;
+                justify-content: center;
+                text-align: center;
+                padding: 1rem;
+                font-family: inherit;
+
+                h2 {
+                    font-size: 4vw;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        &_bottom {
+            padding: 1.5rem;
+            background-color: #eee;
+            font-family: "Inter", sans-serif;
+            font-size: 1.2rem;
+
+            &_detail {
+                padding-bottom: 1.5rem;
+                font-weight: 10;
+            }
+
+            &_description {
+                padding-bottom: 1.5rem;
+                white-space: pre-line;
+                font-weight: 10;
+            }
+
+            &_contents {
+                white-space: pre-line;
+                font-weight: 10;
+            }
+        }
+
+        &_group {
+            font-weight: 800;
+        }
+    }
+
+    &_preview {
+        grid-column: 2/3;
+        align-items: center;
+        justify-content: center;
+        /* The device with borders */
+        &_smartphone {
+            position: relative;
+            width: 360px;
+            height: 640px;
+            margin: auto;
+            border: 16px black solid;
+            border-top-width: 60px;
+            border-bottom-width: 60px;
+            border-radius: 36px;
+
         
-        &_img {
+            /* The horizontal line on the top of the device */
+            &:before {
+                content: '';
+                display: block;
+                width: 60px;
+                height: 5px;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #333;
+                border-radius: 10px;
+            }
+            
+            /* The circle on the bottom of the device */
+            &:after {
+                content: '';
+                display: block;
+                width: 35px;
+                height: 35px;
+                position: absolute;
+                left: 50%;
+                bottom: -65px;
+                transform: translate(-50%, -50%);
+                background: #333;
+                border-radius: 50%;
+            }
 
-            &_image {
-                border-radius: 10px 10px 0 0;
+            &_display {
                 width: 100%;
-                height: 20vw;
-                object-fit: cover;
+                height: 100%;
+                background: white;
+                overflow-y: scroll;
+                text-align: justify;
+                white-space: pre-line;
             }
         }
-
-        &_title {
-            display: grid;
-            justify-content: center;
-            text-align: center;
-            padding: 1rem;
-            font-family: inherit;
-
-            h2 {
-                font-size: 4vw;
-                font-weight: 600;
-            }
-        }
-    }
-
-    &_bottom {
-        padding: 1.5rem;
-        background-color: #eee;
-        font-family: "Inter", sans-serif;
-        font-size: 1.2rem;
-
-        &_detail {
-            padding-bottom: 1.5rem;
-            font-weight: 10;
-        }
-
-        &_description {
-            padding-bottom: 1.5rem;
-            white-space: pre-line;
-            font-weight: 10;
-        }
-
-        &_contents {
-            white-space: pre-line;
-            font-weight: 10;
-        }
-    }
-
-    &_group {
-        font-weight: 800;
     }
 }

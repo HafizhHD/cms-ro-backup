@@ -5,7 +5,7 @@ function LoginHelp() {
     return (
         <div className="HelpOverlay">
             <div className="HelpOverlay-content">
-                <h1>Guide Cobrand Ruang Keluarga</h1>
+                <h1>Guide Co-Brand Ruang Keluarga</h1>
                 <h2>Registrasi</h2>
                 <p>Pada halaman utama (Login), klik pada tulisan <span className="HelpOverlay-content-keyword">Daftar Sekarang</span> untuk masuk ke halaman registrasi. Pada halaman registrasi, Anda harus mengisi delapan kolom yang disediakan, yaitu:</p>
                 <p><br/></p>
@@ -15,12 +15,12 @@ function LoginHelp() {
                     <li>Confirm Password (isi harus sama dengan password)</li>
                     <li>Your Name (Nama Anda)</li>
                     <li>Your Brand Name (Nama Brand Anda)</li>
-                    <li>Phone Number (Nomor Telepon yang terhubung dengan brand Anda)</li>
+                    <li>Phone Number (Nomor Telepon yang terhubung dengan Brand Anda)</li>
                     <li>Address (Alamat Brand Anda)</li>
                     <li>Photo (Foto atau Gambar Logo dari Brand Anda)</li>
                 </ol>
                 <p><br/></p>
-                <p>Setelah mengisi delapan kolom di atas, klik <span className="HelpOverlay-content-keyword">Sign Up</span> untuk mendaftarkan Brand Anda. Jika berhasil, Anda akan dialihkan ke halaman Login untuk masuk.</p>
+                <p>Setelah mengisi delapan kolom di atas, klik <span className="HelpOverlay-content-keyword">Sign Up</span> untuk mendaftarkan Brand Anda. Jika berhasil, Anda akan dialihkan ke halaman <span className="HelpOverlay-content-keyword">Login</span> untuk masuk.</p>
                 <p><br/></p>
                 <p><br/></p>
                 <h2>Login</h2>
