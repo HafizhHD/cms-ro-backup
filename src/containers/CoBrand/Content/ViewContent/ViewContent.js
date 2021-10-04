@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../../components/UI/Heading/Heading';
-import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewContent.scss';
@@ -90,6 +90,7 @@ function ViewContent() {
                         <div className="content_detail_bottom_detail">
                             <p className="content_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
                             <p className="content_detail_group"><FiFileText /> Type: <span>{content.contentType}</span> </p>
+                            <p className="content_detail_group"><FiLink /> Source: <span>{content.contentSource}</span> </p>
                         </div>
                         <div className="content_detail_bottom_description">
                             <p className="content_detail_group">Description:</p>
@@ -106,7 +107,7 @@ function ViewContent() {
                     </div>
                 </div>
                 <div className="content_preview">
-                    <h2>Content Preview pada Smartphone</h2>
+                    <h2>Content Preview pada Aplikasi Smartphone</h2>
                     <div class="content_preview_smartphone">
                         <div class="content_preview_smartphone_display">
                             {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (

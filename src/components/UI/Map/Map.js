@@ -1,5 +1,6 @@
-import React from 'react';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import React, { useState, useEffect } from 'react';
+import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
+import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Map = ReactMapboxGl({
@@ -7,14 +8,21 @@ const Map = ReactMapboxGl({
       'pk.eyJ1Ijoid2FoeXVhbGZhcmlzaSIsImEiOiJja3B3Mm5ta3QxZ2loMnBxcjUyMXdxaWE4In0.MAGeb1tYnIwwMx9chvnHwg'
 });
 
+export const accessToken = 'pk.eyJ1Ijoid2FoeXVhbGZhcmlzaSIsImEiOiJja3B3Mm5ta3QxZ2loMnBxcjUyMXdxaWE4In0.MAGeb1tYnIwwMx9chvnHwg';
 
-const GoogleMaps = (props) => {
+const GoogleMaps = ({search}) => {
+    console.log(search);
+    
     return (
         <Map
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
             height: '50vh'
           }}
+          center={
+            search ? search.center: [10, 10]
+          }
+          zoom={[11]}
         >
         <Layer
           type="symbol" 
@@ -22,7 +30,7 @@ const GoogleMaps = (props) => {
           layout={{ 'icon-image': 'marker-15' }}
         >
           <Feature coordinates={
-              [-0.481747846041145, 51.3233379650232]
+              search ? search.center: [5, 5]
           } />
         </Layer>
       </Map>
