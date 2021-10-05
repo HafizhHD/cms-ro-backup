@@ -58,7 +58,7 @@ function ViewContent() {
     }
 
     return (
-        <>
+        <div className="container">
             <Heading headingName="Content" routes={[
                 { path: '/content', name: 'On Going Content' },
                 { path: '/content/view', name: 'View Content Detail' }
@@ -70,14 +70,19 @@ function ViewContent() {
                 <NavLink to="/content/edit" className="action_btn_nav">
                     <h3><FiEdit /> Edit This Content</h3>
                 </NavLink>
-                <NavLink to="/content" className="action_btn_nav">
+                <span 
+                    onClick={() => {
+                        localStorage.setItem('contentDeleting', content._id);
+                    }}><NavLink to="/content" className="action_btn_nav">
                     <h3><FiTrash2 /> Delete This Content</h3>
-                </NavLink>
+                </NavLink></span>
+            </div>
+            <div className="section_title">
+                <h2>Content Detail</h2>
+                <h2>Content Preview pada Aplikasi Smartphone</h2>
             </div>
             <div className="content">
                 <div className="content_detail">
-                    <h2>Content Detail</h2>
-
                     <div className="content_detail_top">
                         <div className="content_detail_top_img">
                             <img src={content.contentThumbnail} className="content_detail_top_img_image"/>
@@ -107,11 +112,18 @@ function ViewContent() {
                     </div>
                 </div>
                 <div className="content_preview">
-                    <h2>Content Preview pada Aplikasi Smartphone</h2>
-                    <div class="content_preview_smartphone">
-                        <div class="content_preview_smartphone_display">
+                    <div className="content_preview_smartphone">
+                        <div className="content_preview_smartphone_display">
+                            <div className="content_preview_smartphone_display_top">
+                                <div className="content_preview_smartphone_display_top_img">
+                                    <img src={content.contentThumbnail} className="content_preview_smartphone_display_top_img_image"/>
+                                </div>
+                                <div className="content_preview_smartphone_display_top_title">
+                                    <h2>{content.contentName}</h2>
+                                </div>
+                            </div>
                             {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
-                                <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                                <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{__html: content.contents}}></div>
                             ) : (
                                 <p>{content.contents}</p>
                             )}
@@ -119,7 +131,7 @@ function ViewContent() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

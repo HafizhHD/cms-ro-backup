@@ -1,12 +1,19 @@
 .action_btn {
     display: grid;
     width: 100%;
-    grid-template-columns: 13rem 1fr 13rem 1fr;
-    padding: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0.2vw;
+    text-align: center;
 
     &_nav {
         text-decoration: none;
         color: var(--color-primary);
+
+        h3 {
+            font-size: 1.1rem;
+            padding: 0.2vw;
+            border: 2px solid black;
+        }
     }
 }
 

@@ -70,9 +70,12 @@ function ViewProgram() {
                 <NavLink to="/program/edit" className="action_btn_nav">
                     <h3><FiEdit /> Edit This Program</h3>
                 </NavLink>
-                <NavLink to="/program" className="action_btn_nav">
+                <span 
+                    onClick={() => {
+                        localStorage.setItem('programDeleting', program._id);
+                    }}><NavLink to="/program" className="action_btn_nav">
                     <h3><FiTrash2 /> Delete This Program</h3>
-                </NavLink>
+                </NavLink></span>
             </div>
             <div className="program_detail">
                 <div className="program_detail_top">
