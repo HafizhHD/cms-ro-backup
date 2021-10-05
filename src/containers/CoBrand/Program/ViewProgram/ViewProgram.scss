@@ -18,29 +18,30 @@
 }
 
 .program_detail {
-    display: grid;
     box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
     border-radius: 10px;
 
     &_top {
+        display: grid;
         background-color: #fff;
-        grid-template-rows: max-content max-content max-content;
+        grid-template-columns: 1fr 1fr;
         border-bottom: 1px solid #ddd;
         border-radius: 10px 10px 0 0;
+        max-height: max-content;
         
         &_img {
 
             &_image {
                 border-radius: 10px 10px 0 0;
                 width: 100%;
-                height: 20vw;
-                object-fit: cover;
+                object-fit: scale-down;
             }
         }
 
         &_title {
             display: grid;
             justify-content: center;
+            align-self: center;
             text-align: center;
             padding: 1rem;
             font-family: inherit;
