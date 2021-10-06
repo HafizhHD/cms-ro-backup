@@ -12,6 +12,7 @@ function ViewContent() {
     const [content, setContent] = useState();
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
+    const [isActive, setActive] = useState(true);
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -23,7 +24,7 @@ function ViewContent() {
         console.log(id);
         if(id) {
             const userData = JSON.parse(localStorage.getItem('userData'));
-            const params = {
+            let params = {
                 whereKeyValues: {
                     cobrandEmail: userData.email,
                     _id: id
@@ -41,6 +42,8 @@ function ViewContent() {
             .then(response => {
                 console.log("Response data: ", response.data);
                 setContent(response.data.contents[0]);
+                if(response.data.contents[0].status === 'active') setActive(true);
+                    else setActive(false);
                 console.log("This is ", content);
                 setLoading(false);
                 let date = new Date(response.data.contents[0].startDate).toLocaleDateString("en-UK", dateFormat);
@@ -76,6 +79,44 @@ function ViewContent() {
                     }}><NavLink to="/content" className="action_btn_nav">
                     <h3><FiTrash2 /> Delete This Content</h3>
                 </NavLink></span>
+                <div className="action_btn_switch">
+                    <p className="action_btn_switch_status">Status:</p>
+                    <p className="action_btn_switch_inactive">Inactive</p>
+                    <label className="action_btn_switch_switch">
+                        <input type="checkbox" className="action_btn_switch_switch_checkbox"
+                            defaultChecked={isActive}
+                            onChange={() => {
+                                let changedStatus = isActive ? "inactive" : "active";
+                                let param = {
+                                    whereValues: {
+                                        _id: content._id
+                                    },
+                                    newValues: {
+                                        status: changedStatus
+                                    }
+                                }
+                                console.log(param);
+                                axios({
+                                    method: 'post',
+                                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
+                                    data: param,
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                })
+                                .then(response => {
+                                    console.log("Response data: ", response.data);
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    setLoading(false);
+                                });
+                                setActive(!isActive);
+                            }}></input>
+                        <span className="action_btn_switch_switch_slider"></span>
+                    </label>
+                    <p className="action_btn_switch_active">Active</p>
+                </div>
             </div>
             <div className="section_title">
                 <h2>Content Detail</h2>

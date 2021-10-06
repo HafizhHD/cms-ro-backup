@@ -3,11 +3,14 @@
 }
 
 .action_btn {
+    background: linear-gradient(180deg, #ffffff 75%, #dddddd 100%);
     display: grid;
     width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 0.2vw;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 0.2rem;
     text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
 
     &_nav {
         text-decoration: none;
@@ -16,7 +19,88 @@
         h3 {
             font-size: 1.1rem;
             padding: 0.2vw;
-            border: 2px solid black;
+            border-right: 1px solid black;
+        }
+    }
+
+    &_switch {
+        padding-left: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        align-items: center;
+        justify-content: center;
+
+        &_status {
+            text-align: left;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+
+        &_inactive {
+            text-align: right;
+            font-weight: 400;
+            padding-right: 1rem;
+        }
+
+        &_active {
+            text-align: left;
+            font-weight: 400;
+            padding-left: 1rem;
+        }
+        
+        &_switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+
+            &_checkbox {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            &_slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 34px;
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    height: 26px;
+                    width: 26px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                    border-radius: 50%;
+                }
+            }
+
+
+
+            &_checkbox:checked + &_slider {
+                background-color: var(--color-primary);
+            }
+
+            &_checkbox:focus + &_slider {
+                box-shadow: 0 0 1px var(--color-primary);
+            }
+
+            &_checkbox:checked + &_slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
         }
     }
 }
