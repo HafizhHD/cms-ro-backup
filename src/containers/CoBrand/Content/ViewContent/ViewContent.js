@@ -120,6 +120,9 @@ function ViewContent() {
                                 </div>
                                 <div className="content_preview_smartphone_display_top_title">
                                     <h2>{content.contentName}</h2>
+                                    <br/>
+                                    <p>{startDate}</p>
+                                    <p>Sumber: {content.contentSource}</p>
                                 </div>
                             </div>
                             {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
