@@ -91,7 +91,8 @@ export const validationContent = yup.object({
                 }
             }
         ),
-    startDate: yup.date('Insert start date').required('Date is required')
+    startDate: yup.date('Insert start date').required('Date is required'),
+    isActive: yup.boolean()
 })
 
 export const validationContentEdit = yup.object({

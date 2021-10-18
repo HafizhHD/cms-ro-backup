@@ -194,7 +194,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
 
 }
 
-export const addContent = ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, history ) => {
+export const addContent = ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, isActive, history ) => {
     return dispatch => {
         dispatch( authStart() );
 
@@ -202,6 +202,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
         promise.then((result) => {
             console.log(typeof result);
             const contentThumbnail = result;
+            let status = isActive ? 'active' : 'inactive';
 
             if(contentType === 'Video') {
                 contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
@@ -247,6 +248,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
                     contentSource,
                     contentThumbnail,
                     contents,
+                    status,
                     startDate
                 };
 

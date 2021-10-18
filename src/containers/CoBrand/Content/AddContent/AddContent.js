@@ -90,13 +90,14 @@ function AddContent({
                     contentSource: '',
                     contentThumbnail: '',
                     contents: '',
-                    startDate: ''
+                    startDate: '',
+                    isActive: false
                 }}
                 validationSchema = {validationContent}
                 validateOnChange = {true}
                 onSubmit = { values => {
                     window.scrollTo(0,0);
-                    onAddContent( cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, history)
+                    onAddContent( cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, values.isActive, history)
                 }}
             >
             {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
@@ -244,6 +245,23 @@ function AddContent({
                             />
                             <span className="message__error">{errors.startDate}</span>
                         </div>
+                        <div className="form-group">
+                            <div className="form-group_switch">
+                                <p className="form-group_switch_status">Status:</p>
+                                <p className="form-group_switch_inactive">Inactive</p>
+                                <label className="form-group_switch_switch">
+                                    <input type="checkbox" className="form-group_switch_switch_checkbox"
+                                        name="isActive"
+                                        defaultChecked={values.isActive}
+                                        onChange={() => {
+                                            values.isActive = !values.isActive;
+                                            console.log(values.isActive);
+                                        }}></input>
+                                    <span className="form-group_switch_switch_slider"></span>
+                                </label>
+                                <p className="form-group_switch_active">Active</p>
+                            </div>
+                        </div>
                         <div>
                             <button className="btn btn-submit" type="submit">
                                 Post Content
@@ -268,8 +286,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddContent: ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, history) =>
-            dispatch(addContent( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, history))
+        onAddContent: ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, isActive, history) =>
+            dispatch(addContent( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, isActive, history))
     }
 }
 
