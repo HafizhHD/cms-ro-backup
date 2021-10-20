@@ -62,7 +62,7 @@ function Layout({
                             onClick={onClickNotifButton}
                         >
                             <FiBell className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
-                            <div className="Header__notification-badge">6</div>
+                            {/*<div className="Header__notification-badge">6</div>*/}
                         </div>
                         <nav 
                             ref={dropdownRefNotification}
