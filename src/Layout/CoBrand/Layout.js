@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 
 import './../Layout.scss';
-import Logo from './../../assets/img/Logo_1.png';
+import Logo from './../../assets/img/Logo_2.png';
 import Navigations from '../../components/Navigations/Navigations';
 import { MenuCoBranding } from './../../components/Navigations/routes';
 import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
@@ -62,7 +62,7 @@ function Layout({
                             onClick={onClickNotifButton}
                         >
                             <FiBell className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
-                            <div className="Header__notification-badge">6</div>
+                            {/*<div className="Header__notification-badge">6</div>*/}
                         </div>
                         <nav 
                             ref={dropdownRefNotification}

@@ -11,6 +11,7 @@ function Dashboard() {
     const [isLoading, setLoading] = useState(true);
     const [programList, setProgramList] = useState();
     const [contentList, setContentList] = useState();
+    const [countVariable, setCountVariable] = useState();
 
     const userData = JSON.parse(localStorage.getItem('userData'));
     const programParams = {
@@ -85,7 +86,37 @@ function Dashboard() {
                 ));
                 setContentList(contents);
                 console.log(contents);
-                setLoading(false);
+                let countingVariable = {
+                    countProgram: 0,
+                    countContent: 0
+                }
+                let params1 = {
+                    whereKeyValues: {
+                        cobrandEmail: userData.email
+                    }
+                }
+                const promiseP = axios({
+                    method: 'post',
+                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
+                    data: params1,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const promiseC = axios({
+                    method: 'post',
+                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+                    data: params1,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                Promise.all([promiseP, promiseC]).then(response => {
+                    countingVariable.countProgram = response[0].data.programs.length;
+                    countingVariable.countContent = response[1].data.contents.length;
+                    setCountVariable(countingVariable);
+                    setLoading(false);
+                });
             })
             .catch(error => {
                 console.log(error);
@@ -105,17 +136,17 @@ function Dashboard() {
 
     return (
         <div className="Dashboard">
-            <Heading headingName="SUBSCRIPTION" />
+            <Heading headingName="YOUR CO-BRAND DATA" />
             
 
             {/* Dashboard Cards  */}
             <div className="Dashboard__cards">
                 <div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
-                        <h3>New Subscriber</h3>
+                        <h3>Programs Added</h3>
                         <FiAlertCircle className="Dashboard__cards_item-icon" />
                     </div>
-                    <h1>31</h1>
+                    <h1>{countVariable.countProgram}</h1>
                     
                     <div className="Dashboard__cards_item-details">
                         <NavLink to="/">Lihat Detail 
@@ -125,17 +156,17 @@ function Dashboard() {
                 </div>
                 <div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
-                        <h3>Active Subs</h3>
+                        <h3>Contents Added</h3>
                         <FiAlertCircle className="Dashboard__cards_item-icon" />
                     </div>
-                    <h1>4213</h1>
+                    <h1>{countVariable.countContent}</h1>
                     <div className="Dashboard__cards_item-details">
                         <NavLink to="/">Lihat Detail 
                             <FiArrowRightCircle className="Dashboard__cards_item-icon" />
                         </NavLink>
                     </div>
                 </div>
-                <div className="Dashboard__cards_item">
+                {/*<div className="Dashboard__cards_item">
                     <div className="Dashboard__cards_item-heading">
                         <h3>Inactive Subs</h3>
                         <FiAlertCircle className="Dashboard__cards_item-icon" />
@@ -146,7 +177,7 @@ function Dashboard() {
                             Lihat Detail <FiArrowRightCircle className="Dashboard__cards_item-icon" />
                         </NavLink>
                     </div>
-                </div>
+                </div>*/}
             </div>
             {/* End Dashboard Cards  */}
 
