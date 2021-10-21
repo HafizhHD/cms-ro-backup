@@ -40,8 +40,8 @@ export const auth = ( email, password ) => {
                     localStorage.setItem('accessToken', loginData.resultData.token);
                     localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
                     console.log('User Data: ', localStorage.getItem('userData'));
-                    dispatch( authSuccess() );
                     localStorage.removeItem('loginMessage');
+                    dispatch( authSuccess() );
                 }
                 else {
                     localStorage.setItem('loginMessage', "Incorrect Email/Password.");
