@@ -62,6 +62,7 @@ function Login({
                         <div className="Login-middle-right">
                             <div className="Login-middle-right-heading mb-small">
                                 <h1>Mulai Kelola Pelanggan Anda Sekarang.</h1>
+                                {localStorage.getItem('loginMessage') ? <p>{localStorage.getItem('loginMessage')}</p> : null}
                             </div>
                             <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 

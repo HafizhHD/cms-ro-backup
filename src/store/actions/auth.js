@@ -34,16 +34,16 @@ export const auth = ( email, password ) => {
                 },
             })
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 let loginData = response.data;
-                if (loginData.resultCode === "OK" && loginData.resultData) {
+                if (loginData.resultCode === "OK" && loginData.resultData && loginData.resultData.user.password === password) {
                     localStorage.setItem('accessToken', loginData.resultData.token);
                     localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
                     console.log('User Data: ', localStorage.getItem('userData'));
                     dispatch( authSuccess() );
                 }
                 else {
-                    console.log("Login failed.");
+                    localStorage.setItem('loginMessage', "Incorrect Email/Password.");
                     dispatch(authFailed());
                 }
             })
@@ -101,6 +101,7 @@ export const registerAuth = ( email, accountName, cobrandName, photo, phoneNumbe
                 })
                 .then(response => {
                     console.log('Success:', response.data);
+                    localStorage.setItem('loginMessage', "Successfully registered. You can now log in.");
                 })
                 .catch((error) => {
                     console.error('Error:', error);
