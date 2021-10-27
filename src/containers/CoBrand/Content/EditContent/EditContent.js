@@ -84,11 +84,11 @@ function EditContent({
                     setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
                 }
                 else if(response.data.contents[0].contentType === 'Image') {
-                    let con1 = con.getElementByTagName('img')[0];
+                    let con1 = con.getElementsByTagName('img')[0];
                     setConFromImgVid(con1.src);
                 }
                 else if(response.data.contents[0].contentType === 'Video') {
-                    let con1 = con.getElementByTagName('iframe')[0];
+                    let con1 = con.getElementsByTagName('iframe')[0];
                     setConFromImgVid(con1.src);
                 }
                 let date = response.data.contents[0].startDate.split('T')[0];
