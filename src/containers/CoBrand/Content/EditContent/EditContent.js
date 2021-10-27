@@ -20,6 +20,7 @@ function EditContent({
     const [programList, setProgramList] = useState();
     const [content, setContent] = useState();
     const [contentStartDate, setContentStartDate] = useState();
+    const [conFromImgVid, setConFromImgVid] = useState('');
 
     const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
     const toolbarConfig = {
@@ -76,7 +77,20 @@ function EditContent({
             .then(response => {
                 console.log("Response data: ", response.data);
                 setContent(response.data.contents[0]);
-                setTextValue(RichTextEditor.createValueFromString(response.data.contents[0].contents, 'html'));
+                let con = new DOMParser().parseFromString(response.data.contents[0].contents, 'text/html');
+                console.log(con);
+                if(response.data.contents[0].contentType === 'Artikel') {
+                    let con1 = con.getElementById('contents');
+                    setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
+                }
+                else if(response.data.contents[0].contentType === 'Image') {
+                    let con1 = con.getElementByTagName('img')[0];
+                    setConFromImgVid(con1.src);
+                }
+                else if(response.data.contents[0].contentType === 'Video') {
+                    let con1 = con.getElementByTagName('iframe')[0];
+                    setConFromImgVid(con1.src);
+                }
                 let date = response.data.contents[0].startDate.split('T')[0];
                 console.log(date);
                 setContentStartDate(date);
@@ -122,7 +136,7 @@ function EditContent({
                     contentDescription: content.contentDescription,
                     contentType: content.contentType,
                     contentSource: content.contentSource,
-                    contents: content.contents,
+                    contents: content.contentType !== 'Artikel' ? conFromImgVid : '',
                     startDate: contentStartDate
                 }}
                 validationSchema = {validationContentEdit}

@@ -287,6 +287,39 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
 
         console.log('Photo is empty:', photo === '');
         if(photo === '') {
+            if(contentType === 'Video') {
+                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+            }
+            else if(contentType === 'Image') {
+                contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
+            }
+            else {
+                contents = '<!DOCTYPE html>'
+                            + '<html lang="en">'
+                                + '<head>'
+                                    + '<meta charset="utf-8">'
+                                    + '<style>'
+                                        + '#contents {'
+                                            + 'overflow-y: scroll;'
+                                            + 'text-align: justify;'
+                                            + 'white-space: pre-line;'
+                                            + 'font-family: Arial, Helvetica, sans-serif;'
+                                            + 'padding: 1%;'
+                                        + '}'
+                                        + '#contents li {'
+                                            + 'margin-left: 5%;'
+                                        + '}'
+                                    + '</style>'
+                                + '</head>'
+                                + '<body>'
+                                    + '<div id="contents">'
+                                        + contents
+                                    + '</div>'
+                                + '</body>'
+                            + '</html>';
+            }
+
+            console.log(contents);
             setTimeout( () => {
                 let data = {
                     whereValues: {
