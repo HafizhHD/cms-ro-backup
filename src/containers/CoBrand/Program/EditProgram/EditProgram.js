@@ -84,7 +84,6 @@ function EditProgram({
                 <form onSubmit={handleSubmit}>
                     <div className="EditProgram">
                         <h1>Edit Selected Program: {program.programName}</h1>
-                        <p>Can't edit photo (yet) sorry...</p>
                         <div className="form-group">
                             <label>Title</label>
                             <InputComponent 
