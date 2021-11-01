@@ -28,7 +28,7 @@ function AddProgram({
                     programName: '',
                     programDescription: '',
                     programThumbnail: '',
-                    startDate: ''
+                    startDate: new Date().toISOString().split('T')[0]
                 }}
                 validationSchema = {validationProgram}
                 validateOnChange = {true}
@@ -85,6 +85,7 @@ function AddProgram({
                                 type="date"
                                 className="form-group__input"
                                 name="startDate"
+                                min={new Date().toISOString().split('T')[0]}
                                 value={values.startDate}
                                 onChange={handleChange}
                             />

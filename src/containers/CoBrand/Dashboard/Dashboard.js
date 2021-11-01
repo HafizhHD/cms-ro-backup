@@ -149,7 +149,7 @@ function Dashboard() {
                     <h1>{countVariable.countProgram}</h1>
                     
                     <div className="Dashboard__cards_item-details">
-                        <NavLink to="/">Lihat Detail 
+                        <NavLink to="/program">Lihat Detail 
                             <FiArrowRightCircle className="Dashboard__cards_item-icon" />
                         </NavLink>
                     </div>
@@ -161,7 +161,7 @@ function Dashboard() {
                     </div>
                     <h1>{countVariable.countContent}</h1>
                     <div className="Dashboard__cards_item-details">
-                        <NavLink to="/">Lihat Detail 
+                        <NavLink to="/content">Lihat Detail 
                             <FiArrowRightCircle className="Dashboard__cards_item-icon" />
                         </NavLink>
                     </div>

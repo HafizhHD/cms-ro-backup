@@ -10,6 +10,7 @@ function Input({
     className,
     message,
     name,
+    min,
     isError
 }) {
     if(type === "textarea") {
@@ -32,23 +33,44 @@ function Input({
         </>
         )
     }
+    else if(type === 'date') {
+        return (
+            <>
+                <input
+                    name={name}
+                    className={className} 
+                    type={type}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    min={min}
+                />
+                {isError && (
+                    <div className="message">
+                        <span className="message__error">{message}</span>
+                    </div>
+                )}
+            </>
+        )
+    }
     else return (
-    <>
-        <input
-            name={name}
-            className={className} 
-            type={type}
-            placeholder={placeholder}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={value}
-        />
-        {isError && (
-            <div className="message">
-                <span className="message__error">{message}</span>
-            </div>
-        )}
-    </>
+        <>
+            <input
+                name={name}
+                className={className} 
+                type={type}
+                placeholder={placeholder}
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+            />
+            {isError && (
+                <div className="message">
+                    <span className="message__error">{message}</span>
+                </div>
+            )}
+        </>
     )
 }
 
