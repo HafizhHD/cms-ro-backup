@@ -153,11 +153,6 @@ function Content() {
                <span>Create New Content</span>  
             </NavLink>
             <div className="Content__table">
-                <input 
-                    type="text" 
-                    className="Content__table__input" 
-                    placeholder="Search"
-                />
                 <TableContent COLUMNS={columns} DATA={contentList}  />
             </div>
             {

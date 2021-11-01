@@ -285,6 +285,7 @@ function EditContent({
                                 className="form-group__input"
                                 name="startDate"
                                 value={values.startDate}
+                                min={new Date().toISOString().split('T')[0]}
                                 onChange={handleChange}
                             />
                             <span className="message__error">{errors.startDate}</span>

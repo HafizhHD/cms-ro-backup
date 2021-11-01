@@ -95,11 +95,6 @@ function Program() {
                <span>Create New Program</span>  
             </NavLink>
             <div className="Program__table">
-                <input 
-                    type="text" 
-                    className="Program__table__input" 
-                    placeholder="Search"
-                />
                 <TableProgram 
                     COLUMNS={columns} 
                     DATA={programList.programs}  

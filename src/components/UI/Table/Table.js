@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { useTable } from 'react-table';
+import { useGlobalFilter, useSortBy, useTable } from 'react-table';
+import { BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import './Table.scss';
 
 function Table({ DATA, COLUMNS }) {
@@ -11,19 +12,43 @@ function Table({ DATA, COLUMNS }) {
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow
+        prepareRow,
+        state,
+        setGlobalFilter
     } = useTable({
         columns: COLUMNS,
         data: data
-    })
+    }
+    , useGlobalFilter
+    , useSortBy)
+
+    const { globalFilter } = state;
 
     return (
+        <>
+        <input 
+            type="text" 
+            placeholder="Search"
+            value={ globalFilter || '' }
+            onChange={(e) => {
+                setGlobalFilter(e.currentTarget.value);
+            }}
+        />
        <table {...getTableProps()}>
            <thead>
                {headerGroups.map(headerGroup => (
                    <tr {...headerGroup.getHeaderGroupProps()}>
                        {headerGroup.headers.map(column => (
-                           <th {...column.getHeaderProps()}> {column.render('Header')} </th>
+                           <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                               {column.render('Header')}
+                                <span>
+                                    {column.isSorted
+                                    ? column.isSortedDesc
+                                        ? (<BiCaretDown/>)
+                                        : (<BiCaretUp/>)
+                                    : ''}
+                                </span>
+                           </th>
                        ))}
                    </tr>
                ))}
@@ -41,6 +66,7 @@ function Table({ DATA, COLUMNS }) {
                 })}
            </tbody>
        </table>
+       </>
     )
 }
 

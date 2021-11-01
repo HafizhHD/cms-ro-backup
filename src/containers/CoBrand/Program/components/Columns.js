@@ -29,6 +29,8 @@ const Columns = [
     {
         Header: 'Action',
         accessor: '_id',
+        disableSortBy: true,
+        disableFilters: true,
         Cell: ({cell}) => (
             <>
                 <NavLink 
