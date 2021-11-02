@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import { useHistory } from 'react-router';
 
 function Dashboard() {
 
@@ -12,6 +13,8 @@ function Dashboard() {
     const [programList, setProgramList] = useState();
     const [contentList, setContentList] = useState();
     const [countVariable, setCountVariable] = useState();
+
+    const history = useHistory();
 
     const userData = JSON.parse(localStorage.getItem('userData'));
     const programParams = {
@@ -46,7 +49,10 @@ function Dashboard() {
         .then(response => {
             let programs = response.data.programs.map((d) => (
                 <div className="Dashboard__programs__list">
-                    <h3>{d.programName}</h3>
+                    <h3 onClick={() => {
+                        localStorage.setItem('programSelected', d._id);
+                        history.push('/program/view');
+                    }}>{d.programName}</h3>
                     <p>{d.ProgramDescription}</p>
                 </div>
             ));

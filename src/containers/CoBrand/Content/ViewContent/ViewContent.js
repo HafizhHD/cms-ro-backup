@@ -5,7 +5,7 @@ import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink } f
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewContent.scss';
-import RKLoader from '../../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 
 function ViewContent() {
 
@@ -156,9 +156,7 @@ function ViewContent() {
                     <div className="content_preview_smartphone">
                         <div className="content_preview_smartphone_display">
                             <div className="content_preview_smartphone_display_top">
-                                <div className="content_preview_smartphone_display_top_img">
-                                    <img src={content.contentThumbnail} className="content_preview_smartphone_display_top_img_image"/>
-                                </div>
+                                <img src={content.contentThumbnail} className="content_preview_smartphone_display_top_img"/>
                                 <div className="content_preview_smartphone_display_top_title">
                                     <h2>{content.contentName}</h2>
                                     <br/>

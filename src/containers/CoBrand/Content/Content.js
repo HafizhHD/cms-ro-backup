@@ -5,7 +5,7 @@ import TableContent from './../../../components/UI/Table/Table';
 import './Content.scss';
 import { FiPlus } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
-import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 

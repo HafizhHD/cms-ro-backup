@@ -63,17 +63,17 @@ function ViewProgram() {
                 { path: '/program', name: 'On Going Program' },
                 { path: '/program/view', name: 'View Program Detail' }
             ]} />
-            <div className="action_btn">
-                <NavLink to="/program" className="action_btn_nav">
+            <div className="program_action_btn">
+                <NavLink to="/program" className="program_action_btn_nav">
                     <h3><FiArrowLeftCircle /> Back to Program List</h3>
                 </NavLink>
-                <NavLink to="/program/edit" className="action_btn_nav">
+                <NavLink to="/program/edit" className="program_action_btn_nav">
                     <h3><FiEdit /> Edit This Program</h3>
                 </NavLink>
                 <span 
                     onClick={() => {
                         localStorage.setItem('programDeleting', program._id);
-                    }}><NavLink to="/program" className="action_btn_nav">
+                    }}><NavLink to="/program" className="program_action_btn_nav">
                     <h3><FiTrash2 /> Delete This Program</h3>
                 </NavLink></span>
             </div>

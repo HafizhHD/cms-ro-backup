@@ -1,4 +1,4 @@
-.action_btn {
+.program_action_btn {
     background: linear-gradient(180deg, #ffffff 75%, #dddddd 100%);
     display: grid;
     width: 100%;
@@ -15,12 +15,12 @@
         h3 {
             font-size: 1.1rem;
             padding: 0.2vw;
-            border-right: 1px solid black;
         }
     }
 }
 
 .program_detail {
+    margin-top: 1rem;
     box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
     border-radius: 10px;
 
@@ -35,9 +35,9 @@
         &_img {
 
             &_image {
-                border-radius: 10px 10px 0 0;
-                width: 100%;
-                object-fit: scale-down;
+                border-radius: 10px 0 0 0;
+                height: 100%;
+                object-fit: contain;
             }
         }
 
@@ -50,7 +50,7 @@
             font-family: inherit;
 
             h2 {
-                font-size: 4vw;
+                font-size: 2rem;
                 font-weight: 600;
             }
         }
@@ -61,6 +61,7 @@
         background-color: #eee;
         font-family: "Inter", sans-serif;
         font-size: 1.2rem;
+        border-radius: 0 0 10px 10px;
 
         &_date {
             padding-bottom: 1.5rem;

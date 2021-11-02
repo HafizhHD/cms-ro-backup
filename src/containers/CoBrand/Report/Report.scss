@@ -79,7 +79,13 @@
 
           }
           &-chart {
+              display: table;
+              height: 80%;
+              width: 100%;
+              justify-content: center;
               & > h2 {
+                  display: table-cell;
+                  vertical-align: middle;
                   text-align: center;
               }
           }
