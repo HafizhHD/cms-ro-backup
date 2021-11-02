@@ -22,36 +22,33 @@ export const auth = ( email, password ) => {
             email,
             password
         };
-
-        setTimeout( () => {
-            //Call API ....
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
-                data: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                //console.log(response.data);
-                let loginData = response.data;
-                if (loginData.resultCode === "OK" && loginData.resultData && loginData.resultData.user.password === password) {
-                    localStorage.setItem('accessToken', loginData.resultData.token);
-                    localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
-                    console.log('User Data: ', localStorage.getItem('userData'));
-                    localStorage.removeItem('loginMessage');
-                    dispatch( authSuccess() );
-                }
-                else {
-                    localStorage.setItem('loginMessage', "Incorrect Email/Password.");
-                    dispatch(authFailed());
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }, 2000);
+        //Call API ....
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
+            data: data,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            //console.log(response.data);
+            let loginData = response.data;
+            if (loginData.resultCode === "OK" && loginData.resultData && loginData.resultData.user.password === password) {
+                localStorage.setItem('accessToken', loginData.resultData.token);
+                localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                console.log('User Data: ', localStorage.getItem('userData'));
+                localStorage.removeItem('loginMessage');
+                dispatch( authSuccess() );
+            }
+            else {
+                localStorage.setItem('loginMessage', "Incorrect Email/Password.");
+                dispatch(authFailed());
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
 }

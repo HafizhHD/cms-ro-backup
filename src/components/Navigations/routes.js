@@ -11,11 +11,11 @@ export const MenuCoBranding = [
         pathName: 'Program',
         icon: <FiActivity className="Aside__Nav_item-icon" />
     },
-    /*{
+    {
         path: '/report',
         pathName: 'Report',
         icon: <FiEdit className="Aside__Nav_item-icon" />
-    },*/
+    },
     {
         path: '/content',
         pathName: 'Content',
