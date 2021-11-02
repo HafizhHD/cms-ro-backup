@@ -68,7 +68,6 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
             console.log(typeof result);
             const programthumnail = result;
 
-            setTimeout( () => {
                 let data = {
                     cobrandEmail,
                     programName,
@@ -98,7 +97,6 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                     dispatch(authFailed());
                 });
                 console.log(data);
-            },2000)
         });
     }
 
@@ -109,7 +107,47 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
         dispatch( authStart() );
         console.log('Photo is empty:', photo === '');
         if(photo === '') {
-            setTimeout( () => {
+            let data = {
+                whereValues: {
+                    cobrandEmail,
+                    _id
+                },
+                newValues: {
+                    programName,
+                    ProgramDescription,
+                    startDate
+                }
+            };
+
+            console.log(data);
+            //Call API ....
+            
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programUpdate',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/program');
+                dispatch(authFailed());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(authFailed());
+            });
+            console.log(data);
+        }
+
+        else {
+            const promise = toBase64(photo);
+            promise.then((result) => {
+            console.log(typeof result);
+            const programthumnail = result;
+
                 let data = {
                     whereValues: {
                         cobrandEmail,
@@ -118,6 +156,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                     newValues: {
                         programName,
                         ProgramDescription,
+                        programthumnail,
                         startDate
                     }
                 };
@@ -143,51 +182,6 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                     dispatch(authFailed());
                 });
                 console.log(data);
-            },2000)
-        }
-
-        else {
-            const promise = toBase64(photo);
-            promise.then((result) => {
-                console.log(typeof result);
-                const programthumnail = result;
-
-                setTimeout( () => {
-                    let data = {
-                        whereValues: {
-                            cobrandEmail,
-                            _id
-                        },
-                        newValues: {
-                            programName,
-                            ProgramDescription,
-                            programthumnail,
-                            startDate
-                        }
-                    };
-
-                    console.log(data);
-                    //Call API ....
-                    
-                    axios({
-                        method: 'post',
-                        url: 'https://rk.defghi.biz.id:8080/api/cobrand/programUpdate',
-                        data: data,
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                    .then(response => {
-                        console.log('Success:', response.data);
-                        history.push('/program');
-                        dispatch(authFailed());
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        dispatch(authFailed());
-                    });
-                    console.log(data);
-                },2000)
             });
         }
     }
@@ -238,42 +232,40 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
 
             console.log(contents);
 
-            setTimeout( () => {
-                let data = {
-                    cobrandEmail,
-                    programId,
-                    contentName,
-                    contentDescription,
-                    contentType,
-                    contentSource,
-                    contentThumbnail,
-                    contents,
-                    status,
-                    startDate
-                };
+            let data = {
+                cobrandEmail,
+                programId,
+                contentName,
+                contentDescription,
+                contentType,
+                contentSource,
+                contentThumbnail,
+                contents,
+                status,
+                startDate
+            };
 
-                console.log(data);
-                //Call API ....
-                
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentAdd',
-                    data: data,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => {
-                    console.log('Success:', response.data);
-                    history.push('/content');
-                    dispatch(authFailed());
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    dispatch(authFailed());
-                });
-                console.log(data);
-            },2000)
+            console.log(data);
+            //Call API ....
+            
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentAdd',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/content');
+                dispatch(authFailed());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(authFailed());
+            });
+            console.log(data);
         });
     }
 
@@ -320,7 +312,51 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
             }
 
             console.log(contents);
-            setTimeout( () => {
+            let data = {
+                whereValues: {
+                    cobrandEmail,
+                    _id
+                },
+                newValues: {
+                    programId,
+                    contentName,
+                    contentDescription,
+                    contentType,
+                    contentSource,
+                    contents,
+                    startDate
+                }
+            };
+
+            console.log(data);
+            //Call API ....
+            
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/content');
+                dispatch(authFailed());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(authFailed());
+            });
+            console.log(data);
+        }
+
+        else {
+            const promise = toBase64(photo);
+            promise.then((result) => {
+                console.log(typeof result);
+                const programthumnail = result;
+
                 let data = {
                     whereValues: {
                         cobrandEmail,
@@ -358,54 +394,6 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                     dispatch(authFailed());
                 });
                 console.log(data);
-            },2000)
-        }
-
-        else {
-            const promise = toBase64(photo);
-            promise.then((result) => {
-                console.log(typeof result);
-                const programthumnail = result;
-
-                setTimeout( () => {
-                    let data = {
-                        whereValues: {
-                            cobrandEmail,
-                            _id
-                        },
-                        newValues: {
-                            programId,
-                            contentName,
-                            contentDescription,
-                            contentType,
-                            contentSource,
-                            contents,
-                            startDate
-                        }
-                    };
-
-                    console.log(data);
-                    //Call API ....
-                    
-                    axios({
-                        method: 'post',
-                        url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
-                        data: data,
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                    .then(response => {
-                        console.log('Success:', response.data);
-                        history.push('/content');
-                        dispatch(authFailed());
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        dispatch(authFailed());
-                    });
-                    console.log(data);
-                },2000)
             });
         }
     }

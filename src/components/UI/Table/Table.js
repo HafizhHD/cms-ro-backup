@@ -29,6 +29,7 @@ function Table({ DATA, COLUMNS }) {
         <input 
             type="text" 
             placeholder="Search"
+            className="tableInput"
             value={ globalFilter || '' }
             onChange={(e) => {
                 setGlobalFilter(e.currentTarget.value);

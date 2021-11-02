@@ -114,7 +114,7 @@ function AddContent({
                                     setFieldValue("contents", '');
                                 }}
                             >
-                                <option value="" disabled>--Select Content Type--</option>
+                                <option value="" disabled>Select Content Type</option>
                                 <option value="Artikel">Artikel</option>
                                 <option value="Image">Image</option>
                                 <option value="Video">Video</option>
