@@ -10,12 +10,21 @@ function Navigations({ MenuItems }) {
                 {MenuItems.map((item, i) => {
                     return (
                         <li key={i} className="Aside__Nav_item">
-                            <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
-                                window.scroll(0,0);
-                            }}>
-                                {item.icon}
-                                <p>{item.pathName}</p>
-                            </NavLink>
+                            {item.path === '/' ? (
+                                <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
+                                    window.scroll(0,0);
+                                }}>
+                                    {item.icon}
+                                    <p>{item.pathName}</p>
+                                </NavLink>
+                            ) : (
+                                <NavLink to={item.path} className="Aside__Nav_item-link" onClick={() => {
+                                    window.scroll(0,0);
+                                }}>
+                                    {item.icon}
+                                    <p>{item.pathName}</p>
+                                </NavLink>
+                            )}
                         </li>
                     )
                 })}
