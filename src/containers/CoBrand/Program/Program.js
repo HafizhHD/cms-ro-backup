@@ -6,7 +6,7 @@ import Data from './components/MOCK_DATA.json';
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import axios from 'axios';
-import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 
 // import Modal from '../../../components/UI/Modal/Modal';
 

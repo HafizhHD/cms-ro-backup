@@ -5,7 +5,7 @@ import { FiArrowLeftCircle, FiCalendar, FiEdit, FiTrash2 } from 'react-icons/fi'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewProgram.scss';
-import RKLoader from '../../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 
 function ViewProgram() {
 

@@ -3,7 +3,7 @@ import { FiAlertCircle } from 'react-icons/fi';
 import './Report.scss';
 import { BiCaretDown, BiCaretUp, BiMinus } from 'react-icons/bi';
 import axios from 'axios';
-import RKLoader from './../../../components/UI/RKLoader/RKLoader.js';
+import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader.js';
 const ChartAsync = lazy(() => import('./component/Chart'));
 
 const Report = ({

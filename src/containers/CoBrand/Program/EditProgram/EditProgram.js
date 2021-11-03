@@ -4,7 +4,7 @@ import './EditProgram.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { editProgram } from '../../../../store/actions/webMainUtils';
-import RKLoader from '../../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationProgramEdit } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';

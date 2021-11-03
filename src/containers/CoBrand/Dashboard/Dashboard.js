@@ -4,7 +4,7 @@ import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
-import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import { useHistory } from 'react-router';
 
 function Dashboard() {
