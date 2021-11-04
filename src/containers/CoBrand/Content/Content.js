@@ -8,12 +8,15 @@ import { NavLink } from 'react-router-dom';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import LoginHelp from '../../../components/UI/Help/LoginHelp/LoginHelp';
 
 
 
 function Content() {
     const [isLoading, setLoading] = useState(true);
     const [contentList, setContentList] = useState();
+    const [contentDeleting, setContentDeleting] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     /*
     const submitModal = () => {
@@ -89,32 +92,43 @@ function Content() {
         }
     };
     
+
+    function retrieveList() {
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+            data: params,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            console.log("Content list: ", response.data);
+            setContentList(response.data.contents);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+    }
+
     useEffect(() => {
         setLoading(true);
-        function retrieveList() {
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                console.log("Content list: ", response.data);
-                setContentList(response.data.contents);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.log(error);
-                setLoading(false);
-            });
-        }
         if(localStorage.getItem('contentDeleting')) {
+            setContentDeleting(localStorage.getItem('contentDeleting'));
+            localStorage.removeItem('contentDeleting');
+        }
+        retrieveList();
+    }, []);
+
+    useEffect(() => {
+        if(contentDeleting) {
+            setLoading(true);
             const deleting = {
                 whereValues: {
                     cobrandEmail: userData.email,
-                    _id: localStorage.getItem('contentDeleting')
+                    _id: contentDeleting
                 }
             }
             axios({
@@ -127,18 +141,16 @@ function Content() {
             })
             .then(response => {
                 console.log(response.data);
-                localStorage.removeItem('contentDeleting');
+                setContentDeleting(null);
                 retrieveList();
             })
             .catch(error => {
                 console.log(error);
-                localStorage.removeItem('contentDeleting');
+                setContentDeleting(null);
                 retrieveList();
             });
         }
-        else retrieveList();
-        localStorage.removeItem('contentDeleting');
-    }, []);
+    }, [contentDeleting])
 
 
     if(isLoading) {
@@ -153,7 +165,7 @@ function Content() {
                <span>Create New Content</span>  
             </NavLink>
             <div className="Content__table">
-                <TableContent COLUMNS={columns} DATA={contentList}  />
+                <TableContent COLUMNS={columns(setContentDeleting)} DATA={contentList}  />
             </div>
             {
             /*<div className="ProgramPreview">

@@ -3,8 +3,8 @@ import './DashboardHelp.scss';
 
 function DashboardHelp() {
     return (
-        <div className="HelpOverlay">
-            <div className="HelpOverlay-content">
+        <div className="HelpOverlayDashboard">
+            <div className="HelpOverlayDashboard-content">
                 <h1>Guide Co-Brand Keluarga HKBP</h1>
                 <h2>Dashboard Co-Brand Keluarga HKBP</h2>
                 <p><br/></p>

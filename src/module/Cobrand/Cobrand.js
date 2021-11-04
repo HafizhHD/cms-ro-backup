@@ -26,8 +26,13 @@ function Cobrand({
     isLogin,
     onAuthSuccess,
     onAuthFailed,
-    onLogout
+    onLogout,
+    showAlert,
+    alertType,
+    alertMessage
 }) {
+    console.log(alertType);
+    console.log(alertMessage);
     const history = useHistory();
 
     const checkIsLogin = useCallback( () => {
@@ -80,7 +85,7 @@ function Cobrand({
     }
 
     return (
-            <Layout logoutHandler={logoutHandler}>
+            <Layout logoutHandler={logoutHandler} showAlert={showAlert} alertType={alertType} alertMessage={alertMessage}>
                  <Switch>
                     <PrivateRoute 
                         exact
@@ -159,7 +164,10 @@ function Cobrand({
 
 const mapStateToProps = state => {
     return {
-        isLogin: state.auth.isLogin
+        isLogin: state.auth.isLogin,
+        showAlert: state.dashboard.showAlert,
+        alertType: state.dashboard.alertType,
+        alertMessage: state.dashboard.alertMessage
     }
 }
 

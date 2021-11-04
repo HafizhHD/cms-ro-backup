@@ -15,6 +15,7 @@ function Program() {
 
     const [isLoading, setLoading] = useState(true);
     const [programList, setProgramList] = useState();
+    const [programDeleting, setProgramDeleting] = useState(null);
 
     /*
     const submitModal = () => {
@@ -30,33 +31,42 @@ function Program() {
     };
 
     
+    function retrieveList() {
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
+            data: params,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            setProgramList(response.data);
+            console.log(response.data);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+    }
     
     useEffect(() => {
         setLoading(true);
-        function retrieveList() {
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                setProgramList(response.data);
-                console.log(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.log(error);
-                setLoading(false);
-            });
-        }
         if(localStorage.getItem('programDeleting')) {
+            setProgramDeleting(localStorage.getItem('programDeleting'));
+            localStorage.removeItem('programDeleting');
+        }
+        retrieveList();
+    }, []);
+
+    useEffect(() => {
+        if(programDeleting) {
+            setLoading(true);
             const deleting = {
                 whereValues: {
                     cobrandEmail: userData.email,
-                    _id: localStorage.getItem('programDeleting')
+                    _id: programDeleting
                 }
             }
             axios({
@@ -69,18 +79,16 @@ function Program() {
             })
             .then(response => {
                 console.log(response.data);
-                localStorage.removeItem('programDeleting');
+                setProgramDeleting(null);
                 retrieveList();
             })
             .catch(error => {
                 console.log(error);
-                localStorage.removeItem('programDeleting');
+                setProgramDeleting(null);
                 retrieveList();
             });
         }
-        else retrieveList();
-        localStorage.removeItem('programDeleting');
-    }, []);
+    }, [programDeleting]);
 
     if(isLoading) {
         return <RKLoader/>
@@ -96,7 +104,7 @@ function Program() {
             </NavLink>
             <div className="Program__table">
                 <TableProgram 
-                    COLUMNS={columns} 
+                    COLUMNS={columns(setProgramDeleting)} 
                     DATA={programList.programs}  
                 />
             </div>

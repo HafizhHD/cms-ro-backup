@@ -7,7 +7,9 @@ const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
 }
 
-const Columns = [
+const Columns = (setContentDeleting) => {
+    return (
+    [
     {
         Header: 'Category',
         accessor: 'contentType'
@@ -72,8 +74,7 @@ const Columns = [
                     className="nav_btn"
                     title="Delete Content"
                     onClick={() => {
-                        localStorage.setItem('contentDeleting', cell.row.values._id);
-                        window.location.reload();
+                        setContentDeleting(cell.row.values._id);
                     }}
                     replace>
                     <button
@@ -87,6 +88,6 @@ const Columns = [
             </>
         )
     }
-];
+]) };
 
 export default Columns;

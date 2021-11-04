@@ -17,6 +17,7 @@ function Login({
     isLoading
 }) {
     const [showHelp, setShowHelp] = useState(false);
+    const [isPasswordVisible, showPassword] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -77,7 +78,7 @@ function Login({
                                 />
                                 <InputComponent 
                                     placeholder="Password"
-                                    type="password"
+                                    type={isPasswordVisible ? "text" : "password"}
                                     name="password"
                                     onChange={formik.handleChange}
                                     value={formik.values.password}
@@ -85,6 +86,21 @@ function Login({
                                     isError={formik.touched.password && Boolean(formik.errors.password)}
                                     message={formik.touched.password && formik.errors.password}
                                 />
+                                <div className="Login-middle-right-form-checkbox">
+                                    <InputComponent
+                                        type="checkbox"
+                                        name="showPassword"
+                                        onChange={(e) => {
+                                            if(e.currentTarget.checked) {
+                                                showPassword(true);
+                                            }
+                                            else {
+                                                showPassword(false);
+                                            }
+                                        }}
+                                    />
+                                    <label for="showPassword">Show Password</label>
+                                </div>
                                 <button
                                     className="btn btn-login"
                                     type="submit"

@@ -10,13 +10,16 @@ import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
 import { FiBell, FiUser, FiChevronDown, FiChevronUp, FiXCircle } from 'react-icons/fi';
 
 import DashboardHelp from '../../components/UI/Help/DashboardHelp/DashboardHelp';
+import Alert from '../../components/UI/Alert/Alert';
 
 function Layout({
     children,
     location,
-    logoutHandler
+    logoutHandler,
+    showAlert,
+    alertType,
+    alertMessage
 }) {
-
 
 
     //dropdown profile
@@ -43,12 +46,14 @@ function Layout({
         {showHelp ? <DashboardHelp /> : null}
         {showHelp ? (
             <button 
-                className="CloseHelp"
+                className="CloseHelpDashboard"
                 onClick={() => {
                 setShowHelp(false);
+                document.getElementsByTagName('main')[0].style.overflowY = 'visible';
             }}><FiXCircle/> </button>
         ) : null}
-       <div className="Layout">
+        {showAlert && alertType ? <Alert type={alertType} message={alertMessage}/> : null}
+        <div className="Layout">
             <header className="Header">
                 <NavLink to="/">
                     <img 
@@ -109,10 +114,12 @@ function Layout({
                         >
                             <ul>
                                 <li>
-                                    <a href="#/"
+                                    <NavLink to={location.pathname}
                                     onClick={() => {
                                         setShowHelp(true);
-                                    }}>Bantuan</a>
+                                        onClickDropDown();
+                                        document.getElementsByTagName('main')[0].style.overflowY = 'hidden';
+                                    }}>Bantuan</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/">Profile</NavLink>

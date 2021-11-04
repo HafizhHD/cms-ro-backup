@@ -3,7 +3,7 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import './EditProgram.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { editProgram } from '../../../../store/actions/webMainUtils';
+import { editProgram } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationProgramEdit } from '../../../../helpers/validation/validation';
