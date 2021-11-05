@@ -459,3 +459,35 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
     
 
 }
+
+export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
+    return dispatch => {
+        dispatch( loadingStart() );
+        const deleting = {
+            whereValues: {
+                cobrandEmail: cobrandEmail,
+                _id: contentId
+            }
+        }
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentRemove',
+            data: deleting,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            console.log(response.data);
+            dispatch(alertSuccess('Content berhasil dihapus. (Kode: ' + contentId + ')'));
+            dispatch(loadingStop());
+            retrieveList();
+        })
+        .catch(error => {
+            console.log(error);
+            dispatch(alertError('Content gagal dihapus. Coba beberapa saat lagi. (Kode: ' + contentId + ')'));
+            dispatch(loadingStop());
+            retrieveList();
+        });
+    }
+}

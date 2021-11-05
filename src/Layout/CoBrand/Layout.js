@@ -62,12 +62,12 @@ function Layout({
                     />
                 </NavLink>
                 <div className="Header__infoaccount">
-                    <div className="Header__infoaccount__Notification">
+                    {/*<div className="Header__infoaccount__Notification">
                         <div className="Header__notification-btn" 
                             onClick={onClickNotifButton}
                         >
                             <FiBell className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
-                            {/*<div className="Header__notification-badge">6</div>*/}
+                            <div className="Header__notification-badge">6</div>
                         </div>
                         <nav 
                             ref={dropdownRefNotification}
@@ -100,7 +100,7 @@ function Layout({
                                 </li>
                             </ul>
                         </nav>
-                    </div>
+                    </div>*/}
 
                     <div className="Header__infoaccount__profile">
                         <button className="Header__activeUser" onClick={onClickDropDown}>
