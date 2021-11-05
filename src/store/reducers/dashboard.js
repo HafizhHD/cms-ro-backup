@@ -7,7 +7,8 @@ import {
 const initialState = {
     showAlert: true,
     alertType: null,
-    alertMessage: 'Nganu bikin enak.'
+    alertMessage: 'Nganu bikin enak.',
+    idMessage: null
 }
 
 const dashboard = (state = initialState, action) => {
@@ -20,12 +21,14 @@ const dashboard = (state = initialState, action) => {
             ...state,
             alertType: action.type,
             alertMessage: action.message,
+            idMessage: action.idMessage,
             showAlert: true
         }
         case ALERT_SUCCESS: return {
             ...state,
             alertType: action.type,
             alertMessage: action.message,
+            idMessage: action.idMessage,
             showAlert: true
         }
         default: return state;

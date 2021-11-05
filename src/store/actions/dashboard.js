@@ -61,14 +61,16 @@ export const loadingStart = () => ({ type: AUTH_START });
 export const loadingStop = () => ({ type: AUTH_FAILED });
 export const authSuccess = () => ({ type: AUTH_SUCCESS });
 
-export const alertError = (message) => ({
+export const alertError = (message, id) => ({
     type: ALERT_ERROR,
-    message: message
+    message: message,
+    idMessage: id
 });
 
-export const alertSuccess = (message) => ({
+export const alertSuccess = (message, id) => ({
     type: ALERT_SUCCESS,
-    message: message
+    message: message,
+    idMessage: id
 })
 
 export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
@@ -107,7 +109,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertSuccess('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
                 console.log(data);
@@ -152,7 +154,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
             })
             .catch((error) => {
                 console.error('Error:', error);
-                dispatch(alertSuccess('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
             console.log(data);
@@ -196,7 +198,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertSuccess('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
                 console.log(data);
@@ -204,6 +206,38 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
         }
     }
 
+}
+
+export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
+    return dispatch => {
+        dispatch( loadingStart() );
+        const deleting = {
+            whereValues: {
+                cobrandEmail: cobrandEmail,
+                _id: programId
+            }
+        }
+        axios({
+            method: 'post',
+            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programRemove',
+            data: deleting,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            console.log(response.data);
+            dispatch(alertSuccess('Program berhasil dihapus. (Kode: ' + programId + ')'));
+            dispatch(loadingStop());
+            retrieveList();
+        })
+        .catch(error => {
+            console.log(error);
+            dispatch(alertError('Program gagal dihapus. Coba beberapa saat lagi. (Kode: ' + programId + ')'));
+            dispatch(loadingStop());
+            retrieveList();
+        });
+    }
 }
 
 export const addContent = ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, isActive, history ) => {
@@ -282,7 +316,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
             })
             .catch((error) => {
                 console.error('Error:', error);
-                dispatch(alertSuccess('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
             console.log(data);
@@ -367,7 +401,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
             })
             .catch((error) => {
                 console.error('Error:', error);
-                dispatch(alertSuccess('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
             console.log(data);
@@ -414,7 +448,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertSuccess('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
                 console.log(data);

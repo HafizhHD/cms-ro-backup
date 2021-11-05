@@ -3,14 +3,19 @@ import './Program.scss';
 import TableProgram from './../../../components/UI/Table/Table';
 import columns from './components/Columns';
 import Data from './components/MOCK_DATA.json';
+import { deleteProgram } from '../../../store/actions/dashboard';
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
+import {connect} from 'react-redux';
 
 // import Modal from '../../../components/UI/Modal/Modal';
 
-function Program() {
+function Program({
+    isCurrentlyLoading,
+    onDeleteProgram
+}) {
     const [showModal, setShowModal] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
@@ -63,34 +68,11 @@ function Program() {
     useEffect(() => {
         if(programDeleting) {
             setLoading(true);
-            const deleting = {
-                whereValues: {
-                    cobrandEmail: userData.email,
-                    _id: programDeleting
-                }
-            }
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programRemove',
-                data: deleting,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                console.log(response.data);
-                setProgramDeleting(null);
-                retrieveList();
-            })
-            .catch(error => {
-                console.log(error);
-                setProgramDeleting(null);
-                retrieveList();
-            });
+            onDeleteProgram(userData.email, programDeleting, retrieveList);
         }
     }, [programDeleting]);
 
-    if(isLoading) {
+    if(isLoading || isCurrentlyLoading) {
         return <RKLoader/>
     }
 
@@ -126,4 +108,16 @@ function Program() {
     )
 }
 
-export default Program
+const mapStateToProps = state => {
+    return {
+        isCurrentlyLoading: state.auth.isLoading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDeleteProgram: (email, deletingProgram, retrieveList) => dispatch(deleteProgram(email, deletingProgram, retrieveList))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Program)

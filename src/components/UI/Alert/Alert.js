@@ -4,7 +4,7 @@ import { FiXCircle, FiCheckCircle } from 'react-icons/fi';
 
 function Alert({type, message}) {
     return (
-        <div className="alert">
+        <div key={message} className="alert">
             <div className={type}>
                 <div className="alert-header">
                     {type === 'ALERT_ERROR' ? <FiXCircle /> : <FiCheckCircle/>}

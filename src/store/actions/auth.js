@@ -58,8 +58,7 @@ export const logout = (history) => {
         dispatch( authStart() );
 
         //Call API and remove token
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userData');
+        localStorage.clear();
         history.push('/');
         dispatch({
             type: AUTH_LOGOUT
