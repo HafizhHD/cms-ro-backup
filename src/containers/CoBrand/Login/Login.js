@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
 import Logo from './../../../assets/img/Logo_1.png'
-import DeviceImage from './../../../assets/img/device.png';
+import DeviceImage from './../../../assets/img/device2.png';
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { useFormik } from 'formik';
@@ -108,7 +108,7 @@ function Login({
                                     Login
                                 </button>
                             </form>
-                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>
+                            {/*<p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>*/}
                         </div>
                     </div> 
                 

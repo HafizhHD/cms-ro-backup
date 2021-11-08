@@ -29,7 +29,11 @@ const Columns = (setContentDeleting) => {
     },
     {
         Header: 'Status',
-        accessor: 'status'
+        accessor: 'status',
+        Cell: ({ value }) => {
+            if(value === 'active') return <p style={{ color: 'green', fontWeight: 'bold' }}>{value}</p>
+            else return <p style={{ color: 'red', fontWeight: 'bold' }}>{value}</p>
+        }
     },
     {
         Header: 'Action',

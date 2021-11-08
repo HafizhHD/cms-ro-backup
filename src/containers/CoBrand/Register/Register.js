@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import './Register.scss';
 import Logo from './../../../assets/img/Logo_1.png'
-import DeviceImage from './../../../assets/img/device.png';
+import DeviceImage from './../../../assets/img/device2.png';
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { Formik } from 'formik';
