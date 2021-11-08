@@ -44,7 +44,7 @@ const Report = ({
         const promiseX = axios({
             method: 'post',
             url: 'https://rk.defghi.biz.id:8080/api/user/userFilter',
-            data: {whereKeyValues: {}},
+            data: {limit: Number.MAX_SAFE_INTEGER},
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -54,7 +54,7 @@ const Report = ({
         const promise1 = axios({
             method: 'post',
             url: 'https://rk.defghi.biz.id:8080/api/cobrand/HKBPDataFilter',
-            data: {whereKeyValues: {}},
+            data: {limit: Number.MAX_SAFE_INTEGER},
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -115,7 +115,8 @@ const Report = ({
 
     useEffect(() => {
         let params={
-            whereKeyValues: {}
+            whereKeyValues: {},
+            limit: Number.MAX_SAFE_INTEGER
         };
         if(userType !== 'all') {
             params.whereKeyValues = {
@@ -145,7 +146,8 @@ const Report = ({
         let params={
             whereKeyValues: {
                 status: 'active'
-            }
+            },
+            limit: Number.MAX_SAFE_INTEGER
         };
         if(userTypeActive !== 'all') {
             params.whereKeyValues = {
@@ -165,7 +167,8 @@ const Report = ({
         .then(response => {
             setCountActive(response.data.users.length);
             let params2={
-                whereKeyValues: {}
+                whereKeyValues: {},
+                limit: Number.MAX_SAFE_INTEGER
             };
             if(userTypeActive !== 'all') {
                 params2.whereKeyValues = {

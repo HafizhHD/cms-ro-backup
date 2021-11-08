@@ -99,7 +99,8 @@ function Dashboard() {
                 let params1 = {
                     whereKeyValues: {
                         cobrandEmail: userData.email
-                    }
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
                 }
                 const promiseP = axios({
                     method: 'post',

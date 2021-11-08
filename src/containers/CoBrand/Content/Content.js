@@ -26,7 +26,8 @@ function Content({
     const params = {
         whereKeyValues: {
             cobrandEmail: userData.email
-        }
+        },
+        limit: Number.MAX_SAFE_INTEGER
     };
     
 
