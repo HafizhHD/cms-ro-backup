@@ -198,3 +198,21 @@
 .text-normal {
   color: gray;
 }
+
+@media only screen and (max-width: 899px) {
+  .UserReport {
+    grid-template-columns: 1fr;
+    
+    & > * {
+      grid-column: unset;
+    }
+  }
+
+  .Demography {
+    grid-template-columns: 1fr;
+
+    & > * {
+      grid-column: unset;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useMemo, Fragment } from 'react';
+import React, { useMemo, useEffect, Fragment } from 'react';
 import { useTable, useSortBy, useExpanded, usePagination, useGlobalFilter } from 'react-table';
 import { BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import './Table.scss';
@@ -60,14 +60,14 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                 </span>
                 <span>
                 | Go to page:
-                <input
-                    type="number"
-                    defaultValue={pageIndex + 1}
-                    onChange={e => {
-                        const page = e.target.value ? Number(e.target.value) - 1 : 0
-                        gotoPage(page)
-                    }}
-                />
+                    <input
+                        type="number"
+                        defaultValue={pageIndex + 1}
+                        onChange={e => {
+                            const page = e.target.value ? Number(e.target.value) - 1 : 0
+                            gotoPage(page)
+                        }}
+                    />
                 </span>
                 <select
                 value={pageSize}
@@ -95,6 +95,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                 />
             </div>
         </div>
+        <div className="table_container">
        <table {...getTableProps()}>
            <thead>
                {headerGroups.map(headerGroup => (
@@ -143,6 +144,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                 })}
            </tbody>
        </table>
+       </div>
        </>
     )
 }

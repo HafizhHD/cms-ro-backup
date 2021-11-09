@@ -19,7 +19,7 @@
 .Layout {
   display: grid;
   grid-template-rows: 10vh minmax(90vh, min-content);
-  grid-template-columns: 19rem 1fr;
+  grid-template-columns: 20vw 1fr;
 }
 
 .Header {
@@ -38,6 +38,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &__menu {
+    margin: 0 2vh;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    overflow: hidden;
+    outline: none;
+    color: var(--color-primary);
+    font-size: 2rem;
+  }
 
   &__img {
     width: 300px;
@@ -194,4 +205,20 @@
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+@media only screen and (max-width: 899px) {
+  .Layout {
+    grid-template-columns: 1fr;
+  }
+  .Main {
+    grid-column: 1/-1;
+    padding: 1rem 0.5rem;
+  }
+  .Header {
+    &__img {
+      width: 150px;
+      margin-left: 0;
+    }
+  }
 }

@@ -21,7 +21,7 @@ table tr:hover {
 table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  min-width: 80px;
+  min-width: 8rem;
   text-align: left;
   background-color: #ddd;
   color: var(--color-grey-dark-1);
@@ -62,7 +62,7 @@ table th {
 
 .utils {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 60% 40%;
   & > .pagination {
     margin-top: 1rem;
     margin-left: 0.7rem;
@@ -135,5 +135,40 @@ table th {
     &:focus {
       border: 1px solid var(--color-primary);
     }
+  }
+}
+
+@media only screen and (max-width: 899px) {
+  .utils {
+    grid-template-columns: unset;
+    grid-template-rows: 1fr;
+    width: 100%;
+
+    & > .pagination {
+      & > select {
+        display: none;
+      }
+      & > span > input {
+        width: 50px;
+      }
+      & > * {
+        margin: 0 0.1rem
+      }
+    }
+  }
+  .table_container {
+    max-width: 100%;
+    overflow-x: scroll;
+  }
+
+  table th {
+    min-width: 2vw;
+    max-width: 5vw;
+    overflow-x: hidden;
+  }
+
+  .btn_action {
+    margin-right: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 }

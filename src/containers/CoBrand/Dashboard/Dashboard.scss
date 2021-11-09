@@ -2,7 +2,6 @@
   width: 100%;
 
   display: grid;
-  grid-template-rows: max-content max-content;
   grid-row-gap: 2rem;
   grid-auto-rows: max-content;
 
@@ -170,6 +169,23 @@
         text-decoration: none;
         color: #111;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 899px) {
+  .Dashboard {
+    &__cards {
+      grid-template-columns: unset;
+    }
+    &__programs {
+      &__list {
+        width: 100%;
+        grid-template-columns: 40% 60%;
+      }
+    }
+    &__contents {
+      grid-template-columns: unset;
     }
   }
 }

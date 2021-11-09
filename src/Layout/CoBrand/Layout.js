@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 
 import './../Layout.scss';
@@ -7,7 +7,7 @@ import Navigations from '../../components/Navigations/Navigations';
 import { MenuCoBranding } from './../../components/Navigations/routes';
 import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
 
-import { FiBell, FiUser, FiChevronDown, FiChevronUp, FiXCircle } from 'react-icons/fi';
+import { FiBell, FiUser, FiChevronDown, FiChevronUp, FiXCircle, FiMenu } from 'react-icons/fi';
 
 import DashboardHelp from '../../components/UI/Help/DashboardHelp/DashboardHelp';
 import Alert from '../../components/UI/Alert/Alert';
@@ -41,6 +41,16 @@ function Layout({
 
     const [showHelp, setShowHelp] = useState(false);
 
+    const [isScreenBig, setScreenBig] = useState(window.innerWidth >= 900);
+    const [isShowAside, setShowAside] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            if(window.innerWidth < 900) setScreenBig(false);
+            else setScreenBig(true);
+        });
+    }, [isScreenBig, isShowAside])
+
     return (
         <>
         {showHelp ? <DashboardHelp /> : null}
@@ -55,6 +65,14 @@ function Layout({
         {showAlert && alertType ? <Alert type={alertType} message={alertMessage}/> : null}
         <div className="Layout">
             <header className="Header">
+                {isScreenBig ? null : (
+                    <button className="Header__menu" onClick={(e) => {
+                        if(isShowAside) setShowAside(false);
+                        else setShowAside(true);
+                    }}>
+                        <FiMenu/>
+                    </button>
+                )}
                 <NavLink to="/">
                     <img 
                         src={Logo} alt="Logo Ruang Keluarga" 
@@ -138,7 +156,7 @@ function Layout({
             {   
               
                 //['/program/add'].indexOf(location.pathname) &&
-                <Navigations MenuItems={MenuCoBranding} /> 
+                (isScreenBig || isShowAside) && <Navigations MenuItems={MenuCoBranding} /> 
             }
             
             
