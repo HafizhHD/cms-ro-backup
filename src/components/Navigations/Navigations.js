@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './Navigations.scss';
 
 
-function Navigations({ MenuItems }) {
+function Navigations({ MenuItems, ShowAside }) {
     return (
         <aside className="Aside">
             <ul className="Aside__Nav">
@@ -13,6 +13,7 @@ function Navigations({ MenuItems }) {
                             {item.path === '/' ? (
                                 <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
                                     window.scroll(0,0);
+                                    if(window.innerWidth < 900) ShowAside(false);
                                 }}>
                                     {item.icon}
                                     <p>{item.pathName}</p>
@@ -20,6 +21,7 @@ function Navigations({ MenuItems }) {
                             ) : (
                                 <NavLink to={item.path} className="Aside__Nav_item-link" onClick={() => {
                                     window.scroll(0,0);
+                                    if(window.innerWidth < 900) ShowAside(false);
                                 }}>
                                     {item.icon}
                                     <p>{item.pathName}</p>

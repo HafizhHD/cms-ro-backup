@@ -156,7 +156,7 @@ function Layout({
             {   
               
                 //['/program/add'].indexOf(location.pathname) &&
-                (isScreenBig || isShowAside) && <Navigations MenuItems={MenuCoBranding} /> 
+                (isScreenBig || isShowAside) && <Navigations MenuItems={MenuCoBranding} ShowAside={setShowAside} /> 
             }
             
             
