@@ -83,7 +83,7 @@ function AddContent({
             ]} />
             <Formik
                 initialValues= {{
-                    programId: '',
+                    programId: '-1',
                     contentName: '',
                     contentDescription: '',
                     contentType: '',
@@ -91,7 +91,7 @@ function AddContent({
                     contentThumbnail: '',
                     contents: '',
                     startDate: new Date().toISOString().split('T')[0],
-                    isActive: false
+                    isActive: true
                 }}
                 validationSchema = {validationContent}
                 validateOnChange = {true}
@@ -127,6 +127,7 @@ function AddContent({
                                 value={values.programId}
                                 onChange={handleChange}
                             >
+                                <option value="-1" disabled>Select Program</option>
                                 <option value="">(Tanpa Program)</option>
                                 {
                                     programList.map((program) => {
@@ -202,7 +203,7 @@ function AddContent({
                                 <RichTextEditor
                                     name="contents"
                                     placeholder="Type your contents here..."
-                                    className="form-group__input form-group__input_rte"
+                                    className="form-group_rte"
                                     value={textValue}
                                     toolbarConfig={toolbarConfig}
                                     onChange={ (e) => {

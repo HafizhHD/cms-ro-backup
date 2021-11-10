@@ -58,7 +58,7 @@ function EditProgram({
         }
     }, []);
 
-    if(isPageLoading) {
+    if(isPageLoading || isLoading) {
         return <RKLoader/>
     }
 

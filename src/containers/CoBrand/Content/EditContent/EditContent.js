@@ -172,6 +172,7 @@ function EditContent({
                                 value={values.programId}
                                 onChange={handleChange}
                             >
+                                <option value="-1" disabled>Select Program</option>
                                 <option value="">(Tanpa Program)</option>
                                 {
                                     programList.map((program) => {
@@ -246,7 +247,7 @@ function EditContent({
                                 <RichTextEditor
                                     name="contents"
                                     placeholder="Type your contents here..."
-                                    className="form-group__input form-group__input_rte"
+                                    className="form-group_rte"
                                     value={textValue}
                                     toolbarConfig={toolbarConfig}
                                     onChange={ (e) => {

@@ -13,10 +13,10 @@ const Columns = (setProgramDeleting) => {
         },
         {
             Header: 'Start Date',
-            accessor: 'startDate',
-            Cell: ({cell}) => (
+            accessor: (value) => new Date(value.startDate).toLocaleDateString("en-UK", dateFormat),
+            Cell: ({value}) => (
                 <>
-                    {new Date(cell.row.values.startDate).toLocaleDateString("en-UK", dateFormat)}
+                    {new Date(value).toLocaleDateString("en-UK", dateFormat)}
                 </>
             )
         },
@@ -66,7 +66,7 @@ const Columns = (setProgramDeleting) => {
                         className="nav_btn"
                         title="Delete Program"
                         onClick={() => {
-                            setProgramDeleting(cell.row.values._id);
+                            setProgramDeleting([cell.row.values._id, cell.row.values.programName]);
                         }}
                         replace>
                         <button

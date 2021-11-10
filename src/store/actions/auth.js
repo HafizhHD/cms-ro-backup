@@ -2,7 +2,8 @@ import {
     AUTH_SUCCESS,
     AUTH_START,
     AUTH_FAILED,
-    AUTH_LOGOUT
+    AUTH_LOGOUT,
+    ALERT_CLOSE
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64 } from '../../helpers/fileHelper/fileHelper';
@@ -61,8 +62,11 @@ export const logout = (history) => {
         localStorage.clear();
         history.push('/');
         dispatch({
+            type: ALERT_CLOSE
+        });
+        dispatch({
             type: AUTH_LOGOUT
-        })
+        });
     }
 }
 

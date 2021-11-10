@@ -19,7 +19,8 @@ function Dashboard() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const programParams = {
         whereKeyValues: {
-            cobrandEmail: userData.email
+            cobrandEmail: userData.email,
+            status: 'active'
         },
         orderKeyValues: {
             startDate: -1
@@ -28,7 +29,8 @@ function Dashboard() {
     };
     const contentParams = {
         whereKeyValues: {
-            cobrandEmail: userData.email
+            cobrandEmail: userData.email,
+            status: 'active'
         },
         orderKeyValues: {
             startDate: -1

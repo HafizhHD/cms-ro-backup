@@ -143,8 +143,8 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                 url: 'https://rk.defghi.biz.id:8080/api/cobrand/programUpdate',
                 data: data,
                 headers: {
-                    'Content-Type': 'application/json',
-                },
+                    'Content-Type': 'application/json'
+                }
             })
             .then(response => {
                 console.log('Success:', response.data);
@@ -157,7 +157,6 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                 dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-            console.log(data);
         }
 
         else {
@@ -201,7 +200,6 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                     dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
-                console.log(data);
             });
         }
     }
@@ -214,7 +212,7 @@ export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
         const deleting = {
             whereValues: {
                 cobrandEmail: cobrandEmail,
-                _id: programId
+                _id: programId[0]
             }
         }
         axios({
@@ -227,13 +225,13 @@ export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
         })
         .then(response => {
             console.log(response.data);
-            dispatch(alertSuccess('Program berhasil dihapus. (Kode: ' + programId + ')'));
+            dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
             dispatch(loadingStop());
             retrieveList();
         })
         .catch(error => {
             console.log(error);
-            dispatch(alertError('Program gagal dihapus. Coba beberapa saat lagi. (Kode: ' + programId + ')'));
+            dispatch(alertError('Program "' + programId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
             dispatch(loadingStop());
             retrieveList();
         });
@@ -466,7 +464,7 @@ export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
         const deleting = {
             whereValues: {
                 cobrandEmail: cobrandEmail,
-                _id: contentId
+                _id: contentId[0]
             }
         }
         axios({
@@ -479,13 +477,13 @@ export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
         })
         .then(response => {
             console.log(response.data);
-            dispatch(alertSuccess('Content berhasil dihapus. (Kode: ' + contentId + ')'));
+            dispatch(alertSuccess('Content "' + contentId[1] + '" berhasil dihapus.'));
             dispatch(loadingStop());
             retrieveList();
         })
         .catch(error => {
             console.log(error);
-            dispatch(alertError('Content gagal dihapus. Coba beberapa saat lagi. (Kode: ' + contentId + ')'));
+            dispatch(alertError('Content "' + contentId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
             dispatch(loadingStop());
             retrieveList();
         });
