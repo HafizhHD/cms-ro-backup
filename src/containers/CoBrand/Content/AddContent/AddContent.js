@@ -100,7 +100,7 @@ function AddContent({
                     onAddContent( cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, values.isActive, history)
                 }}
             >
-            {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
+            {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="AddContent">
                         <h1 className="AddContent_title">Create New Content</h1>
@@ -147,8 +147,9 @@ function AddContent({
                                 placeholder="Example"
                                 value={values.contentName}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.contentName}</span>
+                            {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                         </div>
                         <div className="form-group">
                             <label>Description</label>
@@ -158,9 +159,10 @@ function AddContent({
                                 placeholder="Type Something..."
                                 value={values.contentDescription}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
+                            {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                         </div>
-                        <span className="message__error">{errors.contentDescription}</span>
                         <div className="form-group">
                             <label>Source</label>
                             <InputComponent 
@@ -170,8 +172,9 @@ function AddContent({
                                 placeholder="Example"
                                 value={values.contentSource}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.contentSource}</span>
+                            {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                         </div>
                         <div className="form-group">
                             <label>Photo</label>
@@ -179,6 +182,7 @@ function AddContent({
                                 type="file"
                                 className="form-group__input"
                                 name="contentThumbnail"
+                                onBlur={handleBlur}
                                 onChange={(e) => {
                                     let file = e.currentTarget.files[0];
                                     if(file) {
@@ -187,7 +191,7 @@ function AddContent({
                                     }
                                 }}
                             />
-                            <span className="message__error">{errors.contentThumbnail}</span>
+                            {touched.contentThumbnail && <span className="message__error">{errors.contentThumbnail}</span>}
                         </div>
                         <div className="form-group">
                             <label>Contents</label>
@@ -206,6 +210,7 @@ function AddContent({
                                     className="form-group_rte"
                                     value={textValue}
                                     toolbarConfig={toolbarConfig}
+                                    onBlur={handleBlur}
                                     onChange={ (e) => {
                                         setTextValue(e);
                                         setFieldValue("contents", e.toString("html"));
@@ -221,6 +226,7 @@ function AddContent({
                                     placeholder="Type Image URL... (https://example.com/something/something.jpg)"
                                     value={values.contents}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             ) : null }
                             { values.contentType === "Video" ? (
@@ -231,9 +237,10 @@ function AddContent({
                                     placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
                                     value={values.contents}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             ) : null }
-                            <span className="message__error">{errors.contents}</span>
+                            {touched.contents && <span className="message__error">{errors.contents}</span>}
                         </div>
                         <div className="form-group">
                             <label>Set Schedule</label>
@@ -244,8 +251,9 @@ function AddContent({
                                 value={values.startDate}
                                 min={new Date().toISOString().split('T')[0]}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.startDate}</span>
+                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                         </div>
                         <div className="form-group">
                             <div className="form-group_switch">

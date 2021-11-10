@@ -36,7 +36,7 @@ function AddProgram({
                     onAddProgram( cobrandEmail, values.programName, values.programDescription, values.programThumbnail, values.startDate, history)
                 }}
             >
-            {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
+            {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="AddProgram">
                         <h1>Create New Program</h1>
@@ -49,8 +49,9 @@ function AddProgram({
                                 placeholder="Example"
                                 value={values.programName}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.programName}</span>
+                            {touched.programName && <span className="message__error">{errors.programName}</span>}
                         </div>
                         <div className="form-group">
                             <label>Description</label>
@@ -60,8 +61,9 @@ function AddProgram({
                                 placeholder="Type Something..."
                                 value={values.programDescription}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.programDescription}</span>
+                           {touched.programDescription && <span className="message__error">{errors.programDescription}</span>}
                         </div>
                         <div className="form-group">
                             <label>Photo</label>
@@ -69,6 +71,7 @@ function AddProgram({
                                 type="file"
                                 className="form-group__input"
                                 name="programThumbnail"
+                                onBlur={handleBlur}
                                 onChange={(e) => {
                                     let file = e.currentTarget.files[0];
                                     if(file) {
@@ -77,7 +80,7 @@ function AddProgram({
                                     }
                                 }}
                             />
-                            <span className="message__error">{errors.programThumbnail}</span>
+                            { touched.programThumbnail && <span className="message__error">{errors.programThumbnail}</span> }
                         </div>
                         <div className="form-group">
                             <label>Set Schedule</label>
@@ -88,8 +91,9 @@ function AddProgram({
                                 min={new Date().toISOString().split('T')[0]}
                                 value={values.startDate}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.startDate}</span>
+                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit">

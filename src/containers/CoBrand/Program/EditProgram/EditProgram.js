@@ -80,7 +80,7 @@ function EditProgram({
                     onEditProgram( _id, cobrandEmail, values.programName, values.programDescription, '', values.startDate, history)
                 }}
             >
-            {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
+            {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="EditProgram">
                         <h1>Edit Selected Program: {program.programName}</h1>
@@ -93,8 +93,9 @@ function EditProgram({
                                 placeholder="Example"
                                 value={values.programName}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.programName}</span>
+                            {touched.programName && <span className="message__error">{errors.programName}</span>}
                         </div>
                         <div className="form-group">
                             <label>Description</label>
@@ -104,8 +105,9 @@ function EditProgram({
                                 placeholder="Type Something..."
                                 value={values.programDescription}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.programDescription}</span>
+                            {touched.programDescription && <span className="message__error">{errors.programDescription}</span>}
                         </div>
                         {/*<div className="form-group">
                             <label>New Photo (Optional)</label>
@@ -132,8 +134,9 @@ function EditProgram({
                                 value={values.startDate}
                                 min={new Date().toISOString().split('T')[0]}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.startDate}</span>
+                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit">

@@ -145,7 +145,7 @@ function EditContent({
                     onEditContent( _id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, '', values.contents, values.startDate, history)
                 }}
             >
-            {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
+            {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="EditContent">
                         <h1>Edit Selected Content: {content.contentName}</h1>
@@ -192,8 +192,9 @@ function EditContent({
                                 placeholder="Example"
                                 value={values.contentName}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.contentName}</span>
+                            {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                         </div>
                         <div className="form-group">
                             <label>Description</label>
@@ -203,9 +204,10 @@ function EditContent({
                                 placeholder="Type Something..."
                                 value={values.contentDescription}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
+                            {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                         </div>
-                        <span className="message__error">{errors.contentDescription}</span>
                         <div className="form-group">
                             <label>Source</label>
                             <InputComponent 
@@ -215,8 +217,9 @@ function EditContent({
                                 placeholder="Example"
                                 value={values.contentSource}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.contentSource}</span>
+                            {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                         </div>
                         {/*<div className="form-group">
                             <label>Photo</label>
@@ -250,6 +253,7 @@ function EditContent({
                                     className="form-group_rte"
                                     value={textValue}
                                     toolbarConfig={toolbarConfig}
+                                    onBlur={handleBlur}
                                     onChange={ (e) => {
                                         setTextValue(e);
                                         setFieldValue("contents", e.toString("html"));
@@ -265,6 +269,7 @@ function EditContent({
                                     placeholder="Type Image URL... (https://example.com/something/something.jpg)"
                                     value={values.contents}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             ) : null }
                             { values.contentType === "Video" ? (
@@ -275,9 +280,10 @@ function EditContent({
                                     placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
                                     value={values.contents}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             ) : null }
-                            <span className="message__error">{errors.contents}</span>
+                            {touched.contents && <span className="message__error">{errors.contents}</span>}
                         </div>
                         <div className="form-group">
                             <label>Set Schedule</label>
@@ -288,8 +294,9 @@ function EditContent({
                                 value={values.startDate}
                                 min={new Date().toISOString().split('T')[0]}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.startDate}</span>
+                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit">
@@ -300,7 +307,6 @@ function EditContent({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
             {isLoading ? <RKLoader/> : null}
         </>
     )
