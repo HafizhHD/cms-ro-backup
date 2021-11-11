@@ -115,7 +115,7 @@
 
   display: grid;
   grid-row: 3/4;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 1.5rem;
 
   &_userdistrik {
@@ -126,6 +126,11 @@
   }
   &_userhuria {
       grid-column: 3 / 4;
+  }
+
+  & select {
+    width: 100%;
+    overflow: hidden;
   }
 }
 

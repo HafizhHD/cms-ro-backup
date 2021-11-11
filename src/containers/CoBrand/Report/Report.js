@@ -204,7 +204,8 @@ const Report = ({
             Object.keys(stringHKBP[selectedDistrik]).forEach(elements => {
                 let countUserPerRessort = 0;
                 userData.forEach(e => {
-                    if(e.namaHkbp && e.namaHkbp.includes(elements) && e.namaHkbp !== '') countUserPerRessort += 1;
+                    if(e.namaHkbp && e.namaHkbp.includes(elements) && e.namaHkbp.includes(selectedDistrik)
+                        && e.namaHkbp !== '') countUserPerRessort += 1;
                 });
                 countingUserRessort.push(countUserPerRessort);
             });
@@ -220,7 +221,8 @@ const Report = ({
             stringHKBP[selectedDistrik][selectedRessort].forEach(elements => {
                 let countUserPerHuria = 0;
                 userData.forEach(e => {
-                    if(e.namaHkbp && e.namaHkbp.includes(elements) && e.namaHkbp !== '') countUserPerHuria += 1;
+                    if(e.namaHkbp && e.namaHkbp.includes(elements) && e.namaHkbp.includes(selectedRessort) && 
+                        e.namaHkbp.includes(selectedDistrik)&& e.namaHkbp !== '') countUserPerHuria += 1;
                 });
                 countingUserHuria.push(countUserPerHuria);
             });
