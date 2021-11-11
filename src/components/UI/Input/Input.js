@@ -45,6 +45,7 @@ function Input({
                     onBlur={onBlur}
                     value={value}
                     min={min}
+                    max={"9999-12-31"}
                 />
                 {isError && (
                     <div className="message">
