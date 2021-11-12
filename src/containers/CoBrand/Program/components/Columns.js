@@ -31,7 +31,7 @@ const Columns = (setProgramDeleting) => {
             Header: 'Action',
             accessor: '_id',
             disableSortBy: true,
-            disableFilters: true,
+            disableGlobalFilter: true,
             Cell: ({cell}) => (
                 <>
                     <NavLink 

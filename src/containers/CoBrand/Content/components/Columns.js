@@ -39,7 +39,7 @@ const Columns = (setContentDeleting) => {
         Header: 'Action',
         accessor: '_id',
         disableSortBy: true,
-        disableFilters: true,
+        disableGlobalFilter: true,
         Cell: ({cell}) => (
             <>
                 <NavLink
