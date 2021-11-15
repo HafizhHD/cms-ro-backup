@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
 import Logo from './../../../assets/img/Logo_1.png'
@@ -18,6 +18,7 @@ function Login({
 }) {
     const [showHelp, setShowHelp] = useState(false);
     const [isPasswordVisible, showPassword] = useState(false);
+    const [loginMessage, setLoginMessage] = useState();
 
     const formik = useFormik({
         initialValues: {
@@ -27,6 +28,13 @@ function Login({
         validationSchema: validationFormLogin,
         onSubmit: values => {
             onLogin( values.email, values.password )
+        }
+    });
+
+    useEffect(() => {
+        if(localStorage.getItem('loginMessage')) {
+            setLoginMessage(localStorage.getItem('loginMessage'));
+            localStorage.removeItem('loginMessage');
         }
     })
 
@@ -63,7 +71,7 @@ function Login({
                         <div className="Login-middle-right">
                             <div className="Login-middle-right-heading mb-small">
                                 <h1>Mulai Kelola Pelanggan Anda Sekarang.</h1>
-                                {localStorage.getItem('loginMessage') ? <p>{localStorage.getItem('loginMessage')}</p> : null}
+                                {loginMessage ? <p>{loginMessage}</p> : null}
                             </div>
                             <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 
