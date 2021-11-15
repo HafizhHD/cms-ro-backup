@@ -82,6 +82,7 @@ function EditContent({
                 if(response.data.contents[0].contentType === 'Artikel') {
                     let con1 = con.getElementById('contents');
                     setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
+                    setConFromImgVid(con1.outerHTML);
                 }
                 else if(response.data.contents[0].contentType === 'Image') {
                     let con1 = con.getElementsByTagName('img')[0];
@@ -136,7 +137,7 @@ function EditContent({
                     contentDescription: content.contentDescription,
                     contentType: content.contentType,
                     contentSource: content.contentSource,
-                    contents: content.contentType !== 'Artikel' ? conFromImgVid : '',
+                    contents: conFromImgVid,
                     startDate: contentStartDate
                 }}
                 validationSchema = {validationContentEdit}
