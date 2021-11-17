@@ -37,7 +37,7 @@ function Layout({
         logoutHandler()
     }
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')));
 
     const [showHelp, setShowHelp] = useState(false);
 
@@ -49,7 +49,13 @@ function Layout({
             if(window.innerWidth < 900) setScreenBig(false);
             else setScreenBig(true);
         });
-    }, [isScreenBig, isShowAside])
+    }, [isScreenBig, isShowAside]);
+
+    useEffect(() => {
+        if(alertMessage === 'Profil berhasil diubah.') {
+            setUserData(JSON.parse(localStorage.getItem('userData')));
+        }
+    }, [alertMessage]);
 
     return (
         <>

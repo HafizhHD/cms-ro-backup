@@ -11,6 +11,7 @@ function Input({
     message,
     name,
     min,
+    disabled,
     isError
 }) {
     if(type === "textarea") {
@@ -24,6 +25,7 @@ function Input({
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                disabled={disabled}
             />
             {isError && (
                 <div className="message">
@@ -46,6 +48,7 @@ function Input({
                     value={value}
                     min={min}
                     max={"9999-12-31"}
+                    disabled={disabled}
                 />
                 {isError && (
                     <div className="message">
@@ -65,6 +68,7 @@ function Input({
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                disabled={disabled}
             />
             {isError && (
                 <div className="message">

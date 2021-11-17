@@ -4,7 +4,8 @@ import {
     AUTH_FAILED,
     AUTH_LOGOUT,
     ALERT_ERROR,
-    ALERT_SUCCESS
+    ALERT_SUCCESS,
+    ALERT_CLOSE
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64 } from '../../helpers/fileHelper/fileHelper';
@@ -76,6 +77,9 @@ export const alertSuccess = (message, id) => ({
 export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
     return dispatch => {
         dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
 
         const promise = toBase64(photo);
         promise.then((result) => {
@@ -121,6 +125,9 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
 export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
     return dispatch => {
         dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
         console.log('Photo is empty:', photo === '');
         if(photo === '') {
             let data = {
@@ -209,6 +216,9 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
 export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
     return dispatch => {
         dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
         const deleting = {
             whereValues: {
                 cobrandEmail: cobrandEmail,
@@ -241,6 +251,9 @@ export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
 export const addContent = ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, isActive, history ) => {
     return dispatch => {
         dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
 
         const promise = toBase64(photo);
         promise.then((result) => {
@@ -328,6 +341,9 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
 export const editContent = ( _id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, history ) => {
     return dispatch => {
         dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
 
         console.log('Photo is empty:', photo === '');
         if(photo === '') {
@@ -461,6 +477,9 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
 export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
     return dispatch => {
         dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
         const deleting = {
             whereValues: {
                 cobrandEmail: cobrandEmail,
@@ -488,4 +507,115 @@ export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
             retrieveList();
         });
     }
+}
+
+export const editProfile = ( oldEmail, oldPassword, cobrandName, photo, phoneNumber, address, password ) => {
+    return dispatch => {
+        dispatch( loadingStart() );
+        dispatch({
+            type: ALERT_CLOSE
+        });
+
+        let whereValues = {email: oldEmail, password: oldPassword}, newValues = {};
+
+        if(cobrandName) newValues = Object.assign(newValues, {cobrandName: cobrandName});
+        if(phoneNumber) newValues = Object.assign(newValues, {phoneNumber: phoneNumber});
+        if(address) newValues = Object.assign(newValues, {address: address});
+        if(password) newValues = Object.assign(newValues, {password: password});
+
+        if(photo) {
+            const promise = toBase64(photo);
+            promise.then((result) => {
+                newValues = Object.assign(newValues, {thumbnail: result});
+                console.log('whereValues: ', whereValues);
+                console.log('newValues: ', newValues);
+                axios({
+                    method: 'post',
+                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/edit',
+                    data: {whereValues, newValues},
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => {
+                    console.log('Success:', response.data);
+                    if(password) {
+                        console.log('YOI BRUH');
+                        whereValues.password = password;
+                    }
+                    axios({
+                        method: 'post',
+                        url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
+                        data: whereValues,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response2 => {
+                        console.log('Success 2: ', response2.data);
+                        let loginData = response2.data;
+                        localStorage.removeItem('accessToken');
+                        localStorage.removeItem('userData');
+                        localStorage.setItem('accessToken', loginData.resultData.token);
+                        localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                        dispatch(loadingStop());
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        dispatch(loadingStop());
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    dispatch(loadingStop());
+                });
+            });
+        }
+        else {
+            console.log('whereValues: ', whereValues);
+            console.log('newValues: ', newValues);
+            axios({
+                method: 'post',
+                url: 'https://rk.defghi.biz.id:8080/api/cobrand/edit',
+                data: {whereValues, newValues},
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log('Success:', response.data);
+                if(password) {
+                    console.log('YOI BRUH');
+                    whereValues.password = password;
+                }
+                axios({
+                    method: 'post',
+                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
+                    data: whereValues,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response2 => {
+                    console.log('Success 2: ', response2.data);
+                    let loginData = response2.data;
+                    localStorage.setItem('accessToken', loginData.resultData.token);
+                    localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                    dispatch(alertSuccess('Profil berhasil diubah.'));
+                    dispatch(loadingStop());
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(loadingStop());
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        }
+    }
+
 }

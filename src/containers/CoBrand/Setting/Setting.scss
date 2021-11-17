@@ -4,10 +4,13 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: minmax(100vh, max-content);
     box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
+    max-height: 70vh;
 
     &_inputs {
       background-color: #fff;
       padding: 1rem;
+      max-height: 70vh;
+      overflow-y: scroll;
 
       &-item {
         display: grid;
@@ -31,10 +34,10 @@
       justify-content: center;
       align-items: center;
       display: grid;
+      max-height: 70vh;
 
       &_image {
-        width: 40vw;
-        height: 40vw;
+        max-height: 50vh;
         object-fit: cover;
         font-size: 1.3rem;
         padding: 0.2rem;
@@ -57,4 +60,29 @@ textarea {
   height: 10rem;
   border: 1px solid #ccc;
   padding: 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-submit {
+  padding: 0.7rem;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid black;
+  font-weight: 800;
+  color: var(--color-primary);
+  transition: all ease-in 0.3s;
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  &:focus {
+    transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+  }
 }

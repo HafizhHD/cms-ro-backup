@@ -33,12 +33,11 @@ export const auth = ( email, password ) => {
             },
         })
         .then(response => {
-            //console.log(response.data);
+            console.log(response.data);
             let loginData = response.data;
             if (loginData.resultCode === "OK" && loginData.resultData && loginData.resultData.user.password === password) {
                 localStorage.setItem('accessToken', loginData.resultData.token);
                 localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
-                console.log('User Data: ', localStorage.getItem('userData'));
                 localStorage.removeItem('loginMessage');
                 dispatch( authSuccess() );
             }

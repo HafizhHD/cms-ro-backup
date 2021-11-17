@@ -31,8 +31,6 @@ function Cobrand({
     alertType,
     alertMessage
 }) {
-    console.log(alertType);
-    console.log(alertMessage);
     const history = useHistory();
 
     const checkIsLogin = useCallback( () => {

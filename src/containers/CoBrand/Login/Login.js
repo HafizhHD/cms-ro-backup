@@ -107,7 +107,7 @@ function Login({
                                             }
                                         }}
                                     />
-                                    <label for="showPassword">Show Password</label>
+                                    <label>Show Password</label>
                                 </div>
                                 <button
                                     className="btn btn-login"
