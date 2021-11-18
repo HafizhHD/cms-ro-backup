@@ -301,7 +301,7 @@ function EditContent({
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit">
-                                Upload Content
+                                Update Content
                             </button>
                         </div>
                     </div>

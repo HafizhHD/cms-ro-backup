@@ -52,10 +52,10 @@ function Layout({
     }, [isScreenBig, isShowAside]);
 
     useEffect(() => {
-        if(alertMessage === 'Profil berhasil diubah.') {
+        if(alertMessage === 'Profil berhasil diubah.' && showAlert) {
             setUserData(JSON.parse(localStorage.getItem('userData')));
         }
-    }, [alertMessage]);
+    }, [alertMessage, showAlert]);
 
     return (
         <>
