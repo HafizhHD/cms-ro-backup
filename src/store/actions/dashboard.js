@@ -558,15 +558,18 @@ export const editProfile = ( oldEmail, oldPassword, cobrandName, photo, phoneNum
                         localStorage.removeItem('userData');
                         localStorage.setItem('accessToken', loginData.resultData.token);
                         localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                        dispatch(alertSuccess('Profil berhasil diubah.'));
                         dispatch(loadingStop());
                     })
                     .catch((error) => {
                         console.error('Error:', error);
+                        dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
                         dispatch(loadingStop());
                     });
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
             });
