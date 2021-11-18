@@ -1,7 +1,7 @@
 .Setting {
   &_card {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 50%);
     grid-template-rows: minmax(100vh, max-content);
     box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
     max-height: 70vh;
@@ -38,7 +38,8 @@
 
       &_image {
         max-height: 50vh;
-        object-fit: cover;
+        width: 100%;
+        object-fit: contain;
         font-size: 1.3rem;
         padding: 0.2rem;
       }
