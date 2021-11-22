@@ -8,55 +8,9 @@ import {
     ALERT_CLOSE
 } from './actionTypes';
 import axios from 'axios';
-import { toBase64 } from '../../helpers/fileHelper/fileHelper';
-
-function getEmbedUrl(url) {
-    // function for generating an embed link
-    let finalUrl = '';
-    let videoId = '';
-
-    if (url.includes('facebook.com/')) {
-        // Facebook Video
-        finalUrl = 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=1&width=200';
-
-    } else if(url.includes('vimeo.com/')) {
-        // Vimeo video
-        videoId = typeof(url.split("vimeo.com/")[1]) !== undefined ? url.split("vimeo.com/")[1] : null;
-        if (videoId.includes('&')){
-            videoId = videoId.split("&")[0];
-        }
-        finalUrl = 'https://player.vimeo.com/video/' + videoId;
-
-    } else if (url.includes('youtube.com/')) {
-        // Youtube video
-        videoId = typeof(url.split("v=")[1]) !== undefined ? url.split("v=")[1] : null;
-        if (videoId.includes('&')){
-            videoId = videoId.split("&")[0];
-        }
-        finalUrl = 'https://www.youtube.com/embed/' + videoId;
-
-    } else if(url.includes('youtu.be/')) {
-        // Youtube video
-        videoId = typeof(url.split("youtu.be/")[1]) !== undefined ? url.split("youtu.be/")[1] : null;
-        if (videoId.includes('&')) {
-            videoId = videoId.split("&")[0];
-        }
-        finalUrl = 'https://www.youtube.com/embed/' +  videoId;
-
-    } else if (url.includes('dailymotion.com/')) {
-        // Dailymotion Video
-        videoId = typeof(url.split("dailymotion.com/")[1]) !== undefined ? url.split("dailymotion.com/")[1] : null;
-        if (videoId.includes('&')) {
-            videoId = videoId.split("&")[0];
-        }
-        finalUrl = 'https://www.dailymotion.com/embed/' + videoId;
-
-    } else{
-        finalUrl = url;
-    }
-
-    return finalUrl;
-}
+import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
+import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit } from '../../components/API/dashboard';
+import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
 export const loadingStart = () => ({ type: AUTH_START });
 export const loadingStop = () => ({ type: AUTH_FAILED });
@@ -97,14 +51,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                 console.log(data);
                 //Call API ....
                 
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programAdd',
-                    data: data,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+                programAdd(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/program');
@@ -145,14 +92,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
             console.log(data);
             //Call API ....
             
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programUpdate',
-                data: data,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            programEdit(data)
             .then(response => {
                 console.log('Success:', response.data);
                 history.push('/program');
@@ -188,14 +128,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                 console.log(data);
                 //Call API ....
                 
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programUpdate',
-                    data: data,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+                programEdit(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/program');
@@ -225,14 +158,7 @@ export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
                 _id: programId[0]
             }
         }
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programRemove',
-            data: deleting,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        programDelete(deleting)
         .then(response => {
             console.log(response.data);
             dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
@@ -311,14 +237,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
             console.log(data);
             //Call API ....
             
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentAdd',
-                data: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            contentAdd(data)
             .then(response => {
                 console.log('Success:', response.data);
                 history.push('/content');
@@ -399,14 +318,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
             console.log(data);
             //Call API ....
             
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
-                data: data,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            contentEdit(data)
             .then(response => {
                 console.log('Success:', response.data);
                 history.push('/content');
@@ -446,14 +358,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                 console.log(data);
                 //Call API ....
                 
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
-                    data: data,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+                contentEdit(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/content');
@@ -486,14 +391,7 @@ export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
                 _id: contentId[0]
             }
         }
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentRemove',
-            data: deleting,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        contentDelete(deleting)
         .then(response => {
             console.log(response.data);
             dispatch(alertSuccess('Content "' + contentId[1] + '" berhasil dihapus.'));
@@ -529,28 +427,14 @@ export const editProfile = ( oldEmail, oldPassword, cobrandName, photo, phoneNum
                 newValues = Object.assign(newValues, {thumbnail: result});
                 console.log('whereValues: ', whereValues);
                 console.log('newValues: ', newValues);
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/edit',
-                    data: {whereValues, newValues},
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+                cobrandEdit(whereValues, newValues)
                 .then(response => {
                     console.log('Success:', response.data);
                     if(password) {
                         console.log('YOI BRUH');
                         whereValues.password = password;
                     }
-                    axios({
-                        method: 'post',
-                        url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
-                        data: whereValues,
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
+                    cobrandLogin(whereValues)
                     .then(response2 => {
                         console.log('Success 2: ', response2.data);
                         let loginData = response2.data;
@@ -577,28 +461,14 @@ export const editProfile = ( oldEmail, oldPassword, cobrandName, photo, phoneNum
         else {
             console.log('whereValues: ', whereValues);
             console.log('newValues: ', newValues);
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/edit',
-                data: {whereValues, newValues},
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            cobrandEdit(whereValues, newValues)
             .then(response => {
                 console.log('Success:', response.data);
                 if(password) {
                     console.log('YOI BRUH');
                     whereValues.password = password;
                 }
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
-                    data: whereValues,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+                cobrandLogin(whereValues)
                 .then(response2 => {
                     console.log('Success 2: ', response2.data);
                     let loginData = response2.data;

@@ -9,6 +9,7 @@ import { FiPlus } from 'react-icons/fi';
 import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import {connect} from 'react-redux';
+import { getProgramList } from '../../../components/API/filter';
 
 // import Modal from '../../../components/UI/Modal/Modal';
 
@@ -38,14 +39,7 @@ function Program({
 
     
     function retrieveList() {
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        getProgramList(params)
         .then(response => {
             setProgramList(response.data);
             console.log(response.data);

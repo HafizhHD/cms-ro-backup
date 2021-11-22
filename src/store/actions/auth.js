@@ -7,6 +7,7 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64 } from '../../helpers/fileHelper/fileHelper';
+import { cobrandLogin, cobrandRegister } from '../../components/API/auth';
 
 export const authStart = () => ({ type: AUTH_START });
 export const authFailed = () => ({ type: AUTH_FAILED });
@@ -24,14 +25,7 @@ export const auth = ( email, password ) => {
             password
         };
         //Call API ....
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
-            data: data,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        cobrandLogin(data)
         .then(response => {
             console.log(response.data);
             let loginData = response.data;
@@ -91,14 +85,7 @@ export const registerAuth = ( email, accountName, cobrandName, photo, phoneNumbe
                 };
                 //Call API ....
                 
-                axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/register',
-                    data: data,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
+                cobrandRegister(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     localStorage.setItem('loginMessage', "Successfully registered. You can now log in.");

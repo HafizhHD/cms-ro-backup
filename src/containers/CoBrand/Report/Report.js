@@ -4,6 +4,7 @@ import './Report.scss';
 import { BiCaretDown, BiCaretUp, BiMinus } from 'react-icons/bi';
 import axios from 'axios';
 import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader.js';
+import { getHKBPList, getUserList } from '../../../components/API/filter';
 const ChartAsync = lazy(() => import('./component/Chart'));
 
 const Report = ({
@@ -41,51 +42,11 @@ const Report = ({
         let HKBPString = {};
 
         //Get All User Database
-        const promiseX = axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/user/userFilter',
-            data: {limit: Number.MAX_SAFE_INTEGER},
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
+        const promiseX = getUserList({limit: Number.MAX_SAFE_INTEGER});
 
         //List HKBP
-        const promise1 = axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/HKBPDataFilter',
-            data: {limit: Number.MAX_SAFE_INTEGER},
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        //Count Voucher
-        /*const promise2 = axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/users/getAllUser',
-            data: whereKeyValues,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });*/
-        //Count Cobrand
-        /*const promise3 = axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/users/getAllUser',
-            data: whereKeyValues,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });*/
-        //Count Active Cobrand
-        /* const promise4 = axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/users/getAllUser',
-            data: whereKeyValues,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });*/
+        const promise1 = getHKBPList({limit: Number.MAX_SAFE_INTEGER});
+
         Promise.all([promiseX, promise1]).then(response => {
 
             console.log(response[1].data);
@@ -124,14 +85,7 @@ const Report = ({
             }
         }
         console.log(params);
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/user/userFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
+        getUserList(params)
         .then(response => {
             setCountUser(response.data.users.length);
             setUpdatingRegistered(false);
@@ -156,14 +110,7 @@ const Report = ({
             }
         }
         console.log(params);
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/user/userFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
+        getUserList(params)
         .then(response => {
             setCountActive(response.data.users.length);
             let params2={
@@ -175,14 +122,7 @@ const Report = ({
                     userType: userTypeActive
                 }
             }
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/user/userFilter',
-                data: params2,
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
+            getUserList(params2)
             .then(response2 => {
                 setCountInactive(response2.data.users.length-response.data.users.length);
                 setUpdatingActive(false);

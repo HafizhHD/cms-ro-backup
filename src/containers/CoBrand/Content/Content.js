@@ -10,6 +10,7 @@ import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { getContentList } from '../../../components/API/filter';
 
 
 
@@ -32,14 +33,7 @@ function Content({
     
 
     function retrieveList() {
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        getContentList(params)
         .then(response => {
             console.log("Content list: ", response.data);
             setContentList(response.data.contents);

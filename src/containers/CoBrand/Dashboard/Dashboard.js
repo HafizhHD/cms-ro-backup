@@ -6,6 +6,7 @@ import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import { useHistory } from 'react-router';
+import { getContentList, getProgramList } from '../../../components/API/filter';
 
 function Dashboard() {
 
@@ -40,14 +41,7 @@ function Dashboard() {
 
     useEffect(() => {
         setLoading(true);
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-            data: programParams,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        getProgramList(programParams)
         .then(response => {
             let programs = response.data.programs.map((d) => (
                 <div className="Dashboard__programs__list">
@@ -60,14 +54,7 @@ function Dashboard() {
             ));
             setProgramList(programs);
             console.log(programs);
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-                data: contentParams,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            getContentList(contentParams)
             .then(response => {
                 let contents = response.data.contents.map((d) => (
                     <div className="Dashboard__contents__item">
@@ -104,22 +91,8 @@ function Dashboard() {
                     },
                     limit: Number.MAX_SAFE_INTEGER
                 }
-                const promiseP = axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-                    data: params1,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const promiseC = axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-                    data: params1,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+                const promiseP = getProgramList(params1);
+                const promiseC = getContentList(params1);
                 Promise.all([promiseP, promiseC]).then(response => {
                     countingVariable.countProgram = response[0].data.programs.length;
                     countingVariable.countContent = response[1].data.contents.length;
