@@ -1,8 +1,9 @@
 import axios from "axios";
+import url from "./urlApi";
 
 export const cobrandLogin = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/cobrandLogin',
+    url: url + '/cobrand/cobrandLogin',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -11,7 +12,7 @@ export const cobrandLogin = (query) => axios({
 
 export const cobrandRegister = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/register',
+    url: url + '/cobrand/register',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -20,7 +21,7 @@ export const cobrandRegister = (query) => axios({
 
 export const cobrandEdit = (whereValues, newValues) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/edit',
+    url: url + '/cobrand/edit',
     data: {whereValues, newValues},
     headers: {
         'Content-Type': 'application/json',

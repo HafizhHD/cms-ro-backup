@@ -1,8 +1,9 @@
 import axios from "axios";
+import url from "./urlApi"
 
 export const programAdd = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programAdd',
+    url: url + '/cobrand/programAdd',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -11,7 +12,7 @@ export const programAdd = (query) => axios({
 
 export const programEdit = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programUpdate',
+    url: url + '/cobrand/programUpdate',
     data: query,
     headers: {
         'Content-Type': 'application/json'
@@ -20,7 +21,7 @@ export const programEdit = (query) => axios({
 
 export const programDelete = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programRemove',
+    url: url + '/cobrand/programRemove',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -29,7 +30,7 @@ export const programDelete = (query) => axios({
 
 export const contentAdd = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentAdd',
+    url: url + '/cobrand/contentAdd',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ export const contentAdd = (query) => axios({
 
 export const contentEdit = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
+    url: url + '/cobrand/contentUpdate',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ export const contentEdit = (query) => axios({
 
 export const contentDelete = (query) => axios({
     method: 'post',
-    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentRemove',
+    url: url + '/cobrand/contentRemove',
     data: query,
     headers: {
         'Content-Type': 'application/json',
