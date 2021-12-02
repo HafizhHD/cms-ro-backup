@@ -287,6 +287,11 @@ function AddContent({
     )
 }
 
+
+// 1- install pdfjs library | npm install pdfjs-dist@2.6.347
+// 2- install the core package | npm install @react-pdf-viewer/core@2.4.1
+// 3- install pdf viewer default layout | npm install @react-pdf-viewer/default-layout
+
 const mapStateToProps = state => {
     console.log(state.auth.isLoading);
     return {
