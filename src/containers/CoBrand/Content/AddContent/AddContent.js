@@ -12,10 +12,11 @@ import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { Viewer } from '@react-pdf-viewer/core' //library, plugin
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout' //styles
-// import '@react-pdf-viewer/default-layout/lib/styles/index.css'
-// import '@react-pdf-viewer/core/lib/styles/index.css'
-// import { Worker } from '@react-pdf-viewer/core'
+import '@react-pdf-viewer/default-layout/lib/styles/index.css'
+import '@react-pdf-viewer/core/lib/styles/index.css'
+import { Worker } from '@react-pdf-viewer/core'
 import Pdf from '../pdf/pdf'
+import Pdf2 from '../pdf2/pdf2'
 
 
 
@@ -24,50 +25,50 @@ function AddContent({
     isLoading
 }) {
 
-    // //pdf
-    // // Create new plugin instance
-    // const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    //pdf
+    // Create new plugin instance
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-    // // for onchange event
-    // const [pdfFile, setPdfFile] = useState(null);
-    // const [pdfFileError, setPdfFileError] = useState('');
+    // for onchange event
+    const [pdfFile, setPdfFile] = useState(null);
+    const [pdfFileError, setPdfFileError] = useState('');
 
-    // // for submit event
-    // const [viewPdf, setViewPdf] = useState(null);
+    // for submit event
+    const [viewPdf, setViewPdf] = useState(null);
 
-    // // onchange event
-    // const fileType = ['application/pdf'];
-    // const handlePdfFileChange = (e) => {
-    //     let selectedFile = e.target.files[0];
-    //     if (selectedFile) {
-    //         if (selectedFile && fileType.includes(selectedFile.type)) {
-    //             let reader = new FileReader();
-    //             reader.readAsDataURL(selectedFile);
-    //             reader.onloadend = (e) => {
-    //                 setPdfFile(e.target.result);
-    //                 setPdfFileError('');
-    //             }
-    //         }
-    //         else {
-    //             setPdfFile(null);
-    //             setPdfFileError('Please select valid pdf file');
-    //         }
-    //     }
-    //     else {
-    //         console.log('select your file');
-    //     }
-    // }
+    // onchange event
+    const fileType = ['application/pdf'];
+    const handlePdfFileChange = (e) => {
+        let selectedFile = e.target.files[0];
+        if (selectedFile) {
+            if (selectedFile && fileType.includes(selectedFile.type)) {
+                let reader = new FileReader();
+                reader.readAsDataURL(selectedFile);
+                reader.onloadend = (e) => {
+                    setPdfFile(e.target.result);
+                    setPdfFileError('');
+                }
+            }
+            else {
+                setPdfFile(null);
+                setPdfFileError('Please select valid pdf file');
+            }
+        }
+        else {
+            console.log('select your file');
+        }
+    }
 
-    // // form submit
-    // const handlePdfFileSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (pdfFile !== null) {
-    //         setViewPdf(pdfFile);
-    //     }
-    //     else {
-    //         setViewPdf(null);
-    //     }
-    // }
+    // form submit
+    const handlePdfFileSubmit = (e) => {
+        e.preventDefault();
+        if (pdfFile !== null) {
+            setViewPdf(pdfFile);
+        }
+        else {
+            setViewPdf(null);
+        }
+    }
 
 
     const [isPageLoading, setPageLoading] = useState(true);
@@ -296,33 +297,45 @@ function AddContent({
                                     />
                                 ) : null}
                                 {values.contentType === "Pdf" ? (
-                                    <Pdf />
-                                    // <div className='container'>
-                                    //     <br></br>
-                                    //     <form className='form-group' onSubmit={handlePdfFileSubmit}>
-                                    //         <input type="file" className='form-control'
-                                    //             required onChange={handlePdfFileChange}
-                                    //         />
-                                    //         {pdfFileError && <div className='error-msg'>{pdfFileError}</div>}
-                                    //         <br></br>
-                                    //         <button type="submit" className='btn btn-success btn-lg'>
-                                    //             UPLOAD
-                                    //         </button>
-                                    //     </form>
-                                    //     <br></br>
-                                    //     <h4>View PDF</h4>
-                                    //     <div className='pdf-container'>
-                                    //         {/* show pdf conditionally (if we have one)  */}
-                                    //         {viewPdf && <><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                                    //             <Viewer fileUrl={viewPdf}
-                                    //                 plugins={[defaultLayoutPluginInstance]} />
-                                    //         </Worker></>}
+                                    // <Pdf />
+                                    // <Pdf2 />
+                                    <div className='container'>
+                                        <br></br>
+                                        <form className='form-group' onSubmit={handlePdfFileSubmit}>
+                                            <input type="file" className='form-control'
+                                                required onChange={handlePdfFileChange}
+                                            // value={values.contents}
+                                            // value={}
+                                            />
+                                            {pdfFileError && <div className='error-msg'>{pdfFileError}</div>}
+                                            <br></br>
+                                            <button type="submit" className='btn btn-success btn-lg' onClick={handlePdfFileSubmit} >
+                                                UPLOAD
+                                            </button>
+                                        </form>
+                                        <br></br>
+                                        <h4>View PDF</h4>
+                                        <div className='pdf-container'>
+                                            {/* show pdf conditionally (if we have one)  */}
+                                            {viewPdf && <><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                                                <Viewer fileUrl={viewPdf}
+                                                    plugins={[defaultLayoutPluginInstance]} />
+                                            </Worker></>}
 
-                                    //         {/* if we dont have pdf or viewPdf state is null */}
-                                    //         {!viewPdf && <>No pdf file selected</>}
-                                    //     </div>
+                                            {/* if we dont have pdf or viewPdf state is null */}
+                                            {!viewPdf && <>No pdf file selected</>}
+                                        </div>
+                                        <InputComponent
+                                            type="text"
+                                            name="contents"
+                                            className="form-group__input form-group__input--fullwidth"
+                                            placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                            value={pdfFile}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
 
-                                    // </div>
+                                    </div>
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
