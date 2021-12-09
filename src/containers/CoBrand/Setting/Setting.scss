@@ -87,3 +87,40 @@ textarea {
     -webkit-transform: scale(0.9);
   }
 }
+
+.circletag {
+  display: block;
+  // width: 100%;
+  background-size: 100% 100%;
+  height: 8rem;
+  // background: grey;
+  // -moz-border-radius: 20px;
+  // -webkit-border-radius: 20px;
+  // background-image: url(https://mmc.tirto.id/image/otf/700x0/2021/11/25/google-doodle-google_ratio-16x9.jpg);
+  background-position: cover;
+  background-repeat:no-repeat; 
+  margin-bottom: 15rem;
+  border-radius: 1rem 1rem 0 0; 
+}
+
+.img2{
+  margin-top: 3.5rem;
+  margin-left: 5.5rem;
+  border-radius: 100rem;
+  width: 13rem;
+  height: 13rem;
+}
+
+.backgr {
+  background-image: url(https://defghi.co.id/wp-content/uploads/2021/07/Logo-IDE.png);
+  height: 12rem;
+  border-radius: 15px 15px 0 0;
+  background-size: cover;
+  
+}
+
+
+.body-card {
+  height: 8rem;
+  margin-top: 4rem;
+}

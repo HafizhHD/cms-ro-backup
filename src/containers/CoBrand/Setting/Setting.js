@@ -7,6 +7,7 @@ import { Formik } from 'formik';
 import { validationFormEdit } from './../../../helpers/validation/validation';
 import { toBase64 } from '../../../helpers/fileHelper/fileHelper';
 import { editProfile } from '../../../store/actions/dashboard';
+import { Card, CardImg, Button, Modal } from 'react-bootstrap';
 import './Setting.scss';
 
 function Setting({
@@ -15,6 +16,7 @@ function Setting({
 }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [photoRaw, setPhotoRaw] = useState();
+    // const [coverRaw, setCoverRaw] = useState();
     const [photoPreview, setPhotoPreview] = useState(userData.thumbnail);
 
     useEffect(() => {
@@ -26,6 +28,14 @@ function Setting({
             .catch(error => {
                 console.log(error);
             })
+        // } else if(coverRaw) {
+        //     let convertedPhoto = toBase64(coverRaw);
+        //     convertedPhoto.then((result) => {
+        //         setPhotoPreview(result);
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     })
         }
     }, [photoRaw])
 
@@ -127,6 +137,26 @@ function Setting({
                                         message={touched.thumbnail && errors.thumbnail}
                                     />
                                 </div>
+                                {/* <div className="Setting_card_inputs-avatar">
+                                    <h2>New Cover</h2>
+                                    <InputComponent 
+                                        placeholder="Cover"
+                                        type="file"
+                                        name="thumbnail"
+                                        onChange={(e) => {
+                                            let file = e.currentTarget.files[0];
+                                            if(file) {
+                                                console.log("File to upload: ", file);
+                                                setFieldValue("thumbnail", file);
+                                                setPhotoRaw(file);
+                                            }
+                                        }}
+                                        className="Input-control"
+                                        onBlur={handleBlur}
+                                        isError={touched.thumbnail && Boolean(errors.thumbnail) }
+                                        message={touched.thumbnail && errors.thumbnail}
+                                    />
+                                </div> */}
                             </div>
 
                             <div className="Setting_card_inputs-item mt-large">
@@ -183,8 +213,22 @@ function Setting({
 
                 </div>
                 <div className="Setting_card_preview">
-                    <h1>Profile Image Preview</h1>
-                    <img src={photoPreview} className="Setting_card_preview_image"/>
+                    <h5>Preview</h5>
+                    <Card style={{ width: '25rem', borderRadius: '1rem'}}>
+                        {/* <div style={{ backgroundImage: `url(${cover ? cover : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxJUwAEmCj5NP7JfKft5Qz8a3UUoE0RcKiAeNDAulvE-jDh5HzB3-FBb5pBSfmWpJw0J4&usqp=CAU"})` }} class="circletag" id="nay"> */}
+                            {/* <img className="img2" src="https://cdn1.vectorstock.com/i/1000x1000/06/70/beautiful-cute-bee-vector-15910670.jpg" /> */}
+                        <div className="backgr">
+                            <img className="img2" src={photoPreview ? photoPreview : "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"} />
+                        </div>
+                        <Card.Body className="body-card">
+                            <Card.Title style={{ textAlign: 'center' }}>Bimbel Defghi</Card.Title>
+                            <Card.Text>
+                                Some quick example text to build on the card title and make up the bulk of
+                                the card's content.
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    {/* <img src={photoPreview} className="Setting_card_preview_image"/> */}
                 </div>
             </div>
         </div>

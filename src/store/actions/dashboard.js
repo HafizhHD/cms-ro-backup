@@ -11,6 +11,20 @@ import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
+import { Document, Page, pdfjs } from 'react-pdf'
+import Pdf3 from '../../containers/CoBrand/Content/pdf3/pdf3';
+
+import FileViewer from 'react-file-viewer';
+import {CustomErrorComponent} from 'custom-error'
+
+///pdf
+// import { Viewer } from '@react-pdf-viewer/core' //library, plugin
+// import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout' //styles
+// import '@react-pdf-viewer/default-layout/lib/styles/index.css'
+// import '@react-pdf-viewer/core/lib/styles/index.css'
+// import { Worker } from '@react-pdf-viewer/core'
+// import React, { useState } from 'react';
+// import InputComponent from '../../../src/components/UI/Input/Input';
 
 export const loadingStart = () => ({ type: AUTH_START });
 export const loadingStop = () => ({ type: AUTH_FAILED });
@@ -28,9 +42,9 @@ export const alertSuccess = (message, id) => ({
     idMessage: id
 })
 
-export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
+export const addProgram = (cobrandEmail, programName, ProgramDescription, photo, startDate, history) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
@@ -40,18 +54,18 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
             console.log(typeof result);
             const programthumnail = result;
 
-                let data = {
-                    cobrandEmail,
-                    programName,
-                    ProgramDescription,
-                    programthumnail,
-                    startDate
-                };
+            let data = {
+                cobrandEmail,
+                programName,
+                ProgramDescription,
+                programthumnail,
+                startDate
+            };
 
-                console.log(data);
-                //Call API ....
-                
-                programAdd(data)
+            console.log(data);
+            //Call API ....
+
+            programAdd(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/program');
@@ -63,20 +77,20 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                     dispatch(alertError('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
-                console.log(data);
+            console.log(data);
         });
     }
 
 }
 
-export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
+export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, photo, startDate, history) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
         console.log('Photo is empty:', photo === '');
-        if(photo === '') {
+        if (photo === '') {
             let data = {
                 whereValues: {
                     cobrandEmail,
@@ -91,26 +105,26 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
 
             console.log(data);
             //Call API ....
-            
+
             programEdit(data)
-            .then(response => {
-                console.log('Success:', response.data);
-                history.push('/program');
-                dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
-                dispatch(loadingStop());
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
-                dispatch(loadingStop());
-            });
+                .then(response => {
+                    console.log('Success:', response.data);
+                    history.push('/program');
+                    dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
+                    dispatch(loadingStop());
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(loadingStop());
+                });
         }
 
         else {
             const promise = toBase64(photo);
             promise.then((result) => {
-            console.log(typeof result);
-            const programthumnail = result;
+                console.log(typeof result);
+                const programthumnail = result;
 
                 let data = {
                     whereValues: {
@@ -127,28 +141,28 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
 
                 console.log(data);
                 //Call API ....
-                
+
                 programEdit(data)
-                .then(response => {
-                    console.log('Success:', response.data);
-                    history.push('/program');
-                    dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
-                    dispatch(loadingStop());
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
-                    dispatch(loadingStop());
-                });
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        history.push('/program');
+                        dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
+                        dispatch(loadingStop());
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
+                        dispatch(loadingStop());
+                    });
             });
         }
     }
 
 }
 
-export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
+export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
@@ -159,67 +173,97 @@ export const deleteProgram = ( cobrandEmail, programId, retrieveList ) => {
             }
         }
         programDelete(deleting)
-        .then(response => {
-            console.log(response.data);
-            dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
-            dispatch(loadingStop());
-            retrieveList();
-        })
-        .catch(error => {
-            console.log(error);
-            dispatch(alertError('Program "' + programId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
-            dispatch(loadingStop());
-            retrieveList();
-        });
+            .then(response => {
+                console.log(response.data);
+                dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
+                dispatch(loadingStop());
+                retrieveList();
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(alertError('Program "' + programId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                retrieveList();
+            });
     }
 }
 
-export const addContent = ( cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, isActive, history ) => {
+export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, isActive, history) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
+        
+
+        // const [numPages, setNumPages] = useState(null);
+        // const [pageNumber, setPageNumber] = useState(1);
+
 
         const promise = toBase64(photo);
         promise.then((result) => {
+
             console.log(typeof result);
             const contentThumbnail = result;
             let status = isActive ? 'active' : 'inactive';
 
-            if(contentType === 'Video') {
+            if (contentType === 'Video') {
                 contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
             }
-            else if(contentType === 'Image') {
+            else if (contentType === 'Image') {
                 contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
+            }
+            else if (contentType === 'Pdf') {
+                contents = 
+                <object data={contents} type="application/pdf">
+                    <embed src={contents} type="application/pdf" />
+                </object>
+                // <iframe src={contents} style="width:718px; height:700px;" frameborder="0"></iframe>
+                    // <FileViewer
+                    // fileType='.pdf'
+                    // filePath={contents}
+                    // errorComponent={CustomErrorComponent}
+                    // // onError={this.onError}
+                    // />
+                //    <Viewer 
+                //     fileUrl={contents}
+                //     // plugins={[defaultLayoutPluginInstance]}
+                //    />
+
+                /*
+                    SOMETHING different to offer some different
+                */
+
+                console.log(contents)
             }
             else {
                 contents = '<!DOCTYPE html>'
-                            + '<html lang="en">'
-                                + '<head>'
-                                    + '<meta charset="utf-8">'
-                                    + '<style>'
-                                        + '#contents {'
-                                            + 'overflow-y: scroll;'
-                                            + 'text-align: justify;'
-                                            + 'white-space: pre-line;'
-                                            + 'font-family: Arial, Helvetica, sans-serif;'
-                                            + 'padding: 1%;'
-                                        + '}'
-                                        + '#contents li {'
-                                            + 'margin-left: 5%;'
-                                        + '}'
-                                    + '</style>'
-                                + '</head>'
-                                + '<body>'
-                                    + '<div id="contents">'
-                                        + contents
-                                    + '</div>'
-                                + '</body>'
-                            + '</html>';
+                    + '<html lang="en">'
+                    + '<head>'
+                    + '<meta charset="utf-8">'
+                    + '<style>'
+                    + '#contents {'
+                    + 'overflow-y: scroll;'
+                    + 'text-align: justify;'
+                    + 'white-space: pre-line;'
+                    + 'font-family: Arial, Helvetica, sans-serif;'
+                    + 'padding: 1%;'
+                    + '}'
+                    + '#contents li {'
+                    + 'margin-left: 5%;'
+                    + '}'
+                    + '</style>'
+                    + '</head>'
+                    + '<body>'
+                    + '<div id="contents">'
+                    + contents
+                    + '</div>'
+                    + '</body>'
+                    + '</html>';
             }
 
             console.log(contents);
+            // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
             let data = {
                 cobrandEmail,
@@ -236,66 +280,74 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
 
             console.log(data);
             //Call API ....
-            
+
             contentAdd(data)
-            .then(response => {
-                console.log('Success:', response.data);
-                history.push('/content');
-                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
-                dispatch(loadingStop());
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
-                dispatch(loadingStop());
-            });
+                .then(response => {
+                    console.log('Success:', response.data);
+                    history.push('/content');
+                    dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                    dispatch(loadingStop());
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                    dispatch(loadingStop());
+                });
             console.log(data);
         });
     }
-
-    
-
 }
 
-export const editContent = ( _id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, history ) => {
+export const editContent = (_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, history) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
 
         console.log('Photo is empty:', photo === '');
-        if(photo === '') {
-            if(contentType === 'Video') {
+        if (photo === '') {
+            if (contentType === 'Video') {
                 contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
             }
-            else if(contentType === 'Image') {
+            else if (contentType === 'Image') {
                 contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
             }
+            // note : else if untuk pdf dilanjutkan untuk semua yang ada dalam dashboard.js
+            // jadi nanti di samakan sama yang add content nya
+            // tinggal carri dimana handlechange --> jadi biar tau apa gtu.
+            // else if(contentType === 'Pdf') {
+            //     contents = <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+            //     <Viewer fileUrl={viewPdf}
+            //         plugins={[defaultLayoutPluginInstance]} 
+            //        />
+            // </Worker>
+            // masalah kedua adalah formatnya belum sesuai jadi gak bisa muncul di konten
+            // }
             else {
                 contents = '<!DOCTYPE html>'
-                            + '<html lang="en">'
-                                + '<head>'
-                                    + '<meta charset="utf-8">'
-                                    + '<style>'
-                                        + '#contents {'
-                                            + 'overflow-y: scroll;'
-                                            + 'text-align: justify;'
-                                            + 'white-space: pre-line;'
-                                            + 'font-family: Arial, Helvetica, sans-serif;'
-                                            + 'padding: 1%;'
-                                        + '}'
-                                        + '#contents li {'
-                                            + 'margin-left: 5%;'
-                                        + '}'
-                                    + '</style>'
-                                + '</head>'
-                                + '<body>'
-                                    + '<div id="contents">'
-                                        + contents
-                                    + '</div>'
-                                + '</body>'
-                            + '</html>';
+                    + '<html lang="en">'
+                    + '<head>'
+                    + '<meta charset="utf-8">'
+                    + '<style>'
+                    + '#contents {'
+                    + 'overflow-y: scroll;'
+                    + 'text-align: justify;'
+                    + 'white-space: pre-line;'
+                    + 'font-family: Arial, Helvetica, sans-serif;'
+                    + 'padding: 1%;'
+                    + '}'
+                    + '#contents li {'
+                    + 'margin-left: 5%;'
+                    + '}'
+                    + '</style>'
+                    + '</head>'
+                    + '<body>'
+                    + '<div id="contents">'
+                    + contents
+                    + '</div>'
+                    + '</body>'
+                    + '</html>';
             }
 
             console.log(contents);
@@ -317,19 +369,19 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
 
             console.log(data);
             //Call API ....
-            
+
             contentEdit(data)
-            .then(response => {
-                console.log('Success:', response.data);
-                history.push('/content');
-                dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
-                dispatch(loadingStop());
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
-                dispatch(loadingStop());
-            });
+                .then(response => {
+                    console.log('Success:', response.data);
+                    history.push('/content');
+                    dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+                    dispatch(loadingStop());
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(loadingStop());
+                });
             console.log(data);
         }
 
@@ -357,31 +409,29 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
 
                 console.log(data);
                 //Call API ....
-                
+
                 contentEdit(data)
-                .then(response => {
-                    console.log('Success:', response.data);
-                    history.push('/content');
-                    dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
-                    dispatch(loadingStop());
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
-                    dispatch(loadingStop());
-                });
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        history.push('/content');
+                        dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+                        dispatch(loadingStop());
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                        dispatch(loadingStop());
+                    });
                 console.log(data);
             });
         }
     }
 
-    
-
 }
 
-export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
+export const deleteContent = (cobrandEmail, contentId, retrieveList) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
@@ -392,102 +442,102 @@ export const deleteContent = ( cobrandEmail, contentId, retrieveList ) => {
             }
         }
         contentDelete(deleting)
-        .then(response => {
-            console.log(response.data);
-            dispatch(alertSuccess('Content "' + contentId[1] + '" berhasil dihapus.'));
-            dispatch(loadingStop());
-            retrieveList();
-        })
-        .catch(error => {
-            console.log(error);
-            dispatch(alertError('Content "' + contentId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
-            dispatch(loadingStop());
-            retrieveList();
-        });
+            .then(response => {
+                console.log(response.data);
+                dispatch(alertSuccess('Content "' + contentId[1] + '" berhasil dihapus.'));
+                dispatch(loadingStop());
+                retrieveList();
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(alertError('Content "' + contentId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                retrieveList();
+            });
     }
 }
 
-export const editProfile = ( oldEmail, oldPassword, cobrandName, photo, phoneNumber, address, password ) => {
+export const editProfile = (oldEmail, oldPassword, cobrandName, photo, phoneNumber, address, password) => {
     return dispatch => {
-        dispatch( loadingStart() );
+        dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
 
-        let whereValues = {email: oldEmail, password: oldPassword}, newValues = {};
+        let whereValues = { email: oldEmail, password: oldPassword }, newValues = {};
 
-        if(cobrandName) newValues = Object.assign(newValues, {cobrandName: cobrandName});
-        if(phoneNumber) newValues = Object.assign(newValues, {phoneNumber: phoneNumber});
-        if(address) newValues = Object.assign(newValues, {address: address});
-        if(password) newValues = Object.assign(newValues, {password: password});
+        if (cobrandName) newValues = Object.assign(newValues, { cobrandName: cobrandName });
+        if (phoneNumber) newValues = Object.assign(newValues, { phoneNumber: phoneNumber });
+        if (address) newValues = Object.assign(newValues, { address: address });
+        if (password) newValues = Object.assign(newValues, { password: password });
 
-        if(photo) {
+        if (photo) {
             const promise = toBase64(photo);
             promise.then((result) => {
-                newValues = Object.assign(newValues, {thumbnail: result});
+                newValues = Object.assign(newValues, { thumbnail: result });
                 console.log('whereValues: ', whereValues);
                 console.log('newValues: ', newValues);
                 cobrandEdit(whereValues, newValues)
-                .then(response => {
-                    console.log('Success:', response.data);
-                    if(password) {
-                        console.log('YOI BRUH');
-                        whereValues.password = password;
-                    }
-                    cobrandLogin(whereValues)
-                    .then(response2 => {
-                        console.log('Success 2: ', response2.data);
-                        let loginData = response2.data;
-                        localStorage.removeItem('accessToken');
-                        localStorage.removeItem('userData');
-                        localStorage.setItem('accessToken', loginData.resultData.token);
-                        localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
-                        dispatch(alertSuccess('Profil berhasil diubah.'));
-                        dispatch(loadingStop());
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        if (password) {
+                            console.log('YOI BRUH');
+                            whereValues.password = password;
+                        }
+                        cobrandLogin(whereValues)
+                            .then(response2 => {
+                                console.log('Success 2: ', response2.data);
+                                let loginData = response2.data;
+                                localStorage.removeItem('accessToken');
+                                localStorage.removeItem('userData');
+                                localStorage.setItem('accessToken', loginData.resultData.token);
+                                localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                                dispatch(alertSuccess('Profil berhasil diubah.'));
+                                dispatch(loadingStop());
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
+                                dispatch(loadingStop());
+                            });
                     })
                     .catch((error) => {
                         console.error('Error:', error);
                         dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
                         dispatch(loadingStop());
                     });
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
-                    dispatch(loadingStop());
-                });
             });
         }
         else {
             console.log('whereValues: ', whereValues);
             console.log('newValues: ', newValues);
             cobrandEdit(whereValues, newValues)
-            .then(response => {
-                console.log('Success:', response.data);
-                if(password) {
-                    console.log('YOI BRUH');
-                    whereValues.password = password;
-                }
-                cobrandLogin(whereValues)
-                .then(response2 => {
-                    console.log('Success 2: ', response2.data);
-                    let loginData = response2.data;
-                    localStorage.setItem('accessToken', loginData.resultData.token);
-                    localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
-                    dispatch(alertSuccess('Profil berhasil diubah.'));
-                    dispatch(loadingStop());
+                .then(response => {
+                    console.log('Success:', response.data);
+                    if (password) {
+                        console.log('YOI BRUH');
+                        whereValues.password = password;
+                    }
+                    cobrandLogin(whereValues)
+                        .then(response2 => {
+                            console.log('Success 2: ', response2.data);
+                            let loginData = response2.data;
+                            localStorage.setItem('accessToken', loginData.resultData.token);
+                            localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                            dispatch(alertSuccess('Profil berhasil diubah.'));
+                            dispatch(loadingStop());
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
+                            dispatch(loadingStop());
+                        });
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                     dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                dispatch(alertError('Profil gagal diubah. Coba beberapa saat lagi.'));
-                dispatch(loadingStop());
-            });
         }
     }
 

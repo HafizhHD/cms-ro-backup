@@ -3,7 +3,7 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import './AddContent.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { addContent } from '../../../../store/actions/dashboard';
+import { addContent, loadingStart } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationContent } from '../../../../helpers/validation/validation';
@@ -16,8 +16,8 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css'
 import '@react-pdf-viewer/core/lib/styles/index.css'
 import { Worker } from '@react-pdf-viewer/core'
 import Pdf from '../pdf/pdf'
-import Pdf2 from '../pdf2/pdf2'
-
+// import {PDFDownloadLink, Document, Page} from '@react-pdf/renderer'
+// import Pdf2 from '../pdf2/pdf2'
 
 
 function AddContent({
@@ -25,50 +25,54 @@ function AddContent({
     isLoading
 }) {
 
-    //pdf
-    // Create new plugin instance
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    // //pdf
+    // // Create new plugin instance
+    // const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-    // for onchange event
-    const [pdfFile, setPdfFile] = useState(null);
-    const [pdfFileError, setPdfFileError] = useState('');
+    // // for onchange event
+    // const [pdfFile, setPdfFile] = useState(null);
+    // const [pdfFileError, setPdfFileError] = useState('');
 
-    // for submit event
-    const [viewPdf, setViewPdf] = useState(null);
+    // // for submit event
+    // const [viewPdf, setViewPdf] = useState(null);
 
-    // onchange event
-    const fileType = ['application/pdf'];
-    const handlePdfFileChange = (e) => {
-        let selectedFile = e.target.files[0];
-        if (selectedFile) {
-            if (selectedFile && fileType.includes(selectedFile.type)) {
-                let reader = new FileReader();
-                reader.readAsDataURL(selectedFile);
-                reader.onloadend = (e) => {
-                    setPdfFile(e.target.result);
-                    setPdfFileError('');
-                }
-            }
-            else {
-                setPdfFile(null);
-                setPdfFileError('Please select valid pdf file');
-            }
-        }
-        else {
-            console.log('select your file');
-        }
-    }
+    // // onchange event
+    // const fileType = ['application/pdf'];
+    // const handlePdfFileChange = (e) => {
+    //     let selectedFile = e.target.files[0];
+    //     if (selectedFile) {
+    //         if (selectedFile && fileType.includes(selectedFile.type)) {
+    //             let reader = new FileReader();
+    //             reader.readAsDataURL(selectedFile);
+    //             reader.onloadend = (e) => {
+    //                 setPdfFile(e.target.result);
+    //                 setPdfFileError('');
+    //                 // handleChange()
+    //                 console.log(pdfFile) //null
+    //                 console.log(e.target.result)
+                    
+    //             }
+    //         }
+    //         else {
+    //             setPdfFile(null);
+    //             setPdfFileError('Please select valid pdf file');
+    //         }
+    //     }
+    //     else {
+    //         console.log('select your file');
+    //     }
+    // }
 
-    // form submit
-    const handlePdfFileSubmit = (e) => {
-        e.preventDefault();
-        if (pdfFile !== null) {
-            setViewPdf(pdfFile);
-        }
-        else {
-            setViewPdf(null);
-        }
-    }
+    // // form submit
+    // const handlePdfFileSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (pdfFile !== null) {
+    //         setViewPdf(pdfFile);
+    //     }
+    //     else {
+    //         setViewPdf(null);
+    //     }
+    // }
 
 
     const [isPageLoading, setPageLoading] = useState(true);
@@ -152,7 +156,9 @@ function AddContent({
                 validateOnChange={true}
                 onSubmit={values => {
                     window.scrollTo(0, 0);
-                    onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, values.isActive, history)
+                    onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription, 
+                        values.contentType, values.contentSource, values.contentThumbnail, values.contents, 
+                        values.startDate, values.isActive, history)
                 }}
             >
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
@@ -297,45 +303,51 @@ function AddContent({
                                     />
                                 ) : null}
                                 {values.contentType === "Pdf" ? (
+                                    <InputComponent
+                                    type="text"
+                                    name="contents"
+                                    className="form-group__input form-group__input--fullwidth"
+                                    placeholder="Type Video URL... (Pdf file)"
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    />
+
                                     // <Pdf />
                                     // <Pdf2 />
-                                    <div className='container'>
-                                        <br></br>
-                                        <form className='form-group' onSubmit={handlePdfFileSubmit}>
-                                            <input type="file" className='form-control'
-                                                required onChange={handlePdfFileChange}
-                                            // value={values.contents}
-                                            // value={}
-                                            />
-                                            {pdfFileError && <div className='error-msg'>{pdfFileError}</div>}
-                                            <br></br>
-                                            <button type="submit" className='btn btn-success btn-lg' onClick={handlePdfFileSubmit} >
-                                                UPLOAD
-                                            </button>
-                                        </form>
-                                        <br></br>
-                                        <h4>View PDF</h4>
-                                        <div className='pdf-container'>
-                                            {/* show pdf conditionally (if we have one)  */}
-                                            {viewPdf && <><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                                                <Viewer fileUrl={viewPdf}
-                                                    plugins={[defaultLayoutPluginInstance]} />
-                                            </Worker></>}
+                                    // <div className='container'>
+                                    //     <br></br>
+                                    //     <form className='form-group' onSubmit={handlePdfFileSubmit}>
+                                    //         <InputComponent type="file" className='form-control'
+                                    //             required onChange={handleChange} // respon yg diberikan akan berbeda
+                                    //             name="contents"
+                                    //             value={values.contents}
+                                    //             // onChange={handleChange}
+                                    //             // onClick={handlePdfFileChange}
+                                    //             // uda bisa, tinggal bagaimana url pdf dari computer terbaca oleh push sehingga bisa terlihat hasil file yang di upload
+                                    //             // pemanggilan pdf seperti apa
+                                    //         />
+                                            
+                                    //         {pdfFileError && <div className='error-msg'>{pdfFileError} </div>}
+                                    //         <br></br>
+                                    //         <button type="submit" className='btn btn-success btn-lg' onClick={handlePdfFileSubmit} >
+                                    //             UPLOAD
+                                    //         </button>
+                                    //     </form>
+                                    //     <br></br>
+                                    //     <h4>View PDF</h4>
+                                    //     <div className='pdf-container'>
+                                    //         {/* show pdf conditionally (if we have one)  */}
+                                    //         {viewPdf && <><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                                    //             <Viewer fileUrl={viewPdf}
+                                    //                 plugins={[defaultLayoutPluginInstance]} 
+                                    //                />
+                                    //         </Worker></>}
 
-                                            {/* if we dont have pdf or viewPdf state is null */}
-                                            {!viewPdf && <>No pdf file selected</>}
-                                        </div>
-                                        <InputComponent
-                                            type="text"
-                                            name="contents"
-                                            className="form-group__input form-group__input--fullwidth"
-                                            placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
-                                            value={pdfFile}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                        />
-
-                                    </div>
+                                    //         {/* if we dont have pdf or viewPdf state is null */}
+                                    //         {!viewPdf && <>No pdf file selected</>}
+                                    //     </div>
+                                    // </div>
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
@@ -382,12 +394,24 @@ function AddContent({
             {isLoading ? <RKLoader /> : null}
         </>
     )
+
 }
+
+// try again
+//
+// 
+// 
+// 
+// 
+// 
+// 
 
 
 // 1- install pdfjs library | npm install pdfjs-dist@2.6.347
 // 2- install the core package | npm install @react-pdf-viewer/core@2.4.1   ok
 // 3- install pdf viewer default layout | npm install @react-pdf-viewer/default-layout  ok
+
+// its so loadingStart, i am very tired n feell sleepy, well will be ok rgight, 
 
 const mapStateToProps = state => {
     console.log(state.auth.isLoading);
