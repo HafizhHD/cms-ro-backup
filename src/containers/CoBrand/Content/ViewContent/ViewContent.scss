@@ -162,6 +162,7 @@
             background-color: #eee;
             font-family: "Inter", sans-serif;
             font-size: 1.2rem;
+            // max-width: 20vw; 
 
             &_detail {
                 padding-bottom: 1.5rem;
@@ -177,7 +178,7 @@
             &_contents {
                 white-space: pre-line;
                 font-weight: 10;
-                // max-width: 50vw;
+                max-width: 20vw; //pdf_view
             }
         }
 
@@ -200,6 +201,7 @@
             border-top-width: 60px;
             border-bottom-width: 60px;
             border-radius: 36px;
+            max-width: 21vw;
 
         
             /* The horizontal line on the top of the device */
@@ -279,7 +281,6 @@
                     text-align: justify;
                     white-space: pre-line;
                     font-family: Arial, Helvetica, sans-serif;
-                    max-width: 23vw;
                     padding: 1%;
                     li {
                         margin-left: 5%;
@@ -289,3 +290,7 @@
         }
     }
 }
+
+// .pdf_view{
+//     max-width: 8vw;
+// }

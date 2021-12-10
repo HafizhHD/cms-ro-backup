@@ -160,8 +160,7 @@ function ViewContent() {
                                     <p>Sumber: {content.contentSource}</p>
                                 </div>
                             </div>
-                            <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{__html: content.contents}}></div>
-                            
+                            <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{__html: content.contents}}></div>                            
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,8 @@
     display: grid;
     grid-template-columns: 1fr 12rem;
     align-items: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 
     h3 {
       color: var(--color-primary);
@@ -24,13 +26,16 @@
   &__map {
     @extend %contentwrapper;
     width: 100%;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
   }
 
   &__list {
     @extend %contentwrapper;
+    
 
     &__data {
-      margin-top: 1rem;
+      margin-bottom: 2rem;
     }
   }
 }
