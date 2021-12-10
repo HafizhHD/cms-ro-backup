@@ -144,11 +144,7 @@ function ViewContent() {
                         </div>
                         <div className="content_detail_bottom_contents">
                             <p className="content_detail_group">Contents:</p>
-                            {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
-                                <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
-                            ) : (
-                                <p>{content.contents}</p>
-                            )}
+                            <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
                         </div>
                     </div>
                 </div>
@@ -164,11 +160,8 @@ function ViewContent() {
                                     <p>Sumber: {content.contentSource}</p>
                                 </div>
                             </div>
-                            {content.contentType === 'Video' || content.contentType === 'Image' || content.contentType === 'Artikel'? (
-                                <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{__html: content.contents}}></div>
-                            ) : (
-                                <p>{content.contents}</p>
-                            )}
+                            <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                            
                         </div>
                     </div>
                 </div>

@@ -215,24 +215,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             }
             else if (contentType === 'Pdf') {
                 contents = 
-                <object data={contents} type="application/pdf">
-                    <embed src={contents} type="application/pdf" />
-                </object>
-                // <iframe src={contents} style="width:718px; height:700px;" frameborder="0"></iframe>
-                    // <FileViewer
-                    // fileType='.pdf'
-                    // filePath={contents}
-                    // errorComponent={CustomErrorComponent}
-                    // // onError={this.onError}
-                    // />
-                //    <Viewer 
-                //     fileUrl={contents}
-                //     // plugins={[defaultLayoutPluginInstance]}
-                //    />
-
-                /*
-                    SOMETHING different to offer some different
-                */
+                '<div><iframe src="http://docs.google.com/gview?url=' + contents + '&embedded=true" style="width:40vw; height:700px;" frameborder="0"></iframe></div>'
 
                 console.log(contents)
             }

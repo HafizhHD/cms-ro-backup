@@ -25,54 +25,54 @@ function AddContent({
     isLoading
 }) {
 
-    // //pdf
-    // // Create new plugin instance
-    // const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    //pdf
+    // Create new plugin instance
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-    // // for onchange event
-    // const [pdfFile, setPdfFile] = useState(null);
-    // const [pdfFileError, setPdfFileError] = useState('');
+    // for onchange event
+    const [pdfFile, setPdfFile] = useState(null);
+    const [pdfFileError, setPdfFileError] = useState('');
 
-    // // for submit event
-    // const [viewPdf, setViewPdf] = useState(null);
+    // for submit event
+    const [viewPdf, setViewPdf] = useState(null);
 
-    // // onchange event
-    // const fileType = ['application/pdf'];
-    // const handlePdfFileChange = (e) => {
-    //     let selectedFile = e.target.files[0];
-    //     if (selectedFile) {
-    //         if (selectedFile && fileType.includes(selectedFile.type)) {
-    //             let reader = new FileReader();
-    //             reader.readAsDataURL(selectedFile);
-    //             reader.onloadend = (e) => {
-    //                 setPdfFile(e.target.result);
-    //                 setPdfFileError('');
-    //                 // handleChange()
-    //                 console.log(pdfFile) //null
-    //                 console.log(e.target.result)
+    // onchange event
+    const fileType = ['application/pdf'];
+    const handlePdfFileChange = (e) => {
+        let selectedFile = e.target.files[0];
+        if (selectedFile) {
+            if (selectedFile && fileType.includes(selectedFile.type)) {
+                let reader = new FileReader();
+                reader.readAsDataURL(selectedFile);
+                reader.onloadend = (e) => {
+                    setPdfFile(e.target.result);
+                    setPdfFileError('');
+                    // handleChange()
+                    console.log(pdfFile) //null
+                    console.log(e.target.result)
                     
-    //             }
-    //         }
-    //         else {
-    //             setPdfFile(null);
-    //             setPdfFileError('Please select valid pdf file');
-    //         }
-    //     }
-    //     else {
-    //         console.log('select your file');
-    //     }
-    // }
+                }
+            }
+            else {
+                setPdfFile(null);
+                setPdfFileError('Please select valid pdf file');
+            }
+        }
+        else {
+            console.log('select your file');
+        }
+    }
 
-    // // form submit
-    // const handlePdfFileSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (pdfFile !== null) {
-    //         setViewPdf(pdfFile);
-    //     }
-    //     else {
-    //         setViewPdf(null);
-    //     }
-    // }
+    // form submit
+    const handlePdfFileSubmit = (e) => {
+        e.preventDefault();
+        if (pdfFile !== null) {
+            setViewPdf(pdfFile);
+        }
+        else {
+            setViewPdf(null);
+        }
+    }
 
 
     const [isPageLoading, setPageLoading] = useState(true);
@@ -315,6 +315,7 @@ function AddContent({
 
                                     // <Pdf />
                                     // <Pdf2 />
+
                                     // <div className='container'>
                                     //     <br></br>
                                     //     <form className='form-group' onSubmit={handlePdfFileSubmit}>
@@ -397,14 +398,6 @@ function AddContent({
 
 }
 
-// try again
-//
-// 
-// 
-// 
-// 
-// 
-// 
 
 
 // 1- install pdfjs library | npm install pdfjs-dist@2.6.347
