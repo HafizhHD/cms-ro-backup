@@ -178,12 +178,14 @@
             &_contents {
                 white-space: pre-line;
                 font-weight: 10;
-                max-width: 20vw; //pdf_view
+                // max-width: 20vw; //pdf_view
             }
         }
 
         &_group {
             font-weight: 800;
+            // max-width: 20vw;
+            // padding-right: 10vw;
         }
     }
 

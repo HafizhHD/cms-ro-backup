@@ -144,7 +144,7 @@ function ViewContent() {
                         </div>
                         <div className="content_detail_bottom_contents">
                             <p className="content_detail_group">Contents:</p>
-                            <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                            <div className='pdf-style' dangerouslySetInnerHTML={{__html: content.contents}}></div>
                         </div>
                     </div>
                 </div>

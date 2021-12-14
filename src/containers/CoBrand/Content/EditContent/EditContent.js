@@ -10,6 +10,8 @@ import { validationContentEdit } from '../../../../helpers/validation/validation
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css'
+import '@react-pdf-viewer/core/lib/styles/index.css'
 
 function EditContent({
     onEditContent,
@@ -92,6 +94,13 @@ function EditContent({
                     let con1 = con.getElementsByTagName('iframe')[0];
                     setConFromImgVid(con1.src);
                 }
+                //else if untuk pdf, hanya saja ini dy get elementid nya kmn
+                
+                //sebelah sini pdf nya nyesuikan yang seperti apa?
+                // ini dy akn merespon apa? isi dari konten kah
+
+
+
                 let date = response.data.contents[0].startDate.split('T')[0];
                 console.log(date);
                 setContentStartDate(date);
@@ -164,6 +173,7 @@ function EditContent({
                                 <option value="Artikel">Artikel</option>
                                 <option value="Image">Image</option>
                                 <option value="Video">Video</option>
+                                <option value="Pdf">File Pdf</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -283,6 +293,19 @@ function EditContent({
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
+                            ) : null }
+                            {values.contentType === "Pdf" ? (
+                                //tinggal isi konten biar sesuai dengan yang sebelumnya, ketika edit, konten nya ilang.
+                                    <InputComponent
+                                    type="text"
+                                    name="contents"
+                                    className="form-group__input form-group__input--fullwidth"
+                                    placeholder="Type Pdf URL... (just for pdf file)"
+                                    // placeholder={values.contents}
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    />
                             ) : null }
                             {touched.contents && <span className="message__error">{errors.contents}</span>}
                         </div>

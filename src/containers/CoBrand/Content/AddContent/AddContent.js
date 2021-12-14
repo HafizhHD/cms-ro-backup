@@ -304,13 +304,13 @@ function AddContent({
                                 ) : null}
                                 {values.contentType === "Pdf" ? (
                                     <InputComponent
-                                    type="text"
-                                    name="contents"
-                                    className="form-group__input form-group__input--fullwidth"
-                                    placeholder="Type Video URL... (Pdf file)"
-                                    value={values.contents}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                        type="text"
+                                        name="contents"
+                                        className="form-group__input form-group__input--fullwidth"
+                                        placeholder="Type Video URL... (Pdf file)"
+                                        value={values.contents}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
                                     />
 
                                     // <Pdf />
