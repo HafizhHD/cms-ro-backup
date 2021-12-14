@@ -32,10 +32,16 @@
 
   &__list {
     @extend %contentwrapper;
+    margin-bottom: 2rem;
     
 
     &__data {
       margin-bottom: 2rem;
+      margin-top: 3rem;
     }
   }
+}
+
+.utils {
+  margin-bottom: 1rem;
 }

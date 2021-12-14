@@ -60,7 +60,7 @@ function RedZone() {
                     /> */}
                 </div>
                 <div className="RedZone__data">
-                    <TableRedZone 
+                    <TableRedZone className="table-col"
                         COLUMNS={Columns}
                         DATA={Data}
                     />

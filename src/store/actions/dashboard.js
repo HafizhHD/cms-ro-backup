@@ -299,10 +299,6 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             else if (contentType === 'Pdf') {
                 contents = 
                 '<div><iframe src="http://docs.google.com/gview?url=' + contents + '&embedded=true" style="width:40vw; height:700px;" frameborder="0"></iframe></div>'
-                // kemungkinan karena ini, ada src nya, ketika edit bagaimana ini bisa ikut tetap nyantol di satunya.
-                // sehingga value  nya gak hilang.
-                // apa yang harus di masukkan ke data yang di kontents dapet masuk ke edit kontes
-
 
                 console.log(contents)
             }

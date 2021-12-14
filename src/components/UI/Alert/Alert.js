@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Alert.scss';
 import { FiXCircle, FiCheckCircle } from 'react-icons/fi';
 
 function Alert({type, message}) {
+    const [closeAlert, setCloseAlert] = useState(false)
+
     return (
         <div key={message} className="alert">
             <div className={type}>

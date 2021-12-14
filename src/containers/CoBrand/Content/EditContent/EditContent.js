@@ -94,12 +94,10 @@ function EditContent({
                     let con1 = con.getElementsByTagName('iframe')[0];
                     setConFromImgVid(con1.src);
                 }
-                //else if untuk pdf, hanya saja ini dy get elementid nya kmn
-                
-                //sebelah sini pdf nya nyesuikan yang seperti apa?
-                // ini dy akn merespon apa? isi dari konten kah
-
-
+                else if(response.data.contents[0].contentType === 'Pdf') {
+                    let con1 = con.getElementsByTagName('iframe')[0];
+                    setConFromImgVid(con1.src);
+                }
 
                 let date = response.data.contents[0].startDate.split('T')[0];
                 console.log(date);
