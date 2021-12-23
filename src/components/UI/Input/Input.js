@@ -11,6 +11,10 @@ function Input({
     message,
     name,
     min,
+<<<<<<< HEAD
+=======
+    disabled,
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
     isError
 }) {
     if(type === "textarea") {
@@ -24,6 +28,7 @@ function Input({
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                disabled={disabled}
             />
             {isError && (
                 <div className="message">
@@ -45,6 +50,11 @@ function Input({
                     onBlur={onBlur}
                     value={value}
                     min={min}
+<<<<<<< HEAD
+=======
+                    max={"9999-12-31"}
+                    disabled={disabled}
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 />
                 {isError && (
                     <div className="message">
@@ -64,6 +74,10 @@ function Input({
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+<<<<<<< HEAD
+=======
+                disabled={disabled}
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
             />
             {isError && (
                 <div className="message">

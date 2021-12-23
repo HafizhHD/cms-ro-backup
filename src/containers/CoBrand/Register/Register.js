@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import './Register.scss';
+<<<<<<< HEAD
 import Logo from './../../../assets/img/Logo_2.png'
 import DeviceImage from './../../../assets/img/device.png';
+=======
+import Logo from './../../../assets/img/Logo_1.png'
+import DeviceImage from './../../../assets/img/device2.png';
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { Formik } from 'formik';

@@ -1,93 +1,223 @@
 .Report {
   display: grid;
-  grid-template-rows:
-    [heading-start-page] max-content [heading-end-page]
-    max-content
-    repeat(2, minmax(20rem, max-content))
-    max-content minmax(25rem, max-content)
-    max-content minmax(25rem, max-content);
-  grid-template-columns:
-    [column-start] repeat(2, [col-middle-start] 1fr [col-middle-end])
-    [column-end];
-  grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
+  grid-template-rows: repeat(5, max-content);
+  grid-row-gap: 1rem;
 
-  h1 {
-    grid-column: column-start / column-end;
-    grid-row: heading-start-page / heading-end-page;
+  &_heading {
+      grid-row: 1/2;
+      margin-bottom: 1rem;
   }
 
-  &__subs__heading {
-    grid-row: 2 / 3;
-    grid-column: 1 / -1;
-  }
+  &_card {
+      background-color: #fff;
+      box-shadow: 1px 1px 2px 3px rgba(#ddd, 0.4);
+      height: 100%;
+      border-radius: .8rem;
 
-  &__activesubscriber {
-    grid-row: 3 / 4;
-    grid-column: column-start / col-middle-start;
-  }
+      &_heading {
+          display: flex;
+          align-items: center;
 
-  &__newssubscriber {
-    grid-row: 3 / 4;
-    grid-column: 2 / 3;
-  }
 
-  &__subscriber {
-    grid-row: 4 / 5;
-    grid-column: 1 / -1;
-  }
+          background-color: var(--color-grey-dark-1);
+          color: #fff;
+          padding: .6rem .8rem .6rem .8rem;
+          border-top-left-radius: .8rem;
+          border-top-right-radius: .8rem;
+        
+         
+      }
 
-  &__program__heading {
-    grid-row: 5 / 6;
-    grid-column: 1 / -1;
-  }
-  &__programcategory {
-    grid-row: 6 / 7;
-    grid-column: 1 / 2;
-  }
+      &_icon {
+          font-size: 1rem;
+          margin-left: .7rem;
+      }
 
-  &__programpublish {
-    grid-row: 6 / 7;
-    grid-column: 2 / 3;
-  }
+      &_content {
+          height: 100%;
+          padding: 1rem;
+          &_type {
+              height: 1rem;
+          }
+          &-data {
+              display: flex;
+              justify-content: space-evenly;
+              align-items: center;
+              height: 80%;
+              border-bottom: 3px solid var(--color-primary);
+              
+              &-left {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  padding: 2rem;
 
-  &__content__heading {
-    grid-row: 7 / 8;
-    grid-column: 1 / -1;
-  }
-  &__contentcategory {
-  }
+                  & > h1 {
+                      font-size: 3.5rem;
+                      color: var(--color-primary);
+                  }
 
-  &__contentpublish {
+                  & > div {
+                      display: flex;
+                      align-items: center;
+
+                      & > h5 {
+                          font-size: 1.1rem;
+                      }
+                  }
+              }
+
+              &-right {
+                  & > div {
+                      display: flex;
+                      & > h5 {
+                          margin-left: 1rem;
+                          font-size: .8rem;
+                      }
+                  }
+              }
+
+          }
+          &-chart {
+              display: table;
+              height: 80%;
+              width: 100%;
+              justify-content: center;
+              & > h2 {
+                  display: table-cell;
+                  vertical-align: middle;
+                  text-align: center;
+              }
+          }
+      }
   }
 }
 
-.card_report {
-  border-radius: 1rem;
-  box-shadow: 2px 3px 4px rgba(#111, 0.2);
-  background-color: #fff;
 
-  &_heading {
-    background-color: var(--color-grey-dark-1);
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    padding: 0.4rem 0.8rem;
-    display: flex;
-    align-items: center;
+.UserReport {
 
-    h3 {
-      color: #fff;
-      font-size: 1rem;
-      margin-right: 0.6rem;
-    }
+  display: grid;
+  grid-row: 2/3;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1.5rem;
 
-    &-icon {
-      font-size: 1rem;
-      color: #fff;
-      cursor: pointer;
+  &_totaluser {
+      grid-column: 1 / 2;
+  }
+
+  &_totalactive {
+      grid-column: 2 / 3;
+  }
+
+}
+
+.Demography {
+
+  display: grid;
+  grid-row: 3/4;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-gap: 1.5rem;
+
+  &_userdistrik {
+      grid-column: 1 / 2;
+  }
+  &_userressort {
+      grid-column: 2 / 3;
+  }
+  &_userhuria {
+      grid-column: 3 / 4;
+  }
+
+  & select {
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.CoBrand {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, minmax(20rem, max-content) ) ;
+  grid-gap: 1.5rem;
+  margin-top: 1.5rem;
+
+  &_register {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+  }
+
+  &_totalactive {
+      grid-row:  1 / 2;
+      grid-column: 2 / 3;
+  }
+
+  &_programactive {
+      grid-row: 2 /3;
+      grid-column: 1 / -1;
+  }
+
+
+}
+
+//label & icon
+.iconDanger {
+  color: red;
+  font-size: 1.2rem;
+}
+.iconSuccess {
+  color: blue;
+  font-size: 1.2rem;
+}
+.iconNormal {
+  color: gray;
+  font-size: 1.2rem;
+}
+.labelTitle {
+  width: 1.8rem;
+  height: .8rem;
+  background-color: var(--color-primary);
+}
+.labelSuccess {
+  width: 1.8rem;
+  height: .8rem;
+  background-color: blue;
+}
+.labelDanger {
+  width: 1.8rem;
+  height: .8rem;
+  background-color: red;
+}
+
+.labelWarning {
+  width: 1.8rem;
+  height: .8rem;
+  background-color: gray
+}
+.text-danger {
+  color: red;
+}
+.text-success {
+  color: blue;
+}
+.text-normal {
+  color: gray;
+}
+
+@media only screen and (max-width: 899px) {
+  .UserReport {
+    grid-template-columns: 1fr;
+    
+    & > * {
+      grid-column: unset;
     }
   }
 
-  &_content {
+  .Demography {
+    grid-template-columns: 1fr;
+
+    & > * {
+      grid-column: unset;
+    }
   }
 }

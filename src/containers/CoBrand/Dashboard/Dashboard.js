@@ -4,7 +4,9 @@ import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
-import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
+import { useHistory } from 'react-router';
+import { getContentList, getProgramList } from '../../../components/API/filter';
 
 function Dashboard() {
 
@@ -12,11 +14,17 @@ function Dashboard() {
     const [programList, setProgramList] = useState();
     const [contentList, setContentList] = useState();
     const [countVariable, setCountVariable] = useState();
+<<<<<<< HEAD
+=======
+
+    const history = useHistory();
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 
     const userData = JSON.parse(localStorage.getItem('userData'));
     const programParams = {
         whereKeyValues: {
-            cobrandEmail: userData.email
+            cobrandEmail: userData.email,
+            status: 'active'
         },
         orderKeyValues: {
             startDate: -1
@@ -25,7 +33,8 @@ function Dashboard() {
     };
     const contentParams = {
         whereKeyValues: {
-            cobrandEmail: userData.email
+            cobrandEmail: userData.email,
+            status: 'active'
         },
         orderKeyValues: {
             startDate: -1
@@ -35,31 +44,20 @@ function Dashboard() {
 
     useEffect(() => {
         setLoading(true);
-        axios({
-            method: 'post',
-            url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-            data: programParams,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        getProgramList(programParams)
         .then(response => {
             let programs = response.data.programs.map((d) => (
                 <div className="Dashboard__programs__list">
-                    <h3>{d.programName}</h3>
+                    <h3 onClick={() => {
+                        localStorage.setItem('programSelected', d._id);
+                        history.push('/program/view');
+                    }}>{d.programName}</h3>
                     <p>{d.ProgramDescription}</p>
                 </div>
             ));
             setProgramList(programs);
             console.log(programs);
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-                data: contentParams,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            getContentList(contentParams)
             .then(response => {
                 let contents = response.data.contents.map((d) => (
                     <div className="Dashboard__contents__item">
@@ -93,6 +91,7 @@ function Dashboard() {
                 let params1 = {
                     whereKeyValues: {
                         cobrandEmail: userData.email
+<<<<<<< HEAD
                     }
                 }
                 const promiseP = axios({
@@ -111,6 +110,13 @@ function Dashboard() {
                         'Content-Type': 'application/json',
                     },
                 });
+=======
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
+                }
+                const promiseP = getProgramList(params1);
+                const promiseC = getContentList(params1);
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 Promise.all([promiseP, promiseC]).then(response => {
                     countingVariable.countProgram = response[0].data.programs.length;
                     countingVariable.countContent = response[1].data.contents.length;

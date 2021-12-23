@@ -3,18 +3,25 @@ import './Program.scss';
 import TableProgram from './../../../components/UI/Table/Table';
 import columns from './components/Columns';
 import Data from './components/MOCK_DATA.json';
+import { deleteProgram } from '../../../store/actions/dashboard';
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import axios from 'axios';
-import RKLoader from '../../../components/UI/RKLoader/RKLoader';
+import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
+import {connect} from 'react-redux';
+import { getProgramList } from '../../../components/API/filter';
 
 // import Modal from '../../../components/UI/Modal/Modal';
 
-function Program() {
+function Program({
+    isCurrentlyLoading,
+    onDeleteProgram
+}) {
     const [showModal, setShowModal] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
     const [programList, setProgramList] = useState();
+    const [programDeleting, setProgramDeleting] = useState(null);
 
     /*
     const submitModal = () => {
@@ -26,63 +33,41 @@ function Program() {
     const params = {
         whereKeyValues: {
             cobrandEmail: userData.email
-        }
+        },
+        limit: Number.MAX_SAFE_INTEGER
     };
 
     
+    function retrieveList() {
+        getProgramList(params)
+        .then(response => {
+            setProgramList(response.data);
+            console.log(response.data);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+    }
     
     useEffect(() => {
         setLoading(true);
-        function retrieveList() {
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                setProgramList(response.data);
-                console.log(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.log(error);
-                setLoading(false);
-            });
-        }
         if(localStorage.getItem('programDeleting')) {
-            const deleting = {
-                whereValues: {
-                    cobrandEmail: userData.email,
-                    _id: localStorage.getItem('programDeleting')
-                }
-            }
-            axios({
-                method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/programRemove',
-                data: deleting,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                console.log(response.data);
-                localStorage.removeItem('programDeleting');
-                retrieveList();
-            })
-            .catch(error => {
-                console.log(error);
-                localStorage.removeItem('programDeleting');
-                retrieveList();
-            });
+            setProgramDeleting(localStorage.getItem('programDeleting'));
+            localStorage.removeItem('programDeleting');
         }
-        else retrieveList();
-        localStorage.removeItem('programDeleting');
+        retrieveList();
     }, []);
 
-    if(isLoading) {
+    useEffect(() => {
+        if(programDeleting) {
+            setLoading(true);
+            onDeleteProgram(userData.email, programDeleting, retrieveList);
+        }
+    }, [programDeleting]);
+
+    if(isLoading || isCurrentlyLoading) {
         return <RKLoader/>
     }
 
@@ -96,7 +81,7 @@ function Program() {
             </NavLink>
             <div className="Program__table">
                 <TableProgram 
-                    COLUMNS={columns} 
+                    COLUMNS={columns(setProgramDeleting)} 
                     DATA={programList.programs}  
                 />
             </div>
@@ -118,4 +103,16 @@ function Program() {
     )
 }
 
-export default Program
+const mapStateToProps = state => {
+    return {
+        isCurrentlyLoading: state.auth.isLoading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDeleteProgram: (email, deletingProgram, retrieveList) => dispatch(deleteProgram(email, deletingProgram, retrieveList))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Program)

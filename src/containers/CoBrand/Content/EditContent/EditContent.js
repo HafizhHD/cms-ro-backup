@@ -3,13 +3,15 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import './EditContent.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { editContent } from '../../../../store/actions/webMainUtils';
-import RKLoader from '../../../../components/UI/RKLoader/RKLoader';
+import { editContent } from '../../../../store/actions/dashboard';
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationContentEdit } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css'
+import '@react-pdf-viewer/core/lib/styles/index.css'
 
 function EditContent({
     onEditContent,
@@ -82,6 +84,10 @@ function EditContent({
                 if(response.data.contents[0].contentType === 'Artikel') {
                     let con1 = con.getElementById('contents');
                     setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
+<<<<<<< HEAD
+=======
+                    setConFromImgVid(con1.outerHTML);
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 }
                 else if(response.data.contents[0].contentType === 'Image') {
                     let con1 = con.getElementsByTagName('img')[0];
@@ -91,6 +97,14 @@ function EditContent({
                     let con1 = con.getElementsByTagName('iframe')[0];
                     setConFromImgVid(con1.src);
                 }
+<<<<<<< HEAD
+=======
+                else if(response.data.contents[0].contentType === 'Pdf') {
+                    let con1 = con.getElementsByTagName('iframe')[0];
+                    setConFromImgVid(con1.src);
+                }
+
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 let date = response.data.contents[0].startDate.split('T')[0];
                 console.log(date);
                 setContentStartDate(date);
@@ -136,7 +150,11 @@ function EditContent({
                     contentDescription: content.contentDescription,
                     contentType: content.contentType,
                     contentSource: content.contentSource,
+<<<<<<< HEAD
                     contents: content.contentType !== 'Artikel' ? conFromImgVid : '',
+=======
+                    contents: conFromImgVid,
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                     startDate: contentStartDate
                 }}
                 validationSchema = {validationContentEdit}
@@ -145,7 +163,7 @@ function EditContent({
                     onEditContent( _id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, '', values.contents, values.startDate, history)
                 }}
             >
-            {({handleChange, handleSubmit, setFieldValue, values, errors}) => (
+            {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="EditContent">
                         <h1>Edit Selected Content: {content.contentName}</h1>
@@ -159,10 +177,11 @@ function EditContent({
                                     setFieldValue("contents", '');
                                 }}
                             >
-                                <option value="" disabled>--Select Content Type--</option>
+                                <option value="" disabled>Select Content Type</option>
                                 <option value="Artikel">Artikel</option>
                                 <option value="Image">Image</option>
                                 <option value="Video">Video</option>
+                                <option value="Pdf">File Pdf</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -172,6 +191,7 @@ function EditContent({
                                 value={values.programId}
                                 onChange={handleChange}
                             >
+                                <option value="-1" disabled>Select Program</option>
                                 <option value="">(Tanpa Program)</option>
                                 {
                                     programList.map((program) => {
@@ -191,8 +211,9 @@ function EditContent({
                                 placeholder="Example"
                                 value={values.contentName}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.contentName}</span>
+                            {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                         </div>
                         <div className="form-group">
                             <label>Description</label>
@@ -202,9 +223,10 @@ function EditContent({
                                 placeholder="Type Something..."
                                 value={values.contentDescription}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
+                            {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                         </div>
-                        <span className="message__error">{errors.contentDescription}</span>
                         <div className="form-group">
                             <label>Source</label>
                             <InputComponent 
@@ -214,8 +236,9 @@ function EditContent({
                                 placeholder="Example"
                                 value={values.contentSource}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.contentSource}</span>
+                            {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                         </div>
                         {/*<div className="form-group">
                             <label>Photo</label>
@@ -246,9 +269,10 @@ function EditContent({
                                 <RichTextEditor
                                     name="contents"
                                     placeholder="Type your contents here..."
-                                    className="form-group__input form-group__input_rte"
+                                    className="form-group_rte"
                                     value={textValue}
                                     toolbarConfig={toolbarConfig}
+                                    onBlur={handleBlur}
                                     onChange={ (e) => {
                                         setTextValue(e);
                                         setFieldValue("contents", e.toString("html"));
@@ -264,6 +288,7 @@ function EditContent({
                                     placeholder="Type Image URL... (https://example.com/something/something.jpg)"
                                     value={values.contents}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             ) : null }
                             { values.contentType === "Video" ? (
@@ -274,9 +299,23 @@ function EditContent({
                                     placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
                                     value={values.contents}
                                     onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             ) : null }
-                            <span className="message__error">{errors.contents}</span>
+                            {values.contentType === "Pdf" ? (
+                                //tinggal isi konten biar sesuai dengan yang sebelumnya, ketika edit, konten nya ilang.
+                                    <InputComponent
+                                    type="text"
+                                    name="contents"
+                                    className="form-group__input form-group__input--fullwidth"
+                                    placeholder="Type Pdf URL... (just for pdf file)"
+                                    // placeholder={values.contents}
+                                    value={values.contents}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    />
+                            ) : null }
+                            {touched.contents && <span className="message__error">{errors.contents}</span>}
                         </div>
                         <div className="form-group">
                             <label>Set Schedule</label>
@@ -287,19 +326,19 @@ function EditContent({
                                 value={values.startDate}
                                 min={new Date().toISOString().split('T')[0]}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            <span className="message__error">{errors.startDate}</span>
+                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit">
-                                Upload Content
+                                Update Content
                             </button>
                         </div>
                     </div>
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
             {isLoading ? <RKLoader/> : null}
         </>
     )

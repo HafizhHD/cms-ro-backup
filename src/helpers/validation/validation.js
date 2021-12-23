@@ -40,6 +40,38 @@ export const validationFormRegister = yup.object({
         })
 })
 
+export const validationFormEdit = yup.object({
+    email: yup.string('Enter your email').required('Email is required').email('Email not valid'),
+    cobrandName: yup.string('Enter your brand name').required('Brand name is required'),
+    thumbnail: yup.mixed('Insert your image, 2 MB max')
+        .test(
+            'imageType', "Incorrect file extension, must be .jpg, .jpeg, or .png",
+            (img) =>
+                (img && ["image/png", "image/jpg", "image/jpeg"].includes(img.type)) || (!img)
+        )
+        .test(
+            'imageSize', "Image file size too large, max image file size is 2 MB",
+            (img) => {
+                if(img) {
+                    return img.size <= 2097152;
+                }
+                else {
+                    return true;
+                }
+            }
+        ),
+    phoneNumber: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
+    address: yup.string('Enter your address').required('Address is required'),
+    password: yup.string('Enter your password').min(8, 'Password should be 8 characters or more'),
+    confirmPassword: yup.string('Confirm your password')
+        .when('password', (password, schema) => {
+            return schema.test({
+                test: confirmPassword => (password && confirmPassword === password) || !password,
+                message: "Password doesn't match"
+            })
+        })
+})
+
 export const validationProgram = yup.object({
     programName: yup.string('Enter your program title').required('Program title is required'),
     programDescription: yup.string('Enter the program description').required('Program description is required'),

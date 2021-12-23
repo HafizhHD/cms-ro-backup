@@ -52,15 +52,15 @@ function RedZone() {
             <div className="RedZone__list">
                 <div className="RedZone__heading">
                     <h3>Redzone List</h3>
-                    <InputComponent 
+                    {/* <InputComponent 
                         className="Input-control"
                         type="text"
                         placeholder="Search"
                         name="search"
-                    />
+                    /> */}
                 </div>
                 <div className="RedZone__data">
-                    <TableRedZone 
+                    <TableRedZone className="table-col"
                         COLUMNS={Columns}
                         DATA={Data}
                     />

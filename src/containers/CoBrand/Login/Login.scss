@@ -143,6 +143,9 @@
             font-size: 1.8rem;
           }
         }
+        & > p {
+          color: red;
+        }
       }
 
       &-form {
@@ -152,6 +155,16 @@
 
         align-self: center;
 
+        &-checkbox {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          & > input {
+            margin: 0.2rem;
+          }
+          
+        }
         @media only screen and (max-width: 1300px) {
           margin: 0;
         }

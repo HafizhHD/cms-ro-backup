@@ -14,7 +14,7 @@ const GoogleMaps = ({search}) => {
     console.log(search);
     
     return (
-        <Map
+      <Map
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
             height: '50vh'

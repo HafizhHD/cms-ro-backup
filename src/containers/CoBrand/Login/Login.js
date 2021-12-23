@@ -1,8 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
+<<<<<<< HEAD
 import Logo from './../../../assets/img/Logo_2.png'
 import DeviceImage from './../../../assets/img/device.png';
+=======
+import Logo from './../../../assets/img/Logo_1.png'
+import DeviceImage from './../../../assets/img/device2.png';
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { useFormik } from 'formik';
@@ -17,6 +22,8 @@ function Login({
     isLoading
 }) {
     const [showHelp, setShowHelp] = useState(false);
+    const [isPasswordVisible, showPassword] = useState(false);
+    const [loginMessage, setLoginMessage] = useState();
 
     const formik = useFormik({
         initialValues: {
@@ -26,6 +33,13 @@ function Login({
         validationSchema: validationFormLogin,
         onSubmit: values => {
             onLogin( values.email, values.password )
+        }
+    });
+
+    useEffect(() => {
+        if(localStorage.getItem('loginMessage')) {
+            setLoginMessage(localStorage.getItem('loginMessage'));
+            localStorage.removeItem('loginMessage');
         }
     })
 
@@ -62,7 +76,11 @@ function Login({
                         <div className="Login-middle-right">
                             <div className="Login-middle-right-heading mb-small">
                                 <h1>Mulai Kelola Pelanggan Anda Sekarang.</h1>
+<<<<<<< HEAD
                                 {localStorage.getItem('loginMessage') ? <p>{localStorage.getItem('loginMessage')}</p> : null}
+=======
+                                {loginMessage ? <p>{loginMessage}</p> : null}
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                             </div>
                             <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 
@@ -77,7 +95,7 @@ function Login({
                                 />
                                 <InputComponent 
                                     placeholder="Password"
-                                    type="password"
+                                    type={isPasswordVisible ? "text" : "password"}
                                     name="password"
                                     onChange={formik.handleChange}
                                     value={formik.values.password}
@@ -85,6 +103,21 @@ function Login({
                                     isError={formik.touched.password && Boolean(formik.errors.password)}
                                     message={formik.touched.password && formik.errors.password}
                                 />
+                                <div className="Login-middle-right-form-checkbox">
+                                    <InputComponent
+                                        type="checkbox"
+                                        name="showPassword"
+                                        onChange={(e) => {
+                                            if(e.currentTarget.checked) {
+                                                showPassword(true);
+                                            }
+                                            else {
+                                                showPassword(false);
+                                            }
+                                        }}
+                                    />
+                                    <label>Show Password</label>
+                                </div>
                                 <button
                                     className="btn btn-login"
                                     type="submit"
@@ -92,7 +125,7 @@ function Login({
                                     Login
                                 </button>
                             </form>
-                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>
+                            {/*<p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>*/}
                         </div>
                     </div> 
                 

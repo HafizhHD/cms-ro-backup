@@ -7,7 +7,9 @@ const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
 }
 
-const Columns = [
+const Columns = (setContentDeleting) => {
+    return (
+    [
     {
         Header: 'Category',
         accessor: 'contentType'
@@ -18,22 +20,30 @@ const Columns = [
     },
     {
         Header: 'Start Date',
-        accessor: 'startDate',
-        Cell: ({cell}) => (
+        accessor: (value) => new Date(value.startDate).toLocaleDateString("en-UK", dateFormat),
+        Cell: ({value}) => (
             <>
-                {new Date(cell.row.values.startDate).toLocaleDateString("en-UK", dateFormat)}
+                {new Date(value).toLocaleDateString("en-UK", dateFormat)}
             </>
         )
     },
     {
         Header: 'Status',
-        accessor: 'status'
+        accessor: 'status',
+        Cell: ({ value }) => {
+            if(value === 'active') return <p style={{ color: 'green', fontWeight: 'bold' }}>{value}</p>
+            else return <p style={{ color: 'red', fontWeight: 'bold' }}>{value}</p>
+        }
     },
     {
         Header: 'Action',
         accessor: '_id',
         disableSortBy: true,
+<<<<<<< HEAD
         disableFilters: true,
+=======
+        disableGlobalFilter: true,
+>>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
         Cell: ({cell}) => (
             <>
                 <NavLink
@@ -72,8 +82,7 @@ const Columns = [
                     className="nav_btn"
                     title="Delete Content"
                     onClick={() => {
-                        localStorage.setItem('contentDeleting', cell.row.values._id);
-                        window.location.reload();
+                        setContentDeleting([cell.row.values._id, cell.row.values.contentName]);
                     }}
                     replace>
                     <button
@@ -87,6 +96,6 @@ const Columns = [
             </>
         )
     }
-];
+]) };
 
 export default Columns;
