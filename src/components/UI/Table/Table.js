@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useMemo } from 'react';
-import { useGlobalFilter, useSortBy, useTable } from 'react-table';
-=======
 import React, { useMemo, useEffect, Fragment } from 'react';
 import { useTable, useSortBy, useExpanded, usePagination, useGlobalFilter } from 'react-table';
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 import { BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import './Table.scss';
 
@@ -19,9 +14,6 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
         prepareRow,
         page,
         rows,
-<<<<<<< HEAD
-        prepareRow,
-=======
         canPreviousPage,
         canNextPage,
         pageOptions,
@@ -32,37 +24,20 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
         setPageSize,
         visibleColumns,
         state: {pageIndex, pageSize, expanded},
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
         state,
         setGlobalFilter
     } = useTable({
         columns: COLUMNS,
         data: data
-<<<<<<< HEAD
-    }
-    , useGlobalFilter
-    , useSortBy)
-=======
     }, useGlobalFilter
     , useSortBy
     , useExpanded
     , usePagination)
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 
     const { globalFilter } = state;
 
     return (
         <>
-<<<<<<< HEAD
-        <input 
-            type="text" 
-            placeholder="Search"
-            value={ globalFilter || '' }
-            onChange={(e) => {
-                setGlobalFilter(e.currentTarget.value);
-            }}
-        />
-=======
         <div className="utils">
             <div className="pagination">
                 <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -121,7 +96,6 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
             </div>
         </div>
         <div className="table_container">
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
        <table {...getTableProps()}>
            <thead>
                {headerGroups.map(headerGroup => (
@@ -136,11 +110,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                                         : (<BiCaretUp/>)
                                     : ''}
                                 </span>
-<<<<<<< HEAD
-                           </th>
-=======
                             </th>
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                        ))}
                    </tr>
                ))}
@@ -174,10 +144,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                 })}
            </tbody>
        </table>
-<<<<<<< HEAD
-=======
        </div>
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
        </>
     )
 }

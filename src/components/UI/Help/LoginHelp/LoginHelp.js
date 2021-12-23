@@ -5,11 +5,7 @@ function LoginHelp() {
     return (
         <div className="HelpOverlay">
             <div className="HelpOverlay-content">
-<<<<<<< HEAD
                 <h1>Guide Co-Brand Ruang Ortu</h1>
-=======
-                <h1>Guide Co-Brand Keluarga HKBP</h1>
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 <h2>Registrasi</h2>
                 <p>Pada halaman utama (Login), klik pada tulisan <span className="HelpOverlay-content-keyword">Daftar Sekarang</span> untuk masuk ke halaman registrasi. Pada halaman registrasi, Anda harus mengisi delapan kolom yang disediakan, yaitu:</p>
                 <p><br/></p>

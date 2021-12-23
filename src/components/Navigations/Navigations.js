@@ -10,14 +10,6 @@ function Navigations({ MenuItems, ShowAside }) {
                 {MenuItems.map((item, i) => {
                     return (
                         <li key={i} className="Aside__Nav_item">
-<<<<<<< HEAD
-                            <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
-                                window.scroll(0,0);
-                            }}>
-                                {item.icon}
-                                <p>{item.pathName}</p>
-                            </NavLink>
-=======
                             {item.path === '/' ? (
                                 <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
                                     window.scroll(0,0);
@@ -35,7 +27,6 @@ function Navigations({ MenuItems, ShowAside }) {
                                     <p>{item.pathName}</p>
                                 </NavLink>
                             )}
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                         </li>
                     )
                 })}

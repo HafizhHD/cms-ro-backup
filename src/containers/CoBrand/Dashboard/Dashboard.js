@@ -14,11 +14,8 @@ function Dashboard() {
     const [programList, setProgramList] = useState();
     const [contentList, setContentList] = useState();
     const [countVariable, setCountVariable] = useState();
-<<<<<<< HEAD
-=======
 
     const history = useHistory();
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 
     const userData = JSON.parse(localStorage.getItem('userData'));
     const programParams = {
@@ -91,32 +88,11 @@ function Dashboard() {
                 let params1 = {
                     whereKeyValues: {
                         cobrandEmail: userData.email
-<<<<<<< HEAD
-                    }
-                }
-                const promiseP = axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
-                    data: params1,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const promiseC = axios({
-                    method: 'post',
-                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
-                    data: params1,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-=======
                     },
                     limit: Number.MAX_SAFE_INTEGER
                 }
                 const promiseP = getProgramList(params1);
                 const promiseC = getContentList(params1);
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 Promise.all([promiseP, promiseC]).then(response => {
                     countingVariable.countProgram = response[0].data.programs.length;
                     countingVariable.countContent = response[1].data.contents.length;

@@ -84,10 +84,7 @@ function EditContent({
                 if(response.data.contents[0].contentType === 'Artikel') {
                     let con1 = con.getElementById('contents');
                     setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
-<<<<<<< HEAD
-=======
                     setConFromImgVid(con1.outerHTML);
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 }
                 else if(response.data.contents[0].contentType === 'Image') {
                     let con1 = con.getElementsByTagName('img')[0];
@@ -97,14 +94,11 @@ function EditContent({
                     let con1 = con.getElementsByTagName('iframe')[0];
                     setConFromImgVid(con1.src);
                 }
-<<<<<<< HEAD
-=======
                 else if(response.data.contents[0].contentType === 'Pdf') {
                     let con1 = con.getElementsByTagName('iframe')[0];
                     setConFromImgVid(con1.src);
                 }
 
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 let date = response.data.contents[0].startDate.split('T')[0];
                 console.log(date);
                 setContentStartDate(date);
@@ -150,11 +144,7 @@ function EditContent({
                     contentDescription: content.contentDescription,
                     contentType: content.contentType,
                     contentSource: content.contentSource,
-<<<<<<< HEAD
-                    contents: content.contentType !== 'Artikel' ? conFromImgVid : '',
-=======
                     contents: conFromImgVid,
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                     startDate: contentStartDate
                 }}
                 validationSchema = {validationContentEdit}

@@ -1,13 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
-<<<<<<< HEAD
 import Logo from './../../../assets/img/Logo_2.png'
-import DeviceImage from './../../../assets/img/device.png';
-=======
-import Logo from './../../../assets/img/Logo_1.png'
 import DeviceImage from './../../../assets/img/device2.png';
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { useFormik } from 'formik';
@@ -76,11 +71,7 @@ function Login({
                         <div className="Login-middle-right">
                             <div className="Login-middle-right-heading mb-small">
                                 <h1>Mulai Kelola Pelanggan Anda Sekarang.</h1>
-<<<<<<< HEAD
                                 {localStorage.getItem('loginMessage') ? <p>{localStorage.getItem('loginMessage')}</p> : null}
-=======
-                                {loginMessage ? <p>{loginMessage}</p> : null}
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                             </div>
                             <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 

@@ -99,11 +99,7 @@ function AddContent({
                     contentThumbnail: '',
                     contents: '',
                     startDate: new Date().toISOString().split('T')[0],
-<<<<<<< HEAD
-                    isActive: false
-=======
                     isActive: true
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 }}
                 validationSchema={validationContent}
                 validateOnChange={true}
@@ -280,38 +276,6 @@ function AddContent({
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-<<<<<<< HEAD
-                            ) : null }
-                            <span className="message__error">{errors.contents}</span>
-                        </div>
-                        <div className="form-group">
-                            <label>Set Schedule</label>
-                            <InputComponent
-                                type="date"
-                                className="form-group__input"
-                                name="startDate"
-                                value={values.startDate}
-                                min={new Date().toISOString().split('T')[0]}
-                                onChange={handleChange}
-                            />
-                            <span className="message__error">{errors.startDate}</span>
-                        </div>
-                        <div className="form-group">
-                            <div className="form-group_switch">
-                                <p className="form-group_switch_status">Status:</p>
-                                <p className="form-group_switch_inactive">Inactive</p>
-                                <label className="form-group_switch_switch">
-                                    <input type="checkbox" className="form-group_switch_switch_checkbox"
-                                        name="isActive"
-                                        defaultChecked={values.isActive}
-                                        onChange={() => {
-                                            values.isActive = !values.isActive;
-                                            console.log(values.isActive);
-                                        }}></input>
-                                    <span className="form-group_switch_switch_slider"></span>
-                                </label>
-                                <p className="form-group_switch_active">Active</p>
-=======
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                             </div>
                             <div className="form-group">
@@ -335,7 +299,6 @@ function AddContent({
                                 <button className="btn btn-submit" type="submit">
                                     Post Content
                                 </button>
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                             </div>
                         </div>
                     </form>

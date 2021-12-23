@@ -3,17 +3,10 @@ import './DashboardHelp.scss';
 
 function DashboardHelp() {
     return (
-<<<<<<< HEAD
         <div className="HelpOverlay">
             <div className="HelpOverlay-content">
                 <h1>Guide Co-Brand Ruang Ortu</h1>
                 <h2>Dashboard Co-Brand Ruang Ortu</h2>
-=======
-        <div className="HelpOverlayDashboard">
-            <div className="HelpOverlayDashboard-content">
-                <h1>Guide Co-Brand Keluarga HKBP</h1>
-                <h2>Dashboard Co-Brand Keluarga HKBP</h2>
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
                 <p><br/></p>
                 <p>Setelah berhasil login, Anda akan masuk ke halaman Dashboard Co-Brand Ruang Ortu. Pada tampilan awal, Anda akan menemukan tombol berikut di bagian<br/></p>
                 <ol>

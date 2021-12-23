@@ -74,11 +74,7 @@ function Content({
                <span>Create New Content</span>  
             </NavLink>
             <div className="Content__table">
-<<<<<<< HEAD
-                <TableContent COLUMNS={columns} DATA={contentList}  />
-=======
                 <TableContent COLUMNS={columns(setContentDeleting)} DATA={contentList}  />
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
             </div>
         </div>
     )

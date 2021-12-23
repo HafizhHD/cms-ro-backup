@@ -80,66 +80,7 @@ const Columns = (setProgramDeleting) => {
                 </>
             )
         }
-<<<<<<< HEAD
-    },
-    {
-        Header: 'Action',
-        accessor: '_id',
-        disableSortBy: true,
-        disableFilters: true,
-        Cell: ({cell}) => (
-            <>
-                <NavLink 
-                    to="/program/view"
-                    className="nav_btn"
-                    title="View Detail"
-                    onClick={() => {
-                        localStorage.setItem('programSelected', cell.row.values._id)
-                    }}>
-                    <button 
-                        className="btn_action">
-                        <div>
-                            <FiEye className="btn_action-icon" />
-                        </div>
-                    </button>
-                </NavLink>
-                <NavLink to="/program/edit"
-                    className="nav_btn"
-                    title="Edit Program"
-                    onClick={() => {
-                        localStorage.setItem('programSelected', cell.row.values._id)
-                    }}>
-                    <button
-                        className="btn_action"
-                    >
-                        <div>
-                            <FiEdit2 className="btn_action-icon" />
-                        </div>
-                    </button>
-                </NavLink>
-                <NavLink to="/program"
-                    className="nav_btn"
-                    title="Delete Program"
-                    onClick={() => {
-                        localStorage.setItem('programDeleting', cell.row.values._id);
-                        window.location.reload();
-                    }}
-                    replace>
-                    <button
-                        className="btn_action"
-                    >
-                        <div>
-                            <FiTrash2 className="btn_action-icon" />
-                        </div>
-                    </button>
-                </NavLink>
-            </>
-        )
-    }
-]
-=======
     ]);
 }
->>>>>>> 9bf1327cb5d3f45e02c7429f185acf2faf70528b
 
 export default Columns;
