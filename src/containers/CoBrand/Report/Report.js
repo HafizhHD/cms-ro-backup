@@ -329,7 +329,7 @@ const Report = ({
                 </div>*/
                                         }
             </section>
-            <section className="Demography">
+            {/* <section className="Demography">
                 <div className="Demography_userdistrik">
                     <div className="Report_card">
                         <div className="Report_card_heading">
@@ -412,7 +412,7 @@ const Report = ({
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/*<div className="Report_heading">
                 <h1 className="mt-medium">CO-BRANDING REPORT</h1>

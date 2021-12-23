@@ -12,7 +12,6 @@ import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { Document, Page, pdfjs } from 'react-pdf'
-import Pdf3 from '../../containers/CoBrand/Content/pdf3/pdf3';
 
 import FileViewer from 'react-file-viewer';
 import {CustomErrorComponent} from 'custom-error'
@@ -208,15 +207,15 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             let status = isActive ? 'active' : 'inactive';
 
             if (contentType === 'Video') {
-                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:50%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
             }
             else if (contentType === 'Image') {
                 contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
             }
             else if (contentType === 'Pdf') {
                 contents = 
-                '<div><iframe src="http://docs.google.com/gview?url=' + contents + '&embedded=true" style="width:40vw; height:700px;" frameborder="0"></iframe></div>'
-
+                '<div><iframe src="http://docs.google.com/gview?url=' + contents + '&embedded=true" frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
+                    // stylist nya masih belum menyesuaikan
                 console.log(contents)
             }
             else {

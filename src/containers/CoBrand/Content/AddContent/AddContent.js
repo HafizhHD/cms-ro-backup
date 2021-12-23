@@ -15,7 +15,6 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout' //styles
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'
 import '@react-pdf-viewer/core/lib/styles/index.css'
 import { Worker } from '@react-pdf-viewer/core'
-import Pdf from '../pdf/pdf'
 // import {PDFDownloadLink, Document, Page} from '@react-pdf/renderer'
 // import Pdf2 from '../pdf2/pdf2'
 
