@@ -214,8 +214,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             }
             else if (contentType === 'Pdf') {
                 contents = 
-                '<div><iframe src="http://docs.google.com/gview?url=' + contents + '&embedded=true" frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
-                    // stylist nya masih belum menyesuaikan
+                '<div style=width:100%;height:50vh;><iframe src="' + contents + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
+        
                 console.log(contents)
             }
             else {
@@ -297,7 +297,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             }  
             else if (contentType === 'Pdf') {
                 contents = 
-                '<div><iframe src="http://docs.google.com/gview?url=' + contents + '&embedded=true" style="width:40vw; height:700px;" frameborder="0"></iframe></div>'
+                '<div style=width:100%;height:50vh;><iframe src="' + contents + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
 
                 console.log(contents)
             }
