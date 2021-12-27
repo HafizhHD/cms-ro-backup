@@ -214,7 +214,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             }
             else if (contentType === 'Pdf') {
                 contents = 
-                '<div style=width:100%;height:50vh;><iframe src="' + contents + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
+                '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
         
                 console.log(contents)
             }
@@ -297,7 +297,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             }  
             else if (contentType === 'Pdf') {
                 contents = 
-                '<div style=width:100%;height:50vh;><iframe src="' + contents + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
+                '<div style="width:100%;height:100vh"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
 
                 console.log(contents)
             }
