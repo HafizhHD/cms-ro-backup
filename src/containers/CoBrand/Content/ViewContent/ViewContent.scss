@@ -162,7 +162,6 @@
             background-color: #eee;
             font-family: "Inter", sans-serif;
             font-size: 1.2rem;
-            // max-width: 20vw; 
 
             &_detail {
                 padding-bottom: 1.5rem;
@@ -178,14 +177,11 @@
             &_contents {
                 white-space: pre-line;
                 font-weight: 10;
-                // max-width: 20vw; //pdf_view
             }
         }
 
         &_group {
             font-weight: 800;
-            // max-width: 20vw;
-            // padding-right: 10vw;
         }
     }
 
@@ -203,7 +199,7 @@
             border-top-width: 60px;
             border-bottom-width: 60px;
             border-radius: 36px;
-            max-width: 21vw;
+            // max-width: 21vw;
 
         
             /* The horizontal line on the top of the device */

@@ -21,11 +21,11 @@ export const MenuCoBranding = [
         pathName: 'Content',
         icon: <FiImage className="Aside__Nav_item-icon" />
     },
-    {
-        path: '/redzone',
-        pathName: 'Redzone',
-        icon: <FiMapPin className="Aside__Nav_item-icon" />
-    },
+    // {
+    //     path: '/redzone',
+    //     pathName: 'Redzone',
+    //     icon: <FiMapPin className="Aside__Nav_item-icon" />
+    // },
     {
         path: '/setting',
         pathName: 'Setting',
