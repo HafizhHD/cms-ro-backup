@@ -256,7 +256,7 @@ function AddContent({
                                         type="text"
                                         name="contents"
                                         className="form-group__input form-group__input--fullwidth"
-                                        placeholder="Type Video URL... (Pdf file)"
+                                        placeholder="Type Pdf URL... (Pdf file)"
                                         value={values.contents}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
