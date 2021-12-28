@@ -10,11 +10,6 @@ import { validationContent } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
-import { Viewer } from '@react-pdf-viewer/core' //library, plugin
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout' //styles
-import '@react-pdf-viewer/default-layout/lib/styles/index.css'
-import '@react-pdf-viewer/core/lib/styles/index.css'
-import { Worker } from '@react-pdf-viewer/core'
 // import {PDFDownloadLink, Document, Page} from '@react-pdf/renderer'
 // import Pdf2 from '../pdf2/pdf2'
 

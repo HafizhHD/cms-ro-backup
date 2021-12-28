@@ -10,8 +10,6 @@ import { validationContentEdit } from '../../../../helpers/validation/validation
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css'
-import '@react-pdf-viewer/core/lib/styles/index.css'
 
 function EditContent({
     onEditContent,
@@ -87,7 +85,7 @@ function EditContent({
                     setConFromImgVid(con1.outerHTML);
                 }
                 else if(response.data.contents[0].contentType === 'Image') {
-                    let con1 = con.getElementsByTagName('img')[0];
+                    let con1 = con.getElementsByTagName('img')[0].toString();
                     setConFromImgVid(con1.src);
                 }
                 else if(response.data.contents[0].contentType === 'Video') {
@@ -96,7 +94,10 @@ function EditContent({
                 }
                 else if(response.data.contents[0].contentType === 'Pdf') {
                     let con1 = con.getElementsByTagName('iframe')[0];
-                    setConFromImgVid(con1.src);
+                    let src = con1.src;
+                    if(src.includes('&embedded=true')) src = src.replace('&embedded=true','');
+                    if(src.includes('http://docs.google.com/gview?url=')) src = src.replace('http://docs.google.com/gview?url=', '');
+                    setConFromImgVid(src);
                 }
 
                 let date = response.data.contents[0].startDate.split('T')[0];
@@ -184,11 +185,11 @@ function EditContent({
                                 <option value="-1" disabled>Select Program</option>
                                 <option value="">(Tanpa Program)</option>
                                 {
-                                    programList.map((program) => {
+                                    programList ? programList.map((program) => {
                                         return (
                                             <option value={program._id}>{program.programName}</option>
                                         )
-                                    })
+                                    }) : null
                                 }
                             </select>
                         </div>
