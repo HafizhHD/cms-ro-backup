@@ -22,7 +22,7 @@ export const getEmbedUrl = (url) => {
         }
         finalUrl = 'https://player.vimeo.com/video/' + videoId;
 
-    } else if (url.includes('youtube.com/')) {
+    } else if (url.includes('youtube.com/') && !url.includes('embed')) {
         // Youtube video
         videoId = typeof(url.split("v=")[1]) !== undefined ? url.split("v=")[1] : null;
         if (videoId.includes('&')){
