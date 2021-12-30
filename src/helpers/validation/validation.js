@@ -60,6 +60,8 @@ export const validationFormEdit = yup.object({
                 }
             }
         ),
+        //buat nambahin misal upload background. apakah akan masuk kesini?
+        
     phoneNumber: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
     address: yup.string('Enter your address').required('Address is required'),
     password: yup.string('Enter your password').min(8, 'Password should be 8 characters or more'),

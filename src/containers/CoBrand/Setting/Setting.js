@@ -5,11 +5,11 @@ import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import { validationFormEdit } from './../../../helpers/validation/validation';
-// import { toBase64 } from '../../../helpers/fileHelper/fileHelper';
+import { toBase64 } from '../../../helpers/fileHelper/fileHelper';
 import { editProfile } from '../../../store/actions/dashboard';
 import { Card, CardImg, Button, Modal } from 'react-bootstrap';
 import './Setting.scss';
-import { toBase64} from './helper'
+// import { toBase64} from './helper'
 
 function Setting({
     onEditProfile,
@@ -17,7 +17,7 @@ function Setting({
 }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [photoRaw, setPhotoRaw] = useState();
-    const [coverRaw, setCoverRaw] = useState();
+    // const [coverRaw, setCoverRaw] = useState();
     const [cover, setCover] = useState();
     const [photoPreview, setPhotoPreview] = useState(userData.thumbnail);
 
@@ -150,6 +150,10 @@ function Setting({
                                                     setCover(result);
                                                 })
                                             }}
+                                            className="Input-control"
+                                            onBlur={handleBlur}
+                                            isError={touched.thumbnail && Boolean(errors.thumbnail) }
+                                            message={touched.thumbnail && errors.thumbnail}
                                         />
                                 </div>
                                 {/* <div className="Setting_card_inputs-avatar">
