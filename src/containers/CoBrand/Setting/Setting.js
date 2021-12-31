@@ -9,6 +9,7 @@ import { toBase64 } from '../../../helpers/fileHelper/fileHelper';
 import { editProfile } from '../../../store/actions/dashboard';
 import { Card, CardImg, Button, Modal } from 'react-bootstrap';
 import './Setting.scss';
+// import { toBase64} from './helper'
 
 function Setting({
     onEditProfile,
@@ -17,6 +18,7 @@ function Setting({
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [photoRaw, setPhotoRaw] = useState();
     // const [coverRaw, setCoverRaw] = useState();
+    const [cover, setCover] = useState();
     const [photoPreview, setPhotoPreview] = useState(userData.thumbnail);
 
     useEffect(() => {
@@ -137,6 +139,23 @@ function Setting({
                                         message={touched.thumbnail && errors.thumbnail}
                                     />
                                 </div>
+                                <div className="Setting_card_inputs-avatar">
+                                        <h2>Cover</h2>
+                                        <input type="file"
+                                            onChange={(e) => {
+                                                console.log(e.currentTarget.files[0]);
+                                                const promise = toBase64(e.currentTarget.files[0]);
+                                                promise.then(result => {
+                                                    console.log(result)
+                                                    setCover(result);
+                                                })
+                                            }}
+                                            className="Input-control"
+                                            onBlur={handleBlur}
+                                            isError={touched.thumbnail && Boolean(errors.thumbnail) }
+                                            message={touched.thumbnail && errors.thumbnail}
+                                        />
+                                </div>
                                 {/* <div className="Setting_card_inputs-avatar">
                                     <h2>New Cover</h2>
                                     <InputComponent 
@@ -217,7 +236,7 @@ function Setting({
                     <Card style={{ width: '25rem', borderRadius: '1rem'}}>
                         {/* <div style={{ backgroundImage: `url(${cover ? cover : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxJUwAEmCj5NP7JfKft5Qz8a3UUoE0RcKiAeNDAulvE-jDh5HzB3-FBb5pBSfmWpJw0J4&usqp=CAU"})` }} class="circletag" id="nay"> */}
                             {/* <img className="img2" src="https://cdn1.vectorstock.com/i/1000x1000/06/70/beautiful-cute-bee-vector-15910670.jpg" /> */}
-                        <div className="backgr">
+                        <div className="backgr" style={{ backgroundImage: `url(${cover ? cover : "https://defghi.co.id/wp-content/uploads/2021/07/Logo-IDE.png"})` }} >
                             <img className="img2" src={photoPreview ? photoPreview : "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"} />
                         </div>
                         <Card.Body className="body-card">

@@ -11,10 +11,6 @@ import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
-import { Document, Page, pdfjs } from 'react-pdf'
-
-import FileViewer from 'react-file-viewer';
-import {CustomErrorComponent} from 'custom-error'
 
 ///pdf
 // import { Viewer } from '@react-pdf-viewer/core' //library, plugin
