@@ -294,7 +294,6 @@ function EditContent({
                                 />
                             ) : null }
                             {values.contentType === "Pdf" ? (
-                                //tinggal isi konten biar sesuai dengan yang sebelumnya, ketika edit, konten nya ilang.
                                     <InputComponent
                                     type="text"
                                     name="contents"
