@@ -27,7 +27,8 @@ function ViewContent() {
             let params = {
                 whereKeyValues: {
                     cobrandEmail: userData.email,
-                    _id: id
+                    _id: id,
+                    status: {"$in" : ["active", "inactive"]}
                 }
             };
 
