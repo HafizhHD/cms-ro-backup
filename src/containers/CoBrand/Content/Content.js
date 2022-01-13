@@ -26,7 +26,8 @@ function Content({
     const userData = JSON.parse(localStorage.getItem('userData'));
     const params = {
         whereKeyValues: {
-            cobrandEmail: userData.email
+            cobrandEmail: userData.email,
+            status: {"$in" : ["active", "inactive"]}
         },
         limit: Number.MAX_SAFE_INTEGER
     };
