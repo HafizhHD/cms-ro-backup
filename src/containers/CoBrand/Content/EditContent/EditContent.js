@@ -231,7 +231,7 @@ function EditContent({
                             />
                             {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                         </div>
-                        {/*<div className="form-group">
+                        <div className="form-group">
                             <label>Photo</label>
                             <InputComponent
                                 type="file"
@@ -246,7 +246,7 @@ function EditContent({
                                 }}
                             />
                             <span className="message__error">{errors.contentThumbnail}</span>
-                        </div>*/}
+                        </div>
                         <div className="form-group">
                             <label>Contents</label>
                             { values.contentType === "Artikel" ? (
