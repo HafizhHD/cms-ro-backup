@@ -154,6 +154,7 @@ function EditContent({
                     onEditContent( _id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, '', values.contents, values.startDate, history)
                 }}
             >
+                
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="EditContent">
@@ -188,6 +189,7 @@ function EditContent({
                                     programList ? programList.map((program) => {
                                         return (
                                             <option value={program._id}>{program.programName}</option>
+                                            
                                         )
                                     }) : null
                                 }
@@ -203,6 +205,7 @@ function EditContent({
                                 value={values.contentName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                
                             />
                             {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                         </div>
@@ -233,11 +236,13 @@ function EditContent({
                         </div>
                         <div className="form-group">
                             <label>Photo</label>
+                            <img src={content.contentThumbnail}></img>
                             <InputComponent
                                     type="file"
                                     className="form-group__input"
                                     name="contentThumbnail"
                                     onBlur={handleBlur}
+                                    // value={}
                                     onChange={(e) => {
                                         let file = e.currentTarget.files[0];
                                         if (file) {
@@ -272,20 +277,22 @@ function EditContent({
                                 />
                             ) : null }
                             { values.contentType === "Image" ? (
+                                // <img src={conFromImgVid}></img>
+                                
                                 <InputComponent
                                 type="file"
                                 className="form-group__input"
                                 name="contents"
                                 onBlur={handleBlur}
                                 value={values.contents}
-                                //   onChange={handleChange}
-                                onChange={(e) => {
-                                    let file = e.currentTarget.files[0];
-                                    if (file) {
-                                        console.log("File to upload: ", file);
-                                        setFieldValue("contents", file);
-                                    }
-                                }}
+                                onChange={handleChange}
+                                // onChange={(e) => {
+                                //     let file = e.currentTarget.files[0];
+                                //     if (file) {
+                                //         console.log("File to upload: ", file);
+                                //         setFieldValue("contents", file);
+                                //     }
+                                // }}
                             />
 
                                 // <InputComponent
