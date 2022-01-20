@@ -225,15 +225,30 @@ function AddContent({
                                     />
                                 ) : null}
                                 {values.contentType === "Image" ? (
-                                    <InputComponent
-                                        type="text"
-                                        name="contents"
-                                        className="form-group__input form-group__input--fullwidth"
-                                        placeholder="Type Image URL... (https://example.com/something/something.jpg)"
-                                        value={values.contents}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
+                                      <InputComponent
+                                      type="file"
+                                      className="form-group__input"
+                                      name="contents"
+                                      onBlur={handleBlur}
+                                    //   value={values.contents}
+                                    //   onChange={handleChange}
+                                      onChange={(e) => {
+                                          let file = e.currentTarget.files[0];
+                                          if (file) {
+                                              console.log("File to upload: ", file);
+                                              setFieldValue("contents", file);
+                                          }
+                                      }}
+                                  />
+                                    // <InputComponent
+                                    //     type="text"
+                                    //     name="contents"
+                                    //     className="form-group__input form-group__input--fullwidth"
+                                    //     placeholder="Type Image URL... (https://example.com/something/something.jpg)"
+                                    //     value={values.contents}
+                                    //     onChange={handleChange}
+                                    //     onBlur={handleBlur}
+                                    // />
                                 ) : null}
                                 {values.contentType === "Video" ? (
                                     <InputComponent
