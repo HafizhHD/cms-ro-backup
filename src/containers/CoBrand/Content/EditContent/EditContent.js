@@ -236,7 +236,8 @@ function EditContent({
                         </div>
                         <div className="form-group">
                             <label>Photo</label>
-                            <img src={content.contentThumbnail}></img>
+                            <img className='photo' src={content.contentThumbnail}></img>
+                            <br></br>
                             <InputComponent
                                     type="file"
                                     className="form-group__input"
