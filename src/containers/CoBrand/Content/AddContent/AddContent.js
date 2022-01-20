@@ -10,6 +10,7 @@ import { validationContent } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
+import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
 // import {PDFDownloadLink, Document, Page} from '@react-pdf/renderer'
 // import Pdf2 from '../pdf2/pdf2'
 
@@ -100,8 +101,8 @@ function AddContent({
                 validateOnChange={true}
                 onSubmit={values => {
                     window.scrollTo(0, 0);
-                    onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription, 
-                        values.contentType, values.contentSource, values.contentThumbnail, values.contents, 
+                    onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription,
+                        values.contentType, values.contentSource, values.contentThumbnail, values.contents,
                         values.startDate, values.isActive, history)
                 }}
             >
@@ -225,21 +226,21 @@ function AddContent({
                                     />
                                 ) : null}
                                 {values.contentType === "Image" ? (
-                                      <InputComponent
-                                      type="file"
-                                      className="form-group__input"
-                                      name="contents"
-                                      onBlur={handleBlur}
-                                    //   value={values.contents}
-                                    //   onChange={handleChange}
-                                      onChange={(e) => {
-                                          let file = e.currentTarget.files[0];
-                                          if (file) {
-                                              console.log("File to upload: ", file);
-                                              setFieldValue("contents", file);
-                                          }
-                                      }}
-                                  />
+                                    <InputComponent
+                                        type="file"
+                                        className="form-group__input"
+                                        name="contents"
+                                        onBlur={handleBlur}
+                                        //   value={values.contents}
+                                        //   onChange={handleChange}
+                                        onChange={(e) => {
+                                            let file = e.currentTarget.files[0];
+                                            if (file) {
+                                                console.log("File to upload: ", file);
+                                                setFieldValue("contents", file);
+                                            }
+                                        }}
+                                    />
                                     // <InputComponent
                                     //     type="text"
                                     //     name="contents"

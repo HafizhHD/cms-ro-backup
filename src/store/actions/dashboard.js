@@ -206,7 +206,43 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
             }
             else if (contentType === 'Image') {
-                contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
+                const gambar = toBase64(contents);
+                gambar.then((hasil) => {
+                contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>";
+                console.log(contents);
+                // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    
+                let data = {
+                    cobrandEmail,
+                    programId,
+                    contentName,
+                    contentDescription,
+                    contentType,
+                    contentSource,
+                    contentThumbnail,
+                    contents,
+                    status,
+                    startDate
+                };
+    
+                console.log(data);
+                //Call API ....
+    
+                contentAdd(data)
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        history.push('/content');
+                        dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                        dispatch(loadingStop());
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                        dispatch(loadingStop());
+                    });
+                console.log(data);
+                
+            })
             }
             else if (contentType === 'Pdf') {
                 contents = 

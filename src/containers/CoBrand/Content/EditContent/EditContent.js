@@ -234,18 +234,18 @@ function EditContent({
                         <div className="form-group">
                             <label>Photo</label>
                             <InputComponent
-                                type="file"
-                                className="form-group__input"
-                                name="contentThumbnail"
-                                onChange={(e) => {
-                                    let file = e.currentTarget.files[0];
-                                    if(file) {
-                                        console.log("File to upload: ", file);
-                                        setFieldValue("contentThumbnail", file);
-                                    }
-                                }}
-                            />
-                            <span className="message__error">{errors.contentThumbnail}</span>
+                                    type="file"
+                                    className="form-group__input"
+                                    name="contentThumbnail"
+                                    onBlur={handleBlur}
+                                    onChange={(e) => {
+                                        let file = e.currentTarget.files[0];
+                                        if (file) {
+                                            console.log("File to upload: ", file);
+                                            setFieldValue("contentThumbnail", file);
+                                        }
+                                    }}
+                                />
                         </div>
                         <div className="form-group">
                             <label>Contents</label>
@@ -273,14 +273,30 @@ function EditContent({
                             ) : null }
                             { values.contentType === "Image" ? (
                                 <InputComponent
-                                    type="text"
-                                    name="contents"
-                                    className="form-group__input form-group__input--fullwidth" 
-                                    placeholder="Type Image URL... (https://example.com/something/something.jpg)"
-                                    value={values.contents}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
+                                type="file"
+                                className="form-group__input"
+                                name="contents"
+                                onBlur={handleBlur}
+                                value={values.contents}
+                                //   onChange={handleChange}
+                                onChange={(e) => {
+                                    let file = e.currentTarget.files[0];
+                                    if (file) {
+                                        console.log("File to upload: ", file);
+                                        setFieldValue("contents", file);
+                                    }
+                                }}
+                            />
+
+                                // <InputComponent
+                                //     type="text"
+                                //     name="contents"
+                                //     className="form-group__input form-group__input--fullwidth" 
+                                //     placeholder="Type Image URL... (https://example.com/something/something.jpg)"
+                                //     value={values.contents}
+                                //     onChange={handleChange}
+                                //     onBlur={handleBlur}
+                                // />
                             ) : null }
                             { values.contentType === "Video" ? (
                                 <InputComponent
