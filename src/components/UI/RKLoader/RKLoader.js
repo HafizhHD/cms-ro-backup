@@ -5,7 +5,7 @@ import './RKLoader.scss';
 function RKLoader({ text = 'Mohon Tunggu' }) {
     return (
         <div className="LoadingFullRk">
-            <h1 className="LoadingFullRk__heading"><span>RUANG ORTU</span> </h1>
+            <h1 className="LoadingFullRk__heading"><span>RUANG ORTU by ASIA</span> </h1>
             <Spinner />
             <p>{text}</p>
         </div>
