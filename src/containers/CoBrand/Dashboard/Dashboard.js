@@ -7,6 +7,7 @@ import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import { useHistory } from 'react-router';
 import { getContentList, getProgramList } from '../../../components/API/filter';
+import {FaWhatsapp} from 'react-icons/fa'
 
 function Dashboard() {
 
@@ -118,7 +119,10 @@ function Dashboard() {
 
     return (
         <div className="Dashboard">
-            <Heading headingName="YOUR CO-BRAND DATA" />
+            <div className='div1'>
+                <Heading headingName="YOUR CO-BRAND DATA" />
+                <a className='wa2' href='http://wa.me/628119004410' target="_blank"><FaWhatsapp className='whatshap'/> Need Help? Click Here!</a>
+            </div>
             
 
             {/* Dashboard Cards  */}
@@ -181,9 +185,6 @@ function Dashboard() {
                 {contentList.length === 0 ? (
                     <h3>Tidak Ada Konten</h3>
                 ) : contentList}
-
-                
-                
             </div>
 
         </div>

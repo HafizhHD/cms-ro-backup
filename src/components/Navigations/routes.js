@@ -31,6 +31,7 @@ export const MenuCoBranding = [
         pathName: 'Setting',
         icon: <FiTool className="Aside__Nav_item-icon" />
     }
+    
 ]
 
 export const MenuCs = [
@@ -58,5 +59,6 @@ export const MenuCs = [
         path: '/ticket',
         pathName: 'Ticket',
         icon: <FiTool className="Aside__Nav_item-icon" />
-    }
+    },
+    
 ];

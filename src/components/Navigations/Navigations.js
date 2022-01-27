@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigations.scss';
-
+import {FaWhatsapp} from 'react-icons/fa'
 
 function Navigations({ MenuItems, ShowAside }) {
     return (
@@ -31,6 +31,7 @@ function Navigations({ MenuItems, ShowAside }) {
                     )
                 })}
             </ul>
+            {/* <a className="Aside__Nav" href='http://wa.me/628119004410' target="_blank"><FaWhatsapp className='whatshap'/> Need Help? Click Here!</a> */}
         </aside>
     )
 }

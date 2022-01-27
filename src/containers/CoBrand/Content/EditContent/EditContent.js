@@ -185,7 +185,7 @@ function EditContent({
                                     onChange={handleChange}
                                 >
                                     <option value="-1" disabled>Select Program</option>
-                                    <option value="">(Tanpa Program)</option>
+                                    {/* <option value="">(Tanpa Program)</option> */}
                                     {
                                         programList ? programList.map((program) => {
                                             return (
