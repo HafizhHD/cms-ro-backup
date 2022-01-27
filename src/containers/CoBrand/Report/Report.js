@@ -76,12 +76,15 @@ const Report = ({
 
     useEffect(() => {
         let params={
-            whereKeyValues: {},
+            whereKeyValues: {
+                packageId: "com.asia.ruangortu"
+            },
             limit: Number.MAX_SAFE_INTEGER
         };
         if(userType !== 'all') {
             params.whereKeyValues = {
-                userType: userType
+                userType: userType,
+                packageId: "com.asia.ruangortu"
             }
         }
         console.log(params);
@@ -99,14 +102,19 @@ const Report = ({
     useEffect(() => {
         let params={
             whereKeyValues: {
-                status: 'active'
+                status: 'active',
+                packageId: "com.asia.ruangortu"
+// bagian active user all --> filter bisa
             },
             limit: Number.MAX_SAFE_INTEGER
         };
         if(userTypeActive !== 'all') {
             params.whereKeyValues = {
                 userType: userTypeActive,
-                status: 'active'
+                status: 'active',
+                packageId: "com.asia.ruangortu"
+
+//parameter child & parent
             }
         }
         console.log(params);
@@ -114,12 +122,18 @@ const Report = ({
         .then(response => {
             setCountActive(response.data.users.length);
             let params2={
-                whereKeyValues: {},
+                whereKeyValues: {
+                    packageId: "com.asia.ruangortu"
+                    // persen jumlah pengguna
+                },
                 limit: Number.MAX_SAFE_INTEGER
+
             };
             if(userTypeActive !== 'all') {
                 params2.whereKeyValues = {
-                    userType: userTypeActive
+                    userType: userTypeActive,
+                    packageId: "com.asia.ruangortu"
+                    // yang inactive
                 }
             }
             getUserList(params2)
@@ -172,6 +186,28 @@ const Report = ({
         }
     }, [isUpdatingHuria]);
 
+    // untuk report penggunaan all user - package id nya yg d bedain
+    useEffect(() => {
+        const body = {
+            whereKeyValues: {
+                packageId: "com.asia.ruangortu"
+            }
+        }
+        axios({
+            method: 'get',
+            url: 'https://rk.defghi.biz.id:8080/api/user/getAllUser',
+            data: body
+        })
+
+        // axios.get("https://rk.defghi.biz.id:8080/api/user/getAllUser", body)
+            .then(response => {
+                console.log(response.data);
+
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },[])
 
     if(isLoading) {
         return <RKLoader />
@@ -210,38 +246,12 @@ const Report = ({
                             <div className="Report_card_content-data">
                                 <div className="Report_card_content-data-left">
                                     <h1>{countUser}</h1>
-                                    {/*<div>
-                                        {countVariables.countUserToday > 0 ? (
-                                            <>
-                                                <BiCaretUp className="iconSuccess" />
-                                                <h5 className="text-success">{countVariables.countUserToday} (+{(countVariables.countUserToday/countVariables.countUser*100).toFixed(1)}%)</h5>
-                                            </>
-                                        ) : (
-                                            countVariables.countUserToday === 0 ? (
-                                                <>
-                                                    <BiMinus className="iconNormal" />
-                                                    <h5 className="text-normal">{countVariables.countUserToday} (+0%)</h5>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <BiCaretDown className="iconDanger" />
-                                                    <h5 className="text-danger">{countVariables.countUserToday} (-100%)</h5>
-                                                </>
-                                            )
-                                        )}
-                                    </div>*/}
                                 </div>
                                 <div className="Report_card_content-data-right">
                                     <div>
                                         <div className="labelTitle"></div>
                                         <h5>Total Registered User</h5>
                                     </div>
-                                    {/*<div className="mt-small">
-                                        <div className={countVariables.countUserToday > 0 ? "labelSuccess" : (
-                                            countVariables.countUserToday === 0 ? "labelWarning" : "labelDanger"
-                                        )}></div>
-                                        <h5>Daily Update Registered User</h5>
-                                    </div>*/}
                                 </div>
                             </div>
                         </div>
@@ -278,8 +288,6 @@ const Report = ({
                                         <>
                                             <h5 className="text-normal">{countInactive} ({(countInactive/(countActive+countInactive)*100).toFixed(1)}%)</h5>
                                         </>
-                                        {/*<BiCaretUp className="iconSuccess" />
-                                        <h5 className="text-success">36 (+100%)</h5>*/}
                                     </div>
                                 </div>
                                 <div className="Report_card_content-data-right">
@@ -297,201 +305,7 @@ const Report = ({
                     </div>
 
                 </div>
-                
-                {/*<div className="UserReport_totaladdon">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3>Total Add-on Voucher</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <div className="Report_card_content-data">
-                                <div className="Report_card_content-data-left">
-                                    <h1>2314</h1>
-                                    <div>
-                                        <BiCaretDown className="iconDanger" />
-                                        <h5 className="text-danger">14 (-2,6%)</h5>
-                                    </div>
-                                </div>
-                                <div className="Report_card_content-data-right">
-                                    <div>
-                                        <div className="labelTitle"></div>
-                                        <h5>Total User Register</h5>
-                                    </div>
-                                    <div className="mt-small">
-                                        <div className="labelWarning"></div>
-                                        <h5>Daily Update User Register</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*/
-                                        }
             </section>
-            {/* <section className="Demography">
-                <div className="Demography_userdistrik">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3>Jumlah User Per Distrik</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <div className="Report_card_content_type">
-                                
-                            </div>
-                            <div className="Report_card_content-chart">
-                                <ChartAsync chartType="pie" chartLabel={Object.keys(stringHKBP)} chartData={countUserDistrik}/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="Demography_userressort">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3>Jumlah User Per Ressort</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <div className="Report_card_content_type">
-                                <select
-                                    name="selectedDistrik"
-                                    value={selectedDistrik}
-                                    onChange={(e) => {
-                                        console.log('bruh');
-                                        console.log(e.currentTarget.value);
-                                        setDistrik(e.currentTarget.value);
-                                        setUpdatingRessort(true);
-                                        setRessort('');
-                                    }}>
-                                    <option value="" disabled>-- Pilih Distrik --</option>
-                                    {Object.keys(stringHKBP).map(e => {
-                                        return <option value={e}>{e}</option>
-                                    })}
-                                </select>
-                            </div>
-                            <div className="Report_card_content-chart">
-                                {selectedDistrik === '' || isUpdatingRessort ? <h2>Pilih Distrik Terlebih Dahulu</h2>
-                                    : <ChartAsync chartType="pie" chartLabel={Object.keys(stringHKBP[selectedDistrik])} chartData={countUserRessort}/>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="Demography_userhuria">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3>Jumlah User Per Huria</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <div className="Report_card_content_type">
-                                <select
-                                    name="selectedRessort"
-                                    value={selectedRessort}
-                                    onChange={(e) => {
-                                        console.log('bruh');
-                                        console.log(e.currentTarget.value);
-                                        setRessort(e.currentTarget.value);
-                                        setUpdatingHuria(true);
-                                    }}>
-                                    <option value="" disabled>-- Pilih Ressort --</option>
-                                    {selectedDistrik !== '' ? (
-                                        Object.keys(stringHKBP[selectedDistrik]).map(e => {
-                                            return <option value={e}>{e}</option>
-                                        }
-                                    )) : <option value="0" disabled>-- Pilih Distrik Terlebih Dahulu --</option>}
-                                </select>
-                            </div>
-                            <div className="Report_card_content-chart">
-                            {selectedDistrik === ''  || isUpdatingHuria ? <h2>Pilih Distrik Terlebih Dahulu Pada Bagian "Jumlah User Per Ressort"</h2>
-                                    : (selectedRessort === '' || isUpdatingHuria ? <h2>Pilih Ressort Terlebih Dahulu</h2>
-                                    : <ChartAsync chartType="pie" chartLabel={stringHKBP[selectedDistrik][selectedRessort]} chartData={countUserHuria}/>)}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-
-            {/*<div className="Report_heading">
-                <h1 className="mt-medium">CO-BRANDING REPORT</h1>
-            </div>
-            <section className="CoBrand">
-                <div className="CoBrand_register">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3>Total Co Branding Register</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <div className="Report_card_content-data">
-                                <div className="Report_card_content-data-left">
-                                    <h1>300</h1>
-                                    <div>
-                                        <BiCaretUp className="iconSuccess" />
-                                        <h5 className="text-success">36 (+22,3%)</h5>
-                                    </div>
-                                </div>
-                                <div className="Report_card_content-data-right">
-                                    <div>
-                                        <div className="labelTitle"></div>
-                                        <h5>Total Co-Branding Register</h5>
-                                    </div>
-                                    <div className="mt-small">
-                                        <div className="labelWarning"></div>
-                                        <h5>Daily Update Co-Branding Register</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="CoBrand_totalactive">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3>Total Active Co Branding</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <div className="Report_card_content-data">
-                                <div className="Report_card_content-data-left">
-                                    <h1>256</h1>
-                                    <div>
-                                        <BiCaretDown className="iconDanger" />
-                                        <h5 className="text-danger">14 (-22,3%)</h5>
-                                    </div>
-                                </div>
-                                <div className="Report_card_content-data-right">
-                                    <div>
-                                        <div className="labelTitle"></div>
-                                        <h5>New Active Co-Branding</h5>
-                                    </div>
-                                    <div className="mt-small">
-                                        <div className="labelWarning"></div>
-                                        <h5>Daily Active Co-Branding Update</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="CoBrand_programactive">
-                    <div className="Report_card">
-                        <div className="Report_card_heading">
-                            <h3> New Active Program</h3>
-                            <FiAlertCircle className="Report_card_icon" />
-                        </div>
-                        <div className="Report_card_content">
-                            <Suspense fallback={<p>Loading...</p>}>
-                                <BarChartAsync />
-                            </Suspense>
-                        </div>
-                    </div>
-                </div>
-            </section>
-                                    */}
-
         </div>
     )
 }
