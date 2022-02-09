@@ -203,7 +203,43 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             let status = isActive ? 'active' : 'inactive';
 
             if (contentType === 'Video') {
-                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+                const video = toBase64(contents);
+                contents === '' ? contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>" 
+                : 
+                video.then((hasil) => {
+                    contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
+                let data = {
+                    cobrandEmail,
+                    programId,
+                    contentName,
+                    contentDescription,
+                    contentType,
+                    contentSource,
+                    contentThumbnail,
+                    contents,
+                    status,
+                    startDate
+                };
+    
+                console.log(data);
+                //Call API ....
+    
+                contentAdd(data)
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        history.push('/content');
+                        dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                        dispatch(loadingStop());
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                        dispatch(loadingStop());
+                    });
+                console.log(data);
+            })
+                
             }
             else if (contentType === 'Image') {
                 const gambar = toBase64(contents);
@@ -245,10 +281,46 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             })
             }
             else if (contentType === 'Pdf') {
-                contents = 
-                '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                const pdf = toBase64(contents);
+                contents === '' ? contents = '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                : 
+                pdf.then((hasil) => {
+                    contents = '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + hasil + (hasil.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                let data = {
+                    cobrandEmail,
+                    programId,
+                    contentName,
+                    contentDescription,
+                    contentType,
+                    contentSource,
+                    contentThumbnail,
+                    contents,
+                    status,
+                    startDate
+                };
+    
+                console.log(data);
+                //Call API ....
+    
+                contentAdd(data)
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        history.push('/content');
+                        dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                        dispatch(loadingStop());
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                        dispatch(loadingStop());
+                    });
+                console.log(data);
+            })
+
+                // contents = 
+                // '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
         
-                console.log(contents)
+                // console.log(contents)
             }
             else {
                 contents = '<!DOCTYPE html>'
