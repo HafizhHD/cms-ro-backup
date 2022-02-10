@@ -326,7 +326,7 @@ function AddContent({
                                             <input type="radio" id="html" name="fav_language" value={'internal'}
                                             onClick={() => {setRadio('internal')}}
                                             />
-                                            <label for="internal" >Media Internal Komputer</label>
+                                            <label for="internal" >Media Internal - Maks 300kb</label>
                                             <br></br>
                                             <input type="radio" id="html" name="fav_language" value={'url'}
                                             onClick={() =>setRadio('url')}
