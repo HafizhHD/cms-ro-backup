@@ -329,6 +329,8 @@ function EditContent({
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                     />
+                                    // untuk internal masih diupdate
+                                    //url ok
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
