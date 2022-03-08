@@ -325,11 +325,6 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         console.log(data);
                     })
                 }
-
-                // contents = 
-                // '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
-
-                // console.log(contents)
             }
             else {
                 contents = '<!DOCTYPE html>'
@@ -401,19 +396,141 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             type: ALERT_CLOSE
         });
 
-        console.log('Photo is empty:', photo === '');
-        if (photo === '') {
+
+        // const [numPages, setNumPages] = useState(null);
+        // const [pageNumber, setPageNumber] = useState(1);
+
+
+        const promise = toBase64(photo);
+        promise.then((result) => {
+
+            console.log(typeof result);
+            // const contentThumbnail = result;
+            // let status = isActive ? 'active' : 'inactive';
+
             if (contentType === 'Video') {
-                contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+                // const video = toBase64(contents);
+                if (typeof contents === 'string') {
+                    contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                } else {
+                    const video = toBase64(contents);
+                    video.then((hasil) => {
+                        contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
+                        let data = {
+                            cobrandEmail,
+                            programId,
+                            contentName,
+                            contentDescription,
+                            contentType,
+                            contentSource,
+                            // contentThumbnail,
+                            contents,
+                            // status,
+                            startDate
+                        };
+
+                        console.log(data);
+                        //Call API ....
+
+                        contentAdd(data)
+                            .then(response => {
+                                console.log('Success:', response.data);
+                                history.push('/content');
+                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(loadingStop());
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(loadingStop());
+                            });
+                        console.log(data);
+                    })
+                }
+
             }
             else if (contentType === 'Image') {
-                contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
+                if (typeof contents === 'string') {
+                    contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
+                } else {
+                    const gambar = toBase64(contents);
+                    gambar.then((hasil) => {
+                        contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>";
+                        console.log(contents);
+                        // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+                        let data = {
+                            cobrandEmail,
+                            programId,
+                            contentName,
+                            contentDescription,
+                            contentType,
+                            contentSource,
+                            // contentThumbnail,
+                            contents,
+                            // status,
+                            startDate
+                        };
+
+                        console.log(data);
+                        //Call API ....
+
+                        contentAdd(data)
+                            .then(response => {
+                                console.log('Success:', response.data);
+                                history.push('/content');
+                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(loadingStop());
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(loadingStop());
+                            });
+                        console.log(data);
+
+                    })
+                }
             }
             else if (contentType === 'Pdf') {
-                contents =
-                    '<div style="width:100%;height:100vh"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
+                if (typeof contents === 'string') {
+                    contents = '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                } else {
+                    const pdf = toBase64(contents);
+                    pdf.then((hasil) => {
+                        contents = '<div style="width:100%;height:100vh;"><iframe src="' + hasil + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                        let data = {
+                            cobrandEmail,
+                            programId,
+                            contentName,
+                            contentDescription,
+                            contentType,
+                            contentSource,
+                            // contentThumbnail,
+                            contents,
+                            // status,
+                            startDate
+                        };
 
-                console.log(contents)
+                        console.log(data);
+                        //Call API ....
+
+                        contentAdd(data)
+                            .then(response => {
+                                console.log('Success:', response.data);
+                                history.push('/content');
+                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(loadingStop());
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(loadingStop());
+                            });
+                        console.log(data);
+                    })
+                }
             }
             else {
                 contents = '<!DOCTYPE html>'
@@ -442,81 +559,163 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             }
 
             console.log(contents);
+            // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
             let data = {
-                whereValues: {
-                    cobrandEmail,
-                    _id
-                },
-                newValues: {
-                    programId,
-                    contentName,
-                    contentDescription,
-                    contentType,
-                    contentSource,
-                    contents,
-                    startDate
-                }
+                cobrandEmail,
+                programId,
+                contentName,
+                contentDescription,
+                contentType,
+                contentSource,
+                // contentThumbnail,
+                contents,
+                // status,
+                startDate
             };
 
             console.log(data);
             //Call API ....
 
-            contentEdit(data)
+            contentAdd(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/content');
-                    dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+                    dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                     dispatch(loadingStop());
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
             console.log(data);
-        }
-
-        else {
-            const promise = toBase64(photo);
-            promise.then((result) => {
-                console.log(typeof result);
-                const programthumnail = result;
-
-                let data = {
-                    whereValues: {
-                        cobrandEmail,
-                        _id
-                    },
-                    newValues: {
-                        programId,
-                        contentName,
-                        contentDescription,
-                        contentType,
-                        contentSource,
-                        contents,
-                        startDate
-                    }
-                };
-
-                console.log(data);
-                //Call API ....
-
-                contentEdit(data)
-                    .then(response => {
-                        console.log('Success:', response.data);
-                        history.push('/content');
-                        dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
-                        dispatch(loadingStop());
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
-                        dispatch(loadingStop());
-                    });
-                console.log(data);
-            });
-        }
+        });
     }
+    
+    
+    // return dispatch => {
+    //     dispatch(loadingStart());
+    //     dispatch({
+    //         type: ALERT_CLOSE
+    //     });
+
+    //     console.log('Photo is empty:', photo === '');
+    //     if (photo === '') {
+    //         if (contentType === 'Video') {
+    //             contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+    //         }
+    //         else if (contentType === 'Image') {
+    //             contents = "<img src=\"" + contents + "\" style=\"width:100%;\"/>";
+    //         }
+    //         else if (contentType === 'Pdf') {
+    //             contents =
+    //                 '<div style="width:100%;height:100vh"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + ' " frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe></div>'
+
+    //             console.log(contents)
+    //         }
+    //         else {
+    //             contents = '<!DOCTYPE html>'
+    //                 + '<html lang="en">'
+    //                 + '<head>'
+    //                 + '<meta charset="utf-8">'
+    //                 + '<style>'
+    //                 + '#contents {'
+    //                 + 'overflow-y: scroll;'
+    //                 + 'text-align: justify;'
+    //                 + 'white-space: pre-line;'
+    //                 + 'font-family: Arial, Helvetica, sans-serif;'
+    //                 + 'padding: 1%;'
+    //                 + '}'
+    //                 + '#contents li {'
+    //                 + 'margin-left: 5%;'
+    //                 + '}'
+    //                 + '</style>'
+    //                 + '</head>'
+    //                 + '<body>'
+    //                 + '<div id="contents">'
+    //                 + contents
+    //                 + '</div>'
+    //                 + '</body>'
+    //                 + '</html>';
+    //         }
+
+    //         console.log(contents);
+    //         let data = {
+    //             whereValues: {
+    //                 cobrandEmail,
+    //                 _id
+    //             },
+    //             newValues: {
+    //                 programId,
+    //                 contentName,
+    //                 contentDescription,
+    //                 contentType,
+    //                 contentSource,
+    //                 contents,
+    //                 startDate
+    //             }
+    //         };
+
+    //         console.log(data);
+    //         //Call API ....
+
+    //         contentEdit(data)
+    //             .then(response => {
+    //                 console.log('Success:', response.data);
+    //                 history.push('/content');
+    //                 dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+    //                 dispatch(loadingStop());
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error:', error);
+    //                 dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+    //                 dispatch(loadingStop());
+    //             });
+    //         console.log(data);
+    //     }
+
+    //     else {
+    //         const promise = toBase64(photo);
+    //         promise.then((result) => {
+    //             console.log(typeof result);
+    //             const programthumnail = result;
+
+    //             let data = {
+    //                 whereValues: {
+    //                     cobrandEmail,
+    //                     _id
+    //                 },
+    //                 newValues: {
+    //                     programId,
+    //                     contentName,
+    //                     contentDescription,
+    //                     contentType,
+    //                     contentSource,
+    //                     contents,
+    //                     startDate
+    //                 }
+    //             };
+
+    //             console.log(data);
+    //             //Call API ....
+
+    //             contentEdit(data)
+    //                 .then(response => {
+    //                     console.log('Success:', response.data);
+    //                     history.push('/content');
+    //                     dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+    //                     dispatch(loadingStop());
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error('Error:', error);
+    //                     dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+    //                     dispatch(loadingStop());
+    //                 });
+    //             console.log(data);
+    //         });
+    //     }
+    // }
 
 }
 
