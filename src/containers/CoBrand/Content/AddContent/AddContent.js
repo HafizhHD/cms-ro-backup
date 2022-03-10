@@ -161,6 +161,19 @@ function AddContent({
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
+                                {/* <RichTextEditor
+                                    name="contentDescription"
+                                    placeholder="Type your description here..."
+                                    className="form-group_rte"
+                                    value={values.contentDescription}
+                                    toolbarConfig={toolbarConfig}
+                                    onBlur={handleBlur}
+                                    onChange={(e) => {
+                                        setTextValue(e);
+                                        setFieldValue("contents", e.toString("html"));
+                                        console.log(values.contents);
+                                    }}
+                                /> */}
                                 <InputComponent
                                     type="textarea"
                                     name="contentDescription"
@@ -231,147 +244,147 @@ function AddContent({
                                         <p>Pilih media yang ingin di upload :</p>
                                         <form>
                                             <input type="radio" id="html" name="fav_language" value={'internal'}
-                                            onClick={() => {setRadio('internal')}}
+                                                onClick={() => { setRadio('internal') }}
                                             />
                                             <label for="internal" >Media Internal Komputer</label>
                                             <br></br>
                                             <input type="radio" id="html" name="fav_language" value={'url'}
-                                            onClick={() =>setRadio('url')}
+                                                onClick={() => setRadio('url')}
                                             />
                                             <label for="url" >Alamat URL</label>
                                             <br></br>
                                         </form>
-                                        
-                                        {valueRadio === 'internal' ? 
-                                          <InputComponent
-                                          type="file"
-                                          className="form-group__input"
-                                          name="contents"
-                                          onBlur={handleBlur}
-                                          //   value={values.contents}
-                                          //   onChange={handleChange}
-                                          onChange={(e) => {
-                                              let file = e.currentTarget.files[0];
-                                              if (file) {
-                                                  console.log("File to upload: ", file);
-                                                  setFieldValue("contents", file);
-                                              }
-                                          }}
-                                          />
-                                          : 
-                                          <InputComponent
-                                          type="text"
-                                          name="contents"
-                                          className="form-group__input form-group__input--fullwidth"
-                                          placeholder="Type Image URL... (https://example.com/something/something.jpg)"
-                                          value={values.contents}
-                                          onChange={handleChange}
-                                          onBlur={handleBlur}
-                                      />
+
+                                        {valueRadio === 'internal' ?
+                                            <InputComponent
+                                                type="file"
+                                                className="form-group__input"
+                                                name="contents"
+                                                onBlur={handleBlur}
+                                                //   value={values.contents}
+                                                //   onChange={handleChange}
+                                                onChange={(e) => {
+                                                    let file = e.currentTarget.files[0];
+                                                    if (file) {
+                                                        console.log("File to upload: ", file);
+                                                        setFieldValue("contents", file);
+                                                    }
+                                                }}
+                                            />
+                                            :
+                                            <InputComponent
+                                                type="text"
+                                                name="contents"
+                                                className="form-group__input form-group__input--fullwidth"
+                                                placeholder="Type Image URL... (https://example.com/something/something.jpg)"
+                                                value={values.contents}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                            />
                                         }
-                                       
+
                                     </div>
-                                    
+
                                 ) : null}
-                                {values.contentType === "Video" ? 
-                                // (
-                                //     <div>
-                                //         <p>Pilih media yang ingin di upload :</p>
-                                //         <form>
-                                //             <input type="radio" id="html" name="fav_language" value={'internal'}
-                                //             onClick={() => {setRadio('internal')}}
-                                //             />
-                                //             <label for="internal" >Media Internal Komputer</label>
-                                //             <br></br>
-                                //             <input type="radio" id="html" name="fav_language" value={'url'}
-                                //             onClick={() =>setRadio('url')}
-                                //             />
-                                //             <label for="url" >Alamat URL</label>
-                                //             <br></br>
-                                //         </form>
-                                        
-                                //         {valueRadio === 'internal' ? 
-                                //         <InputComponent
-                                //         type="file"
-                                //         className="form-group__input"
-                                //         name="contents"
-                                //         onBlur={handleBlur}
-                                //         //   value={values.contents}
-                                //         //   onChange={handleChange}
-                                //         onChange={(e) => {
-                                //             let file = e.currentTarget.files[0];
-                                //             if (file) {
-                                //                 console.log("File to upload: ", file);
-                                //                 setFieldValue("contents", file);
-                                //             }
-                                //         }}
-                                //         />
-                                //         : 
-                                //         <InputComponent
-                                //         type="text"
-                                //         name="contents"
-                                //         className="form-group__input form-group__input--fullwidth"
-                                //         placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
-                                //         value={values.contents}
-                                //         onChange={handleChange}
-                                //         onBlur={handleBlur}
-                                //         />
-                                //         }
-                                //     </div>
-                                    
-                                // ) 
-                                <InputComponent
-                                type="text"
-                                name="contents"
-                                className="form-group__input form-group__input--fullwidth"
-                                placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
-                                value={values.contents}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                />
-                                : null}
+                                {values.contentType === "Video" ?
+                                    // (
+                                    //     <div>
+                                    //         <p>Pilih media yang ingin di upload :</p>
+                                    //         <form>
+                                    //             <input type="radio" id="html" name="fav_language" value={'internal'}
+                                    //             onClick={() => {setRadio('internal')}}
+                                    //             />
+                                    //             <label for="internal" >Media Internal Komputer</label>
+                                    //             <br></br>
+                                    //             <input type="radio" id="html" name="fav_language" value={'url'}
+                                    //             onClick={() =>setRadio('url')}
+                                    //             />
+                                    //             <label for="url" >Alamat URL</label>
+                                    //             <br></br>
+                                    //         </form>
+
+                                    //         {valueRadio === 'internal' ? 
+                                    //         <InputComponent
+                                    //         type="file"
+                                    //         className="form-group__input"
+                                    //         name="contents"
+                                    //         onBlur={handleBlur}
+                                    //         //   value={values.contents}
+                                    //         //   onChange={handleChange}
+                                    //         onChange={(e) => {
+                                    //             let file = e.currentTarget.files[0];
+                                    //             if (file) {
+                                    //                 console.log("File to upload: ", file);
+                                    //                 setFieldValue("contents", file);
+                                    //             }
+                                    //         }}
+                                    //         />
+                                    //         : 
+                                    //         <InputComponent
+                                    //         type="text"
+                                    //         name="contents"
+                                    //         className="form-group__input form-group__input--fullwidth"
+                                    //         placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                    //         value={values.contents}
+                                    //         onChange={handleChange}
+                                    //         onBlur={handleBlur}
+                                    //         />
+                                    //         }
+                                    //     </div>
+
+                                    // ) 
+                                    <InputComponent
+                                        type="text"
+                                        name="contents"
+                                        className="form-group__input form-group__input--fullwidth"
+                                        placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                        value={values.contents}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    : null}
                                 {values.contentType === "Pdf" ? (
                                     <div>
                                         <p>Pilih media yang ingin di upload :</p>
                                         <form>
                                             <input type="radio" id="html" name="fav_language" value={'internal'}
-                                            onClick={() => {setRadio('internal')}}
+                                                onClick={() => { setRadio('internal') }}
                                             />
                                             <label for="internal" >Media Internal - Maks 300kb</label>
                                             <br></br>
                                             <input type="radio" id="html" name="fav_language" value={'url'}
-                                            onClick={() =>setRadio('url')}
+                                                onClick={() => setRadio('url')}
                                             />
                                             <label for="url" >Alamat URL</label>
                                             <br></br>
                                         </form>
-                                        
-                                        {valueRadio === 'internal' ? 
-                                        <InputComponent
-                                        type="file"
-                                        className="form-group__input"
-                                        name="contents"
-                                        onBlur={handleBlur}
-                                        //   value={values.contents}
-                                        //   onChange={handleChange}
-                                        onChange={(e) => {
-                                            let file = e.currentTarget.files[0];
-                                            if (file) {
-                                                console.log("File to upload: ", file);
-                                                setFieldValue("contents", file);
-                                            }
-                                        }}
-                                        />
-                                        : 
-                                        <InputComponent
-                                        type="text"
-                                        name="contents"
-                                        className="form-group__input form-group__input--fullwidth"
-                                        placeholder="Type Pdf URL... (Pdf file)"
-                                        value={values.contents}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        />
+
+                                        {valueRadio === 'internal' ?
+                                            <InputComponent
+                                                type="file"
+                                                className="form-group__input"
+                                                name="contents"
+                                                onBlur={handleBlur}
+                                                //   value={values.contents}
+                                                //   onChange={handleChange}
+                                                onChange={(e) => {
+                                                    let file = e.currentTarget.files[0];
+                                                    if (file) {
+                                                        console.log("File to upload: ", file);
+                                                        setFieldValue("contents", file);
+                                                    }
+                                                }}
+                                            />
+                                            :
+                                            <InputComponent
+                                                type="text"
+                                                name="contents"
+                                                className="form-group__input form-group__input--fullwidth"
+                                                placeholder="Type Pdf URL... (Pdf file)"
+                                                value={values.contents}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                            />
                                         }
                                     </div>
 
