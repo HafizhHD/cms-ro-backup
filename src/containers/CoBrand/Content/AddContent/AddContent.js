@@ -170,8 +170,8 @@ function AddContent({
                                     onBlur={handleBlur}
                                     onChange={(e) => {
                                         setTextValue(e);
-                                        setFieldValue("contents", e.toString("html"));
-                                        console.log(values.contents);
+                                        setFieldValue("contentDescription", e.toString("html"));
+                                        console.log(values.contentDescription);
                                     }}
                                 /> */}
                                 <InputComponent
@@ -393,6 +393,20 @@ function AddContent({
                             </div>
                             <div className="form-group">
                                 <label>Set Schedule</label>
+                                <InputComponent
+                                    type="date"
+                                    className="form-group__input"
+                                    name="startDate"
+                                    value={values.startDate}
+                                    min={new Date().toISOString().split('T')[0]}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.startDate && <span className="message__error">{errors.startDate}</span>}
+                            </div>
+                            {/* end date */}
+                            <div className="form-group">
+                                <label>End Date</label>
                                 <InputComponent
                                     type="date"
                                     className="form-group__input"
