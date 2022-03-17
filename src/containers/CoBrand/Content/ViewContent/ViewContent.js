@@ -141,7 +141,8 @@ function ViewContent() {
                         </div>
                         <div className="content_detail_bottom_description">
                             <p className="content_detail_group">Description:</p>
-                            <p>{content.contentDescription}</p>
+                            {/* <p>{content.contentDescription}</p> */}
+                            <p dangerouslySetInnerHTML={{__html: content.contentDescription}}></p>
                         </div>
                         <div className="content_detail_bottom_contents">
                             <p className="content_detail_group">Contents:</p>

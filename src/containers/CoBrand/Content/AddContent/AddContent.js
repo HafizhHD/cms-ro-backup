@@ -161,11 +161,12 @@ function AddContent({
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                {/* <RichTextEditor
+                                <RichTextEditor
                                     name="contentDescription"
                                     placeholder="Type your description here..."
                                     className="form-group_rte"
-                                    value={values.contentDescription}
+                                    // value={values.contentDescription}
+                                    value={textValue}
                                     toolbarConfig={toolbarConfig}
                                     onBlur={handleBlur}
                                     onChange={(e) => {
@@ -173,15 +174,15 @@ function AddContent({
                                         setFieldValue("contentDescription", e.toString("html"));
                                         console.log(values.contentDescription);
                                     }}
-                                /> */}
-                                <InputComponent
+                                />
+                                {/* <InputComponent
                                     type="textarea"
                                     name="contentDescription"
                                     placeholder="Type Something..."
                                     value={values.contentDescription}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                />
+                                /> */}
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div>
                             <div className="form-group">
@@ -405,19 +406,19 @@ function AddContent({
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                             </div>
                             {/* end date */}
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>End Date</label>
                                 <InputComponent
                                     type="date"
                                     className="form-group__input"
                                     name="startDate"
                                     value={values.startDate}
-                                    min={new Date().toISOString().split('T')[0]}
+                                    max={new Date().toISOString().split('T')[0]}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
-                            </div>
+                            </div> */}
                             <div className="form-group">
                                 <div className="form-group_switch">
                                     <p className="form-group_switch_status">Status:</p>

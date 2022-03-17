@@ -212,14 +212,42 @@ function EditContent({
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <InputComponent
+                                <RichTextEditor
+                                        name="contentDescription"
+                                        placeholder="Type your contents here..."
+                                        className="form-group_rte"
+                                        value={textValue}
+                                        // value={values.contentDescription}
+                                        toolbarConfig={toolbarConfig}
+                                        onBlur={handleBlur}
+                                        // onChange={handleChange}
+                                        onChange={(e) => {
+                                            setTextValue(e);
+                                            setFieldValue("contentDescription", e.toString("html"));
+                                            console.log(values.contentDescription);
+                                        }}
+                                />
+                                {/* <RichTextEditor
+                                        name="contents"
+                                        placeholder="Type your contents here..."
+                                        className="form-group_rte"
+                                        value={textValue}
+                                        toolbarConfig={toolbarConfig}
+                                        onBlur={handleBlur}
+                                        onChange={(e) => {
+                                            setTextValue(e);
+                                            setFieldValue("contents", e.toString("html"));
+                                            console.log(values.contents);
+                                        }}
+                                    /> */}
+                                {/* <InputComponent
                                     type="textarea"
                                     name="contentDescription"
                                     placeholder="Type Something..."
                                     value={values.contentDescription}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                />
+                                /> */}
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div>
                             <div className="form-group">
