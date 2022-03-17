@@ -24,6 +24,7 @@ function AddContent({
     const [programList, setProgramList] = useState();
     const [valueRadio, setRadio] = useState('');
 
+    const [textDeskripsi, setTextDeskripsi] = useState(RichTextEditor.createEmptyValue());
     const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
     const toolbarConfig = {
         // Optionally specify the groups to display (displayed in the order listed).
@@ -166,11 +167,11 @@ function AddContent({
                                     placeholder="Type your description here..."
                                     className="form-group_rte"
                                     // value={values.contentDescription}
-                                    value={textValue}
+                                    value={textDeskripsi}
                                     toolbarConfig={toolbarConfig}
                                     onBlur={handleBlur}
                                     onChange={(e) => {
-                                        setTextValue(e);
+                                        setTextDeskripsi(e);
                                         setFieldValue("contentDescription", e.toString("html"));
                                         console.log(values.contentDescription);
                                     }}

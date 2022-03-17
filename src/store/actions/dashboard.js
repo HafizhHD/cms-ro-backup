@@ -433,7 +433,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                         console.log(data);
                         //Call API ....
 
-                        contentAdd(data)
+                        contentEdit(data)
                             .then(response => {
                                 console.log('Success:', response.data);
                                 history.push('/content');
@@ -476,7 +476,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                         console.log(data);
                         //Call API ....
 
-                        contentAdd(data)
+                        contentEdit(data)
                             .then(response => {
                                 console.log('Success:', response.data);
                                 history.push('/content');
@@ -516,7 +516,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                         console.log(data);
                         //Call API ....
 
-                        contentAdd(data)
+                        contentEdit(data)
                             .then(response => {
                                 console.log('Success:', response.data);
                                 history.push('/content');
@@ -577,7 +577,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             console.log(data);
             //Call API ....
 
-            contentAdd(data)
+            contentEdit(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/content');

@@ -22,6 +22,7 @@ function EditContent({
     const [contentStartDate, setContentStartDate] = useState();
     const [conFromImgVid, setConFromImgVid] = useState('');
 
+    const [textDeskripsi, setTextDeskripsi] = useState(RichTextEditor.createEmptyValue());
     const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
     const toolbarConfig = {
         // Optionally specify the groups to display (displayed in the order listed).
@@ -184,7 +185,7 @@ function EditContent({
                                     value={values.programId}
                                     onChange={handleChange}
                                 >
-                                    <option value="-1" disabled>Select Program</option>
+                                    <option value="" disabled>Select Program</option>
                                     {/* <option value="">(Tanpa Program)</option> */}
                                     {
                                         programList ? programList.map((program) => {
@@ -216,13 +217,13 @@ function EditContent({
                                         name="contentDescription"
                                         placeholder="Type your contents here..."
                                         className="form-group_rte"
-                                        value={textValue}
+                                        value={textDeskripsi}
                                         // value={values.contentDescription}
                                         toolbarConfig={toolbarConfig}
                                         onBlur={handleBlur}
                                         // onChange={handleChange}
                                         onChange={(e) => {
-                                            setTextValue(e);
+                                            setTextDeskripsi(e);
                                             setFieldValue("contentDescription", e.toString("html"));
                                             console.log(values.contentDescription);
                                         }}
