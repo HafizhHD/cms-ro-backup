@@ -11,9 +11,11 @@ import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
+import TextEditor from '../../../../components/Texteditor/TextEditor';
 // import {PDFDownloadLink, Document, Page} from '@react-pdf/renderer'
 // import Pdf2 from '../pdf2/pdf2'
 
+// import '../../../../components/ckeditor/ckeditor'
 
 function AddContent({
     onAddContent,
@@ -162,7 +164,9 @@ function AddContent({
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <RichTextEditor
+                                <TextEditor/>
+
+                                {/* <RichTextEditor
                                     name="contentDescription"
                                     placeholder="Type your description here..."
                                     className="form-group_rte"
@@ -175,7 +179,7 @@ function AddContent({
                                         setFieldValue("contentDescription", e.toString("html"));
                                         console.log(values.contentDescription);
                                     }}
-                                />
+                                /> */}
                                 {/* <InputComponent
                                     type="textarea"
                                     name="contentDescription"
