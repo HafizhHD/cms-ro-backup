@@ -5,6 +5,7 @@ import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink } f
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewContent.scss';
+import {Table, Button} from 'react-bootstrap'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 
 function ViewContent() {
@@ -22,13 +23,13 @@ function ViewContent() {
         setLoading(true);
         const id = localStorage.getItem('contentSelected');
         console.log(id);
-        if(id) {
+        if (id) {
             const userData = JSON.parse(localStorage.getItem('userData'));
             let params = {
                 whereKeyValues: {
                     cobrandEmail: userData.email,
                     _id: id,
-                    status: {"$in" : ["active", "inactive"]}
+                    status: { "$in": ["active", "inactive"] }
                 }
             };
 
@@ -40,25 +41,25 @@ function ViewContent() {
                     'Content-Type': 'application/json',
                 },
             })
-            .then(response => {
-                console.log("Response data: ", response.data);
-                setContent(response.data.contents[0]);
-                if(response.data.contents[0].status === 'active') setActive(true);
+                .then(response => {
+                    console.log("Response data: ", response.data);
+                    setContent(response.data.contents[0]);
+                    if (response.data.contents[0].status === 'active') setActive(true);
                     else setActive(false);
-                console.log("This is ", content);
-                setLoading(false);
-                let date = new Date(response.data.contents[0].startDate).toLocaleDateString("en-UK", dateFormat);
-                setStartDate(date);
-            })
-            .catch(error => {
-                console.log(error);
-                setLoading(false);
-            });
+                    console.log("This is ", content);
+                    setLoading(false);
+                    let date = new Date(response.data.contents[0].startDate).toLocaleDateString("en-UK", dateFormat);
+                    setStartDate(date);
+                })
+                .catch(error => {
+                    console.log(error);
+                    setLoading(false);
+                });
         }
     }, []);
 
-    if(isLoading) {
-        return <RKLoader/>
+    if (isLoading) {
+        return <RKLoader />
     }
 
     return (
@@ -74,12 +75,12 @@ function ViewContent() {
                 <NavLink to="/content/edit" className="action_btn_nav">
                     <h3><FiEdit /> Edit This Content</h3>
                 </NavLink>
-                <span 
+                <span
                     onClick={() => {
                         localStorage.setItem('contentDeleting', content._id);
                     }}><NavLink to="/content" className="action_btn_nav">
-                    <h3><FiTrash2 /> Delete This Content</h3>
-                </NavLink></span>
+                        <h3><FiTrash2 /> Delete This Content</h3>
+                    </NavLink></span>
                 <div className="action_btn_switch">
                     <p className="action_btn_switch_status">Status:</p>
                     <p className="action_btn_switch_inactive">Inactive</p>
@@ -105,13 +106,13 @@ function ViewContent() {
                                         'Content-Type': 'application/json',
                                     },
                                 })
-                                .then(response => {
-                                    console.log("Response data: ", response.data);
-                                })
-                                .catch(error => {
-                                    console.log(error);
-                                    setLoading(false);
-                                });
+                                    .then(response => {
+                                        console.log("Response data: ", response.data);
+                                    })
+                                    .catch(error => {
+                                        console.log(error);
+                                        setLoading(false);
+                                    });
                                 setActive(!isActive);
                             }}></input>
                         <span className="action_btn_switch_switch_slider"></span>
@@ -127,7 +128,7 @@ function ViewContent() {
                 <div className="content_detail">
                     <div className="content_detail_top">
                         <div className="content_detail_top_img">
-                            <img src={content.contentThumbnail} className="content_detail_top_img_image"/>
+                            <img src={content.contentThumbnail} className="content_detail_top_img_image" />
                         </div>
                         <div className="content_detail_top_title">
                             <h2>{content.contentName}</h2>
@@ -140,19 +141,19 @@ function ViewContent() {
                             <p className="content_detail_group"><FiLink /> Source: <span>{content.contentSource}</span> </p>
                         </div>
                         <div className="content_detail_bottom_description">
-                            <p className="content_detail_group">Description:</p>
+                            <p className="content_detail_group" >Description:</p>
                             {/* <p>{content.contentDescription}</p> */}
-                            <p dangerouslySetInnerHTML={{__html: content.contentDescription}}></p>
+                            <p dangerouslySetInnerHTML={{ __html: content.contentDescription }}></p>
                         </div>
                         <div className="content_detail_bottom_contents">
                             <p className="content_detail_group">Contents:</p>
 
-                              {typeof content.contents === 'string' ? (
-                                <div dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                            {typeof content.contents === 'string' ? (
+                                <div dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                             ) : (
-                                <div className='pdf-style' dangerouslySetInnerHTML={{__html: content.contents}}></div>
+                                <div className='pdf-style' dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                             )}
-                            
+
                         </div>
                     </div>
                 </div>
@@ -160,18 +161,70 @@ function ViewContent() {
                     <div className="content_preview_smartphone">
                         <div className="content_preview_smartphone_display">
                             <div className="content_preview_smartphone_display_top">
-                                <img src={content.contentThumbnail} className="content_preview_smartphone_display_top_img"/>
+                                <img src={content.contentThumbnail} className="content_preview_smartphone_display_top_img" />
                                 <div className="content_preview_smartphone_display_top_title">
                                     <h2>{content.contentName}</h2>
-                                    <br/>
+                                    <br />
                                     <p>{startDate}</p>
                                     <p>Sumber: {content.contentSource}</p>
                                 </div>
                             </div>
-                            <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{__html: content.contents}}></div>                            
+                            <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='komentar'>
+                <h1 >Komentar</h1>
+                {/* <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td colSpan={2}>Larry the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </Table> */}
+                <table>
+                    <tr>
+                        <th>Isi Komentar</th>
+                        <th>Akun</th>
+                        <th colSpan={2}>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Aplikasi ini membantu untuk mengontrol aktifitas anak saya</td>
+                        <td>Maria Anders</td>
+                        <td>Germany</td>
+                        <td><Button variant="danger">Delete</Button></td>
+                    </tr>
+                    <tr>
+                        <td>Bagus untuk perkembangan anak saya</td>
+                        <td>Francisco Chang</td>
+                        <td>Mexico</td>
+                        <td><Button variant="danger">Delete</Button></td>
+                    </tr>
+                </table>
+
             </div>
         </div>
     )

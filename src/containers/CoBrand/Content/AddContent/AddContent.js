@@ -12,15 +12,33 @@ import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
 import TextEditor from '../../../../components/Texteditor/TextEditor';
-// import {PDFDownloadLink, Document, Page} from '@react-pdf/renderer'
-// import Pdf2 from '../pdf2/pdf2'
 
-// import '../../../../components/ckeditor/ckeditor'
+//texteditor
+import { ContentState, Editor } from "react-draft-wysiwyg";
+import { EditorState, convertToRaw, convertFromRaw, current} from "draft-js";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftToHtml from "draftjs-to-html";
+import {stateToHTML} from 'draft-js-export-html'
 
 function AddContent({
     onAddContent,
     isLoading
 }) {
+    let editorState = EditorState.createEmpty()
+    
+
+    const [description, setDescription] = useState(editorState)
+    const onEditorStateChange = (editorState) => {
+        setDescription(editorState)
+    }
+
+    const [artikel, setArtikel] = useState(editorState)
+    const onEditorStateChangeArtikel = (editorState) => {
+        setArtikel(editorState)
+    }
+    
+    
+
 
     const [isPageLoading, setPageLoading] = useState(true);
     const [programList, setProgramList] = useState();
@@ -164,30 +182,27 @@ function AddContent({
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <TextEditor/>
-
-                                {/* <RichTextEditor
+                                <Editor
+                                    editorState={description}
+                                    toolbarClassName="toolbarClassName"
+                                    wrapperClassName="wrapperClassName"
+                                    editorClassName="editorClassName"
+                                    onEditorStateChange={onEditorStateChange}
+                                    // onEditorStateChange={updateTextDescription}
+                                    // value={description.values}
+                                    value={draftToHtml(convertToRaw(description.getCurrentContent()))}
+                                    // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                     name="contentDescription"
-                                    placeholder="Type your description here..."
-                                    className="form-group_rte"
-                                    // value={values.contentDescription}
-                                    value={textDeskripsi}
-                                    toolbarConfig={toolbarConfig}
-                                    onBlur={handleBlur}
-                                    onChange={(e) => {
-                                        setTextDeskripsi(e);
-                                        setFieldValue("contentDescription", e.toString("html"));
-                                        console.log(values.contentDescription);
+                                    onChange={(editorState) => {
+                                        setTextDeskripsi(editorState);
+                                        // setFieldValue("contentDescription", description);
+                                        setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
+                                        console.log(textDeskripsi);
+                                        console.log(values.contentDescription)
+                                        // console.log(dangerouslySetInnerHTML={{ __html: item.description}} )
                                     }}
-                                /> */}
-                                {/* <InputComponent
-                                    type="textarea"
-                                    name="contentDescription"
-                                    placeholder="Type Something..."
-                                    value={values.contentDescription}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                /> */}
+                                    
+                                />
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div>
                             <div className="form-group">
@@ -200,6 +215,7 @@ function AddContent({
                                     value={values.contentSource}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
+                                
                                 />
                                 {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                             </div>
@@ -223,27 +239,40 @@ function AddContent({
                             <div className="form-group">
                                 <label>Contents</label>
                                 {values.contentType === "Artikel" ? (
-                                    /*<InputComponent
-                                        type="textarea"
-                                        name="contents"
-                                        placeholder="Type Something..."
-                                        value={values.contents}
-                                        onChange={handleChange}
-                                    />*/
+                                    <Editor
+                                    editorState={artikel}
+                                    toolbarClassName="toolbarClassName"
+                                    wrapperClassName="wrapperClassName"
+                                    editorClassName="editorClassName"
+                                    onEditorStateChange={onEditorStateChangeArtikel}
+                                    // onEditorStateChange={updateTextDescription}
+                                    // value={description.values}
+                                    value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                    // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                    name="contents"
+                                    onChange={(editorState) => {
+                                        setTextValue(editorState);
+                                        // setFieldValue("contentDescription", description);
+                                        setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                        // console.log(textDeskripsi);
+                                        // console.log(values.contents)
+                                    }}
+                                    
+                                />
 
-                                    <RichTextEditor
-                                        name="contents"
-                                        placeholder="Type your contents here..."
-                                        className="form-group_rte"
-                                        value={textValue}
-                                        toolbarConfig={toolbarConfig}
-                                        onBlur={handleBlur}
-                                        onChange={(e) => {
-                                            setTextValue(e);
-                                            setFieldValue("contents", e.toString("html"));
-                                            console.log(values.contents);
-                                        }}
-                                    />
+                                    // <RichTextEditor
+                                    //     name="contents"
+                                    //     placeholder="Type your contents here..."
+                                    //     className="form-group_rte"
+                                    //     value={textValue}
+                                    //     toolbarConfig={toolbarConfig}
+                                    //     onBlur={handleBlur}
+                                    //     onChange={(e) => {
+                                    //         setTextValue(e);
+                                    //         setFieldValue("contents", e.toString("html"));
+                                    //         console.log(values.contents);
+                                    //     }}
+                                    // />
                                 ) : null}
                                 {values.contentType === "Image" ? (
                                     <div>
