@@ -5,8 +5,10 @@ import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink } f
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewContent.scss';
-import {Table, Button} from 'react-bootstrap'
+import { Table, Button } from 'react-bootstrap'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
+
+// import TableContent from './../../../components/UI/Table/Table';
 
 function ViewContent() {
 
@@ -14,6 +16,7 @@ function ViewContent() {
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
     const [isActive, setActive] = useState(true);
+    const [komentar, setKomen] = useState();
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -57,6 +60,51 @@ function ViewContent() {
                 });
         }
     }, []);
+
+    // komentar
+    // get komentar
+    useEffect(() => {
+        axios({
+            method: 'post',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
+        })
+            .then(response => {
+                console.log(response.data.resultData);
+                setKomen(response.data.resultData)
+                // console.log(response.data.resultData[0].emailUser);
+            })
+            .catch(error => {
+                console.log(error + 'ini eror komentar');
+            });
+    }, [])
+
+    // post komentar
+    useEffect(() => {
+        let params = {
+                contentId:"12334343", 
+                emailUser:"nina@gmail.com", 
+                comment:"komentar post pertama", 
+                replies:{}, 
+                status:"active"
+            };
+        axios({
+            method: 'post',
+            url: 'https://as01.prod.ruangortu.id:8080/api/commentContentAdd',
+            data: params,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                console.log(response.data);
+                // console.log(response.data.resultData[0]);
+                // setKomen(response.data.resultData[0])
+                // console.log(response.data.resultData[0].emailUser);
+            })
+            .catch(error => {
+                console.log(error + 'ini eror post komentar baru');
+            });
+    }, [])
 
     if (isLoading) {
         return <RKLoader />
@@ -176,54 +224,33 @@ function ViewContent() {
             </div>
             <div className='komentar'>
                 <h1 >Komentar</h1>
-                {/* <Table striped bordered hover>
+                <Table striped bordered hover >
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th className='h-email'>Email User</th>
+                            <th>Status</th>
+                            <th>Komentar</th>
+                            <th>Date Create</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td colSpan={2}>Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        {console.log(komentar)}
+                        {komentar ? komentar.map((item, index) => (
+                            <tr>
+                                <td>{item.emailUser}</td>
+                                <td>{item.status}</td>
+                                <td>{item.comment}</td>
+                                <td>{item.dateCreated}</td>
+                                <td><Button variant="danger" className='btn'>Delete</Button></td>
+                            </tr>
+                        ))
+                        :
+                        ''
+                        }
+                        
                     </tbody>
-                </Table> */}
-                <table>
-                    <tr>
-                        <th>Isi Komentar</th>
-                        <th>Akun</th>
-                        <th colSpan={2}>Action</th>
-                    </tr>
-                    <tr>
-                        <td>Aplikasi ini membantu untuk mengontrol aktifitas anak saya</td>
-                        <td>Maria Anders</td>
-                        <td>Germany</td>
-                        <td><Button variant="danger">Delete</Button></td>
-                    </tr>
-                    <tr>
-                        <td>Bagus untuk perkembangan anak saya</td>
-                        <td>Francisco Chang</td>
-                        <td>Mexico</td>
-                        <td><Button variant="danger">Delete</Button></td>
-                    </tr>
-                </table>
+                </Table>
 
             </div>
         </div>

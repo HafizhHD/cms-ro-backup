@@ -289,16 +289,37 @@
     }
 }
 
-table, th, td {
-    border: 1px solid rgb(49, 138, 138);
-    border-collapse: collapse;
-    padding: 1rem;
-}
+// table, th, td {
+//     // border: 1px solid rgb(49, 138, 138);
+//     border-collapse: collapse;
+//     padding: 1rem;
+// }
 
 .komentar {
     margin: 2rem;
+    font-size: 13px;
+    padding: 1rem;
+
 
 }
-// .pdf_view{
-//     max-width: 8vw;
+
+.btn {
+    width: 6vw;
+    font-size: 13px;
+    background-color: rgb(240, 84, 57);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: auto;
+    margin: 2vw;
+    align-items:center;
+}
+
+// .h-email {
+//     width: 20vw;
 // }
+
+tr, td , th {
+    padding: 1vw;
+    text-align: left;
+}
