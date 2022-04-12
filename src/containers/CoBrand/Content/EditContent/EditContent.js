@@ -17,6 +17,7 @@ import { EditorState, convertToRaw, convertFromRaw, current,ContentState, conver
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import {stateToHTML} from 'draft-js-export-html'
+import htmlToDraft from 'html-to-draftjs'
 
 
 function EditContent({
@@ -104,12 +105,15 @@ function EditContent({
                     console.log(con);
                     if (response.data.contents[0].contentType === 'Artikel') {
                         let con1 = con.getElementById('contents');
+                        console.log('Ini adalah con1 outer' + con1.outerHTML);
+                        console.log('Ini adalah con1 inner' + con1.innerHTML);
+                        let con2 = htmlToDraft(con1.innerHTML);
                         setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
                         setConFromImgVid(con1.outerHTML);
                         // setArtikel(textValue)
                         setArtikel(EditorState.createWithContent(
                             ContentState.createFromBlockArray(
-                              convertFromHTML(`<p>${textValue}</p>`))))
+                              con2.contentBlocks, con2.entityMap)))
                     }
                     else if (response.data.contents[0].contentType === 'Image') {
                         let con1 = con.getElementsByTagName('img')[0].toString();
