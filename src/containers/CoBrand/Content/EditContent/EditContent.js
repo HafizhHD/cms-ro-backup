@@ -11,10 +11,32 @@ import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
 
+//texteditor
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertToRaw, convertFromRaw, current,ContentState, convertFromHTML} from "draft-js";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftToHtml from "draftjs-to-html";
+import {stateToHTML} from 'draft-js-export-html'
+
+
 function EditContent({
     onEditContent,
     isLoading
 }) {
+
+
+    let editorState = EditorState.createEmpty()
+    
+
+    // const [description, setDescription] = useState(editorState)
+    // const onEditorStateChange = (editorState) => {
+    //     setDescription(editorState)
+    // }
+
+    const [artikel, setArtikel] = useState(editorState)
+    const onEditorStateChangeArtikel = (editorState) => {
+        setArtikel(editorState)
+    }
 
     const [isPageLoading, setPageLoading] = useState(true);
     const [programList, setProgramList] = useState();
@@ -84,6 +106,10 @@ function EditContent({
                         let con1 = con.getElementById('contents');
                         setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
                         setConFromImgVid(con1.outerHTML);
+                        // setArtikel(textValue)
+                        setArtikel(EditorState.createWithContent(
+                            ContentState.createFromBlockArray(
+                              convertFromHTML(`<p>${textValue}</p>`))))
                     }
                     else if (response.data.contents[0].contentType === 'Image') {
                         let con1 = con.getElementsByTagName('img')[0].toString();
@@ -213,7 +239,7 @@ function EditContent({
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <RichTextEditor
+                                {/* <RichTextEditor
                                         name="contentDescription"
                                         placeholder="Type your contents here..."
                                         className="form-group_rte"
@@ -227,28 +253,29 @@ function EditContent({
                                             setFieldValue("contentDescription", e.toString("html"));
                                             console.log(values.contentDescription);
                                         }}
-                                />
+                                /> */}
                                 {/* <RichTextEditor
-                                        name="contents"
+                                        name="contentDescription"
                                         placeholder="Type your contents here..."
                                         className="form-group_rte"
-                                        value={textValue}
+                                        // value={textValue}
+                                        value={values.contentDescription}
                                         toolbarConfig={toolbarConfig}
                                         onBlur={handleBlur}
                                         onChange={(e) => {
-                                            setTextValue(e);
-                                            setFieldValue("contents", e.toString("html"));
-                                            console.log(values.contents);
+                                            setTextDeskripsi(e);
+                                            setFieldValue("contentDescription", e.toString("html"));
+                                            console.log(values.contentDescription);
                                         }}
                                     /> */}
-                                {/* <InputComponent
+                                <InputComponent
                                     type="textarea"
                                     name="contentDescription"
                                     placeholder="Type Something..."
                                     value={values.contentDescription}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                /> */}
+                                />
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div>
                             <div className="form-group">
@@ -293,19 +320,44 @@ function EditContent({
                                         value={values.contents}
                                         onChange={handleChange}
                                     />*/
-                                    <RichTextEditor
+
+                                    <Editor
+                                        editorState={artikel}
+                                        toolbarClassName="toolbarClassName"
+                                        wrapperClassName="wrapperClassName"
+                                        editorClassName="editorClassName"
+                                        onEditorStateChange={onEditorStateChangeArtikel}
+                                        // value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                        values={values.contents}
+       
                                         name="contents"
-                                        placeholder="Type your contents here..."
-                                        className="form-group_rte"
-                                        value={textValue}
-                                        toolbarConfig={toolbarConfig}
-                                        onBlur={handleBlur}
-                                        onChange={(e) => {
-                                            setTextValue(e);
-                                            setFieldValue("contents", e.toString("html"));
-                                            console.log(values.contents);
+                                        
+                                        onChange={(editorState) => {
+                                            setTextValue(values.contents);
+                                            // setFieldValue("contentDescription", description);
+                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                            console.log(textValue); ///value yang lama
+                                            console.log(values.contents) //get nilai yg terbaru
+                                            console.log(artikel) //get nilai yg terbaru
+                                            
                                         }}
+                                        
                                     />
+
+
+                                    // <RichTextEditor
+                                    //     name="contents"
+                                    //     placeholder="Type your contents here..."
+                                    //     className="form-group_rte"
+                                    //     value={textValue}
+                                    //     toolbarConfig={toolbarConfig}
+                                    //     onBlur={handleBlur}
+                                    //     onChange={(e) => {
+                                    //         setTextValue(e);
+                                    //         setFieldValue("contents", e.toString("html"));
+                                    //         console.log(values.contents);
+                                    //     }}
+                                    // />
                                 ) : null}
                                 {values.contentType === "Image" ? (
                                     // <img src={conFromImgVid}></img>

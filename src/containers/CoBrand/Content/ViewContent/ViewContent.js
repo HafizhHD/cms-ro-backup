@@ -80,8 +80,10 @@ function ViewContent() {
 
     // post komentar
     useEffect(() => {
+        const id = localStorage.getItem('contentSelected');
+        console.log(id);
         let params = {
-                contentId:"12334343", 
+                contentId:id, 
                 emailUser:"nina@gmail.com", 
                 comment:"komentar post pertama", 
                 replies:{}, 

@@ -259,20 +259,6 @@ function AddContent({
                                     }}
                                     
                                 />
-
-                                    // <RichTextEditor
-                                    //     name="contents"
-                                    //     placeholder="Type your contents here..."
-                                    //     className="form-group_rte"
-                                    //     value={textValue}
-                                    //     toolbarConfig={toolbarConfig}
-                                    //     onBlur={handleBlur}
-                                    //     onChange={(e) => {
-                                    //         setTextValue(e);
-                                    //         setFieldValue("contents", e.toString("html"));
-                                    //         console.log(values.contents);
-                                    //     }}
-                                    // />
                                 ) : null}
                                 {values.contentType === "Image" ? (
                                     <div>
