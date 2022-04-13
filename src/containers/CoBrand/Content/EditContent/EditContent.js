@@ -29,10 +29,10 @@ function EditContent({
     let editorState = EditorState.createEmpty()
     
 
-    // const [description, setDescription] = useState(editorState)
-    // const onEditorStateChange = (editorState) => {
-    //     setDescription(editorState)
-    // }
+    const [description, setDescription] = useState(editorState)
+    const onEditorStateChange = (editorState) => {
+        setDescription(editorState)
+    }
 
     const [artikel, setArtikel] = useState(editorState)
     const onEditorStateChangeArtikel = (editorState) => {
@@ -114,6 +114,16 @@ function EditContent({
                         setArtikel(EditorState.createWithContent(
                             ContentState.createFromBlockArray(
                               con2.contentBlocks, con2.entityMap)))
+
+                        //   deskripsi
+                        // let condes = new DOMParser().parseFromString(response.data.contents[0].contentDescription, 'text/html');
+                        // console.log(con);
+                        // let des = condes.getElementById('contentDescription');
+                        // let des2 = htmlToDraft(des.innerHTML);
+                        // setDescription(RichTextEditor.createValueFromString(des.outerHTML, 'html'));
+                        // setDescription(EditorState.createWithContent(
+                        //     ContentState.createFromBlockArray(
+                        //         des2.contentBlocks, des2.entityMap)))
                     }
                     else if (response.data.contents[0].contentType === 'Image') {
                         let con1 = con.getElementsByTagName('img')[0].toString();
@@ -242,12 +252,33 @@ function EditContent({
                                 {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Description</label>
+                                {/* <label>Description</label>
+                                <Editor
+                                        editorState={description}
+                                        toolbarClassName="toolbarClassName"
+                                        wrapperClassName="wrapperClassName"
+                                        editorClassName="editorClassName"
+                                        onEditorStateChange={onEditorStateChange}
+                                        // value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                        values={values.contentDescription}
+       
+                                        name="contentDescription"
+                                        
+                                        onChange={(editorState) => {
+                                            setDescription(values.contentDescription);
+                                            // setFieldValue("contentDescription", description);
+                                            setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
+                                            console.log(description); ///value yang lama
+                                            console.log(values.contentDescription) //get nilai yg terbaru
+                                            
+                                        }}
+                                        
+                                    /> */}
                                 {/* <RichTextEditor
                                         name="contentDescription"
                                         placeholder="Type your contents here..."
                                         className="form-group_rte"
-                                        value={textDeskripsi}
+                                        value={values.contentDescription}
                                         // value={values.contentDescription}
                                         toolbarConfig={toolbarConfig}
                                         onBlur={handleBlur}
@@ -272,15 +303,15 @@ function EditContent({
                                             console.log(values.contentDescription);
                                         }}
                                     /> */}
-                                <InputComponent
+                                {/* <InputComponent
                                     type="textarea"
                                     name="contentDescription"
                                     placeholder="Type Something..."
                                     value={values.contentDescription}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                />
-                                {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
+                                /> */}
+                                {/* {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>} */}
                             </div>
                             <div className="form-group">
                                 <label>Source</label>
@@ -295,7 +326,7 @@ function EditContent({
                                 />
                                 {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>Photo</label>
                                 <img className='photo' src={content.contentThumbnail}></img>
                                 <br></br>
@@ -313,7 +344,7 @@ function EditContent({
                                         }
                                     }}
                                 />
-                            </div>
+                            </div> */}
                             <div className="form-group">
                                 <label>Contents</label>
                                 {values.contentType === "Artikel" ? (
