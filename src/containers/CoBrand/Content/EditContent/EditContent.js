@@ -116,9 +116,10 @@ function EditContent({
                               con2.contentBlocks, con2.entityMap)))
 
                         //   deskripsi
-                        // let condes = new DOMParser().parseFromString(response.data.contents[0].contentDescription, 'text/html');
-                        // console.log(con);
-                        // let des = condes.getElementById('contentDescription');
+                        let condes = new DOMParser().parseFromString(response.data.contentDescription, 'text/html');
+                        console.log(condes);
+                        let des = condes.getElementById('contentDescription');
+                        console.log(des) //null
                         // let des2 = htmlToDraft(des.innerHTML);
                         // setDescription(RichTextEditor.createValueFromString(des.outerHTML, 'html'));
                         // setDescription(EditorState.createWithContent(

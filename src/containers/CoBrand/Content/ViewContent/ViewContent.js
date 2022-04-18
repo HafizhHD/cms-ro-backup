@@ -62,15 +62,23 @@ function ViewContent() {
     }, []);
 
     // komentar
-    // get komentar
+    // get komentar by id done
     useEffect(() => {
+        const id = localStorage.getItem('contentSelected');
+        console.log(id);
+        let params = 
+            {whereKeyValues: {
+                contentId:id, 
+            }}
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
+            data: params,
         })
             .then(response => {
                 console.log(response.data.resultData);
                 setKomen(response.data.resultData)
+                console.log(response.data.resultData[0]._id); //id komentar
                 // console.log(response.data.resultData[0].emailUser);
             })
             .catch(error => {
@@ -233,7 +241,7 @@ function ViewContent() {
                             <th>Status</th>
                             <th>Komentar</th>
                             <th>Date Create</th>
-                            <th>Action</th>
+                            <th colSpan={2}>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -244,6 +252,7 @@ function ViewContent() {
                                 <td>{item.status}</td>
                                 <td>{item.comment}</td>
                                 <td>{item.dateCreated}</td>
+                                <td><Button variant="danger" className='btn2'>Edit</Button></td>
                                 <td><Button variant="danger" className='btn'>Delete</Button></td>
                             </tr>
                         ))
@@ -252,6 +261,7 @@ function ViewContent() {
                         }
                         
                     </tbody>
+                    {/* ketika klik edit : modal, isi email, komentar, replies, button baru kirim komen nya. */}
                 </Table>
 
             </div>
