@@ -401,11 +401,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
         // const [pageNumber, setPageNumber] = useState(1);
 
 
-        const promise = toBase64(photo);
-        promise.then((result) => {
+        // const promise = toBase64(photo);
+        // promise.then((result) => {
 
-            console.log(typeof result);
-            const contentThumbnail = result;
+            // console.log(typeof result);
+            // const contentThumbnail = result;
+            const contentThumbnail = photo;
             // let status = isActive ? 'active' : 'inactive';
 
             if (contentType === 'Video') {
@@ -426,7 +427,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            contentThumbnail,
+                            // contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -469,7 +470,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            contentThumbnail,
+                            // contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -509,7 +510,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            contentThumbnail,
+                            // contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -548,7 +549,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            contentThumbnail,
+                            // contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -609,7 +610,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 contentDescription,
                 contentType,
                 contentSource,
-                contentThumbnail,
+                // contentThumbnail,
                 contents,
                 // status,
                 startDate
@@ -631,7 +632,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     dispatch(loadingStop());
                 });
             console.log(data);
-        });
+        // });
     }
     
     

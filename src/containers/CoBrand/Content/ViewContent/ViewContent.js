@@ -158,7 +158,7 @@ function ViewContent() {
                                 console.log(param);
                                 axios({
                                     method: 'post',
-                                    url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentUpdate',
+                                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/contentUpdate',
                                     data: param,
                                     headers: {
                                         'Content-Type': 'application/json',

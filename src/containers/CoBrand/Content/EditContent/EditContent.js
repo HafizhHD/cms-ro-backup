@@ -194,7 +194,7 @@ function EditContent({
                 validationSchema={validationContentEdit}
                 validateOnChange={true}
                 onSubmit={values => {
-                    onEditContent(_id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, '', values.contents, values.startDate, history)
+                    onEditContent(_id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, history)
                 }}
             >
 
@@ -336,7 +336,6 @@ function EditContent({
                                     className="form-group__input"
                                     name="contentThumbnail"
                                     onBlur={handleBlur}
-                                    values={content.contentThumbnail}
                                     onChange={(e) => {
                                         let file = e.currentTarget.files[0];
                                         if (file) {
@@ -404,14 +403,14 @@ function EditContent({
                                         name="contents"
                                         onBlur={handleBlur}
                                         value={values.contents}
-                                        onChange={handleChange}
-                                    // onChange={(e) => {
-                                    //     let file = e.currentTarget.files[0];
-                                    //     if (file) {
-                                    //         console.log("File to upload: ", file);
-                                    //         setFieldValue("contents", file);
-                                    //     }
-                                    // }}
+                                        // onChange={handleChange}
+                                        onChange={(e) => {
+                                        let file = e.currentTarget.files[0];
+                                        if (file) {
+                                            console.log("File to upload: ", file);
+                                            setFieldValue("contents", file);
+                                        }
+                                    }}
                                     />
 
                                     // <InputComponent

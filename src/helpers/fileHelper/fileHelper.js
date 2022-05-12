@@ -1,5 +1,9 @@
 export const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
+    // for(var i=0;i<file.length;i++){
+    //     reader.readAsDataURL(file[i]);
+    //  }
+    // let file = event.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
