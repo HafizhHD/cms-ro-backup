@@ -92,7 +92,7 @@ function EditContent({
 
             axios({
                 method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+                url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/contentFilter',
                 data: params,
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function EditContent({
                     setContentStartDate(date);
                     axios({
                         method: 'post',
-                        url: 'https://rk.defghi.biz.id:8080/api/cobrand/programFilter',
+                        url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programFilter',
                         data: params1,
                         headers: {
                             'Content-Type': 'application/json',
@@ -182,8 +182,8 @@ function EditContent({
                 { path: '/content/edit', name: 'Edit Selected content' }
             ]} />
             <Formik
-                initialValues={{
-                    programId: content.programId,
+                initialValues={{ 
+                    programId: content.programId ,
                     contentName: content.contentName,
                     contentDescription: content.contentDescription,
                     contentType: content.contentType,
@@ -451,7 +451,7 @@ function EditContent({
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>Set Schedule</label>
                                 <InputComponent
                                     type="date"
@@ -463,7 +463,7 @@ function EditContent({
                                     onBlur={handleBlur}
                                 />
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
-                            </div>
+                            </div> */}
                             <div>
                                 <button className="btn btn-submit" type="submit">
                                     Update Content

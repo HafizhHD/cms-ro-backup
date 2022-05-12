@@ -532,6 +532,45 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     })
                 }
             }
+            else if (contentType === 'Artikel') {
+                if (typeof contents === 'string') {
+                    contents = '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                } else {
+                    const pdf = toBase64(contents);
+                    pdf.then((hasil) => {
+                        contents = '<div style="width:100%;height:100vh;"><iframe src="' + hasil + '" frameborder="0" width="100%" height="100%"></iframe></div>'
+                        let data = {
+                            cobrandEmail,
+                            programId,
+                            contentName,
+                            contentDescription,
+                            contentType,
+                            contentSource,
+                            // contentThumbnail,
+                            contents,
+                            // status,
+                            startDate
+                        };
+
+                        console.log(data);
+                        //Call API ....
+
+                        contentEdit(data)
+                            .then(response => {
+                                console.log('Success:', response.data);
+                                history.push('/content');
+                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(loadingStop());
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(loadingStop());
+                            });
+                        console.log(data);
+                    })
+                }
+            }
             else {
                 contents = '<!DOCTYPE html>'
                     + '<html lang="en">'

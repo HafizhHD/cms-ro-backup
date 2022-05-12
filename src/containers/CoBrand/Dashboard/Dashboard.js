@@ -45,6 +45,7 @@ function Dashboard() {
         getProgramList(programParams)
         .then(response => {
             let programs = response.data.programs.map((d) => (
+                
                 <div className="Dashboard__programs__list">
                     <h3 onClick={() => {
                         localStorage.setItem('programSelected', d._id);
@@ -53,6 +54,7 @@ function Dashboard() {
                     <p>{d.ProgramDescription}</p>
                 </div>
             ));
+            console.log(response.data.programs)
             setProgramList(programs);
             console.log(programs);
             getContentList(contentParams)
@@ -133,6 +135,7 @@ function Dashboard() {
                         <FiAlertCircle className="Dashboard__cards_item-icon" />
                     </div>
                     <h1>{countVariable.countProgram}</h1>
+                    
                     
                     <div className="Dashboard__cards_item-details">
                         <NavLink to="/program">Lihat Detail 

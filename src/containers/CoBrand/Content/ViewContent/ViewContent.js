@@ -12,7 +12,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 
 function ViewContent() {
 
-    const [content, setContent] = useState();
+    const [content, setContent] = useState("");
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
     const [isActive, setActive] = useState(true);
@@ -38,7 +38,7 @@ function ViewContent() {
 
             axios({
                 method: 'post',
-                url: 'https://rk.defghi.biz.id:8080/api/cobrand/contentFilter',
+                url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/contentFilter',
                 data: params,
                 headers: {
                     'Content-Type': 'application/json',
