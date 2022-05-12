@@ -405,7 +405,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
         promise.then((result) => {
 
             console.log(typeof result);
-            // const contentThumbnail = result;
+            const contentThumbnail = result;
             // let status = isActive ? 'active' : 'inactive';
 
             if (contentType === 'Video') {
@@ -413,10 +413,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 if (typeof contents === 'string') {
                     contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
+                    
                     const video = toBase64(contents);
                     video.then((hasil) => {
                         contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
+                        // const contentThumbnail = result;
                         let data = {
                             cobrandEmail,
                             programId,
@@ -424,7 +426,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -467,7 +469,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -507,7 +509,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -546,7 +548,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
                             startDate
@@ -607,7 +609,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 contentDescription,
                 contentType,
                 contentSource,
-                // contentThumbnail,
+                contentThumbnail,
                 contents,
                 // status,
                 startDate

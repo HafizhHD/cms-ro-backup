@@ -327,7 +327,7 @@ function EditContent({
                                 />
                                 {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                             </div>
-                            {/* <div className="form-group">
+                            <div className="form-group">
                                 <label>Photo</label>
                                 <img className='photo' src={content.contentThumbnail}></img>
                                 <br></br>
@@ -336,7 +336,7 @@ function EditContent({
                                     className="form-group__input"
                                     name="contentThumbnail"
                                     onBlur={handleBlur}
-                                    // value={}
+                                    values={content.contentThumbnail}
                                     onChange={(e) => {
                                         let file = e.currentTarget.files[0];
                                         if (file) {
@@ -345,7 +345,7 @@ function EditContent({
                                         }
                                     }}
                                 />
-                            </div> */}
+                            </div>
                             <div className="form-group">
                                 <label>Contents</label>
                                 {values.contentType === "Artikel" ? (
