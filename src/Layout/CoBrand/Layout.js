@@ -8,7 +8,7 @@ import Navigations from '../../components/Navigations/Navigations';
 import { MenuCoBranding } from './../../components/Navigations/routes';
 import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
 
-import { FiBell, FiUser, FiChevronDown, FiChevronUp, FiXCircle, FiMenu } from 'react-icons/fi';
+import { FiBell, FiUser, FiChevronDown, FiChevronUp, FiXCircle, FiMenu, FiSend } from 'react-icons/fi';
 
 import DashboardHelp from '../../components/UI/Help/DashboardHelp/DashboardHelp';
 import Alert from '../../components/UI/Alert/Alert';
@@ -87,12 +87,12 @@ function Layout({
                     />
                 </NavLink>
                 <div className="Header__infoaccount">
-                    {/*<div className="Header__infoaccount__Notification">
+                    <div className="Header__infoaccount__Notification">
                         <div className="Header__notification-btn" 
                             onClick={onClickNotifButton}
                         >
-                            <FiBell className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
-                            <div className="Header__notification-badge">6</div>
+                            <FiSend className={`Header__icon ${isOpenNotif && 'Header__icon__active'}`} />
+                            {/* <div className="Header__notification-badge">6</div> */}
                         </div>
                         <nav 
                             ref={dropdownRefNotification}
@@ -101,31 +101,24 @@ function Layout({
                             <ul>
                                 <li>
                                     <NavLink to="/">
-                                        Anandosatria@gmail telah berlangganan
+                                        Broadcast telah dikirimkan kepada semua pengguna.
                                     </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
+                                    <p>12:23 - 31 Maret 2022</p>
                                 </li>
                                 <li>
                                     <NavLink to="/">
-                                        galih@gmail telah berlangganan
+                                        Pesan bantuan telah dikirimkan kepada ricko@ide2sen.com
                                     </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
+                                    <p>12:03 - 31 Januari 2022</p>
                                 </li>
                                 <li>
                                     <NavLink to="/">
-                                        wahyu@gmail telah berlangganan
+                                        BUAT PESAN BARU
                                     </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
-                                </li>
-                                <li>
-                                    <NavLink to="/">
-                                        dimas@gmail telah berlangganan
-                                    </NavLink>
-                                    <p>12:23 - 31 Mei 2021</p>
                                 </li>
                             </ul>
                         </nav>
-                    </div>*/}
+                    </div>
 
                     <div className="Header__infoaccount__profile">
                         <button className="Header__activeUser" onClick={onClickDropDown}>

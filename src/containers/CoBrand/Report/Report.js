@@ -1,10 +1,19 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import './Report.scss';
+import './../Program/Program.scss'
 import { BiCaretDown, BiCaretUp, BiMinus } from 'react-icons/bi';
 import axios from 'axios';
 import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader.js';
 import { getHKBPList, getUserList } from '../../../components/API/filter';
+import TableProgram from './../../../components/UI/Table/Table';
+import columns from './../Program/components/Columns';
+import Data from './../Program/components/MOCK_DATA.json';
+import { deleteProgram } from '../../../store/actions/dashboard';
+import { NavLink } from 'react-router-dom';
+import { FiPlus } from 'react-icons/fi';
+import {connect} from 'react-redux';
+import { getProgramList } from '../../../components/API/filter';
 const ChartAsync = lazy(() => import('./component/Chart'));
 
 const Report = ({
@@ -31,6 +40,54 @@ const Report = ({
 
     const [stringHKBP, setStringHKBP] = useState();
     const [userData, setUserData] = useState();
+
+    const [showModal, setShowModal] = useState(false);
+
+    const [programList, setProgramList] = useState();
+    const [programDeleting, setProgramDeleting] = useState(null);
+
+    /*
+    const submitModal = () => {
+        alert('ok')
+    }
+    */
+    
+    const user1Data = JSON.parse(localStorage.getItem('userData'));
+    const params = {
+        whereKeyValues: {
+            cobrandEmail: user1Data.email
+        },
+        limit: Number.MAX_SAFE_INTEGER
+    };
+
+    
+    function retrieveList() {
+        getProgramList(params)
+        .then(response => {
+            setProgramList(response.data);
+            console.log(response.data);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+    }
+    
+    useEffect(() => {
+        setLoading(true);
+        if(localStorage.getItem('programDeleting')) {
+            setProgramDeleting(localStorage.getItem('programDeleting'));
+            localStorage.removeItem('programDeleting');
+        }
+        retrieveList();
+    }, []);
+
+    useEffect(() => {
+        if(programDeleting) {
+            setLoading(true);
+        }
+    }, [programDeleting]);
 
     useEffect(() => {
         let countingUserDistrik = [];
@@ -214,6 +271,7 @@ const Report = ({
     }
 
     return (
+        <>
         <div className="Report">
 
             <div className="Report_heading">
@@ -307,6 +365,18 @@ const Report = ({
                 </div>
             </section>
         </div>
+        <div>
+            <div className="Report_heading">
+                    <h1>PROGRAM REPORT</h1>
+                </div>
+            <div className="Program__table">
+                <TableProgram 
+                    COLUMNS={columns(setProgramDeleting)} 
+                    DATA={programList.programs}  
+                />
+            </div>
+        </div>
+        </>
     )
 }
 

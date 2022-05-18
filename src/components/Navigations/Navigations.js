@@ -18,6 +18,23 @@ function Navigations({ MenuItems, ShowAside }) {
                                     {item.icon}
                                     <p>{item.pathName}</p>
                                 </NavLink>
+                            ) : item.path === '/content-management' ? (
+                                <NavLink exact to='/program' className="Aside__Nav_item-disabled" onClick={() => {
+                                    window.scroll(0,0);
+                                    if(window.innerWidth < 900) ShowAside(false);
+                                }}>
+                                    {item.icon}
+                                    <p>{item.pathName}</p>
+                                </NavLink>
+                            ) : item.path === '/program' || item.path === '/content' || item.path === '/redzone' ? (
+                                <NavLink exact to={item.path} className="Aside__Nav_item-cm" onClick={() => {
+                                    window.scroll(0,0);
+                                    if(window.innerWidth < 900) ShowAside(false);
+                                }}>
+                                    {item.icon}
+                                    <p>{item.pathName}</p>
+                                </NavLink>
+                                
                             ) : (
                                 <NavLink to={item.path} className="Aside__Nav_item-link" onClick={() => {
                                     window.scroll(0,0);
