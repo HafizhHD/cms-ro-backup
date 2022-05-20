@@ -20,8 +20,8 @@ function AddProgram({
     return (
         <>
             <Heading headingName="Program" routes={[
-                { path: '/program', name: 'On Going Program' },
-                { path: '/program/add', name: 'Create new Program' }
+                { path: '/cms/program', name: 'On Going Program' },
+                { path: '/cms/program/add', name: 'Create new Program' }
             ]} />
             <Formik
                 initialValues= {{

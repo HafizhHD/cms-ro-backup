@@ -63,7 +63,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
             programAdd(data)
                 .then(response => {
                     console.log('Success:', response.data);
-                    history.push('/program');
+                    history.push('/cms/program');
                     dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
                     dispatch(loadingStop());
                 })
@@ -104,7 +104,7 @@ export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, 
             programEdit(data)
                 .then(response => {
                     console.log('Success:', response.data);
-                    history.push('/program');
+                    history.push('/cms/program');
                     dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
                     dispatch(loadingStop());
                 })
@@ -140,7 +140,7 @@ export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, 
                 programEdit(data)
                     .then(response => {
                         console.log('Success:', response.data);
-                        history.push('/program');
+                        history.push('/cms/program');
                         dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
                         dispatch(loadingStop());
                     })

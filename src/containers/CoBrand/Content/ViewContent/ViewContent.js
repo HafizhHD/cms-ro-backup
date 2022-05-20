@@ -179,20 +179,20 @@ function ViewContent() {
     return (
         <div className="container">
             <Heading headingName="Content" routes={[
-                { path: '/content', name: 'On Going Content' },
-                { path: '/content/view', name: 'View Content Detail' }
+                { path: '/cms/content', name: 'On Going Content' },
+                { path: '/cms/content/view', name: 'View Content Detail' }
             ]} />
             <div className="action_btn">
-                <NavLink to="/content" className="action_btn_nav">
+                <NavLink to="/cms/content" className="action_btn_nav">
                     <h3><FiArrowLeftCircle /> Back to Content List</h3>
                 </NavLink>
-                <NavLink to="/content/edit" className="action_btn_nav">
+                <NavLink to="/cms/content/edit" className="action_btn_nav">
                     <h3><FiEdit /> Edit This Content</h3>
                 </NavLink>
                 <span
                     onClick={() => {
                         localStorage.setItem('contentDeleting', content._id);
-                    }}><NavLink to="/content" className="action_btn_nav">
+                    }}><NavLink to="/cms/content" className="action_btn_nav">
                         <h3><FiTrash2 /> Delete This Content</h3>
                     </NavLink></span>
                 <div className="action_btn_switch">

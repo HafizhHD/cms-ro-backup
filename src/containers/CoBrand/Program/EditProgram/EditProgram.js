@@ -65,8 +65,8 @@ function EditProgram({
     return (
         <>
             <Heading headingName="Program" routes={[
-                { path: '/program', name: 'On Going Program' },
-                { path: '/program/edit', name: 'Edit Selected Program' }
+                { path: '/cms/program', name: 'On Going Program' },
+                { path: '/cms/program/edit', name: 'Edit Selected Program' }
             ]} />
             <Formik
                 initialValues= {{

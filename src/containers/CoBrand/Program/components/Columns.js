@@ -35,7 +35,7 @@ const Columns = (setProgramDeleting) => {
             Cell: ({cell}) => (
                 <>
                     <NavLink 
-                        to="/program/view"
+                        to="/cms/program/view"
                         className="nav_btn"
                         title="View Detail"
                         onClick={() => {
@@ -48,7 +48,7 @@ const Columns = (setProgramDeleting) => {
                             </div>
                         </button>
                     </NavLink>
-                    <NavLink to="/program/edit"
+                    <NavLink to="/cms/program/edit"
                         className="nav_btn"
                         title="Edit Program"
                         onClick={() => {
@@ -62,7 +62,7 @@ const Columns = (setProgramDeleting) => {
                             </div>
                         </button>
                     </NavLink>
-                    <NavLink to="/program"
+                    <NavLink to="/cms/program"
                         className="nav_btn"
                         title="Delete Program"
                         onClick={() => {

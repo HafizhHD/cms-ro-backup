@@ -70,7 +70,7 @@ function Content({
     return (
         <div className="Content">
             <h1>CONTENT</h1>
-            <NavLink to="/content/add" id="add_content">
+            <NavLink to="/cms/content/add" id="add_content">
                 <FiPlus className="IconAdd" />
                <span>Create New Content</span>  
             </NavLink>

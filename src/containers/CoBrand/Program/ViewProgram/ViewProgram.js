@@ -12,6 +12,7 @@ function ViewProgram() {
     const [program, setProgram] = useState();
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
+    const [programDeleting, setProgramDeleting] = useState(null);
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -60,20 +61,25 @@ function ViewProgram() {
     return (
         <>
             <Heading headingName="Program" routes={[
-                { path: '/program', name: 'On Going Program' },
-                { path: '/program/view', name: 'View Program Detail' }
+                { path: '/cms/program', name: 'On Going Program' },
+                { path: '/cms/program/view', name: 'View Program Detail' }
             ]} />
             <div className="program_action_btn">
-                <NavLink to="/program" className="program_action_btn_nav">
+                <NavLink to="/cms/program" className="program_action_btn_nav">
                     <h3><FiArrowLeftCircle /> Back to Program List</h3>
                 </NavLink>
-                <NavLink to="/program/edit" className="program_action_btn_nav">
+                <NavLink to="/cms/program/edit" className="program_action_btn_nav">
                     <h3><FiEdit /> Edit This Program</h3>
                 </NavLink>
                 <span 
                     onClick={() => {
+                        // if(localStorage.getItem('programDeleting')) {
+                        //     setProgramDeleting(localStorage.getItem('programDeleting'));
+                        //     localStorage.removeItem('programDeleting');
+                        // }
+                        
                         localStorage.setItem('programDeleting', program._id);
-                    }}><NavLink to="/program" className="program_action_btn_nav">
+                    }}><NavLink to="/cms/program" className="program_action_btn_nav">
                     <h3><FiTrash2 /> Delete This Program</h3>
                 </NavLink></span>
             </div>

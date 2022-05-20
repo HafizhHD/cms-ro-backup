@@ -8,41 +8,50 @@ function Navigations({ MenuItems, ShowAside }) {
         <aside className="Aside">
             <ul className="Aside__Nav">
                 {MenuItems.map((item, i) => {
+                    console.log(item.path);
                     return (
                         <li key={i} className="Aside__Nav_item">
-                            {item.path === '/' ? (
-                                <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
-                                    window.scroll(0,0);
-                                    if(window.innerWidth < 900) ShowAside(false);
-                                }}>
-                                    {item.icon}
-                                    <p>{item.pathName}</p>
-                                </NavLink>
-                            ) : item.path === '/content-management' ? (
-                                <NavLink exact to='/program' className="Aside__Nav_item-disabled" onClick={() => {
-                                    window.scroll(0,0);
-                                    if(window.innerWidth < 900) ShowAside(false);
-                                }}>
-                                    {item.icon}
-                                    <p>{item.pathName}</p>
-                                </NavLink>
-                            ) : item.path === '/program' || item.path === '/content' || item.path === '/redzone' ? (
-                                <NavLink exact to={item.path} className="Aside__Nav_item-cm" onClick={() => {
-                                    window.scroll(0,0);
-                                    if(window.innerWidth < 900) ShowAside(false);
-                                }}>
-                                    {item.icon}
-                                    <p>{item.pathName}</p>
-                                </NavLink>
-                                
-                            ) : (
-                                <NavLink to={item.path} className="Aside__Nav_item-link" onClick={() => {
-                                    window.scroll(0,0);
-                                    if(window.innerWidth < 900) ShowAside(false);
-                                }}>
-                                    {item.icon}
-                                    <p>{item.pathName}</p>
-                                </NavLink>
+                            {item.children == null ? 
+                                item.path === '/' ? (
+                                    <NavLink exact to={item.path} className="Aside__Nav_item-link" onClick={() => {
+                                        window.scroll(0,0);
+                                        if(window.innerWidth < 900) ShowAside(false);
+                                    }}>
+                                        {item.icon}
+                                        <p>{item.pathName}</p>
+                                    </NavLink>
+                                ) : (
+                                    <NavLink to={item.path} className="Aside__Nav_item-link" onClick={() => {
+                                        window.scroll(0,0);
+                                        if(window.innerWidth < 900) ShowAside(false);
+                                    }}>
+                                        {item.icon}
+                                        <p>{item.pathName}</p>
+                                    </NavLink>
+                                ) :
+                            (
+                                <>
+                                    <NavLink to={item.path} className="Aside__Nav_item-disabled" onClick={() => {
+                                        
+                                    }}>
+                                        {item.icon}
+                                        <p>{item.pathName}</p>
+                                    </NavLink>
+                                    {item.children.map((x, idx) => {
+                                        console.log(x.path);
+                                        return (
+                                            <li key={item.path + idx} className="Aside__Nav_item">
+                                                <NavLink to={item.path + x.path} className="Aside__Nav_item-children" onClick={() => {
+                                                    window.scroll(0,0);
+                                                    if(window.innerWidth < 900) ShowAside(false);
+                                                }}>
+                                                    {x.icon}
+                                                    <p>{x.pathName}</p>
+                                                </NavLink>
+                                            </li>
+                                        )
+                                    })}
+                                </>
                             )}
                         </li>
                     )
