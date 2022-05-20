@@ -10,7 +10,7 @@ import RKLoader from '../../components/UI/RKLoader/RKLoader';
 const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'));
 const RegisterAsync = lazy( () => import('./../../containers/CoBrand/Register/Register'));
 const DashboardAsync = lazy( () => import('./../../containers/CoBrand/Dashboard/Dashboard'));
-const ReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/Report'));
+const UserReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/Report'));
 const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
 const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
 const EditProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
@@ -92,66 +92,66 @@ function Cobrand({
                     />
                     <PrivateRoute 
                         exact
-                        path="/report"
-                        component={ReportAsync}
+                        path="/report/user"
+                        component={UserReportAsync}
                     />
 
                     
                     <PrivateRoute 
-                        path="/program"
+                        path="/cms/program"
                         exact
                         component={ProgramAsync}
                     />
                     <PrivateRoute
-                        path="/program/add"
+                        path="/cms/program/add"
                         exact
                         component={ (props) => {
                             return (<AddProgramAsync {...props}/>)
                         }}
                     />
                     <PrivateRoute
-                        path="/program/edit"
+                        path="/cms/program/edit"
                         exact
                         component={EditProgramAsync}
                     />
                     <PrivateRoute
-                        path="/program/view"
+                        path="/cms/program/view"
                         exact
                         component={ViewProgramAsync}
                     />
 
                     <PrivateRoute 
-                        path="/content"
+                        path="/cms/content"
                         exact
                         component={ContentAsync}
                     />
                     <PrivateRoute 
-                        path="/content/add"
+                        path="/cms/content/add"
                         exact
                         component={ (props) => {
                             return (<AddContentAsync {...props}/>)
                         }}
                     />
                     <PrivateRoute 
-                        path="/content/edit"
+                        path="/cms/content/edit"
                         exact
                         component={EditContentAsync}
                     />
                     <PrivateRoute
-                        path="/content/view"
+                        path="/cms/content/view"
                         exact
                         component={ViewContentAsync}
                     />
                     
 
                     <PrivateRoute 
-                        path="/redzone"
+                        path="/cms/redzone"
                         exact
                         component={RedZoneAsync}
                     />
 
                     <PrivateRoute 
-                        path="/setting"
+                        path="/tools/setting"
                         exact
                         component={SettingAsync}
                     />

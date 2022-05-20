@@ -1,4 +1,4 @@
-import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool  } from 'react-icons/fi';
+import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser, FiLayers, FiMonitor, FiSliders  } from 'react-icons/fi';
 
 export const MenuCoBranding = [
     {
@@ -9,32 +9,95 @@ export const MenuCoBranding = [
     {
         path: '/report',
         pathName: 'Report',
-        icon: <FiEdit className="Aside__Nav_item-icon" />
+        icon: <FiEdit className="Aside__Nav_item-icon" />,
+        children: [
+            {
+                path: '/user',
+                pathName: 'User',
+                icon: <FiUser className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/program',
+                pathName: 'Program',
+                icon: <FiActivity className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/content',
+                pathName: 'Content',
+                icon: <FiImage className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/redzone',
+                pathName: 'Redzone',
+                icon: <FiMapPin className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/monitoring-status', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Monitoring Status',
+                icon: <FiMonitor className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/controlling-status', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Controlling Status',
+                icon: <FiSliders className="Aside__Nav_item-icon" />
+            },
+        ]
     },
     {
-        path: '/content-management',
-        pathName: 'Content Management',
-        icon: <FiImage className="Aside__Nav_item-icon" />
+        path: '/cms',
+        pathName: 'Content Management System',
+        icon: <FiImage className="Aside__Nav_item-icon" />,
+        children: [
+            {
+                path: '/user',
+                pathName: 'User',
+                icon: <FiUser className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/program', //tadinya program, nanti tolong routenya diganti
+                pathName: 'Program',
+                icon: <FiActivity className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/content', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Content',
+                icon: <FiImage className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/redzone',
+                pathName: 'Redzone',
+                icon: <FiMapPin className="Aside__Nav_item-icon" />
+            },
+
+            {
+                path: '/messaging', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Messaging',
+                icon: <FiInbox className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/forum-moderator', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Forum Moderator',
+                icon: <FiLayers className="Aside__Nav_item-icon" />
+            },
+        ]
     },
     {
-        path: '/program',
-        pathName: 'Program',
-        icon: <FiActivity className="Aside__Nav_item-icon" />
-    },
-    {
-        path: '/content',
-        pathName: 'Content',
-        icon: <FiImage className="Aside__Nav_item-icon" />
-    },
-    {
-        path: '/redzone',
-        pathName: 'Redzone',
-        icon: <FiMapPin className="Aside__Nav_item-icon" />
-    },
-    {
-        path: '/setting',
-        pathName: 'Setting',
-        icon: <FiTool className="Aside__Nav_item-icon" />
+        path: '/tools',
+        pathName: 'Tools',
+        icon: <FiTool className="Aside__Nav_item-icon" />,
+        children: [
+            {
+                path: '/admin-staff-management',
+                pathName: 'Admin & Staff Management',
+                icon: <FiTool className="Aside__Nav_item-icon" />
+            },
+
+            {
+                path: '/setting',
+                pathName: 'Settings',
+                icon: <FiTool className="Aside__Nav_item-icon" />
+            }
+        ]
     }
     
 ]
