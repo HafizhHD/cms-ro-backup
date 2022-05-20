@@ -17,6 +17,7 @@ function ViewContent() {
     const [startDate, setStartDate] = useState();
     const [isActive, setActive] = useState(true);
     const [komentar, setKomen] = useState();
+    const [del, setDel] = useState(false);
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -66,10 +67,12 @@ function ViewContent() {
     useEffect(() => {
         const id = localStorage.getItem('contentSelected');
         console.log(id);
-        let params = 
-            {whereKeyValues: {
-                contentId:id, 
-            }}
+        let params =
+        {
+            whereKeyValues: {
+                contentId: id,
+            }
+        }
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
@@ -91,12 +94,12 @@ function ViewContent() {
         const id = localStorage.getItem('contentSelected');
         console.log(id);
         let params = {
-                contentId:id, 
-                emailUser:"nina@gmail.com", 
-                comment:"komentar post pertama", 
-                replies:{}, 
-                status:"active"
-            };
+            contentId: id,
+            emailUser: "nina@gmail.com",
+            comment: "komentar post pertama",
+            replies: {},
+            status: "active"
+        };
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/commentContentAdd',
@@ -107,12 +110,65 @@ function ViewContent() {
         })
             .then(response => {
                 console.log(response.data);
+
                 // console.log(response.data.resultData[0]);
                 // setKomen(response.data.resultData[0])
                 // console.log(response.data.resultData[0].emailUser);
             })
             .catch(error => {
                 console.log(error + 'ini eror post komentar baru');
+            });
+    }, [])
+
+    // delete komentar
+    useEffect(() => {
+        setDel(true)
+        const id = localStorage.getItem('contentSelected');
+        console.log(id);
+        let params =
+        {
+            whereKeyValues: {
+                contentId: id,
+            }
+        };
+        axios({
+            method: 'delete',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentRemove',
+            data: params,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                console.log(response.data);
+                const id = localStorage.getItem('contentSelected');
+                console.log(id);
+                let params =
+                {
+                    whereKeyValues: {
+                        contentId: id,
+                    }
+                }
+                axios({
+                    method: 'post',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
+                    data: params,
+                })
+                    .then(response => {
+                        console.log(response.data.resultData);
+                        setKomen(response.data.resultData)
+                        console.log(response.data.resultData[0]._id); //id komentar
+                        // console.log(response.data.resultData[0].emailUser);
+                    })
+                    .catch(error => {
+                        console.log(error + 'ini eror komentar');
+                    });
+                // console.log(response.data.resultData[0]);
+                // setKomen(response.data.resultData[0])
+                // console.log(response.data.resultData[0].emailUser);
+            })
+            .catch(error => {
+                console.log(error + 'ini delete komentar');
             });
     }, [])
 
@@ -253,13 +309,15 @@ function ViewContent() {
                                 <td>{item.comment}</td>
                                 <td>{item.dateCreated}</td>
                                 <td><Button variant="danger" className='btn2'>Edit</Button></td>
-                                <td><Button variant="danger" className='btn'>Delete</Button></td>
+                                <td><Button variant="danger" className='btn'  onClick={() => {
+                        localStorage.setItem('komenDeleting', content._id);
+                    }}>Delete</Button></td>
                             </tr>
                         ))
-                        :
-                        ''
+                            :
+                            ''
                         }
-                        
+
                     </tbody>
                     {/* ketika klik edit : modal, isi email, komentar, replies, button baru kirim komen nya. */}
                 </Table>

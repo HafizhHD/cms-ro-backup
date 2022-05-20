@@ -4,10 +4,10 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import { FiArrowLeftCircle, FiCalendar, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ViewProgram.scss';
+import './ViewRedzone.scss';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 
-function ViewProgram() {
+function ViewRedzone() {
 
     const [program, setProgram] = useState();
     const [isLoading, setLoading] = useState(true);
@@ -99,4 +99,4 @@ function ViewProgram() {
     )
 }
 
-export default ViewProgram
+export default ViewRedzone

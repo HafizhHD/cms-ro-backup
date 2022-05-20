@@ -190,7 +190,6 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             type: ALERT_CLOSE
         });
 
-
         // const [numPages, setNumPages] = useState(null);
         // const [pageNumber, setPageNumber] = useState(1);
 
