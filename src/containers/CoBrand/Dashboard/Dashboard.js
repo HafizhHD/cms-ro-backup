@@ -38,12 +38,11 @@ function Dashboard() {
     const programParams = {
         whereKeyValues: {
             cobrandEmail: userData.email,
-            status: 'active'
+            status: 'active',
         },
         orderKeyValues: {
             startDate: 1
-        },
-        limit: 5
+        }
     };
     const contentParams = {
         whereKeyValues: {
@@ -52,90 +51,44 @@ function Dashboard() {
         },
         orderKeyValues: {
             startDate: 1
-        },
-        limit: 5
+        }
     }
 
     useEffect(() => {
         setLoading(true);
-        getProgramList(programParams)
-        .then(response => {
-            let programs = response.data.programs.map((d, idx) => (
-                
-                <div className="Dashboard__programs__list">
-                    <h3 onClick={() => {
-                        localStorage.setItem('programSelected', d._id);
-                        history.push('/program/view');
-                    }}>{d.programName + " (" + programView[idx]+" views)"}</h3>
-                    <p>{d.ProgramDescription}</p>
-                </div>
-            ));
-            console.log(response.data.programs)
-            setProgramList(programs);
-            console.log(programs);
-            getContentList(contentParams)
-            .then(response => {
-                let contents = response.data.contents.map((d, idx) => (
-                    <div className="Dashboard__programs__list">
-                        <h3 onClick={() => {
-                            localStorage.setItem('contentSelected', d._id);
-                            history.push('/content/view');
-                        }}>{d.contentName + " (" + contentView[idx]+" views)"}</h3>
-                        <p>{d.contentDescription.substring(0,100)}</p>
-                    </div>)
-                    // ({/*<div className="Dashboard__contents__item">
-                    //     <div className="Dashboard__contents__cover">
-                    //         <img 
-                    //             src={d.contentThumbnail} 
-                    //             className="Dashboard__contents__cover-img"
-                    //         />
-                    //         <div className="Dashboard__contents__shadow"></div>
-                    //     </div>
-                    //     <div className="Dashboard__contents__description">
-                    //         <h3>{d.contentName}</h3>
-                    //         <p>
-                    //             {d.contentDescription}
-                    //         </p>
-                    //         <NavLink to="/content/view"
-                    //             onClick={() => {
-                    //                 localStorage.setItem('contentSelected', d._id)
-                    //             }}>Lihat Detail 
-                    //             <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                    //         </NavLink>
-                    //     </div>
-                    //         </div>*/})
-                );
-                setContentList(contents);
-                console.log(contents);
-                let countingVariable = {
-                    countProgram: 0,
-                    countContent: 0
-                }
-                let params1 = {
-                    whereKeyValues: {
-                        cobrandEmail: userData.email
-                    },
-                    limit: Number.MAX_SAFE_INTEGER
-                }
-                const promiseP = getProgramList(params1);
-                const promiseC = getContentList(params1);
-                Promise.all([promiseP, promiseC]).then(response => {
-                    countingVariable.countProgram = response[0].data.programs.length;
-                    countingVariable.countContent = response[1].data.contents.length;
-                    setCountVariable(countingVariable);
-                    setLoading(false);
-                });
-            })
-            .catch(error => {
-                console.log(error);
-                setLoading(false);
-            });
-        })
-        .catch(error => {
-            console.log(error);
+
+        let paramUser = {
+            
+        }
+        
+        let countingVariable = {
+            countProgram: 0,
+            countContent: 0
+        }
+        let params1 = {
+            whereKeyValues: {
+                cobrandEmail: userData.email
+            },
+            includeThumbnailData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        }
+        let params2 = {
+            whereKeyValues: {
+                cobrandEmail: userData.email
+            },
+            includeContentData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        }
+        const promiseP = getProgramList(params1);
+        const promiseC = getContentList(params2);
+        Promise.all([promiseP, promiseC]).then(response => {
+            setProgramList(response[0].data.programs);
+            setContentList(response[1].data.contents);
+            countingVariable.countProgram = response[0].data.programs.length;
+            countingVariable.countContent = response[1].data.contents.length;
+            setCountVariable(countingVariable);
             setLoading(false);
         });
-        
     }, []);
 
     useEffect(() => {
@@ -346,24 +299,6 @@ function Dashboard() {
             {/* End Dashboard Cards  */}
 
 
-            {/* Program */}
-            <h1>TOP 5 MOST VIEWED PROGRAMS</h1>
-
-            <div className="Dashboard__programs">
-                {programList.length === 0 ? (
-                    <h3>Tidak Ada Program</h3>
-                ) : programList}
-            </div>
-            {/* End Program */}
-
-
-            {/* Content */}
-            <h1>TOP 5 MOST VIEWED CONTENTS</h1>
-            <div className="Dashboard__programs">
-                {contentList.length === 0 ? (
-                    <h3>Tidak Ada Konten</h3>
-                ) : contentList}
-            </div>
 
         </div>
     )

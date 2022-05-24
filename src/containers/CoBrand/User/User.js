@@ -30,17 +30,17 @@ class User extends React.Component {
 
     }
     getList = () => {
-        let params = {
-            whereKeyValues: {},
-            limit: Number.MAX_SAFE_INTEGER
-        };
-        console.log(localStorage.getItem('userFilter'));
-        if (localStorage.getItem('userFilter')) params.whereKeyValues = JSON.parse(localStorage.getItem('userFilter'));
-        console.log(params);
+        // let params = {
+        //     whereKeyValues: {},
+        //     limit: Number.MAX_SAFE_INTEGER
+        // };
+        // console.log(localStorage.getItem('userFilter'));
+        // if (localStorage.getItem('userFilter')) params.whereKeyValues = JSON.parse(localStorage.getItem('userFilter'));
+        // console.log(params);
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/user/userFilter',
-            data: params,
+            // data: params,
             headers: {
                 'Content-Type': 'application/json',
             }

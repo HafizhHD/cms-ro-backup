@@ -7,10 +7,7 @@ import { authSuccess, authFailed, logout } from './../../store/actions/auth';
 import { Suspense } from 'react';
 import RKLoader from '../../components/UI/RKLoader/RKLoader';
 
-const LoginAsync = lazy(() => import('./../../containers/CoBrand/Login/Login'));
-const RegisterAsync = lazy(() => import('./../../containers/CoBrand/Register/Register'));
-const DashboardAsync = lazy(() => import('./../../containers/CoBrand/Dashboard/Dashboard'));
-const UserReportAsync = lazy(() => import('./../../containers/CoBrand/Report/Report'));
+
 const ProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/Program'));
 const AddProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
 const EditProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
@@ -23,6 +20,18 @@ const RedZoneAsync = lazy(() => import('./../../containers/CoBrand/RedZone/RedZo
 const SettingAsync = lazy(() => import('./../../containers/CoBrand/Setting/Setting'));
 const UserManagement = lazy(() => import('./../../containers/CoBrand/User/User'));
 const RedZoneAdd = lazy(() => import('./../../containers/CoBrand/RedZone/RedzoneAdd/RedzoneAdd'));
+
+const LoginAsync = lazy(() => import('./../../containers/CoBrand/Login/Login'));
+const RegisterAsync = lazy(() => import('./../../containers/CoBrand/Register/Register'));
+const DashboardAsync = lazy(() => import('./../../containers/CoBrand/Dashboard/Dashboard'));
+
+const UserReportAsync = lazy(() => import('./../../containers/CoBrand/Report/UserReport/UserReport'));
+const ProgramReportAsync = lazy(() => import('./../../containers/CoBrand/Report/ProgramReport/ProgramReport'));
+const ContentReportAsync = lazy(() => import('./../../containers/CoBrand/Report/ContentReport/ContentReport'));
+const RedzoneReportAsync = lazy(() => import('./../../containers/CoBrand/Report/RedzoneReport/RedzoneReport'));
+const MonitoringStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/MonitoringStatus/MonitoringStatus'));
+const ControllingStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
+
 
 
 function Cobrand({
@@ -88,6 +97,112 @@ function Cobrand({
     return (
         <Layout logoutHandler={logoutHandler} showAlert={showAlert} alertType={alertType} alertMessage={alertMessage}>
             <Switch>
+                <PrivateRoute
+                    exact
+                    path="/"
+                    component={DashboardAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/user"
+                    component={UserReportAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/program"
+                    component={ProgramReportAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/content"
+                    component={ContentReportAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/redzone"
+                    component={RedzoneReportAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/monitoring-status"
+                    component={MonitoringStatusAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/controlling-status"
+                    component={ControllingStatusAsync}
+                />
+                <PrivateRoute
+                    path="/cms/user"
+                    exact
+                    component={UserManagement}
+                />
+
+
+                <PrivateRoute
+                    path="/cms/program"
+                    exact
+                    component={ProgramAsync}
+                />
+                <PrivateRoute
+                    path="/cms/program/add"
+                    exact
+                    component={(props) => {
+                        return (<AddProgramAsync {...props} />)
+                    }}
+                />
+                <PrivateRoute
+                    path="/cms/program/edit"
+                    exact
+                    component={EditProgramAsync}
+                />
+                <PrivateRoute
+                    path="/cms/program/view"
+                    exact
+                    component={ViewProgramAsync}
+                />
+
+                <PrivateRoute
+                    path="/cms/content"
+                    exact
+                    component={ContentAsync}
+                />
+                <PrivateRoute
+                    path="/cms/content/add"
+                    exact
+                    component={(props) => {
+                        return (<AddContentAsync {...props} />)
+                    }}
+                />
+                <PrivateRoute
+                    path="/cms/content/edit"
+                    exact
+                    component={EditContentAsync}
+                />
+                <PrivateRoute
+                    path="/cms/content/view"
+                    exact
+                    component={ViewContentAsync}
+                />
+
+
+                <PrivateRoute
+                    path="/cms/redzone"
+                    exact
+                    component={RedZoneAsync}
+                />
+                <PrivateRoute
+                    path="/cms/redzone/add"
+                    exact
+                    component={RedZoneAdd}
+                />
+
+                <PrivateRoute
+                    path="/tools/setting"
+                    exact
+                    component={SettingAsync}
+                />
+
                 <PrivateRoute
                     exact
                     path="/"

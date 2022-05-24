@@ -28,6 +28,24 @@ export const getUserList = (query) => axios({
     }
 });
 
+export const getRedzoneList = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/redZoneFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
+export const getAppUsageList = (query) => axios({
+    method: 'post',
+    url: url + '/user/appUsageFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
 export const getHKBPList = (query) => axios({
     method: 'post',
     url: url + '/cobrand/HKBPDataFilter',
