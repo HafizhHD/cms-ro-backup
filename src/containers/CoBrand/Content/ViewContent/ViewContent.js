@@ -18,6 +18,7 @@ function ViewContent() {
     const [isActive, setActive] = useState(true);
     const [komentar, setKomen] = useState();
     const [del, setDel] = useState(false);
+    const [indexEdit, setIndex] = useState(null)
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -172,6 +173,10 @@ function ViewContent() {
             });
     }, [])
 
+    // onSave = () => {
+
+    // }
+
     if (isLoading) {
         return <RKLoader />
     }
@@ -302,6 +307,50 @@ function ViewContent() {
                     </thead>
                     <tbody>
                         {console.log(komentar)}
+                        {komentar ? komentar.map((item, index) => {
+                            if (indexEdit == index) {
+                                return (
+                                    <tr>
+                                        <td>{item.emailUser}</td>
+                                        <td>{item.status}</td>
+                                        <td>{item.comment}</td>
+                                        <td>{item.dateCreated}</td>
+                                        {/* <td><Button variant="danger" className='btn2' onClick={() => onSave(index)}>Save</Button></td>
+                                        <td><Button variant="danger" className='btn' onClick={setIndex(index)}>Cancel</Button></td> */}
+                                    </tr>
+                                )
+                            }
+                            return (
+                                <tr>
+                                    <td>{item.emailUser}</td>
+                                    <td>{item.status}</td>
+                                    <td>{item.comment}</td>
+                                    <td>{item.dateCreated}</td>
+                                    {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
+                                    <td><Button variant="danger" className='btn' onClick={() => {
+                                        localStorage.setItem('komenDeleting', content._id);
+                                    }}>Delete</Button></td>
+                                </tr>
+                            )
+                        })
+                            :
+                            ''
+                        }
+
+                    </tbody>
+                </Table>
+                {/* <Table striped bordered hover >
+                    <thead>
+                        <tr>
+                            <th className='h-email'>Email User</th>
+                            <th>Status</th>
+                            <th>Komentar</th>
+                            <th>Date Create</th>
+                            <th colSpan={2}>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {console.log(komentar)}
                         {komentar ? komentar.map((item, index) => (
                             <tr>
                                 <td>{item.emailUser}</td>
@@ -320,10 +369,10 @@ function ViewContent() {
 
                     </tbody>
                     {/* ketika klik edit : modal, isi email, komentar, replies, button baru kirim komen nya. */}
-                </Table>
+            {/* </Table>  */}
 
-            </div>
         </div>
+        </div >
     )
 }
 
