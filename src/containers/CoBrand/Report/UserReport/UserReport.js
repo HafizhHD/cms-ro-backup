@@ -25,7 +25,7 @@ const UserReport = () => {
             orderKeyValues: {
                 nameUser: 1
             },
-            // limit: Number.MAX_SAFE_INTEGER
+            limit: Number.MAX_SAFE_INTEGER
         };
         console.log(localStorage.getItem('userFilter'));
         if(localStorage.getItem('userFilter')) params.whereKeyValues = JSON.parse(localStorage.getItem('userFilter'));
