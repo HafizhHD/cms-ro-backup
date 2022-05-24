@@ -27,8 +27,10 @@ function Content({
     const params = {
         whereKeyValues: {
             cobrandEmail: userData.email,
-            status: {"$in" : ["active", "inactive"]}
+            status: {"$in" : ["active", "inactive"]},
+            
         },
+        includeContentData:false,
         limit: Number.MAX_SAFE_INTEGER
     };
     
