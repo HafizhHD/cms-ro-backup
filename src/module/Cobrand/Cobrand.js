@@ -7,20 +7,23 @@ import { authSuccess, authFailed, logout } from './../../store/actions/auth';
 import { Suspense } from 'react';
 import RKLoader from '../../components/UI/RKLoader/RKLoader';
 
-const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'));
-const RegisterAsync = lazy( () => import('./../../containers/CoBrand/Register/Register'));
-const DashboardAsync = lazy( () => import('./../../containers/CoBrand/Dashboard/Dashboard'));
-const UserReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/Report'));
-const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
-const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
-const EditProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
-const ViewProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/ViewProgram/ViewProgram'));
-const ContentAsync = lazy( () => import('./../../containers/CoBrand/Content/Content'));
-const AddContentAsync = lazy( () => import('./../../containers/CoBrand/Content/AddContent/AddContent'));
-const EditContentAsync = lazy( () => import('./../../containers/CoBrand/Content/EditContent/EditContent'));
-const ViewContentAsync = lazy( () => import('./../../containers/CoBrand/Content/ViewContent/ViewContent'));
-const RedZoneAsync = lazy( ( ) => import('./../../containers/CoBrand/RedZone/RedZone'));
-const SettingAsync = lazy( () => import('./../../containers/CoBrand/Setting/Setting'));
+const LoginAsync = lazy(() => import('./../../containers/CoBrand/Login/Login'));
+const RegisterAsync = lazy(() => import('./../../containers/CoBrand/Register/Register'));
+const DashboardAsync = lazy(() => import('./../../containers/CoBrand/Dashboard/Dashboard'));
+const UserReportAsync = lazy(() => import('./../../containers/CoBrand/Report/Report'));
+const ProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/Program'));
+const AddProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
+const EditProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
+const ViewProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/ViewProgram/ViewProgram'));
+const ContentAsync = lazy(() => import('./../../containers/CoBrand/Content/Content'));
+const AddContentAsync = lazy(() => import('./../../containers/CoBrand/Content/AddContent/AddContent'));
+const EditContentAsync = lazy(() => import('./../../containers/CoBrand/Content/EditContent/EditContent'));
+const ViewContentAsync = lazy(() => import('./../../containers/CoBrand/Content/ViewContent/ViewContent'));
+const RedZoneAsync = lazy(() => import('./../../containers/CoBrand/RedZone/RedZone'));
+const SettingAsync = lazy(() => import('./../../containers/CoBrand/Setting/Setting'));
+const UserManagement = lazy(() => import('./../../containers/CoBrand/User/User'));
+const RedZoneAdd = lazy(() => import('./../../containers/CoBrand/RedZone/RedzoneAdd/RedzoneAdd'));
+
 
 function Cobrand({
     isLogin,
@@ -33,130 +36,141 @@ function Cobrand({
 }) {
     const history = useHistory();
 
-    const checkIsLogin = useCallback( () => {
-        
+    const checkIsLogin = useCallback(() => {
+
         let check = localStorage.getItem('accessToken');
 
-        if( check ) {
+        if (check) {
             onAuthSuccess()
-        }else{
+        } else {
             onAuthFailed()
         }
 
 
-    }, [ onAuthSuccess, onAuthFailed ])
+    }, [onAuthSuccess, onAuthFailed])
 
-    useEffect( () => {
+    useEffect(() => {
         checkIsLogin()
     }, [isLogin, checkIsLogin]);
 
     const logoutHandler = () => onLogout(history);
-    
 
-    if(!isLogin){
+
+    if (!isLogin) {
         return (
-        <Switch>
-            <Route 
-                exact
-                path="/" 
-                render={(props) => {
-                return (
-                    <Suspense fallback={<RKLoader />}>
-                        <LoginAsync {...props} />
-                    </Suspense>
-                )
-                }}
-            />
-            <Route 
-                exact
-                path="/register" 
-                render={(props) => {
-                    return (
-                        <Suspense fallback={<RKLoader />}>
-                            <RegisterAsync {...props} />
-                        </Suspense>
-                    )
+            <Switch>
+                <Route
+                    exact
+                    path="/"
+                    render={(props) => {
+                        return (
+                            <Suspense fallback={<RKLoader />}>
+                                <LoginAsync {...props} />
+                            </Suspense>
+                        )
                     }}
-            />
-        </Switch>
+                />
+                <Route
+                    exact
+                    path="/register"
+                    render={(props) => {
+                        return (
+                            <Suspense fallback={<RKLoader />}>
+                                <RegisterAsync {...props} />
+                            </Suspense>
+                        )
+                    }}
+                />
+            </Switch>
         )
     }
 
     return (
-            <Layout logoutHandler={logoutHandler} showAlert={showAlert} alertType={alertType} alertMessage={alertMessage}>
-                 <Switch>
-                    <PrivateRoute 
-                        exact
-                        path="/"
-                        component={DashboardAsync}
-                    />
-                    <PrivateRoute 
-                        exact
-                        path="/report/user"
-                        component={UserReportAsync}
-                    />
+        <Layout logoutHandler={logoutHandler} showAlert={showAlert} alertType={alertType} alertMessage={alertMessage}>
+            <Switch>
+                <PrivateRoute
+                    exact
+                    path="/"
+                    component={DashboardAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/user"
+                    component={UserReportAsync}
+                />
 
-                    
-                    <PrivateRoute 
-                        path="/cms/program"
-                        exact
-                        component={ProgramAsync}
-                    />
-                    <PrivateRoute
-                        path="/cms/program/add"
-                        exact
-                        component={ (props) => {
-                            return (<AddProgramAsync {...props}/>)
-                        }}
-                    />
-                    <PrivateRoute
-                        path="/cms/program/edit"
-                        exact
-                        component={EditProgramAsync}
-                    />
-                    <PrivateRoute
-                        path="/cms/program/view"
-                        exact
-                        component={ViewProgramAsync}
-                    />
+                <PrivateRoute
+                    path="/cms/user"
+                    exact
+                    component={UserManagement}
+                />
 
-                    <PrivateRoute 
-                        path="/cms/content"
-                        exact
-                        component={ContentAsync}
-                    />
-                    <PrivateRoute 
-                        path="/cms/content/add"
-                        exact
-                        component={ (props) => {
-                            return (<AddContentAsync {...props}/>)
-                        }}
-                    />
-                    <PrivateRoute 
-                        path="/cms/content/edit"
-                        exact
-                        component={EditContentAsync}
-                    />
-                    <PrivateRoute
-                        path="/cms/content/view"
-                        exact
-                        component={ViewContentAsync}
-                    />
-                    
 
-                    <PrivateRoute 
-                        path="/cms/redzone"
-                        exact
-                        component={RedZoneAsync}
-                    />
+                <PrivateRoute
+                    path="/cms/program"
+                    exact
+                    component={ProgramAsync}
+                />
+                <PrivateRoute
+                    path="/cms/program/add"
+                    exact
+                    component={(props) => {
+                        return (<AddProgramAsync {...props} />)
+                    }}
+                />
+                <PrivateRoute
+                    path="/cms/program/edit"
+                    exact
+                    component={EditProgramAsync}
+                />
+                <PrivateRoute
+                    path="/cms/program/view"
+                    exact
+                    component={ViewProgramAsync}
+                />
 
-                    <PrivateRoute 
-                        path="/tools/setting"
-                        exact
-                        component={SettingAsync}
-                    />
-                 </Switch>
-             </Layout>
+                <PrivateRoute
+                    path="/cms/content"
+                    exact
+                    component={ContentAsync}
+                />
+                <PrivateRoute
+                    path="/cms/content/add"
+                    exact
+                    component={(props) => {
+                        return (<AddContentAsync {...props} />)
+                    }}
+                />
+                <PrivateRoute
+                    path="/cms/content/edit"
+                    exact
+                    component={EditContentAsync}
+                />
+                <PrivateRoute
+                    path="/cms/content/view"
+                    exact
+                    component={ViewContentAsync}
+                />
+
+
+                <PrivateRoute
+                    path="/cms/redzone"
+                    exact
+                    component={RedZoneAsync}
+                />
+                <PrivateRoute
+                    path="/cms/redzone/add"
+                    exact
+                    component={RedZoneAdd}
+                />
+
+                <PrivateRoute
+                    path="/tools/setting"
+                    exact
+                    component={SettingAsync}
+                />
+            </Switch>
+        </Layout>
     );
 }
 
@@ -171,9 +185,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuthSuccess: () => dispatch( authSuccess()  ),
-        onAuthFailed: () => dispatch( authFailed() ),
-        onLogout: (history) => dispatch( logout(history)  )
+        onAuthSuccess: () => dispatch(authSuccess()),
+        onAuthFailed: () => dispatch(authFailed()),
+        onLogout: (history) => dispatch(logout(history))
     }
 }
 
