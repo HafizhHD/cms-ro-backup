@@ -5,6 +5,7 @@ import Heading from './../../../components/UI/Heading/Heading'
 import RKLoader from './../../../components/UI/RKLoader/RKLoader.js';
 import './User.scss';
 import { getUserList } from './../../../components/API/filter'
+import Detail from './Detail/Detail';
 
 const User = () => {
     const [isLoading, setLoading] = useState(true);
@@ -12,8 +13,7 @@ const User = () => {
 
     useEffect(() => {
         let params={
-            whereKeyValues: {},
-            packageId: "com.byasia.ruangortu",
+            whereKeyValues: {packageId: "com.byasia.ruangortu"},
             limit: Number.MAX_SAFE_INTEGER
         };
         console.log(params);
@@ -29,19 +29,13 @@ const User = () => {
         })
     }, []);
 
-    // const renderRowSubComponent = useCallback(
-    //     ({ row }) => (
-    //         <Detail userSelected={row.values.emailUser}/>
-    //         /*<pre
-    //             style={{
-    //             fontSize: '10px',
-    //             }}
-    //         >
-    //             <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
-    //         </pre>*/
-    //     ),
-    //     []
-    // );
+    const renderRowSubComponent = useCallback(
+        ({ row }) => (
+            <Detail userSelected={row.values.emailUser}/>
+            
+        ),
+        []
+    );
 
     if(isLoading) {
         return <RKLoader />;
@@ -59,6 +53,7 @@ const User = () => {
                 <TablePengguna
                     COLUMNS={columns}
                     DATA={userData}
+                    renderRowSubComponent={renderRowSubComponent}
                 />
             </div>
         </div>
