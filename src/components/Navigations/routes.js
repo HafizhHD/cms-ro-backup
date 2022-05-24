@@ -13,22 +13,22 @@ export const MenuCoBranding = [
         children: [
             {
                 path: '/user',
-                pathName: 'User',
+                pathName: 'User Report',
                 icon: <FiUser className="Aside__Nav_item-icon" />
             },
             {
                 path: '/program',
-                pathName: 'Program',
+                pathName: 'Program Report',
                 icon: <FiActivity className="Aside__Nav_item-icon" />
             },
             {
                 path: '/content',
-                pathName: 'Content',
+                pathName: 'Content Report',
                 icon: <FiImage className="Aside__Nav_item-icon" />
             },
             {
                 path: '/redzone',
-                pathName: 'Redzone',
+                pathName: 'Redzone Report',
                 icon: <FiMapPin className="Aside__Nav_item-icon" />
             },
             {

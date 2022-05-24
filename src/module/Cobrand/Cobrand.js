@@ -10,7 +10,14 @@ import RKLoader from '../../components/UI/RKLoader/RKLoader';
 const LoginAsync = lazy( () => import('./../../containers/CoBrand/Login/Login'));
 const RegisterAsync = lazy( () => import('./../../containers/CoBrand/Register/Register'));
 const DashboardAsync = lazy( () => import('./../../containers/CoBrand/Dashboard/Dashboard'));
-const UserReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/Report'));
+
+const UserReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/UserReport/UserReport'));
+const ProgramReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/ProgramReport/ProgramReport'));
+const ContentReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/ContentReport/ContentReport'));
+const RedzoneReportAsync = lazy ( () => import('./../../containers/CoBrand/Report/RedzoneReport/RedzoneReport'));
+const MonitoringStatusAsync = lazy ( () => import('./../../containers/CoBrand/Report/MonitoringStatus/MonitoringStatus'));
+const ControllingStatusAsync = lazy ( () => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
+
 const ProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/Program'));
 const AddProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
 const EditProgramAsync = lazy( () => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
@@ -94,6 +101,31 @@ function Cobrand({
                         exact
                         path="/report/user"
                         component={UserReportAsync}
+                    />
+                    <PrivateRoute 
+                        exact
+                        path="/report/program"
+                        component={ProgramReportAsync}
+                    />
+                    <PrivateRoute 
+                        exact
+                        path="/report/content"
+                        component={ContentReportAsync}
+                    />
+                    <PrivateRoute 
+                        exact
+                        path="/report/redzone"
+                        component={RedzoneReportAsync}
+                    />
+                    <PrivateRoute 
+                        exact
+                        path="/report/monitoring-status"
+                        component={MonitoringStatusAsync}
+                    />
+                    <PrivateRoute 
+                        exact
+                        path="/report/controlling-status"
+                        component={ControllingStatusAsync}
                     />
 
                     
