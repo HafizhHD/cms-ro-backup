@@ -32,6 +32,10 @@ const RedzoneReportAsync = lazy(() => import('./../../containers/CoBrand/Report/
 const MonitoringStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/MonitoringStatus/MonitoringStatus'));
 const ControllingStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
 
+const Message = lazy(() => import('./../../containers/CoBrand/Message/Message'));
+const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
+const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
+const Management = lazy(() => import('./../../containers/CoBrand/ManagementUser/ManagementStaff'));
 
 
 function Cobrand({
@@ -137,6 +141,21 @@ function Cobrand({
                     exact
                     component={UserManagement}
                 />
+                <PrivateRoute
+                    path="/cms/messaging"
+                    exact
+                    component={Message}
+                />
+                <PrivateRoute
+                    path="/cms/forum-add"
+                    exact
+                    component={Forum}
+                />
+                  <PrivateRoute
+                    path="/cms/forum-moderator"
+                    exact
+                    component={ForumList}
+                />
 
 
                 <PrivateRoute
@@ -284,6 +303,13 @@ function Cobrand({
                     exact
                     component={SettingAsync}
                 />
+
+                <PrivateRoute
+                    path="/tools/admin-staff-management"
+                    exact
+                    component={Management}
+                />
+               
             </Switch>
         </Layout>
     );

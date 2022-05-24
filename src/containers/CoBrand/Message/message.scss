@@ -1,10 +1,10 @@
 .btn {
   width: 8rem;
-  height: 2rem;
+  height: 3rem;
   margin-left: 3rem;
-  background-color: rgb(64, 230, 227);
+  background-color: rgb(83, 220, 235);
   border: none;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
 }
 
   .IconAdd {
@@ -22,9 +22,11 @@
    
   }
   .input{
-    width: 15rem;
-    height: 2rem;
+    width: 50vw;
+    height: 7vh;
     margin-bottom: 1rem;
+    padding: 2vw;
+    font-size: 15px;
   }
 
   .div {
@@ -38,5 +40,3 @@
     width: 10rem;
     // background-color: aquamarine;
   }
-
- 
