@@ -1,5 +1,43 @@
-.komentar {
-    margin: 2rem;
-    font-size: 13px;
-    padding: 1rem;
+.Pengguna {
+    display: grid;
+    grid-template-rows: max-content max-content max-content;
+    grid-row-gap: 2rem;
+
+    &_table {
+        display: grid;
+        grid-template-rows: max-content max-content;
+        grid-row-gap: 1rem;
+        background-color: #fff;
+        box-shadow: 1px 1px 5px rgba(#ddd, 0.9);
+
+        &_input {
+            justify-self: end;
+            margin-top: 1rem;
+            margin-right: 1rem;
+            background-color: rgba(#f3f3f3, 0.9);
+            border: none;
+            outline: none;
+            padding: 0.3rem;
+            transition: all ease-out 0.6s;
+            border-radius: 0.4rem;
+            &::-webkit-input-placeholder {
+              font-weight: 300;
+              color: rgb(173, 169, 169);
+            }
+            &::placeholder {
+              font-weight: 300;
+              color: rgb(173, 169, 169);
+            }
+      
+            &:focus {
+              border: 1px solid var(--color-primary);
+              transform: scale(1.08);
+            }
+        }
+    }
+}
+
+.link-action {
+    text-decoration: none;
+    color: #111;
 }
