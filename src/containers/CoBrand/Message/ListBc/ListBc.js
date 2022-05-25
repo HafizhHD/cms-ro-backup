@@ -4,7 +4,6 @@
 import './listBc.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
-// import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
