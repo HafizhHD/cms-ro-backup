@@ -122,18 +122,20 @@ function ViewContent() {
     }, [])
 
     // delete komentar
-    useEffect(() => {
-        setDel(true)
-        const id = localStorage.getItem('contentSelected');
-        console.log(id);
+    // useEffect(() => {
+    function onDelete(index) {
+        setIndex({ indexEdit: index })
+        localStorage.setItem('idUser', komentar[index]._id)
+        let idkomen = localStorage.getItem('idUser')
+        console.log(idkomen)
         let params =
         {
-            whereKeyValues: {
-                contentId: id,
+            whereValues: {
+                _id: idkomen,
             }
         };
         axios({
-            method: 'delete',
+            method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentRemove',
             data: params,
             headers: {
@@ -164,18 +166,36 @@ function ViewContent() {
                     .catch(error => {
                         console.log(error + 'ini eror komentar');
                     });
-                // console.log(response.data.resultData[0]);
-                // setKomen(response.data.resultData[0])
-                // console.log(response.data.resultData[0].emailUser);
             })
             .catch(error => {
                 console.log(error + 'ini delete komentar');
             });
-    }, [])
+    }
 
-    // onSave = () => {
+    // }, [])
 
-    // }
+    // useEffect((index) => {
+        function onEdit(index) {
+            localStorage.setItem('idUser', komentar[index]._id)
+            let idkomen = localStorage.getItem('idUser')
+            setIndex({ indexEdit : idkomen })
+            console.log(idkomen)
+            console.log(indexEdit)
+        }
+    // },[])
+    
+        // return (
+        //     <tr>
+        //         <td>{komentar[index].emailUser}</td>
+        //         <td>{komentar[index].status}</td>
+        //         <td><input>{komentar[index].comment}</input> </td>
+        //         <td>{komentar[index].dateCreated}</td>
+        //         <td><Button variant="danger" className='btn2' >Save</Button></td>
+        //         <td><Button variant="danger" className='btn' onClick={setIndex(null)}>Cancel</Button></td>
+        //     </tr>
+        // )
+    
+
 
     if (isLoading) {
         return <RKLoader />
@@ -308,15 +328,17 @@ function ViewContent() {
                     <tbody>
                         {console.log(komentar)}
                         {komentar ? komentar.map((item, index) => {
+                            console.log(item._id)
                             if (indexEdit == index) {
                                 return (
+                                    
                                     <tr>
                                         <td>{item.emailUser}</td>
                                         <td>{item.status}</td>
-                                        <td>{item.comment}</td>
+                                        <td><input>{item.comment}</input></td>
                                         <td>{item.dateCreated}</td>
-                                        {/* <td><Button variant="danger" className='btn2' onClick={() => onSave(index)}>Save</Button></td>
-                                        <td><Button variant="danger" className='btn' onClick={setIndex(index)}>Cancel</Button></td> */}
+                                        <td><Button variant="danger" className='btn2' >Save</Button></td>
+                                        <td><Button variant="danger" className='btn' onClick={setIndex(null)}>Cancel</Button></td>
                                     </tr>
                                 )
                             }
@@ -326,10 +348,8 @@ function ViewContent() {
                                     <td>{item.status}</td>
                                     <td>{item.comment}</td>
                                     <td>{item.dateCreated}</td>
-                                    {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
-                                    <td><Button variant="danger" className='btn' onClick={() => {
-                                        localStorage.setItem('komenDeleting', content._id);
-                                    }}>Delete</Button></td>
+                                    {/* <td><Button variant="danger" className='btn2' onClick={() => setIndex(item._id)}>Edit</Button></td> */}
+                                    <td><Button variant="danger" className='btn' type='submit' onClick={() => onDelete(index)}>Delete</Button></td>
                                 </tr>
                             )
                         })
@@ -339,39 +359,7 @@ function ViewContent() {
 
                     </tbody>
                 </Table>
-                {/* <Table striped bordered hover >
-                    <thead>
-                        <tr>
-                            <th className='h-email'>Email User</th>
-                            <th>Status</th>
-                            <th>Komentar</th>
-                            <th>Date Create</th>
-                            <th colSpan={2}>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {console.log(komentar)}
-                        {komentar ? komentar.map((item, index) => (
-                            <tr>
-                                <td>{item.emailUser}</td>
-                                <td>{item.status}</td>
-                                <td>{item.comment}</td>
-                                <td>{item.dateCreated}</td>
-                                <td><Button variant="danger" className='btn2'>Edit</Button></td>
-                                <td><Button variant="danger" className='btn'  onClick={() => {
-                        localStorage.setItem('komenDeleting', content._id);
-                    }}>Delete</Button></td>
-                            </tr>
-                        ))
-                            :
-                            ''
-                        }
-
-                    </tbody>
-                    {/* ketika klik edit : modal, isi email, komentar, replies, button baru kirim komen nya. */}
-            {/* </Table>  */}
-
-        </div>
+            </div>
         </div >
     )
 }

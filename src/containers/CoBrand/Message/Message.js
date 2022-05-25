@@ -5,15 +5,16 @@ import './message.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 // import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 import React from 'react'
-import { Button } from 'react-bootstrap';
+import { Button, Toast } from 'react-bootstrap';
 
 class Message extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             userData: [],
+            send : false
            
 
         }
@@ -22,30 +23,34 @@ class Message extends React.Component {
     componentDidMount() {
     
     }
-    addRedzone = () => {
+    addMessage = () => {
         let params =
         {
-            cobrandEmail: this.refs.email.value,
-            placeName: this.refs.tempat.value,
-            description: this.refs.deskripsi.value,
-            address: this.refs.alamat.value,
-            redZoneStatus: this.refs.status.value,
-            location: [this.refs.lokasi.value]
+            destination: this.refs.email.value,
+            messageSubject: this.refs.tempat.value,
+            messageContent: this.refs.deskripsi.value,
+            scheduleTime: this.refs.alamat.value,
+            mediaType: this.refs.status.value,
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneAdd',
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastAdd',
             data: params,
         })
             .then(response => {
                 console.log(response.data);
+                this.setState({send : true})
+                // alert('Add Broadcast is success')
             })
             .catch(error => {
-                console.log(error + 'ini eror add redzone');
+                console.log(error + 'ini eror add BC');
             });
         
     }
     render() {
+        if (this.state.send == true) {
+            return <Redirect to="/cms/messaging" />
+        }
         return (
             <div className='div'>
                 <h1>Messaging</h1>
@@ -60,8 +65,8 @@ class Message extends React.Component {
                     ref="tempat"></input>
                     <br></br>
                     <label>Message</label> 
-                    <input className='input' placeholder=''
-                    ref="deskripsi"></input>
+                    <textarea className='text' placeholder='Type here ...'
+                    ref="deskripsi"></textarea>
                     <br></br>
                     <label>Schedule Time</label> 
                     <input className='input' placeholder=''
@@ -72,7 +77,7 @@ class Message extends React.Component {
                     ref="status"></input>
                    
                 </form>
-                <Button className='btn' >Send Message</Button>
+                <Button className='btn' onClick={this.addMessage}>Send Message</Button>
             </div>
         )
     }

@@ -39,7 +39,7 @@ class Forum extends React.Component {
         })
             .then(response => {
                 console.log(response.data);
-                alert('Kirim Pesan Berhasil')
+                // alert('Kirim Pesan Berhasil')
                 this.setState({kirimforum : true})
                 
             })
@@ -70,8 +70,8 @@ class Forum extends React.Component {
                     ref="subject"></input>
                     <br></br>
                     <label>Comment</label> 
-                    <input className='input' placeholder=''
-                    ref="comment"></input>
+                    <textarea className='text' placeholder='Type here ...'
+                    ref="comment"></textarea>
                 </form>
                 <Button className='btn' onClick={this.addForum}>Kirim Pesan Forum</Button>
             </div>

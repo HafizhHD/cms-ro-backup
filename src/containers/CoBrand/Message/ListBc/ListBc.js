@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 // import InputComponent from '../../../../components/UI/Input/Input';
-import './listForum.scss'
+import './listBc.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 // import { connect } from 'react-redux';
@@ -11,30 +11,32 @@ import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 
 
-class ListForum extends React.Component {
+class ListBc extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             userData: [],
             kirimforum: [],
-            listForum: [],
-            // indexEdit: null
+            message: [],
+            indexEdit: null
 
         }
     }
 
     componentDidMount() {
-        this.daftarForum()
+        this.daftarMessage()
+
     }
 
-    daftarForum = () => {
+    daftarMessage = () => {
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumFilter',
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
         })
             .then(response => {
-                console.log(response.data.Data);
-                this.setState({ listForum: response.data.Data })
+                console.log(response.data.resultData);
+                console.log(response.data);
+                this.setState({ message: response.data.resultData })
             })
             .catch(error => {
                 console.log(error + 'ini eror LIST DISKUSI');
@@ -42,9 +44,9 @@ class ListForum extends React.Component {
     }
 
     onDelete = (index) => {
-        localStorage.setItem('idUser', this.state.listForum[index]._id)
+        localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.listForum[index]._id)
+        console.log(this.state.message[index]._id)
         console.log(idkomen)
         let params =
         {
@@ -54,40 +56,40 @@ class ListForum extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumRemove',
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastRemove',
             data: params,
             headers: {
                 'Content-Type': 'application/json',
             },
         })
             .then(response => {
-                console.log(response.data.Data);
+                console.log(response.data);
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
-                        this.setState({ listForum: response.data.Data })
+                        console.log(response.data.resultData);
+                        this.setState({ message: response.data.resultData })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST DISKUSI');
+                        console.log(error + 'ini eror LIST BC');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete forum DISKUSI');
+                console.log(error + 'ini delete broadcast');
             });
     }
 
     render() {
-        const { listForum, indexEdit } = this.state
+        const { indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/cms/forum-add" id="add_content">
+                <NavLink to="/cms/messaging-add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Forum</span>
+                    <span>Create New Broadcast</span>
                 </NavLink>
-                <h1>List Forum Diskusi</h1>
+                <h1>List Message Broadcast</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>
@@ -100,8 +102,8 @@ class ListForum extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {console.log(this.state.listForum)} */}
-                            {this.state.listForum ? this.state.listForum.map((item, index) => {
+                            {/* {console.log(this.state.message)} */}
+                            {this.state.message ? this.state.message.map((item, index) => {
                                 if (indexEdit == index) {
                                     return (
                                         <tr>
@@ -117,9 +119,9 @@ class ListForum extends React.Component {
                                 return (
                                     <tr>
                                         <td>{item._id}</td>
-                                        <td>{item.cobrandEmail}</td>
-                                        <td>{item.subject}</td>
-                                        <td>{item.comment}</td>
+                                        <td>{item.destination}</td>
+                                        <td>{item.messageSubject}</td>
+                                        <td>{item.messageContent}</td>
                                         {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
                                         <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                                     </tr>
@@ -137,6 +139,6 @@ class ListForum extends React.Component {
     }
 }
 
-export default ListForum
+export default ListBc
 
 
