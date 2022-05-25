@@ -48,7 +48,7 @@ class ListForum extends React.Component {
         console.log(idkomen)
         let params =
         {
-            whereKeyValues: {
+            whereValues: {
                 _id: idkomen,
             }
         };

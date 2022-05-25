@@ -5,7 +5,7 @@ import './staff.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 // import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 import React from 'react'
 import { Button } from 'react-bootstrap';
 
@@ -14,41 +14,46 @@ class ManagementStaff extends React.Component {
         super(props)
         this.state = {
             userData: [],
+            send : false
            
-
         }
     }
 
     componentDidMount() {
     
     }
-    addRedzone = () => {
+    addStaff = () => {
         let params =
         {
-            cobrandEmail: this.refs.email.value,
-            placeName: this.refs.tempat.value,
-            description: this.refs.deskripsi.value,
-            address: this.refs.alamat.value,
-            redZoneStatus: this.refs.status.value,
-            location: [this.refs.lokasi.value]
+            userName: this.refs.email.value,
+            password: this.refs.tempat.value,
+            userType: this.refs.deskripsi.value,
+            cobrandEmail: this.refs.alamat.value,
+            userLevel: this.refs.status.value,
+            emailUser: this.refs.lokasi.value,
+            phone: this.refs.phone.value
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneAdd',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userAdd',
             data: params,
         })
             .then(response => {
                 console.log(response.data);
+                this.setState({send : true})
             })
             .catch(error => {
-                console.log(error + 'ini eror add redzone');
+                console.log(error + 'ini eror add cms');
             });
         
     }
     render() {
+        if (this.state.send == true) {
+            return <Redirect to="/tools/admin-staff-management" />
+        }
         return (
             <div className='div'>
-                <h1>Add CMS User</h1>
+                <h1>Daftar Admin</h1>
                 <form className='form'>
                     <label>Username</label> 
                     <input className='input' placeholder=''
@@ -77,9 +82,9 @@ class ManagementStaff extends React.Component {
                     <br></br>
                     <label>Phone</label>
                     <input className='input' placeholder=''
-                    ref="lokasi"></input>
+                    ref="phone"></input>
                 </form>
-                <Button className='btn' >Daftar</Button>
+                <Button className='btn' onClick={this.addStaff}>Daftar</Button>
             </div>
         )
     }

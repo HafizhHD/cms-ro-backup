@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 function RedZone() {
     const [mapSearch, mapSearchInput] = useState('');
-    const [listRedzone, setListRedzone] = useState('')
+    const [listRedzone, setListRedzone] = useState([])
 
     // get redzone
     useEffect(() => {
@@ -30,8 +30,8 @@ function RedZone() {
             data: params,
         })
             .then(response => {
-                console.log(response.data.Data);
-                setListRedzone(response.data)
+                console.log(response.data);
+                setListRedzone(response.data.Data)
                 console.log(listRedzone)
                
             })

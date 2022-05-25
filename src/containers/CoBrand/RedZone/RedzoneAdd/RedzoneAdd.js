@@ -5,7 +5,7 @@ import './Redzonedd.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 // import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 import React from 'react'
 import { Button } from 'react-bootstrap';
 
@@ -14,7 +14,7 @@ class RedzoneAdd extends React.Component {
         super(props)
         this.state = {
             userData: [],
-           
+            kirim : false
 
         }
     }
@@ -39,13 +39,18 @@ class RedzoneAdd extends React.Component {
         })
             .then(response => {
                 console.log(response.data);
+                this.setState({kirim : true})
             })
             .catch(error => {
                 console.log(error + 'ini eror add redzone');
             });
-        
     }
+
+
     render() {
+        if (this.state.kirim == true) {
+            return <Redirect to="/cms/redzone" />
+        }
         return (
             <div className='div'>
                 <h1>Add Redzone</h1>

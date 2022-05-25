@@ -37,6 +37,7 @@ const MessageList = lazy(() => import('./../../containers/CoBrand/Message/ListBc
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
 const Management = lazy(() => import('./../../containers/CoBrand/ManagementUser/ManagementStaff'));
+const listStaff = lazy(() => import('./../../containers/CoBrand/ManagementUser/ListStaff/ListStaff'));
 
 
 function Cobrand({
@@ -157,7 +158,7 @@ function Cobrand({
                     exact
                     component={Forum}
                 />
-                  <PrivateRoute
+                <PrivateRoute
                     path="/cms/forum-moderator"
                     exact
                     component={ForumList}
@@ -311,11 +312,17 @@ function Cobrand({
                 />
 
                 <PrivateRoute
-                    path="/tools/admin-staff-management"
+                    path="/tools/admin-staff-add"
                     exact
                     component={Management}
                 />
-               
+
+                <PrivateRoute
+                    path="/tools/admin-staff-management"
+                    exact
+                    component={listStaff}
+                />
+
             </Switch>
         </Layout>
     );

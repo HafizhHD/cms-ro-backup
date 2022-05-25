@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 // import InputComponent from '../../../../components/UI/Input/Input';
-import './listBc.scss'
+import './listStaff.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 // import { connect } from 'react-redux';
@@ -11,42 +11,40 @@ import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 
 
-class ListBc extends React.Component {
+class ListStaff extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             userData: [],
             kirimforum: [],
-            message: [],
-            indexEdit: null
+            listForum: [],
+            // indexEdit: null
 
         }
     }
 
     componentDidMount() {
-        this.daftarMessage()
-
+        this.daftarAdmin()
     }
 
-    daftarMessage = () => {
+    daftarAdmin = () => {
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
         })
             .then(response => {
-                console.log(response.data.resultData);
-                console.log(response.data);
-                this.setState({ message: response.data.resultData })
+                console.log(response.data.Data);
+                this.setState({ listForum: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST DISKUSI');
+                console.log(error + 'ini eror LIST ADMIN');
             });
     }
 
     onDelete = (index) => {
-        localStorage.setItem('idUser', this.state.message[index]._id)
+        localStorage.setItem('idUser', this.state.listForum[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.message[index]._id)
+        console.log(this.state.listForum[index]._id)
         console.log(idkomen)
         let params =
         {
@@ -56,64 +54,61 @@ class ListBc extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastRemove',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userRemove',
             data: params,
             headers: {
                 'Content-Type': 'application/json',
             },
         })
             .then(response => {
-                console.log(params)
-                console.log(response.data);
+                console.log(response.data.Data);
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
-                        this.setState({ message: response.data.resultData })
+                        console.log(response.data.Data);
+                        this.setState({ listForum: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST BC');
+                        console.log(error + 'ini eror LIST ADMIN');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete broadcast');
+                console.log(error + 'ini delete Cms admin');
             });
     }
 
     render() {
-        const { indexEdit } = this.state
+        const { listForum, indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/cms/messaging-add" id="add_content">
+                <NavLink to="/tools/admin-staff-add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Broadcast</span>
+                    <span>Create New Admin</span>
                 </NavLink>
-                <h1>List Message Broadcast</h1>
+                <h1>List Daftar Admin</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>Media</th>
-                                <th>Time</th>
-                                <th className='h-email'>Email</th>
-                                <th>Subject</th>
-                                <th>Message</th>
+                                <th>User Type</th>
+                                <th className='h-email'>Cobrand Email</th>
+                                <th>Email User</th>
+                                <th>Phone</th>
                                 <th colSpan={2}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {console.log(this.state.message)} */}
-                            {this.state.message ? this.state.message.map((item, index) => {
+                            {/* {console.log(this.state.listForum)} */}
+                            {this.state.listForum ? this.state.listForum.map((item, index) => {
                                 if (indexEdit == index) {
                                     return (
                                         <tr>
-                                            <td>{item.mediaType}</td>
-                                            <td>{item._id}</td>
+                                            <td>{item.userType}</td>
                                             <td>{item.cobrandEmail}</td>
                                             <td>{item.subject}</td>
-                                            <td>{item.comment}</td>
+                                            <td>{item.phone}</td>
                                             {/* <td><Button variant="danger" className='btn2' onClick={() => onSave(index)}>Save</Button></td>
                                         <td><Button variant="danger" className='btn' onClick={setIndex(index)}>Cancel</Button></td> */}
                                         </tr>
@@ -121,11 +116,10 @@ class ListBc extends React.Component {
                                 }
                                 return (
                                     <tr>
-                                        <td>{item.mediaType}</td>
-                                        <td>{item.scheduleTime}</td>
-                                        <td>{item.destination}</td>
-                                        <td>{item.messageSubject}</td>
-                                        <td>{item.messageContent}</td>
+                                        <td>{item.userType}</td>
+                                        <td>{item.cobrandEmail}</td>
+                                        <td>{item.emailUser}</td>
+                                        <td>{item.phone}</td>
                                         {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
                                         <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                                     </tr>
@@ -143,6 +137,6 @@ class ListBc extends React.Component {
     }
 }
 
-export default ListBc
+export default ListStaff
 
 
