@@ -13,7 +13,7 @@ const UserReport = () => {
 
     const options = {
         filterType: "dropdown",
-        selectableRows: false,
+        selectableRows: true,
         responsive: "scroll",
     };
 
@@ -27,13 +27,26 @@ const UserReport = () => {
             },
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(localStorage.getItem('userFilter'));
-        if(localStorage.getItem('userFilter')) params.whereKeyValues = JSON.parse(localStorage.getItem('userFilter'));
         console.log(params);
         getUserList(params)
         .then(response => {
             console.log(response.data);
-            setUserData(response.data.users);
+            // setUserData(response.data.users);
+            var ud = response.data.users;
+            for(var i = 0; i < ud.length; i++) {
+                let user = ud[i];
+                if(user.userType === 'child') {
+                    console.log("Anjay");
+                    for(var j = 0; j < ud.length; j++) {
+                        let user2 = ud[j];
+                        if(user.parentEmail === user2.emailUser){
+                            user['parentName'] = user2.nameUser;
+                            break;
+                        }
+                    }
+                }
+            }
+            setUserData(ud);
             setLoading(false);
         })
         .catch(error => {

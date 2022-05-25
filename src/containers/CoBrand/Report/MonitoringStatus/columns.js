@@ -57,7 +57,7 @@ const Columns = [
         }
     },
     {
-        label: 'Screen Time',
+        label: 'Total Screen Time (Hours)',
         name:'screenTime',
         options: {
             filter: false,
@@ -65,7 +65,7 @@ const Columns = [
         }
     },
     {
-        label: 'Social Media',
+        label: 'Social Media (Hours)',
         name:'screenTimeSocialMedia',
         options: {
             filter: false,
@@ -73,7 +73,7 @@ const Columns = [
         }
     },
     {
-        label: 'Games',
+        label: 'Games (Hours)',
         name: 'screenTimeGames',
         options: {
             filter: false,
@@ -81,8 +81,8 @@ const Columns = [
         }
     },
     {
-        label: 'Entertainment',
-        name: 'screenTimeEntertainment',
+        label: 'Video (Hours)',
+        name: 'screenTimeVideo',
         options: {
             filter: false,
             sort: true,

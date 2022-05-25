@@ -68,7 +68,7 @@ const Columns = [
         label: 'Status Mode Asuh',
         name:'modeAsuh',
         options: {
-            filter: false,
+            filter: true,
             sort: true,
         }
     },
@@ -76,16 +76,18 @@ const Columns = [
         label: 'Aplikasi yang Diblokir',
         name: 'blockedApps',
         options: {
-            filter: false,
+            filter: true,
             sort: true,
+            filterType: 'textField'
         }
     },
     {
         label: 'Aplikasi yang Dibatasi',
         name: 'limitedApps',
         options: {
-            filter: false,
+            filter: true,
             sort: true,
+            filterType: 'textField'
         }
     },
     {

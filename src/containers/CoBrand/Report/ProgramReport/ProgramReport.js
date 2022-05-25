@@ -27,6 +27,7 @@ const ProgramReport = () => {
             orderKeyValues: {
                 programName: 1
             },
+            includeThumbnailData: false,
             limit: Number.MAX_SAFE_INTEGER
         };
         console.log(params);

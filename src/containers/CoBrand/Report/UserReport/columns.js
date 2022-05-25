@@ -25,6 +25,14 @@ const Columns = [
         }
     },
     {
+        label: 'Jenis User',
+        name: 'userType',
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
         label: 'Nama Orangtua',
         name: 'parentName',
         options: {
@@ -73,28 +81,16 @@ const Columns = [
         }
     },
     {
-        label: 'Status Berlanggan',
-        name: 'status',
+        label: 'Mulai Berlanggan',
+        name: 'startSubscription',
         options: {
             filter: true,
             sort: true,
         }
-        // Cell: ({ value }) => {
-        //     let style = {
-        //         color: 'green'
-        //     };
-        //     if (value !== 'active') {
-        //         style = {
-        //             color: 'red'
-        //         }
-        //     }
-
-        //     return <p style={style}>{value}</p>
-        // }
     },
     {
-        label: 'Jenis User',
-        name: 'userType',
+        label: 'Berlanggan Sampai',
+        name: 'endSubscription',
         options: {
             filter: true,
             sort: true,

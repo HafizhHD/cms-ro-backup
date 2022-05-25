@@ -17,19 +17,29 @@ export const MenuCoBranding = [
                 icon: <FiUser className="Aside__Nav_item-icon" />
             },
             {
-                path: '/program',
-                pathName: 'Program Report',
-                icon: <FiActivity className="Aside__Nav_item-icon" />
-            },
-            {
                 path: '/content',
                 pathName: 'Content Report',
                 icon: <FiImage className="Aside__Nav_item-icon" />
             },
             {
+                path: '/program',
+                pathName: 'Program Report',
+                icon: <FiActivity className="Aside__Nav_item-icon" />
+            },
+            {
                 path: '/redzone',
                 pathName: 'Redzone Report',
                 icon: <FiMapPin className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/monitoring-content', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Monitoring Content',
+                icon: <FiMonitor className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/monitoring-program', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Monitoring Program',
+                icon: <FiMonitor className="Aside__Nav_item-icon" />
             },
             {
                 path: '/monitoring-status', //tadinya content, nanti tolong routenya diganti

@@ -156,7 +156,7 @@ function Dashboard() {
     return (
         <div className="Dashboard">
             <div className='div1'>
-                <Heading headingName="YOUR CO-BRAND DATA" />
+                <Heading headingName="DASHBOARD" />
                 <a className='wa2' href='http://wa.me/628119004410' target="_blank"><FaWhatsapp className='whatshap'/> Need Help? Click Here!</a>
             </div>
             
