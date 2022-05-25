@@ -34,6 +34,7 @@ function Program({
         whereKeyValues: {
             cobrandEmail: userData.email
         },
+        includeThumbnailData :false,
         limit: Number.MAX_SAFE_INTEGER
     };
 

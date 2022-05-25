@@ -43,38 +43,39 @@ class RedzoneAdd extends React.Component {
             .catch(error => {
                 console.log(error + 'ini eror add redzone');
             });
+        
     }
     render() {
         return (
-            <div>
-                <h1>User</h1>
-                <form style={{margin:"1rem"}}>
+            <div className='div'>
+                <h1>Add Redzone</h1>
+                <form className='form'>
                     <label>Email</label> <br></br>
-                    <input placeholder=''
+                    <input className='input' placeholder=''
                        ref="email"
                     ></input>
                     <br></br>
-                    <label>Nama Tempat</label> <br></br>
-                    <input placeholder=''
+                    <label>Nama Tempat</label> 
+                    <input className='input' placeholder=''
                     ref="tempat"></input>
                     <br></br>
-                    <label>Deskripsi</label> <br></br>
-                    <input placeholder=''
+                    <label>Deskripsi</label> 
+                    <input className='input' placeholder=''
                     ref="deskripsi"></input>
                     <br></br>
-                    <label>Alamat</label> <br></br>
-                    <input placeholder=''
+                    <label>Alamat</label> 
+                    <input className='input' placeholder=''
                     ref="alamat"></input>
                     <br></br>
-                    <label>Redzone Status</label> <br></br>
-                    <input placeholder=''
+                    <label>Redzone Status</label> 
+                    <input className='input' placeholder=''
                     ref="status"></input>
                     <br></br>
-                    <label>Lokasi Kordinat</label> <br></br>
-                    <input placeholder=''
+                    <label>Kordinat</label>
+                    <input className='input' placeholder=''
                     ref="lokasi"></input>
                 </form>
-                <Button onClick={this.addRedzone}>Kirim Redzone</Button>
+                <Button className='btn' onClick={this.addRedzone}>Kirim Redzone</Button>
             </div>
         )
     }
