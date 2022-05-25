@@ -93,7 +93,7 @@ class ListBc extends React.Component {
                 <h1>List Message Broadcast</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
-                        <thead>
+                        <thead> 
                             <tr>
                                 <th>Media</th>
                                 <th>Time</th>
