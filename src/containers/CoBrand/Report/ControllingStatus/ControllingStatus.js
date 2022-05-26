@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import TablePengguna from '../../../../components/UI/Table/Table';
+import TablePengguna from '../../../../components/UI/Table/TableWithFilter';
 import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
@@ -117,14 +117,27 @@ const ControllingStatus = () => {
 
                 for(var i = 0; i < userLength; i++) {
                     let user = userDataChild[i];
-                    var found = false;
-                    for(var j = 0; j < scheduleList.length && !found; j++) {
+                    var lockFound = false, scheduleFound = false;
+                    for(var j = 0; j < scheduleList.length && (!lockFound || !scheduleFound); j++) {
                         if(user.emailUser === scheduleList[j].emailUser) {
-                            user['usageScheduleStatus'] = "On";
-                            found = true;
+                            if(scheduleList[j].scheduleType === 'terjadwal') {
+                                if(scheduleList[j].deviceUsageEndTime === scheduleList[j].deviceUsageStartTime) {
+                                    user['lockScreenStatus'] = 'On';
+                                    lockFound = true;
+                                }
+                                else {
+                                    user['usageScheduleStatus'] = "On";
+                                    scheduleFound = true;
+                                }
+                            }
+                            else {
+                                user['usageScheduleStatus'] = "On";
+                                scheduleFound = true;
+                            }
                         }
                     }
-                    if(!found) user['usageScheduleStatus'] = "Off";
+                    if(!scheduleFound) user['usageScheduleStatus'] = "Off";
+                    if(!lockFound) user['lockScreenStatus'] = "Off";
                 }
                 setUserData(userDataChild);
                 setLoading(false);
@@ -149,17 +162,19 @@ const ControllingStatus = () => {
                     { name: 'Controlling Status' }
                 ]}
             />
-            {/* <div className="Pengguna_table">
+            <div className="Controlling_table">
                 <TablePengguna
                     COLUMNS={columns}
                     DATA={userData}
+                    showCheckbox={true}
+                    notifContext={"Status Pembatasan Gadget Anak"}
                 />
-            </div> */}
-            <MUIDataTable
+            </div>
+            {/* <MUIDataTable
                 data={userData}
                 columns={columns}
                 options={options}
-            />
+            /> */}
         </div>
     )
 }

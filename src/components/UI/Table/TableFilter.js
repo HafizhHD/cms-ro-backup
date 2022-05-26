@@ -45,7 +45,7 @@ export function GlobalFilter({
         onChange={e => {
           setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
         }}
-        placeholder={`Search ${count} records...`}
+        placeholder={`Search...`}
       />
     )
   }
@@ -169,6 +169,20 @@ export function GlobalFilter({
         />
       </div>
     )
+  }
+
+  export function filterGreaterThanOrEqual(rows, id, filterValue) {
+    return rows.filter(row => {
+      const rowValue = row.values[id]
+      return rowValue >= filterValue
+    })
+  }
+
+  export function filterLessThanOrEqual(rows, id, filterValue) {
+    return rows.filter(row => {
+      const rowValue = row.values[id]
+      return rowValue <= filterValue
+    })
   }
   
   export function fuzzyTextFilterFn(rows, id, filterValue) {

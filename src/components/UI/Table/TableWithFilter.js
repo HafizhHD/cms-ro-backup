@@ -1,10 +1,14 @@
 import React, { useMemo, useEffect, Fragment } from 'react';
-import { useTable, useSortBy, useExpanded, usePagination, useGlobalFilter, useFilters } from 'react-table';
+import { NavLink } from 'react-router-dom';
+import { useTable, useSortBy, useExpanded, usePagination, useGlobalFilter, useFilters, useRowSelect } from 'react-table';
 import { BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import './Table.scss';
 import { DefaultColumnFilter, fuzzyTextFilterFn } from './TableFilter'
+import { CSVLink, CSVDownload } from "react-csv";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
-function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent }) {
+function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = false, notifContext = '' }) {
     const filterTypes = React.useMemo(
         () => ({
           // Add a new fuzzyTextFilterFn filter type.
@@ -33,6 +37,23 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent }) {
         []
       )
 
+      const IndeterminateCheckbox = React.forwardRef(
+        ({ indeterminate, ...rest }, ref) => {
+          const defaultRef = React.useRef()
+          const resolvedRef = ref || defaultRef
+      
+          React.useEffect(() => {
+            resolvedRef.current.indeterminate = indeterminate
+          }, [resolvedRef, indeterminate])
+      
+          return (
+            <>
+              <input type="checkbox" ref={resolvedRef} {...rest} />
+            </>
+          )
+        }
+      )
+
     const data = useMemo( () => DATA , [DATA])
     
     const {
@@ -51,6 +72,8 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent }) {
         previousPage,
         setPageSize,
         visibleColumns,
+        selectedFlatRows,
+        state: { selectedRowIds },
         state: {pageIndex, pageSize, expanded},
         state,
         setGlobalFilter
@@ -63,12 +86,102 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent }) {
     , useGlobalFilter
     , useSortBy
     , useExpanded
-    , usePagination)
+    , usePagination
+    , useRowSelect
+    , hooks => {
+        if(showCheckbox) hooks.visibleColumns.push(columns => [
+          // Let's make a column for selection
+          {
+            id: 'selection',
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <div>
+                <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+              </div>
+            ),
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: ({ row }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
+          },
+          ...columns,
+        ])
+      })
 
     const { globalFilter } = state;
 
+    const downloadAsCSV = () => {
+        const currentRecords = rows;
+        console.log(currentRecords);
+        var data_to_download = [];
+        for (var i = 0; i < currentRecords.length; i++) {
+            let record_to_download = {};
+            prepareRow(currentRecords[i]);
+            console.log(currentRecords[i].cells);
+            for (var colIndex = 0; colIndex < currentRecords[i].cells.length; colIndex++) {
+                if(currentRecords[i].cells[colIndex].column.id !== 'rowNumber' &&
+                currentRecords[i].cells[colIndex].column.id !== 'selection') {
+                    record_to_download[currentRecords[i].cells[colIndex].column.Header] =
+                    currentRecords[i].cells[colIndex].value;
+                }
+            }
+            data_to_download.push(record_to_download);
+        }
+        return data_to_download;
+    }
+
+    const downloadAsPDF = () => {
+        const dataRaw = downloadAsCSV();
+        if(dataRaw.length > 0) {
+            const unit = "pt";
+            const size = "A4"; // Use A1, A2, A3 or A4
+            const orientation = "landscape"; // portrait or landscape
+
+            const marginLeft = 40;
+            const doc = new jsPDF(orientation, unit, size);
+
+            doc.setFontSize(15);
+
+            const title = "Report";
+            const headers = [Object.keys(dataRaw[0])];
+
+            const data = dataRaw.map(e => Object.values(e));
+
+            let content = {
+                startY: 50,
+                head: headers,
+                body: data
+            };
+
+            doc.text(title, marginLeft, 40);
+            doc.autoTable(content);
+            doc.save("report.pdf");
+        }
+    }
+
     return (
         <>
+        <div className="tools">
+            <button><CSVLink data={downloadAsCSV()}>Download as CSV</CSVLink></button>
+            <button onClick={downloadAsPDF}>Download as PDF</button>
+            {selectedFlatRows.length > 0 ? (<NavLink to='/cms/messaging-add' onClick={() => {
+                    localStorage.setItem('notifContext', notifContext);
+                    console.log(localStorage.getItem('notifContext'));
+                    var stringEmail = '';
+                    for(var i = 0; i < selectedFlatRows.length; i++) {
+                        stringEmail += selectedFlatRows[i].original.emailUser;
+                        if(i < selectedFlatRows.length - 1) stringEmail += ', ';
+                        console.log(stringEmail);
+                    }
+                    localStorage.setItem('emailTo', stringEmail);
+                    console.log(localStorage.getItem('emailTo'));
+                }}>Send Notifications</NavLink>
+             ) : null}
+        </div>
         <div className="utils">
             <div className="pagination">
                 <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -160,7 +273,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent }) {
                         <Fragment {...row.getRowProps()}>
                             <tr>
                                 {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}> {cell.column.id === 'rowNumber' ? i + 1 : cell.render('Cell')} </td>
+                                    return <td {...cell.getCellProps()}> {cell.column.id === 'rowNumber' ? i + 1 + (pageIndex * pageSize) : cell.render('Cell')} </td>
                                 })}
                             </tr>
                             {row.isExpanded ? (

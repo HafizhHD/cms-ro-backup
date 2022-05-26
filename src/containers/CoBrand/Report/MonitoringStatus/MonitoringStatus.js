@@ -1,17 +1,27 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import TablePengguna from '../../../../components/UI/Table/Table';
+import TablePengguna from '../../../../components/UI/Table/TableWithFilter';
 import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
+import RKLoaderSpinner from '../../../../components/UI/RKLoaderSpinner/RKLoader.js';
 import './MonitoringStatus.scss';
 import { getUserList, getAppUsageList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const MonitoringStatus = () => {
     const [isLoading, setLoading] = useState(true);
+    const [isLoadingSpinner, setLoadingSpinner] = useState(false);
     const [userData, setUserData] = useState();
+    const [userDataRaw, setUserDataRaw] = useState([]);
     const [usageData, setUsageData] = useState();
-    const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [isSubmit, setSubmit] = useState(false);
+    
+    const oneDay = 24 * 60 * 60 * 1000; 
 
     const options = {
         filterType: "dropdown",
@@ -50,9 +60,8 @@ const MonitoringStatus = () => {
                     userDataChild.push(user);
                 }
             }
+            setUserDataRaw(userDataChild);
             let userLength = userDataChild.length;
-            let startDate = dateRange[0];
-            let endDate = dateRange[1];
 
             
             let params2 = {
@@ -91,10 +100,10 @@ const MonitoringStatus = () => {
                             }
                         }
                     }
-                    userDataChild[i]['screenTime'] = (totalUsage[i] / 3600000).toFixed(2);
-                    userDataChild[i]['screenTimeSocialMedia'] = (socialUsage[i] / 3600000).toFixed(2);
-                    userDataChild[i]['screenTimeGames'] = (gamesUsage[i] / 3600000).toFixed(2);
-                    userDataChild[i]['screenTimeVideo'] = (videoUsage[i] / 3600000).toFixed(2);
+                    userDataChild[i]['screenTime'] = (totalUsage[i] / 3600000).toFixed(1);
+                    userDataChild[i]['screenTimeSocialMedia'] = (socialUsage[i] / 3600000).toFixed(1);
+                    userDataChild[i]['screenTimeGames'] = (gamesUsage[i] / 3600000).toFixed(1);
+                    userDataChild[i]['screenTimeVideo'] = (videoUsage[i] / 3600000).toFixed(1);
                 }
                 setUserData(userDataChild);
                 setLoading(false);
@@ -106,10 +115,67 @@ const MonitoringStatus = () => {
         })
     }, []);
 
+    useEffect(() => {
+        setLoadingSpinner(true);
+        var userDataChild = userDataRaw;
+        let userLength = userDataChild.length;
+        const diffDays = Math.round(Math.abs((endDate - startDate) / oneDay));
+
+        let params2 = {
+            whereKeyValues: {
+                appUsageDate: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0],
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        }
+        getAppUsageList(params2)
+        .then(response2 => {
+            console.log(response2.data);
+            for(var i = 0; i < userLength; i++) {
+
+                var totalUsage = Array(userLength).fill(0),
+                socialUsage = Array(userLength).fill(0),
+                gamesUsage = Array(userLength).fill(0),
+                videoUsage = Array(userLength).fill(0);
+
+                let userEmail = userDataChild[i].emailUser;
+                console.log("Email user: " + userEmail);
+                let appUsages = response2.data.appUsages
+                for(var j = 0; j < appUsages.length; j++) {
+                    let x = appUsages[j];
+                    if(x.emailUser === userEmail) {
+
+                        console.log("Yes Masuk! " + userEmail);
+                        let y = x.appUsages;
+                        for(var k = 0; k < y.length; k++) {
+                            totalUsage[i] += y[k].duration;
+                            if(y[k].appCategory === 'social') socialUsage[i] += y[k].duration;
+                            if(y[k].appCategory === 'game') gamesUsage[i] += y[k].duration;
+                            if(y[k].appCategory === 'video') videoUsage[i] += y[k].duration;
+                        }
+                    }
+                }
+                userDataChild[i]['screenTime'] = (totalUsage[i] / 3600000 / (diffDays + 1)).toFixed(1);
+                userDataChild[i]['screenTimeSocialMedia'] = (socialUsage[i] / 3600000 / (diffDays + 1)).toFixed(1);
+                userDataChild[i]['screenTimeGames'] = (gamesUsage[i] / 3600000 / (diffDays + 1)).toFixed(1);
+                userDataChild[i]['screenTimeVideo'] = (videoUsage[i] / 3600000 / (diffDays + 1)).toFixed(1);
+            }
+            setUserData(userDataChild);
+            setSubmit(false);
+            setLoadingSpinner(false);
+            setLoading(true);
+            setLoading(false);
+        })
+    }, [isSubmit])
+
     if(isLoading) {
         return <RKLoader />;
     }
     return (
+        <>
+        {isLoadingSpinner ? <RKLoaderSpinner/> : null}
         <div className="Monitoring">
             <Heading
                 headingName="Monitoring Status"
@@ -118,18 +184,48 @@ const MonitoringStatus = () => {
                     { name: 'Monitoring Status' }
                 ]}
             />
-            {/* <div className="Pengguna_table">
+            <div className="Monitoring_datePicker">
+                <div>
+                    <p>Start Date</p>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                        maxDate={endDate}
+                    />
+                </div>
+                <div>
+                    <p>End Date</p>
+                    <DatePicker
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={startDate}
+                    />
+                </div>
+                <button onClick={() => {
+                    setSubmit(true);
+                }}>Submit</button>
+            </div>
+            <div className="Monitoring_table">
                 <TablePengguna
                     COLUMNS={columns}
                     DATA={userData}
+                    showCheckbox={true}
+                    notifContext={"Status Pemakaian"}
                 />
-            </div> */}
-            <MUIDataTable
+            </div>
+            {/* <MUIDataTable
                 data={userData}
                 columns={columns}
                 options={options}
-            />
+            /> */}
         </div>
+        </>
     )
 }
 

@@ -5,244 +5,322 @@ import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
+import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
-import { getContentList, getProgramList } from '../../../components/API/filter';
+import { getContentList, getProgramList, getUserList } from '../../../components/API/filter';
 import {FaWhatsapp} from 'react-icons/fa'
+
+import StackedChart from './component/StackedChart'
+import BarChart from './component/BarChart'
 
 function Dashboard() {
 
     const [isLoading, setLoading] = useState(true);
-    const [programList, setProgramList] = useState();
-    const [contentList, setContentList] = useState();
-    const [countVariable, setCountVariable] = useState();
+    const [isLoadingSpinner, setLoadingSpinner] = useState(false);
 
-    const [userType, setUserType] = useState('5');
-    const [userRegSelect, setUserRegSelect] = useState('5')
-    const [userReg, setUserReg] = useState(18)
+    const localData = JSON.parse(localStorage.getItem('userData'));
 
-    const [programTotalSelect, setProgramTotalSelect] = useState('5')
-    const [programTotal, setProgramTotal] = useState(123)
+    const absStart = new Date("2021-01-01");
+    const today = new Date();
 
-    const [contentTotalSelect, setContentTotalSelect] = useState('5')
-    const [contentTotal, setContentTotal] = useState(250)
+    const [period, setPeriod] = useState('today');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [userData, setUserData] = useState([]);
+    const [conProgData, setConProgData] = useState([]);
+    const userDataLabel = ["Parent", "Child"];
+    const conProgDataLabel = ["Content", "Program"];
 
-    const [isUpdatingActive, setUpdatingActive] = useState(false);
-
-    const history = useHistory();
-
-    const userData = JSON.parse(localStorage.getItem('userData'));
-
-    const contentView = [250, 209, 125, 23, 9]
-    const programView = [123, 20, 12, 8, 3]
-
-    const programParams = {
-        whereKeyValues: {
-            cobrandEmail: userData.email,
-            status: 'active',
-        },
-        orderKeyValues: {
-            startDate: 1
-        }
-    };
-    const contentParams = {
-        whereKeyValues: {
-            cobrandEmail: userData.email,
-            status: 'active'
-        },
-        orderKeyValues: {
-            startDate: 1
-        }
-    }
-
-    useEffect(() => {
-        setLoading(true);
+    function retrieveData() {
+        var sd = [0, 0],
+        smp = [0,0],
+        sma = [0,0],
+        parent = [0,0],
+        coparent = [0,0];
 
         let paramUser = {
-            
-        }
-        
-        let countingVariable = {
-            countProgram: 0,
-            countContent: 0
-        }
-        let params1 = {
             whereKeyValues: {
-                cobrandEmail: userData.email
+                packageId: "com.byasia.ruangortu",
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
             },
-            includeThumbnailData: false,
+            orderKeyValues: {
+                nameUser: 1
+            },
             limit: Number.MAX_SAFE_INTEGER
         }
-        let params2 = {
+
+        let paramContent = {
             whereKeyValues: {
-                cobrandEmail: userData.email
+                cobrandEmail: localData.email,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                contentName: 1
             },
             includeContentData: false,
             limit: Number.MAX_SAFE_INTEGER
         }
-        const promiseP = getProgramList(params1);
-        const promiseC = getContentList(params2);
-        Promise.all([promiseP, promiseC]).then(response => {
-            setProgramList(response[0].data.programs);
-            setContentList(response[1].data.contents);
-            countingVariable.countProgram = response[0].data.programs.length;
-            countingVariable.countContent = response[1].data.contents.length;
-            setCountVariable(countingVariable);
-            setLoading(false);
+
+        let paramProgram = {
+            whereKeyValues: {
+                cobrandEmail: localData.email,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                programName: 1
+            },
+            includeThumbnailData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
+        const promiseUser = getUserList(paramUser);
+        const promiseContent = getContentList(paramContent);
+        const promiseProgram = getProgramList(paramProgram);
+
+        Promise.all([promiseUser, promiseContent, promiseProgram]).then(responseAll => {
+            const dataUser = responseAll[0].data.users;
+            console.log(dataUser);
+            for(var i = 0; i < dataUser.length; i++) {
+                let x = dataUser[i];
+                if(x.userType === 'parent') {
+                    console.log("Parent email: " + x.parentEmail);
+                    if(x.parentEmail === undefined) parent[0]++;
+                    else coparent[0]++;
+                }
+                else if(x.userType === 'child') {
+                    if(x.childInfo.StudyLevel === 'SD') sd[1]++;
+                    else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
+                    else if(x.childInfo.StudyLevel === 'SMA') sma[1]++;
+                }
+            }
+            const userDataObj = [
+                {
+                    name: "SD",
+                    data: sd
+                },
+                {
+                    name: "SMP",
+                    data: smp
+                },
+                {
+                    name: "SMA",
+                    data: sma
+                },
+                {
+                    name: "Parent",
+                    data: parent
+                },
+                {
+                    name: "Co-Parent",
+                    data: coparent
+                }
+            ]
+            setUserData(userDataObj);
+
+            const contentLength = responseAll[1].data.contents.length;
+            console.log(responseAll[1].data.contents);
+            console.log(responseAll[2].data.programs);
+            const programLength = responseAll[2].data.programs.length;
+
+            const dataConProg = [contentLength, programLength];
+            console.log(dataConProg);
+            const conProgObj = [{
+                data: dataConProg
+            }];
+            setConProgData(conProgObj);
+
+            if(isLoading) setLoading(false);
+            else if(isLoadingSpinner) {
+                setLoadingSpinner(false);
+                setLoading(true);
+                setLoading(false);
+            }
         });
-    }, []);
+    }
 
     useEffect(() => {
-        if(userType === '1') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 0
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '2') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 1
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '3') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 5
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '4') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 9
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '5') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 14
-            }
-            setCountVariable(countingVariable);
-        }
+        retrieveData();
 
-        if(userRegSelect === '1') setUserReg(1)
-        else if(userRegSelect === '2') setUserReg(5)
-        else if(userRegSelect === '3') setUserReg(6)
-        else if(userRegSelect === '4') setUserReg(17)
-        else if(userRegSelect === '5') setUserReg(24)
+    }, [, endDate]);
 
-        if(programTotalSelect === '1') setProgramTotal(12)
-        else if(programTotalSelect === '2') setProgramTotal(23)
-        else if(programTotalSelect === '3') setProgramTotal(48)
-        else if(programTotalSelect === '4') setProgramTotal(123)
-        else if(programTotalSelect === '5') setProgramTotal(123)
-
-        if(contentTotalSelect === '1') setContentTotal(contentView[4]*7)
-        else if(contentTotalSelect === '2') setContentTotal(contentView[3]*7)
-        else if(contentTotalSelect === '3') setContentTotal(contentView[2]*7)
-        else if(contentTotalSelect === '4') setContentTotal(contentView[1]*7)
-        else if(contentTotalSelect === '5') setContentTotal(contentView[0]*7)
-
-        setUpdatingActive(false)
-    }, [isUpdatingActive]);
+    useEffect(() => {
+        var changedStartDate = new Date();
+        var changedEndDate = new Date();
+        switch(period) {
+            case 'today':
+                setStartDate(changedStartDate);
+                setEndDate(changedEndDate);
+                break;
+            case 'yesterday': 
+                changedStartDate.setDate(today.getDate() - 1);
+                changedEndDate.setDate(today.getDate() - 1);
+                setStartDate(changedStartDate);
+                setEndDate(changedEndDate);
+                break;
+            case 'week': 
+                changedStartDate.setDate(today.getDate() - 7);
+                setEndDate(today);
+                setStartDate(changedStartDate);
+                break;
+            case 'month': 
+                changedStartDate.setDate(today.getDate() - 30);
+                setEndDate(today);
+                setStartDate(changedStartDate);
+                break;
+            case 'year': 
+                changedStartDate.setDate(today.getDate() - 365);
+                setEndDate(today);
+                setStartDate(changedStartDate);
+                break;
+            case 'all': 
+                setEndDate(today);
+                setStartDate(absStart);
+                break;
+            default:
+                break;           
+        }
+    }, [period]);
 
     if(isLoading) {
         return <RKLoader/>
     }
 
     return (
+        <>
+        {isLoadingSpinner ? <RKLoaderSpinner/> : null}
         <div className="Dashboard">
             <div className='div1'>
                 <Heading headingName="DASHBOARD" />
                 <a className='wa2' href='http://wa.me/628119004410' target="_blank"><FaWhatsapp className='whatshap'/> Need Help? Click Here!</a>
             </div>
+
+            <div className="Dashboard_period">
+                <button className={period === 'today' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('today');
+                    }}>Today</button>
+                <button className={period === 'yesterday' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('yesterday');
+                    }}>Yesterday</button>
+                <button className={period === 'week' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('week');
+                    }}>7 Days</button>
+                <button className={period === 'month' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('month');
+                    }}>30 Days</button>
+                <button className={period === 'year' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('year');
+                    }}>365 Days</button>
+                <button className={period === 'all' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('all');
+                    }}>All Time</button>
+            </div>
             
 
             {/* Dashboard Cards  */}
-            <div className="Dashboard__cards">
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
-                        <h3>Programs Added</h3>
-                        <select
-                            name="userTypeProgram">
-                            <option value="1">Today</option>
-                            <option value="2">Last 7 Days</option>
-                            <option value="3">Last 30 Days</option>
-                            <option value="4">Last 365 Days</option>
-                            <option value="5">All Time</option>
-                        </select>
+            <div className="Dashboard_1">
+                <div className="Dashboard_1_cards">
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>User Population</h3>
+                            </div>
+                            
+
+                            <StackedChart
+                                    data={userData}
+                                    label={userDataLabel}
+                                    height={400}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
-                    <h1>{countVariable.countProgram}</h1>
-                    
-                    
-                    <div className="Dashboard__cards_item-details">
-                        <NavLink to="/program">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
+                    {/* <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>User Population</h3>
+                            </div>
+                            
+
+                            <StackedChart
+                                    data={userData}
+                                    label={userDataLabel}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div> */}
                 </div>
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
-                        <h3>Contents Added</h3>
-                        <select
-                            name="userType"
-                            value={userType}
-                            onChange={(e) => {
-                                console.log('bruh');
-                                console.log(e.currentTarget.value);
-                                setUserType(e.currentTarget.value);
-                                setUpdatingActive(true);
-                            }}>
-                            <option value="1">Today</option>
-                            <option value="2">Last 7 Days</option>
-                            <option value="3">Last 30 Days</option>
-                            <option value="4">Last 365 Days</option>
-                            <option value="5">All Time</option>
-                        </select>
+
+                <div className="Dashboard_1_cards">
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Total Content &amp; Program</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={conProgData}
+                                    label={conProgDataLabel}
+                                    height={200}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
-                    <h1>{countVariable.countContent}</h1>
-                    <div className="Dashboard__cards_item-details">
-                        <NavLink to="/content">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
-                </div>
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
-                        <h3>Total Users Registered</h3>
-                        <select
-                            name="userRegSelect"
-                            value={userRegSelect}
-                            onChange={(e) => {
-                                console.log('bruh');
-                                console.log(e.currentTarget.value);
-                                setUserRegSelect(e.currentTarget.value);
-                                setUpdatingActive(true);
-                            }}>
-                            <option value="1">Today</option>
-                            <option value="2">Last 7 Days</option>
-                            <option value="3">Last 30 Days</option>
-                            <option value="4">Last 365 Days</option>
-                            <option value="5">All Time</option>
-                        </select>
-                    </div>
-                    <h1>{userReg}</h1>
-                    <div className="Dashboard__cards_item-details">
-                        <NavLink to="/">
-                            Lihat Detail <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
-                    </div>
+                    {/* <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>User Population</h3>
+                            </div>
+                            
+
+                            <StackedChart
+                                    data={userData}
+                                    label={userDataLabel}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div> */}
                 </div>
             </div>
             {/* End Dashboard Cards  */}
 
             {/* Dashboard Cards  */}
-            <div className="Dashboard__cards">
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
+            {/* <div className="Dashboard_1_cards">
+                <div className="Dashboard_1_cards_item">
+                    <div className="Dashboard_1_cards_item-heading">
                         <h3>Total Program Views</h3>
                         <select
                             name="programTotalSelect"
@@ -263,14 +341,14 @@ function Dashboard() {
                     <h1>{programTotal}</h1>
                     
                     
-                    <div className="Dashboard__cards_item-details">
+                    <div className="Dashboard_1_cards_item-details">
                         <NavLink to="/program">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
+                            <FiArrowRightCircle className="Dashboard_1_cards_item-icon" />
                         </NavLink>
                     </div>
                 </div>
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
+                <div className="Dashboard_1_cards_item">
+                    <div className="Dashboard_1_cards_item-heading">
                         <h3>Total Content Views</h3>
                         <select
                             name="contentTotalSelect"
@@ -289,18 +367,19 @@ function Dashboard() {
                         </select>
                     </div>
                     <h1>{contentTotal}</h1>
-                    <div className="Dashboard__cards_item-details">
+                    <div className="Dashboard_1_cards_item-details">
                         <NavLink to="/content">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
+                            <FiArrowRightCircle className="Dashboard_1_cards_item-icon" />
                         </NavLink>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* End Dashboard Cards  */}
 
 
 
         </div>
+        </>
     )
 }
 

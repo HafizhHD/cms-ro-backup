@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import TablePengguna from '../../../../components/UI/Table/Table';
+import TablePengguna from '../../../../components/UI/Table/TableWithFilter';
 import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
@@ -55,17 +55,17 @@ const ContentReport = () => {
                     { name: 'Content Report' }
                 ]}
             />
-            {/* <div className="Pengguna_table">
+            <div className="Content_table">
                 <TablePengguna
                     COLUMNS={columns}
-                    DATA={userData}
+                    DATA={contentData}
                 />
-            </div> */}
-            <MUIDataTable
+            </div>
+            {/* <MUIDataTable
                 data={contentData}
                 columns={columns}
                 options={options}
-            />
+            /> */}
         </div>
     )
 }
