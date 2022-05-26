@@ -69,7 +69,7 @@ class ManagementStaff extends React.Component {
                     ref="deskripsi"></input>
                     <br></br>
                     <label>Cobrand Email</label> 
-                    <input className='input' placeholder=''
+                    <input className='input' placeholder='' type='email'
                     ref="alamat"></input>
                     <br></br>
                     <label>User Level</label> 
@@ -77,11 +77,11 @@ class ManagementStaff extends React.Component {
                     ref="status"></input>
                     <br></br>
                     <label>Email User</label>
-                    <input className='input' placeholder=''
+                    <input className='input' placeholder='' type='email'
                     ref="lokasi"></input>
                     <br></br>
                     <label>Phone</label>
-                    <input className='input' placeholder=''
+                    <input className='input' placeholder='' type='number'
                     ref="phone"></input>
                 </form>
                 <Button className='btn' onClick={this.addStaff}>Daftar</Button>

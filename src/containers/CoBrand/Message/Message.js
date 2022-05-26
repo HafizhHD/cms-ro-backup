@@ -57,7 +57,7 @@ class Message extends React.Component {
                 <form className='form'>
                     <label>User Email</label> <br></br>
                     <input className='input' placeholder=''
-                       ref="email"
+                       ref="email" type="email"
                     ></input>
                     <br></br>
                     <label>Subject</label> 
@@ -70,7 +70,7 @@ class Message extends React.Component {
                     <br></br>
                     <label>Schedule Time</label> 
                     <input className='input' placeholder=''
-                    ref="alamat"></input>
+                    ref="alamat" type="datetime-local"></input>
                     <br></br>
                     <label>Media Type </label> 
                     <input className='input' placeholder='Email / Device'

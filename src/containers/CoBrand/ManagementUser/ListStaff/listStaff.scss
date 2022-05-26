@@ -1,9 +1,9 @@
 .btn {
-  width: 8rem;
+  width: 5rem;
   height: 2rem;
-  margin-left: 3rem;
   background-color: rgb(42, 214, 217);
   border: none;
+  border-radius: 2rem;
 }
 
   .IconAdd {
@@ -45,7 +45,7 @@
 }
 
 tr, td {
-  padding: 1vw;
+  padding: 1rem;
   text-align: left;
 }
 th {
@@ -77,4 +77,8 @@ th {
   height: 2rem;
   border-radius: 2rem;
   margin-right: 1rem;
+}
+
+input {
+  padding: 0.5rem;
 }

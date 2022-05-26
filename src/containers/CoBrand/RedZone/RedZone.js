@@ -14,7 +14,7 @@ function RedZone() {
     const [mapSearch, mapSearchInput] = useState('');
     const [listRedzone, setListRedzone] = useState([])
 
-    // get redzone
+    // get redzone : done
     useEffect(() => {
         // const id = localStorage.getItem('contentSelected');
         // console.log(id);
@@ -41,7 +41,7 @@ function RedZone() {
     }, [])
 
 
-    // add redzone
+    // add redzone : done
     useEffect(() => {
         let params =
         {
@@ -143,7 +143,7 @@ function RedZone() {
                 <div className="RedZone__data">
                     <TableRedZone className="table-col"
                         COLUMNS={Columns}
-                        DATA={Data}
+                        DATA={listRedzone}
                     />
                 </div>
             </div>

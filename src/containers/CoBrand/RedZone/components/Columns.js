@@ -3,37 +3,38 @@ import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
 const Columns = [
     {
         Header: 'No',
-        accessor: 'id'
+        accessor: 'cobrandEmail'
     },
     {
         Header: 'Name',
-        accessor: 'name'
+        accessor: 'placeName'
     },
     {
         Header: 'Location',
         accessor: 'location'
     },
     {
-        Header: 'Geo Tag',
-        Cell: ({row}) => {
-            return row.original.lat + ' '+row.original.lon;
-        }
+        Header: 'Status',
+        accessor: 'redZoneStatus'
+        // Cell: ({row}) => {
+        //     return row.original.lat + ' '+row.original.lon;
+        // }
     },
     {
-        Header: 'Created At',
-        accessor: 'created_at'
+        Header: 'Adress',
+        accessor: 'address'
     },
     {
         Header: 'Action',
         Cell: (row) => (
             <>
-                <button 
+                {/* <button 
                     className="btn_action"
                     onClick={() => console.log(row)}>
                     <div>
                         <FiEye className="btn_action-icon" />
                     </div>
-                </button>
+                </button> */}
                 <button
                     className="btn_action"
                 >

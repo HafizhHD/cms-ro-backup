@@ -4,7 +4,7 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter } from 'react-router-dom';
 import Cobrand from './module/Cobrand/Cobrand';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //redux 
 import {

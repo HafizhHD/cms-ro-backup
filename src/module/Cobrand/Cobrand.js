@@ -33,6 +33,7 @@ const MonitoringStatusAsync = lazy(() => import('./../../containers/CoBrand/Repo
 const ControllingStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
 
 const Message = lazy(() => import('./../../containers/CoBrand/Message/Message'));
+
 const MessageList = lazy(() => import('./../../containers/CoBrand/Message/ListBc/ListBc'));
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));

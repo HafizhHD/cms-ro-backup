@@ -8,7 +8,7 @@ import { Table, Button } from 'react-bootstrap'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
-
+import { Redirect } from 'react-router-dom';
 
 class ListBc extends React.Component {
     constructor(props) {
@@ -17,14 +17,17 @@ class ListBc extends React.Component {
             userData: [],
             kirimforum: [],
             message: [],
-            indexEdit: null
+            indexEdit: null,
+            edit: false,
+            new: null,
+            dataUpdate: [],
+            send: false
 
         }
     }
 
     componentDidMount() {
         this.daftarMessage()
-
     }
 
     daftarMessage = () => {
@@ -40,6 +43,89 @@ class ListBc extends React.Component {
             .catch(error => {
                 console.log(error + 'ini eror LIST DISKUSI');
             });
+    }
+
+    onSave = (index) => {
+        localStorage.setItem('idUser', this.state.message[index]._id)
+        let idkomen = localStorage.getItem('idUser')
+        console.log(idkomen)
+        console.log(this.state.message[index].destination)
+        let params =
+        {
+            whereValues:
+                { _id: idkomen },
+            newKeyValues:
+            {
+                destination: this.refs.email.value ? this.refs.email.value : this.state.message[index].destination,
+                messageSubject: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].messageSubject,
+                messageContent: this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.message[index].messageContent,
+                scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].scheduleTime,
+                mediaType: this.refs.status.value ? this.refs.status.value : this.state.message[index].mediaType,
+            }
+        }
+        axios({
+            method: 'post',
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastUpdate',
+            data: params,
+        })
+            .then(response => {
+                console.log(response.data);
+                console.log(response.data);
+                // alert('Add Broadcast is success')
+                axios({
+                    method: 'post',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+                })
+                    .then(response => {
+                        console.log(response.data.resultData);
+                        console.log(response.data);
+                        this.setState({ message: response.data.resultData })
+                        this.setState({ new: null })
+                        // this.setState({send : true})
+                    })
+                    .catch(error => {
+                        console.log(error + 'ini eror LIST DISKUSI');
+                    });
+            })
+            .catch(error => {
+                console.log(error + 'ini eror edit BC');
+            });
+    }
+    
+    showTableBody = () => {
+        const { qty } = this.state
+        return (
+            <tbody>
+                {this.state.message.map((item, index) => {
+                    if (index == this.state.new) {
+                        return (
+                            <tr key={index}>
+                                <td><input type="text" placeholder={item.mediaType} ref="status"></input></td>
+                                <td><input placeholder={item.scheduleTime} type="datetime-local" ref="alamat"></input></td>
+                                <td><input placeholder={item.destination} ref="email"></input></td>
+                                <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
+                                <td><input placeholder={item.messageContent} ref="deskripsi"></input></td>
+                                <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
+                                <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
+                            </tr>
+                        )
+                    }
+                    return (
+                        <tr key={index}>
+                            <td>{item.mediaType}</td>
+                            <td>{item.scheduleTime}</td>
+                            <td>{item.destination}</td>
+                            <td>{item.messageSubject}</td>
+                            <td>{item.messageContent}</td>
+                            <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
+                            <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
+                        </tr>
+                    )
+                })
+
+                }
+            </tbody>
+        )
     }
 
     onDelete = (index) => {
@@ -81,7 +167,18 @@ class ListBc extends React.Component {
             });
     }
 
+    onEdit(index) {
+        this.setState({ indexEdit: index })
+        this.setState({ new: index })
+        console.log(this.state.indexEdit)
+        console.log(index) //null
+        console.log(this.state.new)
+    }
+
     render() {
+        if (this.state.edit == true) {
+            return <Redirect to="/cms/messaging-edit" />
+        }
         const { indexEdit } = this.state
         return (
             <div className='div'>
@@ -92,7 +189,7 @@ class ListBc extends React.Component {
                 <h1>List Message Broadcast</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
-                        <thead> 
+                        <thead>
                             <tr>
                                 <th>Media</th>
                                 <th>Time</th>
@@ -102,39 +199,7 @@ class ListBc extends React.Component {
                                 <th colSpan={2}>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {/* {console.log(this.state.message)} */}
-                            {this.state.message ? this.state.message.map((item, index) => {
-                                if (indexEdit == index) {
-                                    return (
-                                        <tr>
-                                            <td>{item.mediaType}</td>
-                                            <td>{item._id}</td>
-                                            <td>{item.cobrandEmail}</td>
-                                            <td>{item.subject}</td>
-                                            <td>{item.comment}</td>
-                                            {/* <td><Button variant="danger" className='btn2' onClick={() => onSave(index)}>Save</Button></td>
-                                        <td><Button variant="danger" className='btn' onClick={setIndex(index)}>Cancel</Button></td> */}
-                                        </tr>
-                                    )
-                                }
-                                return (
-                                    <tr>
-                                        <td>{item.mediaType}</td>
-                                        <td>{item.scheduleTime}</td>
-                                        <td>{item.destination}</td>
-                                        <td>{item.messageSubject}</td>
-                                        <td>{item.messageContent}</td>
-                                        {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
-                                        <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
-                                    </tr>
-                                )
-                            })
-                                :
-                                ''
-                            }
-
-                        </tbody>
+                        {this.showTableBody()}
                     </Table>
                 </div>
             </div>

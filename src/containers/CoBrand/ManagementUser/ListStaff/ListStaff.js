@@ -18,7 +18,7 @@ class ListStaff extends React.Component {
             userData: [],
             kirimforum: [],
             listForum: [],
-            // indexEdit: null
+            new: null
 
         }
     }
@@ -39,6 +39,53 @@ class ListStaff extends React.Component {
             .catch(error => {
                 console.log(error + 'ini eror LIST ADMIN');
             });
+    }
+
+    onSave = (index) => {
+        localStorage.setItem('idUser', this.state.listForum[index]._id)
+        let idkomen = localStorage.getItem('idUser')
+        console.log(idkomen)
+        console.log(this.state.listForum[index].userName)
+        let params =
+        {
+            whereValues:
+                { _id: idkomen },
+            newKeyValues:
+            {
+                userName: this.refs.email.value ? this.refs.email.value : this.state.listForum[index].userName,
+                // password: this.refs.tempat.value ? this.refs.tempat.value : this.state.listForum[index].password,
+                userType: this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.listForum[index].userType,
+                cobrandEmail: this.refs.alamat.valu ? this.refs.alamat.value : this.state.listForum[index].cobrandEmail,
+                // userLevel: this.refs.status.value ? this.refs.status.value : this.state.listForum[index].userLevel,
+                emailUser: this.refs.lokasi.value ? this.refs.lokasi.value : this.state.listForum[index].emailUser,
+                phone: this.refs.phone.value ? this.refs.phone.value : this.state.listForum[index].phone,
+            }
+        }
+        axios({
+            method: 'post',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userUpdate',
+            data: params,
+        })
+            .then(response => {
+                console.log(response.data);
+                // alert('Add Broadcast is success')
+                axios({
+                    method: 'post',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
+                })
+                    .then(response => {
+                        console.log(response.data.Data);
+                        this.setState({ listForum: response.data.Data })
+                        this.setState({ new: null })
+                    })
+                    .catch(error => {
+                        console.log(error + 'ini eror LIST ADMIN');
+                    });
+            })
+            .catch(error => {
+                console.log(error + 'ini eror edit cms');
+            });
+
     }
 
     onDelete = (index) => {
@@ -78,6 +125,11 @@ class ListStaff extends React.Component {
                 console.log(error + 'ini delete Cms admin');
             });
     }
+    onEdit(index) {
+        this.setState({ new: index })
+        console.log(index) //null
+        console.log(this.state.new)
+    }
 
     render() {
         const { listForum, indexEdit } = this.state
@@ -92,6 +144,7 @@ class ListStaff extends React.Component {
                     <Table striped bordered hover >
                         <thead>
                             <tr>
+                                <th>Username</th>
                                 <th>User Type</th>
                                 <th className='h-email'>Cobrand Email</th>
                                 <th>Email User</th>
@@ -101,32 +154,32 @@ class ListStaff extends React.Component {
                         </thead>
                         <tbody>
                             {/* {console.log(this.state.listForum)} */}
-                            {this.state.listForum ? this.state.listForum.map((item, index) => {
-                                if (indexEdit == index) {
+                            {this.state.listForum.map((item, index) => {
+                                if (index == this.state.new) {
                                     return (
-                                        <tr>
-                                            <td>{item.userType}</td>
-                                            <td>{item.cobrandEmail}</td>
-                                            <td>{item.subject}</td>
-                                            <td>{item.phone}</td>
-                                            {/* <td><Button variant="danger" className='btn2' onClick={() => onSave(index)}>Save</Button></td>
-                                        <td><Button variant="danger" className='btn' onClick={setIndex(index)}>Cancel</Button></td> */}
+                                        <tr key={index}>
+                                            <td><input placeholder={item.userName} ref="email"></input></td>
+                                            <td><input placeholder={item.userType} ref="deskripsi"></input></td>
+                                            <td><input placeholder={item.cobrandEmail} ref="alamat"></input></td>
+                                            <td><input placeholder={item.emailUser} ref="lokasi"></input></td>
+                                            <td><input placeholder={item.phone} ref="phone"></input></td>
+                                            <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
+                                            <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                                         </tr>
                                     )
                                 }
                                 return (
-                                    <tr>
+                                    <tr key={index}>
+                                        <td>{item.userName}</td>
                                         <td>{item.userType}</td>
                                         <td>{item.cobrandEmail}</td>
                                         <td>{item.emailUser}</td>
                                         <td>{item.phone}</td>
-                                        {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
+                                        <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                                         <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                                     </tr>
                                 )
                             })
-                                :
-                                ''
                             }
 
                         </tbody>
