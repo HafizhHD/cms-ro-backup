@@ -3,11 +3,11 @@ import TablePengguna from '../../../../components/UI/Table/TableWithFilter';
 import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
-import './ControllingStatus.scss';
+import './MonitoringProgram.scss';
 import { getUserList, getModeAsuhList, getDeviceScheduleList, getAppLimitList, getAppDetailList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
 
-const ControllingStatus = () => {
+const MonitoringProgram = () => {
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState();
     const [usageData, setUsageData] = useState();
@@ -156,10 +156,10 @@ const ControllingStatus = () => {
     return (
         <div className="Controlling">
             <Heading
-                headingName="Controlling Status"
+                headingName="Monitoring Content"
                 routes={[
-                    { name: 'Report', path: '/report/controlling-status' },
-                    { name: 'Controlling Status' }
+                    { name: 'Report', path: '/report/monitoring-program' },
+                    { name: 'Monitoring Program' }
                 ]}
             />
             <div className="Controlling_table">
@@ -167,7 +167,7 @@ const ControllingStatus = () => {
                     COLUMNS={columns}
                     DATA={userData}
                     showCheckbox={true}
-                    notifContext={"Status Pembatasan Gadget Anak"}
+                    notifContext={"Status program yang dijalani anak"}
                 />
             </div>
             {/* <MUIDataTable
@@ -179,4 +179,4 @@ const ControllingStatus = () => {
     )
 }
 
-export default ControllingStatus;
+export default MonitoringProgram;

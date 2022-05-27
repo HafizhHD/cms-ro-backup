@@ -1,248 +1,527 @@
 import React, {useState, useEffect} from 'react';
 import './Dashboard.scss';
+import Table from './../../../components/UI/Table/Table'
 import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
+import columns from'./columns';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
+import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
-import { getContentList, getProgramList } from '../../../components/API/filter';
+import { getContentList, getProgramList, getUserList, getAppUsageList } from '../../../components/API/filter';
 import {FaWhatsapp} from 'react-icons/fa'
+
+import StackedChart from './component/StackedChart'
+import BarChart from './component/BarChart'
+import DonutChart from './component/DonutChart'
 
 function Dashboard() {
 
     const [isLoading, setLoading] = useState(true);
-    const [programList, setProgramList] = useState();
-    const [contentList, setContentList] = useState();
-    const [countVariable, setCountVariable] = useState();
+    const [isLoadingSpinner, setLoadingSpinner] = useState(false);
 
-    const [userType, setUserType] = useState('5');
-    const [userRegSelect, setUserRegSelect] = useState('5')
-    const [userReg, setUserReg] = useState(18)
+    const localData = JSON.parse(localStorage.getItem('userData'));
 
-    const [programTotalSelect, setProgramTotalSelect] = useState('5')
-    const [programTotal, setProgramTotal] = useState(123)
+    const absStart = new Date("2021-01-01");
+    const today = new Date();
 
-    const [contentTotalSelect, setContentTotalSelect] = useState('5')
-    const [contentTotal, setContentTotal] = useState(250)
+    const [period, setPeriod] = useState('today');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [userData, setUserData] = useState([]);
+    const [conProgData, setConProgData] = useState([]);
+    const userDataLabel = ["Orangtua", "Anak"];
+    const conProgDataLabel = ["Content", "Program"];
+    const [topUsageData, setTopUsageData] = useState([]);
+    const [topUsageLabel, setTopUsageLabel] = useState([]);
 
-    const [isUpdatingActive, setUpdatingActive] = useState(false);
-
-    const history = useHistory();
-
-    const userData = JSON.parse(localStorage.getItem('userData'));
-
-    const contentView = [250, 209, 125, 23, 9]
-    const programView = [123, 20, 12, 8, 3]
-
-    const programParams = {
-        whereKeyValues: {
-            cobrandEmail: userData.email,
-            status: 'active',
+    const userLabelDummy = ["Orangtua", "Anak"];
+    const conProgLabelDummy = ["Content", "Program"];
+    const topUsageLabelDummy = ["Youtube", "Google", "Facebook", "Twitter", "Chrome", "Telegram", "TikTok", "Mobile Legends", "Chess", "Minecraft"];
+    const notifLabelDummy = ["Pembayaran", "Pemberitahuan", "Promosi", "Laporan"];
+    const topicLabelDummy = ["Agama", "Pendidikan", "Kesehatan", "Keluarga", "Berita Internal", "Berita Nasional", "Berita Dunia", "Informasi Teknologi", "Olah Raga", "Umum"];
+    
+    const userDummy = [
+        {
+            name: "SD",
+            data: [0, 50]
         },
-        orderKeyValues: {
-            startDate: 1
-        }
-    };
-    const contentParams = {
-        whereKeyValues: {
-            cobrandEmail: userData.email,
-            status: 'active'
+        {
+            name: "SMP",
+            data: [0, 121]
         },
-        orderKeyValues: {
-            startDate: 1
+        {
+            name: "SMA",
+            data: [0, 68]
+        },
+        {
+            name: "Parent",
+            data: [250, 0]
+        },
+        {
+            name: "Co-Parent",
+            data: [99, 0]
         }
+    ];
+    const conProgDummy = [{data: [200, 50]}];
+    const topUsageDummy = [500000, 153258, 67384, 53321, 39212, 19030, 4239, 3990, 3218, 1089];
+    const notifDummy = [{data:[100, 231, 8 ,300]}];
+    const topicCountDummy = [{data: [20,
+        230,
+        87,
+        121,
+        66,
+        34,
+        22,
+        312,
+        97,
+        38]}];
+    const topicViewDummy = [{data:[23000,
+        18000,
+        10000,
+        9500,
+        8700,
+        6000,
+        4000,
+        21500,
+        4200,
+        1200]}];
+
+    function retrieveDummy() {
+        setUserData(userDummy);
+        setConProgData(conProgDummy);
+        setTopUsageLabel(topUsageLabelDummy);
+        setTopUsageData(topUsageDummy);
+        setLoadingSpinner(false);
+        setTimeout(() => {setLoading(true)},50);
+        setTimeout(() => {setLoading(false)}, 80);
     }
 
-    useEffect(() => {
-        setLoading(true);
+    const usageStudyLevelDummy = [
+        {"studyLevel": 'SD', "totalChild": 50, "totalChildOver": 35, "avgChildOver": 14, "standardUsage": 10, "totalChildUnder": 15, "avgChildUnder": 8},
+        {"studyLevel": 'SMP', "totalChild": 121, "totalChildOver": 108, "avgChildOver": 16, "standardUsage": 12, "totalChildUnder": 13, "avgChildUnder": 11},
+        {"studyLevel": 'SMA', "totalChild": 68, "totalChildOver": 54, "avgChildOver": 15, "standardUsage": 14, "totalChildUnder": 14, "avgChildUnder": 10},
+    ]
+    
+
+    function retrieveData() {
+        var sd = [0, 0],
+        smp = [0,0],
+        sma = [0,0],
+        parent = [0,0],
+        coparent = [0,0];
 
         let paramUser = {
-            
-        }
-        
-        let countingVariable = {
-            countProgram: 0,
-            countContent: 0
-        }
-        let params1 = {
             whereKeyValues: {
-                cobrandEmail: userData.email
+                packageId: "com.byasia.ruangortu",
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
             },
-            includeThumbnailData: false,
+            orderKeyValues: {
+                nameUser: 1
+            },
             limit: Number.MAX_SAFE_INTEGER
         }
-        let params2 = {
+
+        let paramContent = {
             whereKeyValues: {
-                cobrandEmail: userData.email
+                cobrandEmail: localData.email,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                contentName: 1
             },
             includeContentData: false,
             limit: Number.MAX_SAFE_INTEGER
         }
-        const promiseP = getProgramList(params1);
-        const promiseC = getContentList(params2);
-        Promise.all([promiseP, promiseC]).then(response => {
-            setProgramList(response[0].data.programs);
-            setContentList(response[1].data.contents);
-            countingVariable.countProgram = response[0].data.programs.length;
-            countingVariable.countContent = response[1].data.contents.length;
-            setCountVariable(countingVariable);
-            setLoading(false);
+
+        let paramProgram = {
+            whereKeyValues: {
+                cobrandEmail: localData.email,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                programName: 1
+            },
+            includeThumbnailData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
+        let paramUsage = {
+            whereKeyValues: {
+                dateCreate: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
+        const promiseUser = getUserList(paramUser);
+        const promiseContent = getContentList(paramContent);
+        const promiseProgram = getProgramList(paramProgram);
+        const promiseUsage = getAppUsageList(paramUsage);
+
+        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage]).then(responseAll => {
+            console.log(responseAll[0]);
+            const dataUser = responseAll[0].data.users;
+            // console.log(dataUser);
+            for(var i = 0; i < dataUser.length; i++) {
+                let x = dataUser[i];
+                if(x.userType === 'parent') {
+                    // console.log("Parent email: " + x.parentEmail);
+                    if(x.parentEmail === undefined) parent[0]++;
+                    else coparent[0]++;
+                }
+                else if(x.userType === 'child') {
+                    if(x.childInfo.StudyLevel === 'SD') sd[1]++;
+                    else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
+                    else if(x.childInfo.StudyLevel === 'SMA') sma[1]++;
+                }
+            }
+            const userDataObj = [
+                {
+                    name: "SD",
+                    data: sd
+                },
+                {
+                    name: "SMP",
+                    data: smp
+                },
+                {
+                    name: "SMA",
+                    data: sma
+                },
+                {
+                    name: "Parent",
+                    data: parent
+                },
+                {
+                    name: "Co-Parent",
+                    data: coparent
+                }
+            ]
+            setUserData(userDataObj);
+
+            const contentLength = responseAll[1].data.contents.length;
+            // console.log(responseAll[1].data.contents);
+            // console.log(responseAll[2].data.programs);
+            const programLength = responseAll[2].data.programs.length;
+
+            const dataConProg = [contentLength, programLength];
+            // console.log(dataConProg);
+            const conProgObj = [{
+                data: dataConProg
+            }];
+            setConProgData(conProgObj);
+
+            // console.log(responseAll[3].data);
+
+            const usageData = responseAll[3].data.appUsages;
+            // console.log(usageData);
+            var usageLabel = [], usageFreq = [];
+            for(var i = 0; i < usageData.length; i++) {
+                let x = usageData[i].appUsages;
+                // console.log(x);
+                for(var j = 0; j < x.length; j++) {
+                    let y = x[j];
+                    // console.log(y);
+                    if(y.usageHour !== undefined && y.usageHour.length > 0) {
+                        if(!usageLabel.includes(y.appName)) {
+                            usageLabel.push(y.appName);
+                            usageFreq.push(0);
+                        }
+                        let idx = usageLabel.indexOf(y.appName);
+                        usageFreq[idx] += y.usageHour.length;
+                    }
+                }
+            }
+
+            //1) combine the arrays:
+            var list = [];
+            for (var j = 0; j < usageLabel.length; j++) 
+                list.push({'name': usageLabel[j], 'age': usageFreq[j]});
+
+            //2) sort:
+            list.sort(function(a, b) {
+                return ((a.age < b.age) ? 1 : ((a.age == b.age) ? 0 : -1));
+                //Sort could be modified to, for example, sort on the age 
+                // if the name is the same.
+            });
+
+            //3) separate them back out:
+            for (var k = 0; k < list.length; k++) {
+                usageLabel[k] = list[k].name;
+                usageFreq[k] = list[k].age;
+            }
+            // console.log(usageLabel.slice(0,10));
+            // console.log(usageFreq.slice(0,10));
+
+            setTopUsageData(usageFreq.slice(0,10));
+            setTopUsageLabel(usageLabel.slice(0,10));
+
+            if(isLoading) setLoading(false);
+            else if(isLoadingSpinner) {
+                setLoadingSpinner(false);
+                setLoading(true);
+                setLoading(false);
+            }
         });
-    }, []);
+    }
 
     useEffect(() => {
-        if(userType === '1') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 0
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '2') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 1
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '3') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 5
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '4') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 9
-            }
-            setCountVariable(countingVariable);
-        }
-        else if(userType === '5') {
-            let countingVariable = {
-                countProgram: 1,
-                countContent: 14
-            }
-            setCountVariable(countingVariable);
-        }
+        retrieveData();
 
-        if(userRegSelect === '1') setUserReg(1)
-        else if(userRegSelect === '2') setUserReg(5)
-        else if(userRegSelect === '3') setUserReg(6)
-        else if(userRegSelect === '4') setUserReg(17)
-        else if(userRegSelect === '5') setUserReg(24)
+    }, [, endDate]);
 
-        if(programTotalSelect === '1') setProgramTotal(12)
-        else if(programTotalSelect === '2') setProgramTotal(23)
-        else if(programTotalSelect === '3') setProgramTotal(48)
-        else if(programTotalSelect === '4') setProgramTotal(123)
-        else if(programTotalSelect === '5') setProgramTotal(123)
-
-        if(contentTotalSelect === '1') setContentTotal(contentView[4]*7)
-        else if(contentTotalSelect === '2') setContentTotal(contentView[3]*7)
-        else if(contentTotalSelect === '3') setContentTotal(contentView[2]*7)
-        else if(contentTotalSelect === '4') setContentTotal(contentView[1]*7)
-        else if(contentTotalSelect === '5') setContentTotal(contentView[0]*7)
-
-        setUpdatingActive(false)
-    }, [isUpdatingActive]);
+    useEffect(() => {
+        var changedStartDate = new Date();
+        var changedEndDate = new Date();
+        switch(period) {
+            case 'today':
+                setStartDate(changedStartDate);
+                setEndDate(changedEndDate);
+                break;
+            case 'yesterday': 
+                changedStartDate.setDate(today.getDate() - 1);
+                changedEndDate.setDate(today.getDate() - 1);
+                setStartDate(changedStartDate);
+                setEndDate(changedEndDate);
+                break;
+            case 'week': 
+                changedStartDate.setDate(today.getDate() - 7);
+                setEndDate(today);
+                setStartDate(changedStartDate);
+                break;
+            case 'month': 
+                changedStartDate.setDate(today.getDate() - 30);
+                setEndDate(today);
+                setStartDate(changedStartDate);
+                break;
+            case 'year': 
+                changedStartDate.setDate(today.getDate() - 365);
+                setEndDate(today);
+                setStartDate(changedStartDate);
+                break;
+            case 'all': 
+                setEndDate(today);
+                setStartDate(absStart);
+                break;
+            case 'dummy':
+                retrieveDummy();
+                break;
+            default:
+                break;           
+        }
+    }, [period]);
 
     if(isLoading) {
         return <RKLoader/>
     }
 
     return (
+        <>
+        {isLoadingSpinner ? <RKLoaderSpinner/> : null}
         <div className="Dashboard">
             <div className='div1'>
-                <Heading headingName="YOUR CO-BRAND DATA" />
+                <Heading headingName="DASHBOARD" />
                 <a className='wa2' href='http://wa.me/628119004410' target="_blank"><FaWhatsapp className='whatshap'/> Need Help? Click Here!</a>
+            </div>
+
+            <div className="Dashboard_period">
+                <button className={period === 'today' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('today');
+                    }}>Today</button>
+                <button className={period === 'yesterday' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('yesterday');
+                    }}>Yesterday</button>
+                <button className={period === 'week' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('week');
+                    }}>7 Days</button>
+                <button className={period === 'month' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('month');
+                    }}>30 Days</button>
+                <button className={period === 'year' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('year');
+                    }}>365 Days</button>
+                <button className={period === 'all' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('all');
+                    }}>All Time</button>
+                <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('dummy');
+                    }}>Dummy</button>
             </div>
             
 
             {/* Dashboard Cards  */}
-            <div className="Dashboard__cards">
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
-                        <h3>Programs Added</h3>
-                        <select
-                            name="userTypeProgram">
-                            <option value="1">Today</option>
-                            <option value="2">Last 7 Days</option>
-                            <option value="3">Last 30 Days</option>
-                            <option value="4">Last 365 Days</option>
-                            <option value="5">All Time</option>
-                        </select>
+            <div className="Dashboard_1">
+                <div className="Dashboard_1_cards">
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Populasi User</h3>
+                            </div>
+                            
+
+                            <StackedChart
+                                    data={userData}
+                                    label={userDataLabel}
+                                    height={400}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
-                    <h1>{countVariable.countProgram}</h1>
-                    
-                    
-                    <div className="Dashboard__cards_item-details">
-                        <NavLink to="/program">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Top 10 Apps by Usage</h3>
+                            </div>
+                            
+
+                            <DonutChart
+                                    data={topUsageData}
+                                    label={topUsageLabel}
+                                    width={380}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Jumlah Pageview Content &amp; Program Berdasarkan Topik</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={topicCountDummy}
+                                    label={topicLabelDummy}
+                                    height={400}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>User Population</h3>
+                            </div>
+                            
+
+                            <StackedChart
+                                    data={userData}
+                                    label={userDataLabel}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div> */}
                 </div>
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
-                        <h3>Contents Added</h3>
-                        <select
-                            name="userType"
-                            value={userType}
-                            onChange={(e) => {
-                                console.log('bruh');
-                                console.log(e.currentTarget.value);
-                                setUserType(e.currentTarget.value);
-                                setUpdatingActive(true);
-                            }}>
-                            <option value="1">Today</option>
-                            <option value="2">Last 7 Days</option>
-                            <option value="3">Last 30 Days</option>
-                            <option value="4">Last 365 Days</option>
-                            <option value="5">All Time</option>
-                        </select>
+
+                <div className="Dashboard_1_cards">
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Total Content &amp; Program</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={conProgData}
+                                    label={conProgDataLabel}
+                                    height={200}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
-                    <h1>{countVariable.countContent}</h1>
-                    <div className="Dashboard__cards_item-details">
-                        <NavLink to="/content">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Jumlah Kirim Notifikasi</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={notifDummy}
+                                    label={notifLabelDummy}
+                                    height={350}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
-                        <h3>Total Users Registered</h3>
-                        <select
-                            name="userRegSelect"
-                            value={userRegSelect}
-                            onChange={(e) => {
-                                console.log('bruh');
-                                console.log(e.currentTarget.value);
-                                setUserRegSelect(e.currentTarget.value);
-                                setUpdatingActive(true);
-                            }}>
-                            <option value="1">Today</option>
-                            <option value="2">Last 7 Days</option>
-                            <option value="3">Last 30 Days</option>
-                            <option value="4">Last 365 Days</option>
-                            <option value="5">All Time</option>
-                        </select>
-                    </div>
-                    <h1>{userReg}</h1>
-                    <div className="Dashboard__cards_item-details">
-                        <NavLink to="/">
-                            Lihat Detail <FiArrowRightCircle className="Dashboard__cards_item-icon" />
-                        </NavLink>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Jumlah Pageview Content &amp; Program Berdasarkan Topik</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={topicViewDummy}
+                                    label={topicLabelDummy}
+                                    height={600}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             {/* End Dashboard Cards  */}
 
+            <div className="Dashboard_table">
+                <Table
+                    COLUMNS={columns}
+                    DATA={usageStudyLevelDummy}
+                />
+            </div>
+
             {/* Dashboard Cards  */}
-            <div className="Dashboard__cards">
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
+            {/* <div className="Dashboard_1_cards">
+                <div className="Dashboard_1_cards_item">
+                    <div className="Dashboard_1_cards_item-heading">
                         <h3>Total Program Views</h3>
                         <select
                             name="programTotalSelect"
@@ -263,14 +542,14 @@ function Dashboard() {
                     <h1>{programTotal}</h1>
                     
                     
-                    <div className="Dashboard__cards_item-details">
+                    <div className="Dashboard_1_cards_item-details">
                         <NavLink to="/program">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
+                            <FiArrowRightCircle className="Dashboard_1_cards_item-icon" />
                         </NavLink>
                     </div>
                 </div>
-                <div className="Dashboard__cards_item">
-                    <div className="Dashboard__cards_item-heading">
+                <div className="Dashboard_1_cards_item">
+                    <div className="Dashboard_1_cards_item-heading">
                         <h3>Total Content Views</h3>
                         <select
                             name="contentTotalSelect"
@@ -289,18 +568,19 @@ function Dashboard() {
                         </select>
                     </div>
                     <h1>{contentTotal}</h1>
-                    <div className="Dashboard__cards_item-details">
+                    <div className="Dashboard_1_cards_item-details">
                         <NavLink to="/content">Lihat Detail 
-                            <FiArrowRightCircle className="Dashboard__cards_item-icon" />
+                            <FiArrowRightCircle className="Dashboard_1_cards_item-icon" />
                         </NavLink>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* End Dashboard Cards  */}
 
 
 
         </div>
+        </>
     )
 }
 

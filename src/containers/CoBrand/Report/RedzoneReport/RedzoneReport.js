@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import TablePengguna from '../../../../components/UI/Table/Table';
+import TablePengguna from '../../../../components/UI/Table/TableWithFilter';
 import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
@@ -33,7 +33,7 @@ const RedzoneReport = () => {
         getRedzoneList(params)
         .then(response => {
             console.log(response.data);
-            setRedzoneData(response.data.programs);
+            setRedzoneData(response.data.Data);
             setLoading(false);
         })
         .catch(error => {
@@ -46,7 +46,7 @@ const RedzoneReport = () => {
         return <RKLoader />;
     }
     return (
-        <div className="Program">
+        <div className="Redzone">
             <Heading
                 headingName="Program Report"
                 routes={[
@@ -54,17 +54,17 @@ const RedzoneReport = () => {
                     { name: 'Program Report' }
                 ]}
             />
-            {/* <div className="Pengguna_table">
+            <div className="Redzone_table">
                 <TablePengguna
                     COLUMNS={columns}
-                    DATA={userData}
+                    DATA={redzoneData}
                 />
-            </div> */}
-            <MUIDataTable
+            </div>
+            {/* <MUIDataTable
                 data={redzoneData}
                 columns={columns}
                 options={options}
-            />
+            /> */}
         </div>
     )
 }

@@ -46,6 +46,42 @@ export const getAppUsageList = (query) => axios({
     }
 });
 
+export const getDeviceScheduleList = (query) => axios({
+    method: 'post',
+    url: url + '/user/deviceUsageScheduleFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
+export const getAppLimitList = (query) => axios({
+    method: 'post',
+    url: url + '/user/appUsageLimitFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
+export const getModeAsuhList = (query) => axios({
+    method: 'post',
+    url: url + '/user/childModeAsuhFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
+export const getAppDetailList = (query) => axios({
+    method: 'post',
+    url: url + '/user/appIconFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
 export const getHKBPList = (query) => axios({
     method: 'post',
     url: url + '/cobrand/HKBPDataFilter',

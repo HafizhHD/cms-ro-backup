@@ -1,61 +1,106 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
+import { SelectColumnFilter } from './../../../../components/UI/Table/TableFilter'
 
 
 const Columns = [
     {
-        name: 'No.',
-        options: {
-            filter: false,
-            customBodyRender: (value, meta) => {
-                return (
-                    meta.rowIndex + 1
-                );
-            },
-            setCellProps: () => ({ style: { minWidth: "10px", maxWidth: "10px" }}),
-            setCellHeaderProps: () => ({ style: { minWidth: "10px", maxWidth: "10px" }}),
+        Header: 'No.',
+        id: 'rowNumber',
+        disableFilters: true
+    },
+    {
+        Header: 'Nama Konten',
+        accessor: 'contentName',
+        disableFilters: true
+    },
+    {
+        Header: 'Jenis Konten',
+        accessor: 'contentType',
+        Filter: SelectColumnFilter,
+        filter: 'equals'
+    },
+    {
+        Header: 'Topik Konten',
+        accessor: 'contentPurpose',
+        Filter: SelectColumnFilter,
+        filter: 'equals',
+        Cell: ({row}) => {
+            if(row.index % 3 === 1) return <p>Pendidikan</p>
+            else return <p>Agama</p>
         }
     },
     {
-        label: 'Nama Konten',
-        name: 'contentName',
-        options: {
-            filter: false,
-            sort: true,
+        Header: 'Target Pembaca',
+        accessor: 'contentTarget',
+        Filter: SelectColumnFilter,
+        filter: 'equals',
+        Cell: ({row}) => {
+            return <p>Semua</p>
         }
     },
     {
-        label: 'Jenis Konten',
-        name: 'contentType',
-        options: {
-            filter: true,
-            sort: true,
-        }
+        Header: 'Status',
+        accessor: 'status',
+        Filter: SelectColumnFilter,
+        filter: 'equals'
     },
-    {
-        label: 'Kategori Konten',
-        name: 'contentPurpose',
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        label: 'Target Pembaca',
-        name:'contentTarget',
-        options: {
-            filter: true,
-            sort: true,
-        }
-    },
-    {
-        label: 'Status',
-        name: 'status',
-        options: {
-            filter: true,
-            sort: true,
-        }
-    }
 ];
+
+// const Columns = [
+//     {
+//         name: 'No.',
+//         options: {
+//             filter: false,
+//             customBodyRender: (value, meta) => {
+//                 return (
+//                     meta.rowIndex + 1
+//                 );
+//             },
+//             setCellProps: () => ({ style: { minWidth: "10px", maxWidth: "10px" }}),
+//             setCellHeaderProps: () => ({ style: { minWidth: "10px", maxWidth: "10px" }}),
+//         }
+//     },
+//     {
+//         label: 'Nama Konten',
+//         name: 'contentName',
+//         options: {
+//             filter: false,
+//             sort: true,
+//         }
+//     },
+//     {
+//         label: 'Jenis Konten',
+//         name: 'contentType',
+//         options: {
+//             filter: true,
+//             sort: true,
+//         }
+//     },
+//     {
+//         label: 'Kategori Konten',
+//         name: 'contentPurpose',
+//         options: {
+//             filter: true,
+//             sort: true,
+//         }
+//     },
+//     {
+//         label: 'Target Pembaca',
+//         name:'contentTarget',
+//         options: {
+//             filter: true,
+//             sort: true,
+//         }
+//     },
+//     {
+//         label: 'Status',
+//         name: 'status',
+//         options: {
+//             filter: true,
+//             sort: true,
+//         }
+//     }
+// ];
 
 export default Columns;

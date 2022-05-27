@@ -1,16 +1,10 @@
-.Monitoring {
+.Controlling {
   display: grid;
   grid-template-rows: max-content max-content max-content;
   grid-row-gap: 2rem;
 
   &_mui {
     max-width: 100%;
-  }
-
-  &_datePicker {
-    display:grid;
-    grid-template-columns: max-content max-content max-content;
-    grid-column-gap: 1rem;
   }
 
   &_table {

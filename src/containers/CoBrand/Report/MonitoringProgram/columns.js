@@ -1,6 +1,6 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter, NumberRangeColumnFilter } from './../../../../components/UI/Table/TableFilter'
+import { SelectColumnFilter, NumberRangeColumnFilter } from '../../../../components/UI/Table/TableFilter'
 
 const Columns = [
     {
@@ -20,47 +20,92 @@ const Columns = [
         disableFilters: true
     },
     {
-        Header: 'Sekolah',
-        accessor: 'childInfo.schoolName',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Pendidikan',
-        accessor: 'childInfo.StudyLevel',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Status Lock Screen',
-        accessor:'lockScreenStatus',
+        Header: 'Tahap',
+        accessor: 'stepNumber',
         Filter: SelectColumnFilter,
         filter: 'equals',
         Cell: ({row}) => {
-            if(row.index % 3 === 1) return <p>Off</p>
-            else return <p>On</p>
+            return <p>{row.index % 4 + 1}</p>
+        }
+        
+    },
+    {
+        Header: 'Nama Tahap',
+        accessor: 'stepName',
+        disableFilters: true,
+        Cell: ({row}) => {
+            if(row.index % 4 === 0) return <p>Menghafal Surah Al-Ikhlas</p>
+            else if(row.index % 4 === 1) return <p>Menyempurnakan Gerakan Sholat</p>
+            else if(row.index % 4 === 2) return <p>Membaca Surah An-Nisa</p>
+            else if(row.index % 4 === 3) return <p>Belajar Kaligrafi</p>
         }
     },
     {
-        Header: 'Status Mode Asuh',
-        accessor:'modeAsuh',
+        Header: 'Periode Tahap',
+        accessor: 'stepPeriod',
+        Cell: () => {
+            return <p>18 Mei 2022 - 14 Juni 2022</p>
+        }
+    },
+
+    {
+        Header: 'Respon',
+        accessor: 'response',
         Filter: SelectColumnFilter,
-        filter: 'equals'
+        filter: 'equals',
+        Cell: ({row}) => {
+            if(row.index % 3 === 0) return <p>Kesulitan Melaksanakannya</p>
+            else if(row.index % 3 === 1) return <p>Selesai Dilaksanakan</p>
+            else if(row.index % 3 === 2) return <p>Belum Dilaksanakan</p>
+        }
     },
     {
-        Header: 'Aplikasi yang Diblokir',
-        accessor:'blockedApps',
+        Header: 'Nama Program',
+        accessor: 'programName',
+        disableFilters: true,
+        Cell: ({row}) => {
+            if(row.index % 2 === 0) return <p>Belajar Al-Quran</p>
+            else if(row.index % 2 === 1) return <p>Aktivitas yang Menenangkan Hati</p>
+        }
     },
-    {
-        Header: 'Aplikasi yang Dibatasi',
-        accessor:'limitedApps'
-    },
-    {
-        Header: 'Status Jadwal Penggunaan',
-        accessor:'usageScheduleStatus',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
+    // {
+    //     Header: 'Sekolah',
+    //     accessor: 'childInfo.schoolName',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Pendidikan',
+    //     accessor: 'childInfo.StudyLevel',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Status Lock Screen',
+    //     accessor:'lockScreenStatus',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Status Mode Asuh',
+    //     accessor:'modeAsuh',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Aplikasi yang Diblokir',
+    //     accessor:'blockedApps',
+    // },
+    // {
+    //     Header: 'Aplikasi yang Dibatasi',
+    //     accessor:'limitedApps'
+    // },
+    // {
+    //     Header: 'Status Jadwal Penggunaan',
+    //     accessor:'usageScheduleStatus',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
     // {
     //     label: 'Tgl. Registrasi',
     //     name: 'dateCreated',

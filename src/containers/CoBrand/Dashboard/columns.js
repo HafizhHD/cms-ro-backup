@@ -1,68 +1,56 @@
-//import { Link } from 'react-router-dom';
-import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter } from './../../../../components/UI/Table/TableFilter'
+
 
 const Columns = [
     {
-        Header: 'No.',
-        id: 'rowNumber',
-        accessor: 'emailUser',
-        disableFilters: true
-    },
-    {
-        Header: 'Nama',
-        accessor: 'nameUser',
-        disableFilters: true
-    },
-    {
-        Header: 'Jenis User',
-        accessor: 'userType',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Nama Orangtua',
-        accessor: 'parentName',
-        disableFilters: true
-    },
-    {
-        Header: 'Sekolah',
-        accessor: 'childInfo.schoolName',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
         Header: 'Pendidikan',
-        accessor: 'childInfo.StudyLevel',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Jenis Kelamin',
-        accessor:'gender',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Alamat',
-        accessor:'address',
+        accessor: 'studyLevel',
         disableFilters: true
     },
     {
-        Header: 'Mulai Berlanggan',
-        accessor: 'startSubscription'
+        Header: 'Jumlah Anak',
+        accessor: 'totalChild',
+        disableFilters: true
     },
     {
-        Header: 'Berlanggan Sampai',
-        accessor: 'endSubscription'
+        Header: 'Jumlah Anak Pemakaian Anak Tak Wajar',
+        accessor: 'totalChildOver',
+        disableFilters: true,
+        Cell: ({value}) => {
+            return <p style={{ color: 'red', fontWeight: 'bold' }}>{value}</p>
+        }
     },
-    // {
-    //     label: 'Tgl. Registrasi',
-    //     name: 'dateCreated',
-    //     Cell: ({ value }) => {
-    //         return <p>{value.split('T')[0]}</p>
-    //     }
-    // },
+
+    {
+        Header: 'Rata-Rata Waktu Pemakaian',
+        accessor: 'avgChildOver',
+        disableFilters: true,
+        Cell: ({value}) => {
+            return <p style={{ color: 'red', fontWeight: 'bold' }}>{value}</p>
+        }
+    },
+
+    {
+        Header: 'Standar Waktu Pemakaian Wajar',
+        accessor: 'standardUsage',
+        disableFilters: true
+    },
+
+    {
+        Header: 'Jumlah Anak Pemakaian Anak Wajar',
+        accessor: 'totalChildUnder',
+        disableFilters: true,
+        Cell: ({value}) => {
+            return <p style={{ color: 'blue', fontWeight: 'bold' }}>{value}</p>
+        }
+    },
+    {
+        Header: 'Rata-Rata Waktu Pemakaian',
+        accessor: 'avgChildUnder',
+        disableFilters: true,
+        Cell: ({value}) => {
+            return <p style={{ color: 'blue', fontWeight: 'bold' }}>{value}</p>
+        }
+    },
 ];
 
 // const Columns = [
@@ -84,14 +72,6 @@ const Columns = [
 //         name: 'nameUser',
 //         options: {
 //             filter: false,
-//             sort: true,
-//         }
-//     },
-//     {
-//         label: 'Jenis User',
-//         name: 'userType',
-//         options: {
-//             filter: true,
 //             sort: true,
 //         }
 //     },
@@ -128,32 +108,42 @@ const Columns = [
 //         }
 //     },
 //     {
-//         label: 'Jenis Kelamin',
-//         name:'gender',
+//         label: 'Screen Time Status',
+//         name:'screenTimeStatus',
 //         options: {
 //             filter: true,
 //             sort: true,
 //         }
 //     },
 //     {
-//         label: 'Alamat',
-//         name:'address',
-//         options: {
-//             filter: false,
-//             sort: true,
-//         }
-//     },
-//     {
-//         label: 'Mulai Berlanggan',
-//         name: 'startSubscription',
+//         label: 'Status Mode Asuh',
+//         name:'modeAsuh',
 //         options: {
 //             filter: true,
 //             sort: true,
 //         }
 //     },
 //     {
-//         label: 'Berlanggan Sampai',
-//         name: 'endSubscription',
+//         label: 'Aplikasi yang Diblokir',
+//         name: 'blockedApps',
+//         options: {
+//             filter: true,
+//             sort: true,
+//             filterType: 'textField'
+//         }
+//     },
+//     {
+//         label: 'Aplikasi yang Dibatasi',
+//         name: 'limitedApps',
+//         options: {
+//             filter: true,
+//             sort: true,
+//             filterType: 'textField'
+//         }
+//     },
+//     {
+//         label: 'Status Jadwal Penggunaan',
+//         name: 'usageScheduleStatus',
 //         options: {
 //             filter: true,
 //             sort: true,
