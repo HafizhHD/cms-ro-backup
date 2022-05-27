@@ -33,12 +33,16 @@ const MonitoringStatusAsync = lazy(() => import('./../../containers/CoBrand/Repo
 const ControllingStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
 
 const Message = lazy(() => import('./../../containers/CoBrand/Message/Message'));
-
 const MessageList = lazy(() => import('./../../containers/CoBrand/Message/ListBc/ListBc'));
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
 const Management = lazy(() => import('./../../containers/CoBrand/ManagementUser/ManagementStaff'));
 const listStaff = lazy(() => import('./../../containers/CoBrand/ManagementUser/ListStaff/ListStaff'));
+const addSetting = lazy(() => import('./../../containers/CoBrand/Setting/addSetting/addSetting'));
+const addTopik = lazy(() => import('../../containers/CoBrand/Setting/addSetting/AddAudi'));
+
+const Topik = lazy(() => import('../../containers/CoBrand/Setting/addTopic/topik'));
+const TopikAdd = lazy(() => import('../../containers/CoBrand/Setting/addTopic/AddTopik'));
 
 
 function Cobrand({
@@ -229,6 +233,30 @@ function Cobrand({
                     exact
                     component={SettingAsync}
                 />
+
+                <PrivateRoute
+                    path="/tools/setting-add"
+                    exact
+                    component={addSetting}
+                />
+                <PrivateRoute
+                    path="/tools/setting-addtopik"
+                    exact
+                    component={addTopik}
+                />
+
+                <PrivateRoute
+                    path="/tools/setting-topik"
+                    exact
+                    component={Topik}
+                />
+
+                <PrivateRoute
+                    path="/tools/setting-topik-add"
+                    exact
+                    component={TopikAdd}
+                />
+
 
                 <PrivateRoute
                     exact

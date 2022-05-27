@@ -18,7 +18,7 @@ class ListForum extends React.Component {
             userData: [],
             kirimforum: [],
             listForum: [],
-            // indexEdit: null
+            new: null,
 
         }
     }
@@ -38,6 +38,49 @@ class ListForum extends React.Component {
             })
             .catch(error => {
                 console.log(error + 'ini eror LIST DISKUSI');
+            });
+    }
+
+    onSave = (index) => {
+        localStorage.setItem('idUser', this.state.listForum[index]._id)
+        let idkomen = localStorage.getItem('idUser')
+        console.log(idkomen)
+        console.log(this.state.listForum[index].userEmail)
+        let params =
+        {
+            whereValues:
+                { _id: idkomen },
+            newKeyValues:
+            {
+                // userEmail: this.refs.email.value ? this.refs.email.value : this.state.listForum[index].userEmail,
+                cobrandEmail: this.refs.emailco.value ? this.refs.emailco.value : this.state.listForum[index].cobrandEmail,
+                subject: this.refs.subject.value ? this.refs.subject.value : this.state.listForum[index].subject,
+                comment: this.refs.comment.value ? this.refs.comment.value : this.state.listForum[index].comment,
+            }
+        }
+        axios({
+            method: 'post',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumUpdate',
+            data: params,
+        })
+            .then(response => {
+                console.log(response.data);
+                // alert('Add Broadcast is success')
+                axios({
+                    method: 'post',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumFilter',
+                })
+                    .then(response => {
+                        console.log(response.data.Data);
+                        this.setState({ listForum: response.data.Data })
+                        this.setState({ new: null })
+                    })
+                    .catch(error => {
+                        console.log(error + 'ini eror LIST DISKUSI');
+                    });
+            })
+            .catch(error => {
+                console.log(error + 'ini eror edit BC');
             });
     }
 
@@ -79,6 +122,11 @@ class ListForum extends React.Component {
             });
     }
 
+    onEdit(index) {
+        this.setState({ new: index })
+        console.log(index) //null
+        console.log(this.state.new)
+    }
     render() {
         const { listForum, indexEdit } = this.state
         return (
@@ -102,15 +150,15 @@ class ListForum extends React.Component {
                         <tbody>
                             {/* {console.log(this.state.listForum)} */}
                             {this.state.listForum ? this.state.listForum.map((item, index) => {
-                                if (indexEdit == index) {
+                                if (index == this.state.new) {
                                     return (
                                         <tr>
                                             <td>{item._id}</td>
-                                            <td>{item.cobrandEmail}</td>
-                                            <td>{item.subject}</td>
-                                            <td>{item.comment}</td>
-                                            {/* <td><Button variant="danger" className='btn2' onClick={() => onSave(index)}>Save</Button></td>
-                                        <td><Button variant="danger" className='btn' onClick={setIndex(index)}>Cancel</Button></td> */}
+                                            <td><input placeholder={item.cobrandEmail} ref="emailco"></input></td>
+                                            <td><input placeholder={item.subject} ref="subject"></input></td>
+                                            <td><input placeholder={item.comment} ref="comment"></input></td>
+                                            <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
+                                            <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                                         </tr>
                                     )
                                 }
@@ -120,7 +168,7 @@ class ListForum extends React.Component {
                                         <td>{item.cobrandEmail}</td>
                                         <td>{item.subject}</td>
                                         <td>{item.comment}</td>
-                                        {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
+                                        <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                                         <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                                     </tr>
                                 )

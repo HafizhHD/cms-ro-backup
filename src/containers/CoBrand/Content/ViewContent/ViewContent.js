@@ -18,7 +18,8 @@ function ViewContent() {
     const [isActive, setActive] = useState(true);
     const [komentar, setKomen] = useState();
     const [del, setDel] = useState(false);
-    const [indexEdit, setIndex] = useState(null)
+    const [indexEdit, setIndex] = useState(null);
+    const [newi, setNewi] = useState(null);
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -176,25 +177,10 @@ function ViewContent() {
 
     // useEffect((index) => {
         function onEdit(index) {
-            localStorage.setItem('idUser', komentar[index]._id)
-            let idkomen = localStorage.getItem('idUser')
-            setIndex({ indexEdit : idkomen })
-            console.log(idkomen)
-            console.log(indexEdit)
+            setNewi( {newi : index})
+            console.log(index) //null
+            console.log(newi)
         }
-    // },[])
-    
-        // return (
-        //     <tr>
-        //         <td>{komentar[index].emailUser}</td>
-        //         <td>{komentar[index].status}</td>
-        //         <td><input>{komentar[index].comment}</input> </td>
-        //         <td>{komentar[index].dateCreated}</td>
-        //         <td><Button variant="danger" className='btn2' >Save</Button></td>
-        //         <td><Button variant="danger" className='btn' onClick={setIndex(null)}>Cancel</Button></td>
-        //     </tr>
-        // )
-    
 
 
     if (isLoading) {
@@ -314,6 +300,7 @@ function ViewContent() {
                 </div>
             </div>
             <div className='komentar'>
+                <Button>Komentar</Button>
                 <h1 >Komentar</h1>
                 <Table striped bordered hover >
                     <thead>
@@ -329,13 +316,12 @@ function ViewContent() {
                         {console.log(komentar)}
                         {komentar ? komentar.map((item, index) => {
                             console.log(item._id)
-                            if (indexEdit == index) {
+                            if (index == newi) {
                                 return (
-                                    
                                     <tr>
                                         <td>{item.emailUser}</td>
-                                        <td>{item.status}</td>
-                                        <td><input>{item.comment}</input></td>
+                                        <td><input placeholder={item.status}></input></td>
+                                        <td><input placeholder={item.comment}></input></td>
                                         <td>{item.dateCreated}</td>
                                         <td><Button variant="danger" className='btn2' >Save</Button></td>
                                         <td><Button variant="danger" className='btn' onClick={setIndex(null)}>Cancel</Button></td>
@@ -348,7 +334,7 @@ function ViewContent() {
                                     <td>{item.status}</td>
                                     <td>{item.comment}</td>
                                     <td>{item.dateCreated}</td>
-                                    {/* <td><Button variant="danger" className='btn2' onClick={() => setIndex(item._id)}>Edit</Button></td> */}
+                                    <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td>
                                     <td><Button variant="danger" className='btn' type='submit' onClick={() => onDelete(index)}>Delete</Button></td>
                                 </tr>
                             )

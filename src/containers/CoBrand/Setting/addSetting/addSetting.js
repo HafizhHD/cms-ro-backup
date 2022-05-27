@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 // import InputComponent from '../../../../components/UI/Input/Input';
-import './listBc.scss'
+import './addset.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap'
@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
 
-class ListBc extends React.Component {
+class AddSetting extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -33,40 +33,37 @@ class ListBc extends React.Component {
     daftarMessage = () => {
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetFilter',
         })
             .then(response => {
-                console.log(response.data.resultData);
-                console.log(response.data);
-                this.setState({ message: response.data.resultData })
+                console.log(response.data.Data);
+                this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST DISKUSI');
+                console.log(error + 'ini eror LIST AUDIENCE');
             });
     }
 
+    // masih bug di save
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
         console.log(idkomen)
-        console.log(this.state.message[index].destination)
+        console.log(this.state.message[index].audianceName)
         let params =
         {
             whereValues:
                 { _id: idkomen },
             newKeyValues:
             {
-                destination: this.refs.email.value ? this.refs.email.value : this.state.message[index].destination,
-                messageSubject: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].messageSubject,
-                messageContent: this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.message[index].messageContent,
-                scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].scheduleTime,
-                mediaType: this.refs.status.value ? this.refs.status.value : this.state.message[index].mediaType,
-            
+                audianceName: this.refs.email.value ? this.refs.email.value : this.state.message[index].audianceName,
+                dateCreated: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].dateCreated
+
             }
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastUpdate',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetUpdate',
             data: params,
         })
             .then(response => {
@@ -75,17 +72,15 @@ class ListBc extends React.Component {
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetFilter',
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
-                        console.log(response.data);
-                        this.setState({ message: response.data.resultData })
-                        this.setState({ new: null })
-                        // this.setState({send : true})
+                        console.log(response.data.Data);
+                        this.setState({ message: response.data.Data })
+                        this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST DISKUSI');
+                        console.log(error + 'ini eror LIST AUDIENCE');
                     });
             })
             .catch(error => {
@@ -101,11 +96,11 @@ class ListBc extends React.Component {
                     if (index == this.state.new) {
                         return (
                             <tr key={index}>
-                                <td><input type="text" placeholder={item.mediaType} ref="status"></input></td>
-                                <td><input placeholder={item.scheduleTime} type="datetime-local" ref="alamat"></input></td>
-                                <td><input placeholder={item.destination} ref="email"></input></td>
-                                <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
-                                <td><input placeholder={item.messageContent} ref="deskripsi"></input></td>
+                                <td><input type="text" placeholder={item._id} ref="status"></input></td>
+                                <td><input placeholder={item.audianceName}  ref="alamat"></input></td>
+                                <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
+                                {/* <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
+                                <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
                                 <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
@@ -113,11 +108,11 @@ class ListBc extends React.Component {
                     }
                     return (
                         <tr key={index}>
-                            <td>{item.mediaType}</td>
-                            <td>{item.scheduleTime}</td>
-                            <td>{item.destination}</td>
-                            <td>{item.messageSubject}</td>
-                            <td>{item.messageContent}</td>
+                            <td>{item._id}</td>
+                            <td>{item.audianceName}</td>
+                            <td>{item.dateCreated}</td>
+                            {/* <td>{item.messageSubject}</td>
+                            <td>{item.messageContent}</td> */}
                             <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                             <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
@@ -142,7 +137,7 @@ class ListBc extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastRemove',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetRemove',
             data: params,
             headers: {
                 'Content-Type': 'application/json',
@@ -153,14 +148,14 @@ class ListBc extends React.Component {
                 console.log(response.data);
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetFilter',
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
-                        this.setState({ message: response.data.resultData })
+                        console.log(response.data.Data);
+                        this.setState({ message: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST BC');
+                        console.log(error + 'ini eror LIST AUDIENCE');
                     });
             })
             .catch(error => {
@@ -183,20 +178,20 @@ class ListBc extends React.Component {
         const { indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/cms/messaging-add" id="add_content">
+                <NavLink to="/tools/setting-addtopik" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Notification</span>
+                    <span>Create New Audience</span>
                 </NavLink>
-                <h1>List Notification</h1>
+                <h1>List Audience</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>Media</th>
-                                <th>Time</th>
-                                <th className='h-email'>Email</th>
-                                <th>Subject</th>
-                                <th>Message</th>
+                                <th>id</th>
+                                <th>Audience Name</th>
+                                <th className='h-email'>Date Create</th>
+                                {/* <th>Subject</th>
+                                <th>Message</th> */}
                                 <th colSpan={2}>Action</th>
                             </tr>
                         </thead>
@@ -208,6 +203,6 @@ class ListBc extends React.Component {
     }
 }
 
-export default ListBc
+export default AddSetting
 
 

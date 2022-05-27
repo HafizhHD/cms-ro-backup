@@ -9,6 +9,7 @@ import { toBase64 } from '../../../helpers/fileHelper/fileHelper';
 import { editProfile } from '../../../store/actions/dashboard';
 import { Card, CardImg, Button, Modal } from 'react-bootstrap';
 import './Setting.scss';
+import { Redirect } from 'react-router-dom';
 // import { toBase64} from './helper'
 
 function Setting({
@@ -19,6 +20,8 @@ function Setting({
     const [photoRaw, setPhotoRaw] = useState();
     // const [coverRaw, setCoverRaw] = useState();
     const [cover, setCover] = useState();
+    const [add, setAdd] = useState(false);
+    const [topic, setTopic] = useState(false);
     const [photoPreview, setPhotoPreview] = useState(userData.thumbnail);
 
     useEffect(() => {
@@ -44,6 +47,12 @@ function Setting({
     if(isLoading) {
         return <RKLoader/>;
     }
+    else if (add == true) {
+        return <Redirect to="/tools/setting-add" />
+    }
+    else if (topic == true) {
+        return <Redirect to="/tools/setting-topik" />
+    }
     return (
         <div className="Setting">
             <Heading 
@@ -52,6 +61,8 @@ function Setting({
                     { name: 'Setting' }
                 ]}
             />
+            <Button className='add' onClick={() => setAdd(true)}>Target Audience</Button>
+            <Button className='add' onClick={() => setTopic(true)}>Topic Content</Button>
             <div className="Setting_card mt-medium">
                 <div className="Setting_card_inputs">
                     <h2>Edit Account</h2>
