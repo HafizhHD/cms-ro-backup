@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import './Dashboard.scss';
+import Table from './../../../components/UI/Table/Table'
 import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';
 import axios from 'axios';
+import columns from'./columns';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
-import { getContentList, getProgramList, getUserList } from '../../../components/API/filter';
+import { getContentList, getProgramList, getUserList, getAppUsageList } from '../../../components/API/filter';
 import {FaWhatsapp} from 'react-icons/fa'
 
 import StackedChart from './component/StackedChart'
 import BarChart from './component/BarChart'
+import DonutChart from './component/DonutChart'
 
 function Dashboard() {
 
@@ -28,8 +31,79 @@ function Dashboard() {
     const [endDate, setEndDate] = useState(new Date());
     const [userData, setUserData] = useState([]);
     const [conProgData, setConProgData] = useState([]);
-    const userDataLabel = ["Parent", "Child"];
+    const userDataLabel = ["Orangtua", "Anak"];
     const conProgDataLabel = ["Content", "Program"];
+    const [topUsageData, setTopUsageData] = useState([]);
+    const [topUsageLabel, setTopUsageLabel] = useState([]);
+
+    const userLabelDummy = ["Orangtua", "Anak"];
+    const conProgLabelDummy = ["Content", "Program"];
+    const topUsageLabelDummy = ["Youtube", "Google", "Facebook", "Twitter", "Chrome", "Telegram", "TikTok", "Mobile Legends", "Chess", "Minecraft"];
+    const notifLabelDummy = ["Pembayaran", "Pemberitahuan", "Promosi", "Laporan"];
+    const topicLabelDummy = ["Agama", "Pendidikan", "Kesehatan", "Keluarga", "Berita Internal", "Berita Nasional", "Berita Dunia", "Informasi Teknologi", "Olah Raga", "Umum"];
+    
+    const userDummy = [
+        {
+            name: "SD",
+            data: [0, 50]
+        },
+        {
+            name: "SMP",
+            data: [0, 121]
+        },
+        {
+            name: "SMA",
+            data: [0, 68]
+        },
+        {
+            name: "Parent",
+            data: [250, 0]
+        },
+        {
+            name: "Co-Parent",
+            data: [99, 0]
+        }
+    ];
+    const conProgDummy = [{data: [200, 50]}];
+    const topUsageDummy = [500000, 153258, 67384, 53321, 39212, 19030, 4239, 3990, 3218, 1089];
+    const notifDummy = [{data:[100, 231, 8 ,300]}];
+    const topicCountDummy = [{data: [20,
+        230,
+        87,
+        121,
+        66,
+        34,
+        22,
+        312,
+        97,
+        38]}];
+    const topicViewDummy = [{data:[23000,
+        18000,
+        10000,
+        9500,
+        8700,
+        6000,
+        4000,
+        21500,
+        4200,
+        1200]}];
+
+    function retrieveDummy() {
+        setUserData(userDummy);
+        setConProgData(conProgDummy);
+        setTopUsageLabel(topUsageLabelDummy);
+        setTopUsageData(topUsageDummy);
+        setLoadingSpinner(false);
+        setTimeout(() => {setLoading(true)},50);
+        setTimeout(() => {setLoading(false)}, 80);
+    }
+
+    const usageStudyLevelDummy = [
+        {"studyLevel": 'SD', "totalChild": 50, "totalChildOver": 35, "avgChildOver": 14, "standardUsage": 10, "totalChildUnder": 15, "avgChildUnder": 8},
+        {"studyLevel": 'SMP', "totalChild": 121, "totalChildOver": 108, "avgChildOver": 16, "standardUsage": 12, "totalChildUnder": 13, "avgChildUnder": 11},
+        {"studyLevel": 'SMA', "totalChild": 68, "totalChildOver": 54, "avgChildOver": 15, "standardUsage": 14, "totalChildUnder": 14, "avgChildUnder": 10},
+    ]
+    
 
     function retrieveData() {
         var sd = [0, 0],
@@ -82,17 +156,29 @@ function Dashboard() {
             limit: Number.MAX_SAFE_INTEGER
         }
 
+        let paramUsage = {
+            whereKeyValues: {
+                dateCreate: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
         const promiseUser = getUserList(paramUser);
         const promiseContent = getContentList(paramContent);
         const promiseProgram = getProgramList(paramProgram);
+        const promiseUsage = getAppUsageList(paramUsage);
 
-        Promise.all([promiseUser, promiseContent, promiseProgram]).then(responseAll => {
+        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage]).then(responseAll => {
+            console.log(responseAll[0]);
             const dataUser = responseAll[0].data.users;
-            console.log(dataUser);
+            // console.log(dataUser);
             for(var i = 0; i < dataUser.length; i++) {
                 let x = dataUser[i];
                 if(x.userType === 'parent') {
-                    console.log("Parent email: " + x.parentEmail);
+                    // console.log("Parent email: " + x.parentEmail);
                     if(x.parentEmail === undefined) parent[0]++;
                     else coparent[0]++;
                 }
@@ -127,16 +213,61 @@ function Dashboard() {
             setUserData(userDataObj);
 
             const contentLength = responseAll[1].data.contents.length;
-            console.log(responseAll[1].data.contents);
-            console.log(responseAll[2].data.programs);
+            // console.log(responseAll[1].data.contents);
+            // console.log(responseAll[2].data.programs);
             const programLength = responseAll[2].data.programs.length;
 
             const dataConProg = [contentLength, programLength];
-            console.log(dataConProg);
+            // console.log(dataConProg);
             const conProgObj = [{
                 data: dataConProg
             }];
             setConProgData(conProgObj);
+
+            // console.log(responseAll[3].data);
+
+            const usageData = responseAll[3].data.appUsages;
+            // console.log(usageData);
+            var usageLabel = [], usageFreq = [];
+            for(var i = 0; i < usageData.length; i++) {
+                let x = usageData[i].appUsages;
+                // console.log(x);
+                for(var j = 0; j < x.length; j++) {
+                    let y = x[j];
+                    // console.log(y);
+                    if(y.usageHour !== undefined && y.usageHour.length > 0) {
+                        if(!usageLabel.includes(y.appName)) {
+                            usageLabel.push(y.appName);
+                            usageFreq.push(0);
+                        }
+                        let idx = usageLabel.indexOf(y.appName);
+                        usageFreq[idx] += y.usageHour.length;
+                    }
+                }
+            }
+
+            //1) combine the arrays:
+            var list = [];
+            for (var j = 0; j < usageLabel.length; j++) 
+                list.push({'name': usageLabel[j], 'age': usageFreq[j]});
+
+            //2) sort:
+            list.sort(function(a, b) {
+                return ((a.age < b.age) ? 1 : ((a.age == b.age) ? 0 : -1));
+                //Sort could be modified to, for example, sort on the age 
+                // if the name is the same.
+            });
+
+            //3) separate them back out:
+            for (var k = 0; k < list.length; k++) {
+                usageLabel[k] = list[k].name;
+                usageFreq[k] = list[k].age;
+            }
+            // console.log(usageLabel.slice(0,10));
+            // console.log(usageFreq.slice(0,10));
+
+            setTopUsageData(usageFreq.slice(0,10));
+            setTopUsageLabel(usageLabel.slice(0,10));
 
             if(isLoading) setLoading(false);
             else if(isLoadingSpinner) {
@@ -184,6 +315,9 @@ function Dashboard() {
             case 'all': 
                 setEndDate(today);
                 setStartDate(absStart);
+                break;
+            case 'dummy':
+                retrieveDummy();
                 break;
             default:
                 break;           
@@ -234,6 +368,11 @@ function Dashboard() {
                         setLoadingSpinner(true);
                         setPeriod('all');
                     }}>All Time</button>
+                <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        setLoadingSpinner(true);
+                        setPeriod('dummy');
+                    }}>Dummy</button>
             </div>
             
 
@@ -243,13 +382,49 @@ function Dashboard() {
                     <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>User Population</h3>
+                                <h3>Populasi User</h3>
                             </div>
                             
 
                             <StackedChart
                                     data={userData}
                                     label={userDataLabel}
+                                    height={400}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Top 10 Apps by Usage</h3>
+                            </div>
+                            
+
+                            <DonutChart
+                                    data={topUsageData}
+                                    label={topUsageLabel}
+                                    width={380}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Jumlah Pageview Content &amp; Program Berdasarkan Topik</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={topicCountDummy}
+                                    label={topicLabelDummy}
                                     height={400}
                             />
                             
@@ -296,26 +471,52 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="Dashboard_1_cards_card">
+                    <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>User Population</h3>
+                                <h3>Jumlah Kirim Notifikasi</h3>
                             </div>
                             
 
-                            <StackedChart
-                                    data={userData}
-                                    label={userDataLabel}
+                            <BarChart
+                                    data={notifDummy}
+                                    label={notifLabelDummy}
+                                    height={350}
                             />
                             
                             <div className="Dashboard_1_cards_card_item-details">
                                 <p> </p>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
+                    <div className="Dashboard_1_cards_card">
+                        <div className="Dashboard_1_cards_card_item">
+                            <div className="Dashboard_1_cards_card_item-heading">
+                                <h3>Jumlah Pageview Content &amp; Program Berdasarkan Topik</h3>
+                            </div>
+                            
+
+                            <BarChart
+                                    data={topicViewDummy}
+                                    label={topicLabelDummy}
+                                    height={600}
+                            />
+                            
+                            <div className="Dashboard_1_cards_card_item-details">
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {/* End Dashboard Cards  */}
+
+            <div className="Dashboard_table">
+                <Table
+                    COLUMNS={columns}
+                    DATA={usageStudyLevelDummy}
+                />
+            </div>
 
             {/* Dashboard Cards  */}
             {/* <div className="Dashboard_1_cards">

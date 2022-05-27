@@ -104,6 +104,12 @@ const MonitoringStatus = () => {
                     userDataChild[i]['screenTimeSocialMedia'] = (socialUsage[i] / 3600000).toFixed(1);
                     userDataChild[i]['screenTimeGames'] = (gamesUsage[i] / 3600000).toFixed(1);
                     userDataChild[i]['screenTimeVideo'] = (videoUsage[i] / 3600000).toFixed(1);
+
+                    console.log(userDataChild[i]['screenTime']);
+
+                    //10 adalah batas penggunaan yang ditentukan cobrand
+                    if(userDataChild[i]['screenTime'] > 10) userDataChild[i]['screenTimeStatus'] = "Tidak Wajar";
+                    else userDataChild[i]['screenTimeStatus'] = "Wajar";
                 }
                 setUserData(userDataChild);
                 setLoading(false);

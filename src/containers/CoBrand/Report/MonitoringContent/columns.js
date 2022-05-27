@@ -1,8 +1,6 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter, NumberRangeColumnFilter } from './../../../../components/UI/Table/TableFilter'
-import { FiEye } from 'react-icons/fi';
-import { NavLink } from 'react-router-dom'
+import { SelectColumnFilter, NumberRangeColumnFilter } from '../../../../components/UI/Table/TableFilter'
 
 const Columns = [
     {
@@ -22,71 +20,63 @@ const Columns = [
         disableFilters: true
     },
     {
-        Header: 'Sekolah',
-        accessor: 'childInfo.schoolName',
+        Header: 'Nama Konten',
+        accessor: 'contentName',
+        disableFilters: true,
+        Cell: ({row}) => {
+            if(row.index % 3 === 0) return <p>5 Langkah Menguasai Ujian Nasional</p>
+            else if(row.index % 3 === 1) return <p>Cara Cepat Menghafal Al-Quran</p>
+            else if(row.index % 3 === 2) return <p>Inilah Sosok Terkenal yang Mahir Berbahasa Arab</p>
+        }
+    },
+    {
+        Header: 'Respon',
+        accessor: 'response',
         Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Pendidikan',
-        accessor: 'childInfo.StudyLevel',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Average Screen Time (Hours)',
-        accessor:'screenTime',
-        Filter: NumberRangeColumnFilter,
-        filter: 'between'
-    },
-    {
-        Header: 'Status Screen Time',
-        accessor:'screenTimeStatus',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Social Media (Hours)',
-        accessor:'screenTimeSocialMedia',
-        Filter: NumberRangeColumnFilter,
-        filter: 'between'
-    },
-    {
-        Header: 'Games (Hours)',
-        accessor:'screenTimeGames',
-        Filter: NumberRangeColumnFilter,
-        filter: 'between'
-    },
-    {
-        Header: 'Video (Hours)',
-        accessor:'screenTimeVideo',
-        Filter: NumberRangeColumnFilter,
-        filter: 'between'
-    },
-
-    {
-        Header: 'Status Controlling',
-        id: 'buttonStatus',
-        disableSortBy: true,
-        disableGlobalFilter: true,
-        Cell: ({cell}) => (
-            <>
-                <NavLink
-                    to="/report/controlling-status"
-                    className="nav_btn"
-                    title="Go to Controlling Status"
-                >
-                <button 
-                    className="btn_action"
-                >
-                    <div>
-                        <FiEye className="btn_action-icon" />
-                    </div>
-                </button>
-                </NavLink>
-            </>
-        )
+        filter: 'equals',
+        Cell: ({row}) => {
+            if(row.index % 2 === 0) return <p>Dibaca</p>
+            else if(row.index % 2 === 1) return <p>Disukai</p>
+        }
     }
+    // {
+    //     Header: 'Sekolah',
+    //     accessor: 'childInfo.schoolName',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Pendidikan',
+    //     accessor: 'childInfo.StudyLevel',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Status Lock Screen',
+    //     accessor:'lockScreenStatus',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Status Mode Asuh',
+    //     accessor:'modeAsuh',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
+    // {
+    //     Header: 'Aplikasi yang Diblokir',
+    //     accessor:'blockedApps',
+    // },
+    // {
+    //     Header: 'Aplikasi yang Dibatasi',
+    //     accessor:'limitedApps'
+    // },
+    // {
+    //     Header: 'Status Jadwal Penggunaan',
+    //     accessor:'usageScheduleStatus',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    // },
     // {
     //     label: 'Tgl. Registrasi',
     //     name: 'dateCreated',
@@ -151,34 +141,44 @@ const Columns = [
 //         }
 //     },
 //     {
-//         label: 'Total Screen Time (Hours)',
-//         name:'screenTime',
+//         label: 'Screen Time Status',
+//         name:'screenTimeStatus',
 //         options: {
-//             filter: false,
+//             filter: true,
 //             sort: true,
 //         }
 //     },
 //     {
-//         label: 'Social Media (Hours)',
-//         name:'screenTimeSocialMedia',
+//         label: 'Status Mode Asuh',
+//         name:'modeAsuh',
 //         options: {
-//             filter: false,
+//             filter: true,
 //             sort: true,
 //         }
 //     },
 //     {
-//         label: 'Games (Hours)',
-//         name: 'screenTimeGames',
+//         label: 'Aplikasi yang Diblokir',
+//         name: 'blockedApps',
 //         options: {
-//             filter: false,
+//             filter: true,
 //             sort: true,
+//             filterType: 'textField'
 //         }
 //     },
 //     {
-//         label: 'Video (Hours)',
-//         name: 'screenTimeVideo',
+//         label: 'Aplikasi yang Dibatasi',
+//         name: 'limitedApps',
 //         options: {
-//             filter: false,
+//             filter: true,
+//             sort: true,
+//             filterType: 'textField'
+//         }
+//     },
+//     {
+//         label: 'Status Jadwal Penggunaan',
+//         name: 'usageScheduleStatus',
+//         options: {
+//             filter: true,
 //             sort: true,
 //         }
 //     },

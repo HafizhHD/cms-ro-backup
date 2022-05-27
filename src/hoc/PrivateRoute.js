@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import RKLoader from './../components/UI/RKLoaderInner/RKLoader'
 
 const PrivateRoute = ({ component: Comp, isLogin,  ...rest }) => {
 
@@ -9,7 +10,7 @@ const PrivateRoute = ({ component: Comp, isLogin,  ...rest }) => {
             {...rest}
             render={props => 
                 isLogin ? (
-                    <Suspense fallback={<p>Loading...</p>}>
+                    <Suspense fallback={<RKLoader/>}>
                         <Comp {...props} />
                     </Suspense>
                 ) : (

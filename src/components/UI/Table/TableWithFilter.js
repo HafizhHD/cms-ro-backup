@@ -8,6 +8,8 @@ import { CSVLink, CSVDownload } from "react-csv";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
+import { FaFilePdf, FaTable, FaBell } from "react-icons/fa";
+
 function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = false, notifContext = '' }) {
     const filterTypes = React.useMemo(
         () => ({
@@ -124,7 +126,8 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
             console.log(currentRecords[i].cells);
             for (var colIndex = 0; colIndex < currentRecords[i].cells.length; colIndex++) {
                 if(currentRecords[i].cells[colIndex].column.id !== 'rowNumber' &&
-                currentRecords[i].cells[colIndex].column.id !== 'selection') {
+                currentRecords[i].cells[colIndex].column.id !== 'selection' &&
+                currentRecords[i].cells[colIndex].column.id !== 'buttonStatus') {
                     record_to_download[currentRecords[i].cells[colIndex].column.Header] =
                     currentRecords[i].cells[colIndex].value;
                 }
@@ -166,9 +169,9 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
     return (
         <>
         <div className="tools">
-            <button><CSVLink data={downloadAsCSV()}>Download as CSV</CSVLink></button>
-            <button onClick={downloadAsPDF}>Download as PDF</button>
-            {selectedFlatRows.length > 0 ? (<NavLink to='/cms/messaging-add' onClick={() => {
+            <button className="btn_tools"><FaTable/> <CSVLink data={downloadAsCSV()}>Download as CSV</CSVLink></button>
+            <button className="btn_tools" onClick={downloadAsPDF}><FaFilePdf/> Download as PDF</button>
+            {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = '';
@@ -179,7 +182,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     }
                     localStorage.setItem('emailTo', stringEmail);
                     console.log(localStorage.getItem('emailTo'));
-                }}>Send Notifications</NavLink>
+                }}>Send Notifications</NavLink></button>
              ) : null}
         </div>
         <div className="utils">
