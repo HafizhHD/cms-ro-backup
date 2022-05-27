@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 // import InputComponent from '../../../../components/UI/Input/Input';
-import './topikset.scss'
+import './kateset.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap'
@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
 
-class ListTopik extends React.Component {
+class ListKategoriProgram extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -33,14 +33,14 @@ class ListTopik extends React.Component {
     daftarMessage = () => {
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicFilter',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryFilter',
         })
             .then(response => {
                 console.log(response.data.Data);
                 this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST Topic');
+                console.log(error + 'ini eror LIST kate program');
             });
     }
 
@@ -49,21 +49,21 @@ class ListTopik extends React.Component {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
         console.log(idkomen)
-        console.log(this.state.message[index].topicName)
+        console.log(this.state.message[index].category)
         let params =
         {
             whereValues:
                 { _id: idkomen },
             newKeyValues:
             {
-                topicName: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].topicName,
-                dateCreated: this.refs.email.value ? this.refs.email.value : this.state.message[index].dateCreated
-
+                category: this.refs.category.value ? this.refs.category.value : this.state.message[index].category,
+                dateCreated: this.refs.email.value ? this.refs.email.value : this.state.message[index].dateCreated,
+                description: this.refs.description.value ? this.refs.description.value : this.state.message[index].description,
             }
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicUpdate',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryUpdate',
             data: params,
         })
             .then(response => {
@@ -72,7 +72,7 @@ class ListTopik extends React.Component {
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryFilter',
                 })
                     .then(response => {
                         console.log(response.data.Data);
@@ -80,11 +80,11 @@ class ListTopik extends React.Component {
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST Topic');
+                        console.log(error + 'ini eror LIST kate program');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit topic');
+                console.log(error + 'ini eror edit kate program');
             });
     }
     
@@ -98,10 +98,10 @@ class ListTopik extends React.Component {
                             <tr key={index}>
                                 {/* <td><input type="text" placeholder={item._id} ref="status"></input></td> */}
                                 <td>{item._id}</td>
-                                <td><input placeholder={item.topicName}  ref="alamat"></input></td>
+                                <td><input placeholder={item.category}  ref="category"></input></td>
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
-                                {/* <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
-                                <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
+                                <td><textarea placeholder={item.description} ref="description"></textarea></td>
+                                {/* <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
                                 <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
@@ -110,10 +110,10 @@ class ListTopik extends React.Component {
                     return (
                         <tr key={index}>
                             <td>{item._id}</td>
-                            <td>{item.topicName}</td>
+                            <td>{item.category}</td>
                             <td>{item.dateCreated}</td>
-                            {/* <td>{item.messageSubject}</td>
-                            <td>{item.messageContent}</td> */}
+                            <td>{item.description}</td>
+                            {/* <td>{item.messageContent}</td> */}
                             <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                             <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
@@ -138,7 +138,7 @@ class ListTopik extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicRemove',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryRemove',
             data: params,
             headers: {
                 'Content-Type': 'application/json',
@@ -149,18 +149,18 @@ class ListTopik extends React.Component {
                 console.log(response.data);
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryFilter',
                 })
                     .then(response => {
                         console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST Topic');
+                        console.log(error + 'ini eror LIST kate program');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete topic');
+                console.log(error + 'ini delete kate program');
             });
     }
 
@@ -171,26 +171,26 @@ class ListTopik extends React.Component {
     }
 
     render() {
-        if (this.state.edit == true) {
-            return <Redirect to="/cms/messaging-edit" />
-        }
+        // if (this.state.edit == true) {
+        //     return <Redirect to="/cms/messaging-edit" />
+        // }
         const { indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/tools/setting-topik-add" id="add_content">
+                <NavLink to="/tools/setting-add-kateProgram" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Topic</span>
+                    <span>Create Kategory Program</span>
                 </NavLink>
-                <h1>List Topic</h1>
+                <h1>List Kategory Program</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Topic Name</th>
+                                <th>Category</th>
                                 <th className='h-email'>Date Create</th>
-                                {/* <th>Subject</th>
-                                <th>Message</th> */}
+                                <th>Description</th>
+                                {/* <th>Message</th> */}
                                 <th colSpan={2}>Action</th>
                             </tr>
                         </thead>
@@ -202,6 +202,6 @@ class ListTopik extends React.Component {
     }
 }
 
-export default ListTopik
+export default ListKategoriProgram
 
 

@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 // import InputComponent from '../../../../components/UI/Input/Input';
-import './addtopik.scss'
+import './addkate.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 // import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import React from 'react'
 import { Button, Toast } from 'react-bootstrap';
 
-class AddTopik extends React.Component {
+class AddKategoriNotifikasi extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,15 +26,16 @@ class AddTopik extends React.Component {
     addMessage = () => {
         let params =
         {
-            topicName: this.refs.email.value,
+            category: this.refs.category.value,
             dateCreated: this.refs.tempat.value,
+            description : this.refs. description.value
             // messageContent: this.refs.deskripsi.value,
             // scheduleTime: this.refs.alamat.value,
             // mediaType: this.refs.status.value,
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicAdd',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryAdd',
             data: params,
         })
             .then(response => {
@@ -43,40 +44,36 @@ class AddTopik extends React.Component {
                 // alert('Add Broadcast is success')
             })
             .catch(error => {
-                console.log(error + 'ini eror add topic');
+                console.log(error + 'ini eror add KATEGORI notif');
             });
 
     }
     render() {
         if (this.state.send == true) {
-            return <Redirect to="/tools/setting-topik" />
+            return <Redirect to="/tools/setting-list-kateNotif" />
         }
         return (
             <div className='div'>
-                <h1>ADD TOPIC</h1>
+                <h1>ADD Kategory Notification</h1>
                 <form className='form'>
-                    <label>Topic Category </label> <br></br>
-                    <select ref="email">
-                        <option value="Topik Agama">Topik Agama</option>
-                        <option value="Topik Pendidikan">Topik Pendidikan</option>
-                        <option value="Topik Kesehatan">Topik Kesehatan</option>
-                        <option value="Topik Keluarga">Topik Keluarga</option>
-                        <option value="Topik Berita Internal">Topik Berita Internal</option>
-                        <option value="Topik Berita Nasional">Topik Berita Nasional</option>
-                        <option value="Topik Berita Dunia">Topik Berita Dunia</option>
-                        <option value="Topik Informasi Teknologi">Topik Informasi Teknologi</option>
-                        <option value="Topik Olah Raga">Topik Olah Raga</option>
-                        <option value="Topik Umum">Topik Umum</option>
+                    <label>Category Notification</label> <br></br>
+                    <select ref="category">
+                        <option value="Pembayaran">Pembayaran</option>
+                        <option value="Pemberitahuan">Pemberitahuan</option>
+                        <option value="Promosi">Promosi</option>
+                        <option value="Informasi & Teknologi">Informasi & Teknologi</option>
+                        <option value="Laporan">Laporan</option>
                     </select>
                     <br></br>
-                    {/* <input className='input' placeholder=''
-                        ref="email"
-                    ></input> */}
+                    <br></br>
+                    <label>Description</label>
+                    <textarea className='input' placeholder=''
+                        ref="description"
+                    ></textarea>
                     <br></br>
                     <label>Date Create</label>
                     <input className='input' placeholder=''
                         ref="tempat" type='datetime-local'></input>
-                 
 
                 </form>
                 <Button className='btn' onClick={this.addMessage}>Send Data</Button>
@@ -85,6 +82,6 @@ class AddTopik extends React.Component {
     }
 }
 
-export default AddTopik
+export default AddKategoriNotifikasi
 
 

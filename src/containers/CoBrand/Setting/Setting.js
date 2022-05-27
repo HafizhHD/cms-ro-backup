@@ -22,6 +22,8 @@ function Setting({
     const [cover, setCover] = useState();
     const [add, setAdd] = useState(false);
     const [topic, setTopic] = useState(false);
+    const [kateprog, setKate] = useState(false);
+    const [notif, setNotif] = useState(false);
     const [photoPreview, setPhotoPreview] = useState(userData.thumbnail);
 
     useEffect(() => {
@@ -53,6 +55,12 @@ function Setting({
     else if (topic == true) {
         return <Redirect to="/tools/setting-topik" />
     }
+    else if (kateprog == true) {
+        return <Redirect to="/tools/setting-list-kateProgram" />
+    }
+    else if (notif == true) {
+        return <Redirect to="/tools/setting-list-kateNotif" />
+    }
     return (
         <div className="Setting">
             <Heading 
@@ -61,8 +69,15 @@ function Setting({
                     { name: 'Setting' }
                 ]}
             />
-            <Button className='add' onClick={() => setAdd(true)}>Target Audience</Button>
-            <Button className='add' onClick={() => setTopic(true)}>Topic Content</Button>
+            <div className='div'>
+                <h3>Setting Cobrand</h3>
+                <Button className='add' onClick={() => setAdd(true)}>Target Audience</Button>
+                <Button className='add' onClick={() => setTopic(true)}>Topic Content</Button>
+                <Button className='add' onClick={() => setKate(true)}>Kategory Program</Button>
+                <Button className='add' onClick={() => setNotif(true)}>Kategory Notification</Button>
+            </div>
+            
+            
             <div className="Setting_card mt-medium">
                 <div className="Setting_card_inputs">
                     <h2>Edit Account</h2>
@@ -150,7 +165,7 @@ function Setting({
                                         message={touched.thumbnail && errors.thumbnail}
                                     />
                                 </div>
-                                <div className="Setting_card_inputs-avatar">
+                                {/* <div className="Setting_card_inputs-avatar">
                                         <h2>Cover</h2>
                                         <input type="file"
                                             onChange={(e) => {
@@ -166,7 +181,7 @@ function Setting({
                                             isError={touched.thumbnail && Boolean(errors.thumbnail) }
                                             message={touched.thumbnail && errors.thumbnail}
                                         />
-                                </div>
+                                </div> */}
                                 {/* <div className="Setting_card_inputs-avatar">
                                     <h2>New Cover</h2>
                                     <InputComponent 
@@ -247,7 +262,8 @@ function Setting({
                     <Card style={{ width: '25rem', borderRadius: '1rem'}}>
                         {/* <div style={{ backgroundImage: `url(${cover ? cover : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxJUwAEmCj5NP7JfKft5Qz8a3UUoE0RcKiAeNDAulvE-jDh5HzB3-FBb5pBSfmWpJw0J4&usqp=CAU"})` }} class="circletag" id="nay"> */}
                             {/* <img className="img2" src="https://cdn1.vectorstock.com/i/1000x1000/06/70/beautiful-cute-bee-vector-15910670.jpg" /> */}
-                        <div className="backgr" style={{ backgroundImage: `url(${cover ? cover : "https://defghi.co.id/wp-content/uploads/2021/07/Logo-IDE.png"})` }} >
+                        <div className="backgr" >
+                        {/* backgroundImage: `url(${cover ? cover : "https://defghi.co.id/wp-content/uploads/2021/07/Logo-IDE.png" */}
                             <img className="img2" src={photoPreview ? photoPreview : "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"} />
                         </div>
                         <Card.Body className="body-card">

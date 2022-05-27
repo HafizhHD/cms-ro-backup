@@ -56,8 +56,8 @@ class AddSetting extends React.Component {
                 { _id: idkomen },
             newKeyValues:
             {
-                audianceName: this.refs.email.value ? this.refs.email.value : this.state.message[index].audianceName,
-                dateCreated: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].dateCreated
+                audianceName: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].audianceName,
+                dateCreated: this.refs.email.value ? this.refs.email.value : this.state.message[index].dateCreated
 
             }
         }
@@ -96,7 +96,8 @@ class AddSetting extends React.Component {
                     if (index == this.state.new) {
                         return (
                             <tr key={index}>
-                                <td><input type="text" placeholder={item._id} ref="status"></input></td>
+                                {/* <td><input type="text" placeholder={item._id} ref="status"></input></td> */}
+                                <td>{item._id}</td>
                                 <td><input placeholder={item.audianceName}  ref="alamat"></input></td>
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
                                 {/* <td><input placeholder={item.messageSubject} ref="tempat"></input></td>

@@ -46,6 +46,10 @@ const addTopik = lazy(() => import('../../containers/CoBrand/Setting/addSetting/
 
 const Topik = lazy(() => import('../../containers/CoBrand/Setting/addTopic/topik'));
 const TopikAdd = lazy(() => import('../../containers/CoBrand/Setting/addTopic/AddTopik'));
+const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/addKateProg'));
+const ListKategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/KategoriProgram'));
+const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/addKateNotif'));
+const ListKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/KategoriNotifikasi'));
 
 
 function Cobrand({
@@ -240,6 +244,27 @@ function Cobrand({
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
+                />
+                <PrivateRoute
+                    path="/tools/setting-add-kateProgram"
+                    exact
+                    component={KategoriProgram}
+                />
+                <PrivateRoute
+                    path="/tools/setting-list-kateNotif"
+                    exact
+                    component={ListKategoriNotifikasi}
+                />
+
+                <PrivateRoute
+                    path="/tools/setting-add-kateNotif"
+                    exact
+                    component={AddKategoriNotifikasi}
+                />
+                <PrivateRoute
+                    path="/tools/setting-list-kateProgram"
+                    exact
+                    component={ListKategoriProgram}
                 />
 
                 <PrivateRoute
