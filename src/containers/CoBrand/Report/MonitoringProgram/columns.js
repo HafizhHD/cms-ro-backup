@@ -25,7 +25,7 @@ const Columns = [
         Filter: SelectColumnFilter,
         filter: 'equals',
         Cell: ({row}) => {
-            return <p>{row.index % 4}</p>
+            return <p>{row.index % 4 + 1}</p>
         }
         
     },

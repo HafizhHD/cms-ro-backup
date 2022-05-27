@@ -35,7 +35,11 @@ const Columns = [
         Header: 'Status Lock Screen',
         accessor:'lockScreenStatus',
         Filter: SelectColumnFilter,
-        filter: 'equals'
+        filter: 'equals',
+        Cell: ({row}) => {
+            if(row.index % 3 === 1) return <p>Off</p>
+            else return <p>On</p>
+        }
     },
     {
         Header: 'Status Mode Asuh',

@@ -16,15 +16,23 @@ const Columns = [
     },
     {
         Header: 'Kategori Program',
-        accessor: 'contentPurpose',
+        accessor: 'programPurpose',
         Filter: SelectColumnFilter,
-        filter: 'equals'
+        filter: 'equals',
+
+        Cell: ({row}) => {
+            if(row.index % 3 === 1) return <p>Pendidikan Agama</p>
+            else return <p>Pengetahuan Siswa Umum</p>
+        }
     },
     {
         Header: 'Target Pembaca',
-        accessor: 'contentTarget',
+        accessor: 'programTarget',
         Filter: SelectColumnFilter,
-        filter: 'equals'
+        filter: 'equals',
+        Cell: ({row}) => {
+            return <p>Semua</p>
+        }
     },
     {
         Header: 'Status',

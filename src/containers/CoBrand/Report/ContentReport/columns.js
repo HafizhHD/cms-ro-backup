@@ -24,13 +24,20 @@ const Columns = [
         Header: 'Topik Konten',
         accessor: 'contentPurpose',
         Filter: SelectColumnFilter,
-        filter: 'equals'
+        filter: 'equals',
+        Cell: ({row}) => {
+            if(row.index % 3 === 1) return <p>Pendidikan</p>
+            else return <p>Agama</p>
+        }
     },
     {
         Header: 'Target Pembaca',
         accessor: 'contentTarget',
         Filter: SelectColumnFilter,
-        filter: 'equals'
+        filter: 'equals',
+        Cell: ({row}) => {
+            return <p>Semua</p>
+        }
     },
     {
         Header: 'Status',
