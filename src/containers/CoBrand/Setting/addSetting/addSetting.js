@@ -97,7 +97,8 @@ class AddSetting extends React.Component {
                         return (
                             <tr key={index}>
                                 {/* <td><input type="text" placeholder={item._id} ref="status"></input></td> */}
-                                <td>{item._id}</td>
+                                {/* <td>{item._id}</td> */}
+                                <td>{index + 1}</td>
                                 <td><input placeholder={item.audianceName}  ref="alamat"></input></td>
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
                                 {/* <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
@@ -109,7 +110,8 @@ class AddSetting extends React.Component {
                     }
                     return (
                         <tr key={index}>
-                            <td>{item._id}</td>
+                            {/* <td>{item._id}</td> */}
+                            <td>{index + 1}</td>
                             <td>{item.audianceName}</td>
                             <td>{item.dateCreated}</td>
                             {/* <td>{item.messageSubject}</td>
@@ -188,7 +190,7 @@ class AddSetting extends React.Component {
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <th>No</th>
                                 <th>Audience Name</th>
                                 <th className='h-email'>Date Create</th>
                                 {/* <th>Subject</th>

@@ -50,6 +50,8 @@ const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/Kate
 const ListKategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/KategoriProgram'));
 const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/addKateNotif'));
 const ListKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/KategoriNotifikasi'));
+const ListScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/ListScreenTime'));
+const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/AddScrenTime'));
 
 
 function Cobrand({
@@ -187,7 +189,6 @@ function Cobrand({
                     component={ForumList}
                 />
 
-
                 <PrivateRoute
                     path="/cms/program"
                     exact
@@ -266,6 +267,17 @@ function Cobrand({
                     exact
                     component={ListKategoriProgram}
                 />
+                   <PrivateRoute
+                    path="/tools/setting-add-screentime"
+                    exact
+                    component={AddScreenTime}
+                />
+                <PrivateRoute
+                    path="/tools/setting-list-screentime"
+                    exact
+                    component={ListScreenTime}
+                />
+
 
                 <PrivateRoute
                     path="/tools/setting"

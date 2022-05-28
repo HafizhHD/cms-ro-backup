@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 // import InputComponent from '../../../../components/UI/Input/Input';
-import './kateset.scss'
+import './addset.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap'
@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
 
-class ListKategoriNotifikasi extends React.Component {
+class ListScreenTime extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -33,14 +33,14 @@ class ListKategoriNotifikasi extends React.Component {
     daftarMessage = () => {
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryFilter',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationFilter',
         })
             .then(response => {
                 console.log(response.data.Data);
                 this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST kate notif');
+                console.log(error + 'ini eror list screentime');
             });
     }
 
@@ -49,29 +49,32 @@ class ListKategoriNotifikasi extends React.Component {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
         console.log(idkomen)
-        console.log(this.state.message[index].category)
+        console.log(this.state.message[index].cobrandEmail)
         let params =
         {
             whereValues:
                 { _id: idkomen },
             newKeyValues:
             {
-                category: this.refs.category.value ? this.refs.category.value : this.state.message[index].category,
+                cobrandEmail : this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].cobrandEmail,
                 dateCreated: this.refs.email.value ? this.refs.email.value : this.state.message[index].dateCreated,
-                description: this.refs.description.value ? this.refs.description.value : this.state.message[index].description,
+                controlParameterName: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].controlParameterName,
+                controlParameterValue : this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.message[index].controlParameterValue,
+                // unit: this.refs.unit.value ? this.refs.unit.value : this.state.message[index].unit,
             }
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryUpdate',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationUpdate',
             data: params,
         })
             .then(response => {
                 console.log(response.data);
+                console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationFilter',
                 })
                     .then(response => {
                         console.log(response.data.Data);
@@ -79,11 +82,11 @@ class ListKategoriNotifikasi extends React.Component {
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST kate notif');
+                        console.log(error + 'ini eror LIST screentime');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit kate notif');
+                console.log(error + 'ini eror edit Screentime');
             });
     }
     
@@ -98,10 +101,11 @@ class ListKategoriNotifikasi extends React.Component {
                                 {/* <td><input type="text" placeholder={item._id} ref="status"></input></td> */}
                                 {/* <td>{item._id}</td> */}
                                 <td>{index + 1}</td>
-                                <td><input placeholder={item.category}  ref="category"></input></td>
+                                <td><input placeholder={item.cobrandEmail}  ref="alamat"></input></td>
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
-                                <td><textarea placeholder={item.description} ref="description"></textarea></td>
-                                {/* <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
+                                <td><input placeholder={item.controlParameterName} ref="tempat"></input></td>
+                                <td><input placeholder={item.controlParameterValue} ref="deskripsi"></input></td>
+                                {/* <td><input placeholder={item.unit} ref="unit"></input></td> */}
                                 <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
@@ -111,10 +115,11 @@ class ListKategoriNotifikasi extends React.Component {
                         <tr key={index}>
                             {/* <td>{item._id}</td> */}
                             <td>{index + 1}</td>
-                            <td>{item.category}</td>
+                            <td>{item.cobrandEmail}</td>
                             <td>{item.dateCreated}</td>
-                            <td>{item.description}</td>
-                            {/* <td>{item.messageContent}</td> */}
+                            <td>{item.controlParameterName}</td>
+                            <td>{item.controlParameterValue} {item.unit}</td>
+                            {/* <td>{item.unit}</td> */}
                             <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                             <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
@@ -139,7 +144,7 @@ class ListKategoriNotifikasi extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryRemove',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationRemove',
             data: params,
             headers: {
                 'Content-Type': 'application/json',
@@ -150,18 +155,18 @@ class ListKategoriNotifikasi extends React.Component {
                 console.log(response.data);
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationFilter',
                 })
                     .then(response => {
                         console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST kate notif');
+                        console.log(error + 'ini eror LIST screentime');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete kate notif');
+                console.log(error + 'ini delete screentime');
             });
     }
 
@@ -172,26 +177,23 @@ class ListKategoriNotifikasi extends React.Component {
     }
 
     render() {
-        // if (this.state.edit == true) {
-        //     return <Redirect to="/cms/messaging-edit" />
-        // }
-        const { indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/tools/setting-add-kateNotif" id="add_content">
+                <NavLink to="/tools/setting-add-screentime" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create Kategory Notification</span>
+                    <span>Create New Screentime</span>
                 </NavLink>
-                <h1>List Kategory Notification</h1>
+                <h1>Standart Screentime</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Category</th>
+                                <th>Cobrand Email</th>
                                 <th className='h-email'>Date Create</th>
-                                <th>Description</th>
-                                {/* <th>Message</th> */}
+                                <th>Name</th>
+                                <th>Standart Screentime</th>
+                                {/* <th>Unit</th> */}
                                 <th colSpan={2}>Action</th>
                             </tr>
                         </thead>
@@ -203,6 +205,6 @@ class ListKategoriNotifikasi extends React.Component {
     }
 }
 
-export default ListKategoriNotifikasi
+export default ListScreenTime
 
 

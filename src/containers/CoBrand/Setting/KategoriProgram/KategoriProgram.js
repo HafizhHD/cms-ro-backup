@@ -97,7 +97,8 @@ class ListKategoriProgram extends React.Component {
                         return (
                             <tr key={index}>
                                 {/* <td><input type="text" placeholder={item._id} ref="status"></input></td> */}
-                                <td>{item._id}</td>
+                                {/* <td>{item._id}</td> */}
+                                <td>{index + 1}</td>
                                 <td><input placeholder={item.category}  ref="category"></input></td>
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
                                 <td><textarea placeholder={item.description} ref="description"></textarea></td>
@@ -109,7 +110,8 @@ class ListKategoriProgram extends React.Component {
                     }
                     return (
                         <tr key={index}>
-                            <td>{item._id}</td>
+                            {/* <td>{item._id}</td> */}
+                            <td>{index + 1}</td>
                             <td>{item.category}</td>
                             <td>{item.dateCreated}</td>
                             <td>{item.description}</td>
@@ -186,7 +188,7 @@ class ListKategoriProgram extends React.Component {
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <th>No</th>
                                 <th>Category</th>
                                 <th className='h-email'>Date Create</th>
                                 <th>Description</th>

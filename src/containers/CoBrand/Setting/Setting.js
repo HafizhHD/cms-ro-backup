@@ -24,6 +24,7 @@ function Setting({
     const [topic, setTopic] = useState(false);
     const [kateprog, setKate] = useState(false);
     const [notif, setNotif] = useState(false);
+    const [time, setTime] = useState(false);
     const [photoPreview, setPhotoPreview] = useState(userData.thumbnail);
 
     useEffect(() => {
@@ -61,6 +62,9 @@ function Setting({
     else if (notif == true) {
         return <Redirect to="/tools/setting-list-kateNotif" />
     }
+    else if (time == true) {
+        return <Redirect to="/tools/setting-list-screentime" />
+    }
     return (
         <div className="Setting">
             <Heading 
@@ -75,6 +79,7 @@ function Setting({
                 <Button className='add' onClick={() => setTopic(true)}>Topic Content</Button>
                 <Button className='add' onClick={() => setKate(true)}>Kategory Program</Button>
                 <Button className='add' onClick={() => setNotif(true)}>Kategory Notification</Button>
+                <Button className='add' onClick={() => setTime(true)}>Standart ScreenTime</Button>
             </div>
             
             
