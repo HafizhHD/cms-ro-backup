@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
 
-class ListKoment extends React.Component {
+class EditUser extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -31,74 +31,74 @@ class ListKoment extends React.Component {
     }
 
     daftarMessage = () => {
-        const id = localStorage.getItem('contentSelected');
-        console.log(id);
-        let params =
-        {
+        let params = {
             whereKeyValues: {
-                contentId: id,
+                packageId: "com.byasia.ruangortu"
             }
-        }
+        };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
-            // data: params,
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/userFilter',
+            data: params,
         })
             .then(response => {
-                console.log(response.data.resultData);
-                console.log(response.data);
-                this.setState({ message: response.data.resultData })
+                console.log(response.data.users);
+                this.setState({ message: response.data.users})
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST koment');
+                console.log(error + 'ini eror LIST Users');
             });
     }
 
-    // status 500
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
         console.log(idkomen)
-        console.log(this.state.message[index].emailUser)
+        console.log(this.state.message[index].nameUser)
         let params =
         {
             whereValues:
                 { _id: idkomen },
             newValues:
             {
+                phoneNumber: this.refs.email.value ? this.refs.email.value : this.state.message[index].phoneNumber,
+                dateCreated: this.state.message[index].dateCreated.split('T')[0],
+                userType: this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.message[index].userType,
+                nameUser: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].nameUser,
                 emailUser: this.refs.status.value ? this.refs.status.value : this.state.message[index].emailUser,
-                status: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].status,
-                comment: this.refs.email.value ? this.refs.email.value : this.state.message[index].comment,
-                dateCreated: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].dateCreated,
-                contentId: this.state.message[index].contentId,
+                status: this.refs.new.value ? this.refs.new.value : this.state.message[index].status,
             
             }
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentUpdate',
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/edit',
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                console.log(response.data.users);
                 // alert('Add Broadcast is success')
+                let params = {
+                    whereKeyValues: {
+                        packageId: "com.byasia.ruangortu"
+                    }
+                };
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
-                    // data: params,
+                    url: 'https://as01.prod.ruangortu.id:8080/api/user/userFilter',
+                    data: params,
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
-                        console.log(response.data);
-                        this.setState({ message: response.data.resultData })
+                        console.log(response.data.users);
+                        this.setState({ message: response.data.users})
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST koment');
+                        console.log(error + 'ini eror LIST Users');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit koment');
+                console.log(error + 'ini eror edit BC');
             });
     }
     
@@ -106,16 +106,16 @@ class ListKoment extends React.Component {
         const { qty } = this.state
         return (
             <tbody>
-                {this.state.message ? this.state.message.map((item, index) => {
+                {this.state.message.map((item, index) => {
                     if (index == this.state.new) {
                         return (
                             <tr key={index}>
                                 <td><input type="text" placeholder={item.emailUser} ref="status"></input></td>
-                                <td><input placeholder={item.status}  ref="alamat"></input></td>
-                                <td><input placeholder={item.comment} ref="email"></input></td>
-                                <td><input placeholder={item.dateCreated} ref="tempat" type="datetime-local"></input></td>
-                                <td>{item.contentId}</td>
-                                {/* <td><input placeholder={item.contentId} ref="deskripsi"></input></td> */}
+                                <td><input placeholder={item.nameUser}  ref="alamat"></input></td>
+                                <td><input placeholder={item.phoneNumber} ref="email"></input></td>
+                                <td>{item.dateCreated.split('T')[0]}</td>
+                                <td><input placeholder={item.userType} ref="deskripsi"></input></td>
+                                <td><input placeholder={item.status} ref="new"></input></td>
                                 <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
@@ -124,16 +124,16 @@ class ListKoment extends React.Component {
                     return (
                         <tr key={index}>
                             <td>{item.emailUser}</td>
+                            <td>{item.nameUser}</td>
+                            <td>{item.phoneNumber}</td>
+                            <td>{item.dateCreated.split('T')[0]}</td>
+                            <td>{item.userType}</td>
                             <td>{item.status}</td>
-                            <td>{item.comment}</td>
-                            <td>{item.dateCreated}</td>
-                            <td>{item.contentId}</td>
                             <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                             <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
                     )
                 })
-                : "TIDAQK A"
 
                 }
             </tbody>
@@ -151,46 +151,53 @@ class ListKoment extends React.Component {
                 _id: idkomen,
             }
         };
+        let param = {
+            userId: idkomen
+        }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentRemove',
-            data: params,
+            url: 'https://as01.prod.ruangortu.id:8080/api/user/remove',
+            data: param,
             headers: {
                 'Content-Type': 'application/json',
             },
         })
             .then(response => {
-                console.log(params)
+                console.log('suces delete')
                 console.log(response.data);
+                let params = {
+                    whereKeyValues: {
+                        packageId: "com.byasia.ruangortu"
+                    }
+                };
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/user/userFilter',
+                    data: params,
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
-                        this.setState({ message: response.data.resultData })
+                        console.log(response.data.users);
+                        this.setState({ message: response.data.users})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST koment');
+                        console.log(error + 'ini eror LIST Users');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete komen');
+                console.log(error + 'ini delete user');
             });
     }
 
     onEdit(index) {
-        this.setState({ indexEdit: index })
         this.setState({ new: index })
-        console.log(this.state.indexEdit)
         console.log(index) //null
         console.log(this.state.new)
     }
 
     render() {
-        if (this.state.edit == true) {
-            return <Redirect to="/cms/messaging-edit" />
-        }
+        // if (this.state.edit == true) {
+        //     return <Redirect to="/cms/messaging-edit" />
+        // }
         const { indexEdit } = this.state
         return (
             <div className='div'>
@@ -198,16 +205,17 @@ class ListKoment extends React.Component {
                     <FiPlus className="IconAdd" />
                     <span>Create New Notification</span>
                 </NavLink> */}
-                <h1>List Komentar</h1>
+                <h1>Edit User</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>Email User</th>
-                                <th>Status</th>
-                                <th className='h-email'>Komentar</th>
-                                <th>Date Create</th>
-                                <th>content Id</th>
+                                <th>Email</th>
+                                <th>Nama</th>
+                                <th className='h-email'>No Telp</th>
+                                <th>Tgl Register</th>
+                                <th>Tipe User</th>
+                                <th>Status User</th>
                                 <th colSpan={2}>Action</th>
                             </tr>
                         </thead>
@@ -219,5 +227,6 @@ class ListKoment extends React.Component {
     }
 }
 
-export default ListKoment
+export default EditUser
+
 

@@ -54,6 +54,7 @@ const ListScreenTime = lazy(() => import('../../containers/CoBrand/Setting/Scree
 const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/AddScrenTime'));
 const ListKoment = lazy(() => import('../../containers/CoBrand/Content/ViewContent/comment/ListKomen'));
 const EditRedzone = lazy(() => import('../../containers/CoBrand/RedZone/ListRedzone/ListRedzone'));
+const EditUser = lazy(() => import('../../containers/CoBrand/User/EditUser/EditUser'));
 
 
 function Cobrand({
@@ -171,6 +172,11 @@ function Cobrand({
                     exact
                     component={UserManagement}
                 />
+                  <PrivateRoute
+                    path="/cms/user-edit"
+                    exact
+                    component={EditUser}
+                />
                 <PrivateRoute
                     path="/cms/messaging-add"
                     exact
@@ -243,8 +249,6 @@ function Cobrand({
                     exact
                     component={ListKoment}
                 />
-
-
 
                 <PrivateRoute
                     path="/cms/redzone"
