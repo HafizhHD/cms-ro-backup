@@ -7,7 +7,7 @@ import axios from 'axios';
 import './ViewContent.scss';
 import { Table, Button } from 'react-bootstrap'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
-
+import { Redirect } from 'react-router-dom';
 // import TableContent from './../../../components/UI/Table/Table';
 
 function ViewContent() {
@@ -20,6 +20,8 @@ function ViewContent() {
     const [del, setDel] = useState(false);
     const [indexEdit, setIndex] = useState(null);
     const [newi, setNewi] = useState(null);
+    const [add, setAdd] = useState(false);
+    
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -92,35 +94,35 @@ function ViewContent() {
     }, [])
 
     // post komentar
-    useEffect(() => {
-        const id = localStorage.getItem('contentSelected');
-        console.log(id);
-        let params = {
-            contentId: id,
-            emailUser: "nina@gmail.com",
-            comment: "komentar post pertama",
-            replies: {},
-            status: "active"
-        };
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/commentContentAdd',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                console.log(response.data);
+    // useEffect(() => {
+    //     const id = localStorage.getItem('contentSelected');
+    //     console.log(id);
+    //     let params = {
+    //         contentId: id,
+    //         emailUser: "nina@gmail.com",
+    //         comment: "komentar post pertama",
+    //         replies: {},
+    //         status: "active"
+    //     };
+    //     axios({
+    //         method: 'post',
+    //         url: 'https://as01.prod.ruangortu.id:8080/api/commentContentAdd',
+    //         data: params,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     })
+    //         .then(response => {
+    //             console.log(response.data);
 
-                // console.log(response.data.resultData[0]);
-                // setKomen(response.data.resultData[0])
-                // console.log(response.data.resultData[0].emailUser);
-            })
-            .catch(error => {
-                console.log(error + 'ini eror post komentar baru');
-            });
-    }, [])
+    //             // console.log(response.data.resultData[0]);
+    //             // setKomen(response.data.resultData[0])
+    //             // console.log(response.data.resultData[0].emailUser);
+    //         })
+    //         .catch(error => {
+    //             console.log(error + 'ini eror post komentar baru');
+    //         });
+    // }, [])
 
     // delete komentar
     // useEffect(() => {
@@ -185,6 +187,9 @@ function ViewContent() {
 
     if (isLoading) {
         return <RKLoader />
+    }
+    else if (add == true) {
+        return <Redirect to="/cms/content/view-komen" />
     }
 
     return (
@@ -300,7 +305,7 @@ function ViewContent() {
                 </div>
             </div>
             <div className='komentar'>
-                <Button>Komentar</Button>
+                <Button className='btn2' onClick={() => setAdd(true)}> Edit Komentar</Button>
                 <h1 >Komentar</h1>
                 <Table striped bordered hover >
                     <thead>
@@ -334,13 +339,13 @@ function ViewContent() {
                                     <td>{item.status}</td>
                                     <td>{item.comment}</td>
                                     <td>{item.dateCreated}</td>
-                                    <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td>
+                                    {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
                                     <td><Button variant="danger" className='btn' type='submit' onClick={() => onDelete(index)}>Delete</Button></td>
                                 </tr>
                             )
                         })
                             :
-                            ''
+                            <div>CONTENT INI TIDAK MEMILIKI KOMENTAR</div>
                         }
 
                     </tbody>

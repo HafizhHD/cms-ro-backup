@@ -52,6 +52,8 @@ const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Settin
 const ListKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/KategoriNotifikasi'));
 const ListScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/ListScreenTime'));
 const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/AddScrenTime'));
+const ListKoment = lazy(() => import('../../containers/CoBrand/Content/ViewContent/comment/ListKomen'));
+const EditRedzone = lazy(() => import('../../containers/CoBrand/RedZone/ListRedzone/ListRedzone'));
 
 
 function Cobrand({
@@ -142,6 +144,7 @@ function Cobrand({
                     path="/report/redzone"
                     component={RedzoneReportAsync}
                 />
+                
 
                 <PrivateRoute
                     exact
@@ -235,6 +238,13 @@ function Cobrand({
                     component={ViewContentAsync}
                 />
 
+                <PrivateRoute
+                    path="/cms/content/view-komen"
+                    exact
+                    component={ListKoment}
+                />
+
+
 
                 <PrivateRoute
                     path="/cms/redzone"
@@ -245,6 +255,12 @@ function Cobrand({
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
+                    
+                />
+                <PrivateRoute
+                    exact
+                    path="/cms/redzone/edit"
+                    component={EditRedzone}
                 />
                 <PrivateRoute
                     path="/tools/setting-add-kateProgram"
@@ -267,7 +283,7 @@ function Cobrand({
                     exact
                     component={ListKategoriProgram}
                 />
-                   <PrivateRoute
+                <PrivateRoute
                     path="/tools/setting-add-screentime"
                     exact
                     component={AddScreenTime}
