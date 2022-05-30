@@ -10,8 +10,18 @@ const Columns = [
         disableFilters: true
     },
     {
+        Header: 'Email User',
+        accessor: 'emailUser',
+        disableFilters: true
+    },
+    {
         Header: 'Nama',
         accessor: 'nameUser',
+        disableFilters: true
+    },
+    {
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
         disableFilters: true
     },
     {
@@ -36,10 +46,10 @@ const Columns = [
         accessor:'lockScreenStatus',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({row}) => {
-            if(row.index % 3 === 1) return <p>Off</p>
-            else return <p>On</p>
-        }
+        // Cell: ({row}) => {
+        //     if(row.index % 3 === 1) return <p>Off</p>
+        //     else return <p>On</p>
+        // }
     },
     {
         Header: 'Status Mode Asuh',

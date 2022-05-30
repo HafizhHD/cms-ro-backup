@@ -25,9 +25,12 @@ const Columns = [
         accessor: 'contentPurpose',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({row}) => {
-            if(row.index % 3 === 1) return <p>Pendidikan</p>
-            else return <p>Agama</p>
+        Cell: ({value, row}) => {
+            if(value !== undefined) return <p>{value}</p>
+            else {
+                if(row.index % 3 === 1) return <p>Pendidikan</p>
+                else return <p>Agama</p>
+            }
         }
     },
     {
@@ -35,8 +38,9 @@ const Columns = [
         accessor: 'contentTarget',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({row}) => {
-            return <p>Semua</p>
+        Cell: ({value, row}) => {
+            if(value !== undefined) return <p>{value}</p>
+            else return <p>Semua</p>
         }
     },
     {

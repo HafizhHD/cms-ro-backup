@@ -12,8 +12,18 @@ const Columns = [
         disableFilters: true
     },
     {
+        Header: 'Email User',
+        accessor: 'emailUser',
+        disableFilters: true
+    },
+    {
         Header: 'Nama',
         accessor: 'nameUser',
+        disableFilters: true
+    },
+    {
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
         disableFilters: true
     },
     {

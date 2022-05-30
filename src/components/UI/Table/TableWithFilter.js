@@ -56,7 +56,9 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
         }
       )
 
-    const data = useMemo( () => DATA , [DATA])
+    const data = useMemo( () => DATA , [DATA]);
+
+    const initialState = { hiddenColumns: ['emailUser', 'parentEmail', 'status'] };
     
     const {
         getTableProps,
@@ -84,6 +86,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
         data: data,
         defaultColumn, // Be sure to pass the defaultColumn option
         filterTypes,
+        initialState
     }, useFilters
     , useGlobalFilter
     , useSortBy
@@ -169,20 +172,81 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
     return (
         <>
         <div className="tools">
+            <div className="table_props">
+                <span>Total: {rows.length} Data</span>
+                <input
+                    type="text"
+                    className="table_props_input"
+                    placeholder="Search"
+                    value={ globalFilter || '' }
+                    onChange={(e) => {
+                        setGlobalFilter(e.currentTarget.value);
+                    }}
+                />
+            </div>
             <button className="btn_tools"><FaTable/> <CSVLink data={downloadAsCSV()}>Download as CSV</CSVLink></button>
             <button className="btn_tools" onClick={downloadAsPDF}><FaFilePdf/> Download as PDF</button>
             {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
-                    var stringEmail = '';
+                    var stringEmail = [];
+                    console.log(selectedFlatRows);
+                    var jsonData = [];
                     for(var i = 0; i < selectedFlatRows.length; i++) {
-                        stringEmail += selectedFlatRows[i].original.emailUser;
-                        if(i < selectedFlatRows.length - 1) stringEmail += ', ';
+                        stringEmail.push(selectedFlatRows[i].original.emailUser);
+                        if(selectedFlatRows[i].original.userType === 'child') {
+                            stringEmail.push(selectedFlatRows[i].original.emailUser);
+                        }
                         console.log(stringEmail);
+                        jsonData.push(selectedFlatRows[i].original);
                     }
-                    localStorage.setItem('emailTo', stringEmail);
+                    localStorage.setItem('jsonData', JSON.stringify(jsonData));
+                    console.log(localStorage.getItem('jsonData'));
+                    localStorage.setItem('emailTo', stringEmail.toString());
                     console.log(localStorage.getItem('emailTo'));
-                }}>Send Notifications</NavLink></button>
+                }}>Send Notifications to Child</NavLink></button>
+             ) : null}
+            {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+                    localStorage.setItem('notifContext', notifContext);
+                    console.log(localStorage.getItem('notifContext'));
+                    var stringEmail = [];
+                    console.log(selectedFlatRows);
+                    var jsonData = [];
+                    for(var i = 0; i < selectedFlatRows.length; i++) {
+                        if(selectedFlatRows[i].original.parentEmail !== undefined) {
+                            if(!stringEmail.includes(selectedFlatRows[i].original.parentEmail)) {
+                                if(selectedFlatRows[i].original.userType === 'child') stringEmail.push(selectedFlatRows[i].original.parentEmail);
+                                else stringEmail.push(selectedFlatRows[i].original.emailUser);
+                            }
+                        }
+                        console.log(stringEmail);
+                        jsonData.push(selectedFlatRows[i].original);
+                    }
+                    localStorage.setItem('jsonData', JSON.stringify(jsonData));
+                    console.log(localStorage.getItem('jsonData'));
+                    localStorage.setItem('emailTo', stringEmail.toString());
+                    console.log(localStorage.getItem('emailTo'));
+                }}>Send Notifications to Parent</NavLink></button>
+             ) : null}
+            {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+                    localStorage.setItem('notifContext', notifContext);
+                    console.log(localStorage.getItem('notifContext'));
+                    var stringEmail = [];
+                    console.log(selectedFlatRows);
+                    var jsonData = [];
+                    for(var i = 0; i < selectedFlatRows.length; i++) {
+                        stringEmail.push(selectedFlatRows[i].original.emailUser);
+                        if(selectedFlatRows[i].original.parentEmail !== undefined) {
+                            if(!stringEmail.includes(selectedFlatRows[i].original.parentEmail)) stringEmail.push(selectedFlatRows[i].original.parentEmail);
+                        }
+                        console.log(stringEmail);
+                        jsonData.push(selectedFlatRows[i].original);
+                    }
+                    localStorage.setItem('jsonData', JSON.stringify(jsonData));
+                    console.log(localStorage.getItem('jsonData'));
+                    localStorage.setItem('emailTo', stringEmail.toString());
+                    console.log(localStorage.getItem('emailTo'));
+                }}>Send Notifications to All</NavLink></button>
              ) : null}
         </div>
         <div className="utils">
@@ -228,18 +292,6 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     </option>
                 ))}
                 </select>
-            </div>
-            <div className="table_props">
-                <span>Total: {rows.length} Data</span>
-                <input
-                    type="text"
-                    className="table_props_input"
-                    placeholder="Search"
-                    value={ globalFilter || '' }
-                    onChange={(e) => {
-                        setGlobalFilter(e.currentTarget.value);
-                    }}
-                />
             </div>
         </div>
         <div className="table_container">

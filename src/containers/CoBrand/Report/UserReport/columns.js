@@ -6,6 +6,10 @@ const Columns = [
     {
         Header: 'No.',
         id: 'rowNumber',
+        disableFilters: true
+    },
+    {
+        Header: 'Email User',
         accessor: 'emailUser',
         disableFilters: true
     },
@@ -19,6 +23,11 @@ const Columns = [
         accessor: 'userType',
         Filter: SelectColumnFilter,
         filter: 'equals'
+    },
+    {
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
+        disableFilters: true
     },
     {
         Header: 'Nama Orangtua',
