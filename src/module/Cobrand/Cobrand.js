@@ -46,6 +46,15 @@ const addTopik = lazy(() => import('../../containers/CoBrand/Setting/addSetting/
 
 const Topik = lazy(() => import('../../containers/CoBrand/Setting/addTopic/topik'));
 const TopikAdd = lazy(() => import('../../containers/CoBrand/Setting/addTopic/AddTopik'));
+const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/addKateProg'));
+const ListKategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/KategoriProgram'));
+const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/addKateNotif'));
+const ListKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/KategoriNotifikasi'));
+const ListScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/ListScreenTime'));
+const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/AddScrenTime'));
+const ListKoment = lazy(() => import('../../containers/CoBrand/Content/ViewContent/comment/ListKomen'));
+const EditRedzone = lazy(() => import('../../containers/CoBrand/RedZone/ListRedzone/ListRedzone'));
+const EditUser = lazy(() => import('../../containers/CoBrand/User/EditUser/EditUser'));
 
 
 function Cobrand({
@@ -136,6 +145,7 @@ function Cobrand({
                     path="/report/redzone"
                     component={RedzoneReportAsync}
                 />
+                
 
                 <PrivateRoute
                     exact
@@ -162,6 +172,11 @@ function Cobrand({
                     exact
                     component={UserManagement}
                 />
+                  <PrivateRoute
+                    path="/cms/user-edit"
+                    exact
+                    component={EditUser}
+                />
                 <PrivateRoute
                     path="/cms/messaging-add"
                     exact
@@ -182,7 +197,6 @@ function Cobrand({
                     exact
                     component={ForumList}
                 />
-
 
                 <PrivateRoute
                     path="/cms/program"
@@ -230,6 +244,11 @@ function Cobrand({
                     component={ViewContentAsync}
                 />
 
+                <PrivateRoute
+                    path="/cms/content/view-komen"
+                    exact
+                    component={ListKoment}
+                />
 
                 <PrivateRoute
                     path="/cms/redzone"
@@ -240,7 +259,45 @@ function Cobrand({
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
+                    
                 />
+                <PrivateRoute
+                    exact
+                    path="/cms/redzone/edit"
+                    component={EditRedzone}
+                />
+                <PrivateRoute
+                    path="/tools/setting-add-kateProgram"
+                    exact
+                    component={KategoriProgram}
+                />
+                <PrivateRoute
+                    path="/tools/setting-list-kateNotif"
+                    exact
+                    component={ListKategoriNotifikasi}
+                />
+
+                <PrivateRoute
+                    path="/tools/setting-add-kateNotif"
+                    exact
+                    component={AddKategoriNotifikasi}
+                />
+                <PrivateRoute
+                    path="/tools/setting-list-kateProgram"
+                    exact
+                    component={ListKategoriProgram}
+                />
+                <PrivateRoute
+                    path="/tools/setting-add-screentime"
+                    exact
+                    component={AddScreenTime}
+                />
+                <PrivateRoute
+                    path="/tools/setting-list-screentime"
+                    exact
+                    component={ListScreenTime}
+                />
+
 
                 <PrivateRoute
                     path="/tools/setting"

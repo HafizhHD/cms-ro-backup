@@ -21,19 +21,19 @@ function RedZone() {
         let params =
         {
             whereKeyValues: {
-                cobrandEmail : "admin@asia.ruangortu.id",
+                cobrandEmail: "admin@asia.ruangortu.id",
             }
         }
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneFilter',
-            data: params,
+            // data: params,
         })
             .then(response => {
                 console.log(response.data);
                 setListRedzone(response.data.Data)
                 console.log(listRedzone)
-               
+
             })
             .catch(error => {
                 console.log(error + 'ini eror get list redzone');
@@ -45,12 +45,12 @@ function RedZone() {
     useEffect(() => {
         let params =
         {
-            cobrandEmail : "muhammadsyihab.te@gmail.com", 
-            placeName : "Tempat Sabung ayam", 
-            description: "Tempat Sabung ayam A", 
-            address: "kaliideres", 
-            redZoneStatus: "active", 
-            location:[-6.212694432483453, 106.85043740452949]
+            cobrandEmail: "muhammadsyihab.te@gmail.com",
+            placeName: "Tempat Sabung ayam",
+            description: "Tempat Sabung ayam A",
+            address: "kaliideres",
+            redZoneStatus: "active",
+            location: [-6.212694432483453, 106.85043740452949]
         }
         axios({
             method: 'post',
@@ -71,8 +71,8 @@ function RedZone() {
         // console.log(id);
         let params =
         {
-                whereValues: {_id: "628b4f8ac040ad69e5f317e9"},
-                newKeyValues: {placeName: "Tempat Sabung ayam yang baru dibuat iniii"}
+            whereValues: { _id: "628b4f8ac040ad69e5f317e9" },
+            newKeyValues: { placeName: "Tempat Sabung ayam yang baru dibuat iniii" }
         }
         axios({
             method: 'post',
@@ -83,7 +83,7 @@ function RedZone() {
                 console.log(response.data);
                 // setListRedzone(response.data)
                 // console.log(listRedzone)
-               
+
             })
             .catch(error => {
                 console.log(error + 'ini eror edit redzone');
@@ -100,7 +100,7 @@ function RedZone() {
             <div className="RedZone__map">
                 <div className="RedZone__heading">
                     <h3>Map View</h3>
-                    <InputComponent 
+                    <InputComponent
                         className="Input-control"
                         type="text"
                         placeholder="Search"
@@ -109,36 +109,37 @@ function RedZone() {
                             console.log(e.currentTarget.value);
                             let urlBuilder = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURI(e.currentTarget.value) + '.json?access_token=' + accessToken;
                             axios({
-                              method: 'get',
-                              url: urlBuilder
+                                method: 'get',
+                                url: urlBuilder
                             })
-                            .then(response => {
-                                //console.log("Response data: ", response.data);
-                                mapSearchInput(response.data.features[0]);
-                            })
-                            .catch(error => {
-                                console.log(error);
-                            });
+                                .then(response => {
+                                    //console.log("Response data: ", response.data);
+                                    mapSearchInput(response.data.features[0]);
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                });
                         }}
                     />
                 </div>
                 <div className="RedZone__data">
-                    <MapComponent search={mapSearch}/>
+                    <MapComponent search={mapSearch} />
                 </div>
             </div>
             <div className="RedZone__list">
-                <NavLink to="/cms/redzone/add" id='add' >
-                    <FiPlus className="IconAdd" />
-                    <span>Create New Redzone</span>  
-                </NavLink>
+                <div className='divlink'>
+                    <NavLink to="/cms/redzone/add" id='add' >
+                        <FiPlus className="IconAdd" />
+                        <span>Create New Redzone</span>
+                    </NavLink>
+                    <NavLink to="/cms/redzone/edit" id='add2' >
+                        {/* <FiPlus className="IconAdd" /> */}
+                        <span>Edit Redzone</span>
+                    </NavLink>
+                </div>
+
                 <div className="RedZone__heading">
                     <h3>Redzone List</h3>
-                    {/* <InputComponent 
-                        className="Input-control"
-                        type="text"
-                        placeholder="Search"
-                        name="search"
-                    /> */}
                 </div>
                 <div className="RedZone__data">
                     <TableRedZone className="table-col"

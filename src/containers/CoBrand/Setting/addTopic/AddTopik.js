@@ -26,7 +26,7 @@ class AddTopik extends React.Component {
     addMessage = () => {
         let params =
         {
-            audianceName: this.refs.email.value,
+            topicName: this.refs.email.value,
             dateCreated: this.refs.tempat.value,
             // messageContent: this.refs.deskripsi.value,
             // scheduleTime: this.refs.alamat.value,
@@ -34,7 +34,7 @@ class AddTopik extends React.Component {
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetAdd',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicAdd',
             data: params,
         })
             .then(response => {
@@ -43,7 +43,7 @@ class AddTopik extends React.Component {
                 // alert('Add Broadcast is success')
             })
             .catch(error => {
-                console.log(error + 'ini eror add AUDIENCE NEW');
+                console.log(error + 'ini eror add topic');
             });
 
     }
@@ -68,6 +68,7 @@ class AddTopik extends React.Component {
                         <option value="Topik Olah Raga">Topik Olah Raga</option>
                         <option value="Topik Umum">Topik Umum</option>
                     </select>
+                    <br></br>
                     {/* <input className='input' placeholder=''
                         ref="email"
                     ></input> */}
@@ -75,18 +76,7 @@ class AddTopik extends React.Component {
                     <label>Date Create</label>
                     <input className='input' placeholder=''
                         ref="tempat" type='datetime-local'></input>
-                    {/* <br></br>
-                    <label>Message</label> 
-                    <textarea className='text' placeholder='Type here ...'
-                    ref="deskripsi"></textarea>
-                    <br></br>
-                    <label>Schedule Time</label> 
-                    <input className='input' placeholder=''
-                    ref="alamat" type="datetime-local"></input>
-                    <br></br>
-                    <label>Media Type </label> 
-                    <input className='input' placeholder='Email / Device'
-                    ref="status"></input> */}
+                 
 
                 </form>
                 <Button className='btn' onClick={this.addMessage}>Send Data</Button>

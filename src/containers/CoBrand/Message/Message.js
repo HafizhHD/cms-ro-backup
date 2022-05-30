@@ -21,7 +21,9 @@ class Message extends React.Component {
     }
 
     componentDidMount() {
-    
+        console.log(localStorage.getItem('emailTo'))
+        console.log(localStorage.getItem('notifContext'))
+        //cek notif dlu
     }
     addMessage = () => {
         let params =
@@ -40,6 +42,8 @@ class Message extends React.Component {
             .then(response => {
                 console.log(response.data);
                 this.setState({send : true})
+                
+
                 // alert('Add Broadcast is success')
             })
             .catch(error => {
@@ -53,7 +57,7 @@ class Message extends React.Component {
         }
         return (
             <div className='div'>
-                <h1>Messaging</h1>
+                <h1>Notification</h1>
                 <form className='form'>
                     <label>User Email</label> <br></br>
                     <input className='input' placeholder=''

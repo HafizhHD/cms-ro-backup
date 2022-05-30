@@ -6,10 +6,12 @@ import RKLoader from './../../../components/UI/RKLoader/RKLoader.js';
 import './User.scss';
 import { getUserList } from './../../../components/API/filter'
 import Detail from './Detail/Detail';
+import { Redirect } from 'react-router-dom';
 
 const User = () => {
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState();
+    const [time, setTime] = useState(false);
 
     useEffect(() => {
         let params={
@@ -40,6 +42,9 @@ const User = () => {
     if(isLoading) {
         return <RKLoader />;
     }
+    else if (time == true) {
+        return <Redirect to="/cms/user-edit" />
+    }
     return (
         <div className="Pengguna">
             <Heading
@@ -49,6 +54,7 @@ const User = () => {
                     { name: 'Pengguna' }
                 ]}
             />
+            <button onClick={() => setTime(true)} className='btn3'>Edit User</button>
             <div className="Pengguna_table">
                 <TablePengguna
                     COLUMNS={columns}

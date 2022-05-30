@@ -33,14 +33,14 @@ class ListTopik extends React.Component {
     daftarMessage = () => {
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetFilter',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicFilter',
         })
             .then(response => {
                 console.log(response.data.Data);
                 this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST AUDIENCE');
+                console.log(error + 'ini eror LIST Topic');
             });
     }
 
@@ -49,21 +49,21 @@ class ListTopik extends React.Component {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
         console.log(idkomen)
-        console.log(this.state.message[index].audianceName)
+        console.log(this.state.message[index].topicName)
         let params =
         {
             whereValues:
                 { _id: idkomen },
             newKeyValues:
             {
-                audianceName: this.refs.email.value ? this.refs.email.value : this.state.message[index].audianceName,
-                dateCreated: this.refs.tempat.value ? this.refs.tempat.value : this.state.message[index].dateCreated
+                topicName: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].topicName,
+                dateCreated: this.refs.email.value ? this.refs.email.value : this.state.message[index].dateCreated
 
             }
         }
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetUpdate',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicUpdate',
             data: params,
         })
             .then(response => {
@@ -72,7 +72,7 @@ class ListTopik extends React.Component {
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicFilter',
                 })
                     .then(response => {
                         console.log(response.data.Data);
@@ -80,11 +80,11 @@ class ListTopik extends React.Component {
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST AUDIENCE');
+                        console.log(error + 'ini eror LIST Topic');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit BC');
+                console.log(error + 'ini eror edit topic');
             });
     }
     
@@ -96,8 +96,10 @@ class ListTopik extends React.Component {
                     if (index == this.state.new) {
                         return (
                             <tr key={index}>
-                                <td><input type="text" placeholder={item._id} ref="status"></input></td>
-                                <td><input placeholder={item.audianceName}  ref="alamat"></input></td>
+                                {/* <td><input type="text" placeholder={item._id} ref="status"></input></td> */}
+                                {/* <td>{item._id}</td> */}
+                                <td>{index + 1}</td>
+                                <td><input placeholder={item.topicName}  ref="alamat"></input></td>
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
                                 {/* <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
                                 <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
@@ -108,8 +110,9 @@ class ListTopik extends React.Component {
                     }
                     return (
                         <tr key={index}>
-                            <td>{item._id}</td>
-                            <td>{item.audianceName}</td>
+                            {/* <td>{item._id}</td> */}
+                            <td>{index + 1}</td>
+                            <td>{item.topicName}</td>
                             <td>{item.dateCreated}</td>
                             {/* <td>{item.messageSubject}</td>
                             <td>{item.messageContent}</td> */}
@@ -137,7 +140,7 @@ class ListTopik extends React.Component {
         };
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetRemove',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicRemove',
             data: params,
             headers: {
                 'Content-Type': 'application/json',
@@ -148,25 +151,23 @@ class ListTopik extends React.Component {
                 console.log(response.data);
                 axios({
                     method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/audianceTargetFilter',
+                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/contentTopicFilter',
                 })
                     .then(response => {
                         console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST AUDIENCE');
+                        console.log(error + 'ini eror LIST Topic');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete broadcast');
+                console.log(error + 'ini delete topic');
             });
     }
 
     onEdit(index) {
-        this.setState({ indexEdit: index })
         this.setState({ new: index })
-        console.log(this.state.indexEdit)
         console.log(index) //null
         console.log(this.state.new)
     }
@@ -187,8 +188,8 @@ class ListTopik extends React.Component {
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>Audience Name</th>
+                                <th>No</th>
+                                <th>Topic Name</th>
                                 <th className='h-email'>Date Create</th>
                                 {/* <th>Subject</th>
                                 <th>Message</th> */}

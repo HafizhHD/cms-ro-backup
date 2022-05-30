@@ -55,7 +55,7 @@ class AddTopik extends React.Component {
             <div className='div'>
                 <h1>ADD AUDIENCE</h1>
                 <form className='form'>
-                    <label>Audience Name </label> <br></br>
+                    <label>Target Audience</label> <br></br>
                     <select ref="email">
                         <option value="Semua">Semua</option>
                         <option value="Orangtua">Orangtua</option>
@@ -66,6 +66,7 @@ class AddTopik extends React.Component {
                         <option value="Siswa Pria">Siswa Pria</option>
                         <option value="Siswa Wanita">Siswa Wanita</option>
                     </select>
+                    <br></br>
                     {/* <input className='input' placeholder=''
                         ref="email"
                     ></input> */}

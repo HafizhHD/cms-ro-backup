@@ -144,6 +144,7 @@ class ListStaff extends React.Component {
                     <Table striped bordered hover >
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Username</th>
                                 <th>User Type</th>
                                 <th className='h-email'>Cobrand Email</th>
@@ -158,6 +159,7 @@ class ListStaff extends React.Component {
                                 if (index == this.state.new) {
                                     return (
                                         <tr key={index}>
+                                            <td>{index + 1}</td>
                                             <td><input placeholder={item.userName} ref="email"></input></td>
                                             <td><input placeholder={item.userType} ref="deskripsi"></input></td>
                                             <td><input placeholder={item.cobrandEmail} ref="alamat"></input></td>
@@ -170,6 +172,7 @@ class ListStaff extends React.Component {
                                 }
                                 return (
                                     <tr key={index}>
+                                        <td>{index + 1}</td>
                                         <td>{item.userName}</td>
                                         <td>{item.userType}</td>
                                         <td>{item.cobrandEmail}</td>
