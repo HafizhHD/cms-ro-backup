@@ -72,6 +72,7 @@ class Message extends React.Component {
                     <textarea className='text' placeholder='Type here ...'
                     ref="deskripsi"></textarea>
                     <br></br>
+                    
                     <label>Schedule Time</label> 
                     <input className='input' placeholder=''
                     ref="alamat" type="datetime-local"></input>
