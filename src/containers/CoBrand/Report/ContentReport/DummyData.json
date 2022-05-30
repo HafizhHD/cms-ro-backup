@@ -1,0 +1,82 @@
+[
+    {
+        "Nomor": "1",
+        "_id": "10",
+        "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!        ",
+        "contentType": "Artikel",
+        "contentPurpose": "Keluarga",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "2",
+        "_id": "9",
+        "contentName": "Solusi Ampuh Mendidik Anak Di Era Digital        ",
+        "contentType": "PDF",
+        "contentPurpose": "Pendidikan",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "3",
+        "_id": "8",
+        "contentName": "Parenting Dalam Islam        ",
+        "contentType": "PDF",
+        "contentPurpose": "Agama",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "4",
+        "_id": "7",
+        "contentName": "Parenting di era digital",
+        "contentType": "PDF",
+        "contentPurpose": "Informasi Teknologi",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "5",
+        "_id": "6",
+        "contentName": "Digital Parenting - Mendidik Anak di Era Digital        ",
+        "contentType": "PDF",
+        "contentPurpose": "Berita Internal",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "6",
+        "_id": "5",
+        "contentName": "DIGITAL PARENTING SEBAGAI WAHANA TERAPI UNTUK MENYEIMBANGKAN DUNIA DIGITAL DENGAN DUNIA NYATA BAGI ANAK",
+        "contentType": "PDF",
+        "contentPurpose": "Berita Nasional",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "7",
+        "_id": "4",
+        "contentName": "Psikologi Anak Usia Dini        ",
+        "contentType": "PDF",
+        "contentPurpose": "Kesehatan",
+        "contentTarget": "Orang Tua"
+    },
+    {
+        "Nomor": "8",
+        "_id": "3",
+        "contentName": "Tata cara sholat 5 waktu        ",
+        "contentType": "Image",
+        "contentPurpose": "Umum",
+        "contentTarget": "Anak"
+    },
+    {
+        "Nomor": "9",
+        "_id": "2",
+        "contentName": "Bacaan Doa, Niat, dan Tata Cara Sholat 5 Waktu yang Benar        ",
+        "contentType": "Artikel",
+        "contentPurpose": "Olah Raga",
+        "contentTarget": "Anak"
+    },
+    {
+        "Nomor": "10",
+        "_id": "1",
+        "contentName": "Introduction Aplikasi Ruang Ortu        ",
+        "contentType": "Video",
+        "contentPurpose": "Berita Dunia",
+        "contentTarget": "Orang Tua"
+    }
+]

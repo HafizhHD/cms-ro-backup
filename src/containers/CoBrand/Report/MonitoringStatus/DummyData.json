@@ -1,0 +1,255 @@
+[{
+    "Nomor": "6",
+    "userType": "Child",
+    "nameUser": "Hafiz",
+    "emailUser": "hdcuber96@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo" : {
+        "schoolName": "TKI Al Azhar 8 Kota Bekasi",
+        "StudyLevel": "TK"
+    },
+    "screenTime": 8,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 3,
+    "screenTimeGames": 2,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "7",
+    "userType": "Child",
+    "nameUser": "Nafies",
+    "emailUser": "gowesjersey@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 9 Bekasi",
+        "StudyLevel": "SD"
+    },
+    "screenTime": 12,
+    "screenTimeStatus": "TIDAK WAJAR",
+    "screenTimeSocialMedia": 5,
+    "screenTimeGames": 5,
+    "screenTimeVideo": 2
+},
+{
+    "Nomor": "8",
+    "userType": "Child",
+    "nameUser": "Santa",
+    "emailUser": "siregarsanta@defghi.id",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 8 Kembangan",
+        "StudyLevel": "SD"
+    },
+    "screenTime": 10,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 1,
+    "screenTimeGames": 6,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "9",
+    "userType": "Child",
+    "nameUser": "Jane",
+    "emailUser": "siregarjane20@gmail.com",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 9 Kembangan",
+        "StudyLevel": "TK"
+    },
+    "screenTime": 11,
+    "screenTimeStatus": "TIDAK WAJAR",
+    "screenTimeSocialMedia": 2,
+    "screenTimeGames": 7,
+    "screenTimeVideo": 2
+},
+{
+    "Nomor": "10",
+    "userType": "Child",
+    "nameUser": "Nera",
+    "emailUser": "nera.rane1010@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 2 Pejaten",
+        "StudyLevel": "SMP"
+    },
+    "screenTime": 7,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 2,
+    "screenTimeGames": 2,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "11",
+    "userType": "Child",
+    "nameUser": "Gita",
+    "emailUser": "gitaayufachrianda@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 4 Kebayoran Lama",
+        "StudyLevel": "SD"
+    },
+    "screenTime": 9,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 3,
+    "screenTimeGames": 4,
+    "screenTimeVideo": 2
+},
+{
+    "Nomor": "12",
+    "userType": "Child",
+    "nameUser": "Angga",
+    "emailUser": "singgih.zuliangga@defghi.id",
+    "parentName": ["Rafik Ahmad"],
+    "parentEmail": ["rafik.ahmad@defghi.global"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 61 Serpong",
+        "StudyLevel": "SD"
+    },
+    "screenTime": 10,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 3.5,
+    "screenTimeGames": 3.5,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "13",
+    "userType": "Child",
+    "nameUser": "Singgih",
+    "emailUser": "zuliangga.leo@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "screenTime": 6,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 2,
+    "screenTimeGames": 2,
+    "screenTimeVideo": 2
+},
+{
+    "Nomor": "14",
+    "userType": "Child",
+    "nameUser": "Rio",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 19 Pamulang",
+        "StudyLevel": "TK"
+    },
+    "screenTime": 7.3,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 1.3,
+    "screenTimeGames": 3,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "15",
+    "userType": "Child",
+    "nameUser": "Christiani",
+    "emailUser": "christiani.silaen@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMA Islam Al Azhar 1 Keb. Baru",
+        "StudyLevel": "SMA"
+    },
+    "screenTime": 13,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 4,
+    "screenTimeGames": 4,
+    "screenTimeVideo": 5
+},
+{
+    "Nomor": "16",
+    "userType": "Child",
+    "nameUser": "Nova",
+    "emailUser": "ndaritonang@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 4 Kemandoran",
+        "StudyLevel": "SMP"
+    },
+    "screenTime": 13,
+    "screenTimeStatus": "TIDAK WAJAR",
+    "screenTimeSocialMedia": 5,
+    "screenTimeGames": 5,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "17",
+    "userType": "Child",
+    "nameUser": "Amir",
+    "emailUser": "mirza.dzaky.azizi@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "screenTime": 10,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 2,
+    "screenTimeGames": 3,
+    "screenTimeVideo": 5
+},
+{
+    "Nomor": "18",
+    "userType": "Child",
+    "nameUser": "Enrile",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 6 Jakapermai",
+        "StudyLevel": "SMP"
+    },
+    "screenTime": 14,
+    "screenTimeStatus": "TIDAK WAJAR",
+    "screenTimeSocialMedia": 5,
+    "screenTimeGames": 6,
+    "screenTimeVideo": 3
+},
+{
+    "Nomor": "19",
+    "userType": "Child",
+    "nameUser": "Rajagukguk",
+    "emailUser": "rickoenrile23@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 8 Kemang Pratama",
+        "StudyLevel": "SMP"
+    },
+    "screenTime": 16,
+    "screenTimeStatus": "TIDAK WAJAR",
+    "screenTimeSocialMedia": 5,
+    "screenTimeGames": 6,
+    "screenTimeVideo": 5
+},
+{
+    "Nomor": "20",
+    "userType": "Child",
+    "nameUser": "Muhammad",
+    "emailUser": "muhammsyihab.dev@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 2 Pasar Minggu",
+        "childInfo.StudyLevel": "TK"
+    },
+    "screenTime": 5,
+    "screenTimeStatus": "WAJAR",
+    "screenTimeSocialMedia": 1,
+    "screenTimeGames": 2,
+    "screenTimeVideo": 2
+}]

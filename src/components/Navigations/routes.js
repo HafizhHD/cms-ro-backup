@@ -43,7 +43,7 @@ export const MenuCoBranding = [
             },
             {
                 path: '/monitoring-status', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Monitoring Status',
+                pathName: 'Monitoring Activity',
                 icon: <FiMonitor className="Aside__Nav_item-icon" />
             },
             {

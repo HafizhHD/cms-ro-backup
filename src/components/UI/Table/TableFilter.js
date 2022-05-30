@@ -60,7 +60,7 @@ export function GlobalFilter({
     const options = React.useMemo(() => {
       const options = new Set()
       preFilteredRows.forEach(row => {
-        options.add(row.values[id])
+        if(row.values[id] !== undefined) options.add(row.values[id])
       })
       return [...options.values()]
     }, [id, preFilteredRows])

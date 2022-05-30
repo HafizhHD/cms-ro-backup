@@ -38,7 +38,6 @@ const Columns = [
     {
         Header: 'Nama Konten',
         accessor: 'contentName',
-        disableFilters: true,
         Cell: ({value, row}) => {
             if(value !== undefined) return <p>{value}</p>
             else {

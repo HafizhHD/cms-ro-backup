@@ -1,0 +1,210 @@
+[{
+    "Nomor": "6",
+    "userType": "Child",
+    "nameUser": "Hafiz",
+    "emailUser": "hdcuber96@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo" : {
+        "schoolName": "TKI Al Azhar 8 Kota Bekasi",
+        "StudyLevel": "TK"
+    },
+    "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!",
+    "response": "Disukai"
+},
+{
+    "Nomor": "7",
+    "userType": "Child",
+    "nameUser": "Nafies",
+    "emailUser": "gowesjersey@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 9 Bekasi",
+        "StudyLevel": "SD"
+    },
+    "contentName": "Solusi Ampuh Mendidik Anak Di Era Digital",
+    "response": "Tidak Disukai"
+},
+{
+    "Nomor": "8",
+    "userType": "Child",
+    "nameUser": "Santa",
+    "emailUser": "siregarsanta@defghi.id",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 8 Kembangan",
+        "StudyLevel": "SD"
+    },
+    "contentName": "Parenting Dalam Islam",
+    "response": "Disukai"
+},
+{
+    "Nomor": "9",
+    "userType": "Child",
+    "nameUser": "Jane",
+    "emailUser": "siregarjane20@gmail.com",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 9 Kembangan",
+        "StudyLevel": "TK"
+    },
+    "contentName": "Parenting di era digital",
+    "response": "Disukai"
+},
+{
+    "Nomor": "10",
+    "userType": "Child",
+    "nameUser": "Nera",
+    "emailUser": "nera.rane1010@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 2 Pejaten",
+        "StudyLevel": "SMP"
+    },
+    "contentName": "Digital Parenting - Mendidik Anak di Era Digital",
+    "response": "Disukai"
+},
+{
+    "Nomor": "11",
+    "userType": "Child",
+    "nameUser": "Gita",
+    "emailUser": "gitaayufachrianda@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 4 Kebayoran Lama",
+        "StudyLevel": "SD"
+    },
+    "contentName": "DIGITAL PARENTING SEBAGAI WAHANA TERAPI UNTUK MENYEIMBANGKAN DUNIA DIGITAL DENGAN DUNIA NYATA BAGI ANAK",
+    "response": "Disukai"
+},
+{
+    "Nomor": "12",
+    "userType": "Child",
+    "nameUser": "Angga",
+    "emailUser": "singgih.zuliangga@defghi.id",
+    "parentName": ["Rafik Ahmad"],
+    "parentEmail": ["rafik.ahmad@defghi.global"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 61 Serpong",
+        "StudyLevel": "SD"
+    },
+    "contentName": "Psikologi Anak Usia Dini",
+    "response": "Tidak Disukai"
+},
+{
+    "Nomor": "13",
+    "userType": "Child",
+    "nameUser": "Singgih",
+    "emailUser": "zuliangga.leo@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "contentName": "Tata cara sholat 5 waktu",
+    "response": "Tidak Disukai"
+},
+{
+    "Nomor": "14",
+    "userType": "Child",
+    "nameUser": "Rio",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 19 Pamulang",
+        "StudyLevel": "TK"
+    },
+    "contentName": "Bacaan Doa, Niat, dan Tata Cara Sholat 5 Waktu yang Benar",
+    "response": "Disukai"
+},
+{
+    "Nomor": "15",
+    "userType": "Child",
+    "nameUser": "Christiani",
+    "emailUser": "christiani.silaen@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMA Islam Al Azhar 1 Keb. Baru",
+        "StudyLevel": "SMA"
+    },
+    "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!",
+    "response": "Disukai"
+},
+{
+    "Nomor": "16",
+    "userType": "Child",
+    "nameUser": "Nova",
+    "emailUser": "ndaritonang@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 4 Kemandoran",
+        "StudyLevel": "SMP"
+    },
+    "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!",
+    "response": "Disukai"
+},
+{
+    "Nomor": "17",
+    "userType": "Child",
+    "nameUser": "Amir",
+    "emailUser": "mirza.dzaky.azizi@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!",
+    "response": "Disukai"
+},
+{
+    "Nomor": "18",
+    "userType": "Child",
+    "nameUser": "Enrile",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 6 Jakapermai",
+        "StudyLevel": "SMP"
+    },
+    "contentName": "Bacaan Doa, Niat, dan Tata Cara Sholat 5 Waktu yang Benar",
+    "response": "Disukai"
+},
+{
+    "Nomor": "19",
+    "userType": "Child",
+    "nameUser": "Rajagukguk",
+    "emailUser": "rickoenrile23@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 8 Kemang Pratama",
+        "StudyLevel": "SMP"
+    },
+    "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!",
+    "response": "Disukai"
+},
+{
+    "Nomor": "20",
+    "userType": "Child",
+    "nameUser": "Muhammad",
+    "emailUser": "muhammsyihab.dev@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 2 Pasar Minggu",
+        "childInfo.StudyLevel": "TK"
+    },
+    "contentName": "Bacaan Doa, Niat, dan Tata Cara Sholat 5 Waktu yang Benar",
+    "response": "Disukai"
+}]

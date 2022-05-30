@@ -1,0 +1,255 @@
+[{
+    "Nomor": "6",
+    "userType": "Child",
+    "nameUser": "Hafiz",
+    "emailUser": "hdcuber96@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo" : {
+        "schoolName": "TKI Al Azhar 8 Kota Bekasi",
+        "StudyLevel": "TK"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["facebook, mobile legends, sudoku"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "7",
+    "userType": "Child",
+    "nameUser": "Nafies",
+    "emailUser": "gowesjersey@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 9 Bekasi",
+        "StudyLevel": "SD"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "OFF",
+    "blockedApps": ["No App Blocked"],
+    "limitedApps": ["No App Limited"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "8",
+    "userType": "Child",
+    "nameUser": "Santa",
+    "emailUser": "siregarsanta@defghi.id",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 8 Kembangan",
+        "StudyLevel": "SD"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "OFF",
+    "blockedApps": ["facebook, mobile legends, sudoku"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "9",
+    "userType": "Child",
+    "nameUser": "Jane",
+    "emailUser": "siregarjane20@gmail.com",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 9 Kembangan",
+        "StudyLevel": "TK"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "OFF",
+    "blockedApps": ["No App Blocked"],
+    "limitedApps": ["No App Limited"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "10",
+    "userType": "Child",
+    "nameUser": "Nera",
+    "emailUser": "nera.rane1010@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 2 Pejaten",
+        "StudyLevel": "SMP"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["facebook, mobile legends, sudoku"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "11",
+    "userType": "Child",
+    "nameUser": "Gita",
+    "emailUser": "gitaayufachrianda@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 4 Kebayoran Lama",
+        "StudyLevel": "SD"
+    },
+    "lockScreenStatus": "On",
+    "modeAsuh": "ON",
+    "blockedApps": ["facebook,  mobile legends, sudoku, tiktok"],
+    "limitedApps": ["Youtube, tiktok"],
+    "usageScheduleStatus": "On"
+},
+{
+    "Nomor": "12",
+    "userType": "Child",
+    "nameUser": "Angga",
+    "emailUser": "singgih.zuliangga@defghi.id",
+    "parentName": ["Rafik Ahmad"],
+    "parentEmail": ["rafik.ahmad@defghi.global"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 61 Serpong",
+        "StudyLevel": "SD"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["Instagram,  Clash royale, sudoku,Tiktok, Youtube"],
+    "limitedApps": ["PUBG, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "13",
+    "userType": "Child",
+    "nameUser": "Singgih",
+    "emailUser": "zuliangga.leo@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["Instagram,  Clash royale, sudoku,Tiktok, Youtube, twitter"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "14",
+    "userType": "Child",
+    "nameUser": "Rio",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 19 Pamulang",
+        "StudyLevel": "TK"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "OFF",
+    "blockedApps": ["facebook,  mobile legends"],
+    "limitedApps": ["youtube, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "15",
+    "userType": "Child",
+    "nameUser": "Christiani",
+    "emailUser": "christiani.silaen@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMA Islam Al Azhar 1 Keb. Baru",
+        "StudyLevel": "SMA"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["Youtube, Clash of Clans, sudoku, Free fire, kaskus"],
+    "limitedApps": ["youtube, kaskus"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "16",
+    "userType": "Child",
+    "nameUser": "Nova",
+    "emailUser": "ndaritonang@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 4 Kemandoran",
+        "StudyLevel": "SMP"
+    },
+    "lockScreenStatus": "On",
+    "modeAsuh": "ON",
+    "blockedApps": ["No App Blocked"],
+    "limitedApps": ["No App Limited"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "17",
+    "userType": "Child",
+    "nameUser": "Amir",
+    "emailUser": "mirza.dzaky.azizi@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["Youtube, Pubg, sudoku, Free fire, Chess"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "18",
+    "userType": "Child",
+    "nameUser": "Enrile",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 6 Jakapermai",
+        "StudyLevel": "SMP"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "OFF",
+    "blockedApps": ["No App Blocked"],
+    "limitedApps": ["No App Limited"],
+    "usageScheduleStatus": "Off"
+},
+{
+    "Nomor": "19",
+    "userType": "Child",
+    "nameUser": "Rajagukguk",
+    "emailUser": "rickoenrile23@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 8 Kemang Pratama",
+        "StudyLevel": "SMP"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["facebook, mobile legends, sudoku"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "On"
+},
+{
+    "Nomor": "20",
+    "userType": "Child",
+    "nameUser": "Muhammad",
+    "emailUser": "muhammsyihab.dev@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 2 Pasar Minggu",
+        "childInfo.StudyLevel": "TK"
+    },
+    "lockScreenStatus": "Off",
+    "modeAsuh": "ON",
+    "blockedApps": ["facebook, mobile legends, sudoku"],
+    "limitedApps": ["tiktok, instagram"],
+    "usageScheduleStatus": "Off"
+}]

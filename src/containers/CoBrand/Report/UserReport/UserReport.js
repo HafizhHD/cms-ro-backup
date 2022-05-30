@@ -5,11 +5,13 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from './../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './UserReport.scss';
 import { getUserList } from './../../../../components/API/filter.js'
+import dummyData from './DummyData.json'
 import MUIDataTable from "mui-datatables";
 
 const UserReport = () => {
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState();
+    const [period, setPeriod] = useState('real');
 
     const options = {
         filterType: "dropdown",
@@ -18,7 +20,11 @@ const UserReport = () => {
     };
 
     useEffect(() => {
-        let params={
+        if(period === 'dummy') {
+            setUserData(dummyData);
+            setLoading(false);
+        }
+        else {let params={
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu"
             },
@@ -59,8 +65,8 @@ const UserReport = () => {
         .catch(error => {
             console.log(error);
             setLoading(false);
-        })
-    }, []);
+        })}
+    }, [, period]);
 
     if(isLoading) {
         return <RKLoader />;
@@ -74,6 +80,22 @@ const UserReport = () => {
                     { name: 'User Report' }
                 ]}
             />
+             <div className="Dashboard_period">
+                <button className={period === 'real' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        if(period !== 'real') {
+                            setLoading(true);
+                            setPeriod('real');
+                        }
+                    }}>Real</button>
+                <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                    onClick={() => {
+                        if(period !== 'dummy') {
+                            setLoading(true);
+                            setPeriod('dummy');
+                        }
+                    }}>Dummy</button>
+            </div>
             <div className="Pengguna_table">
                 <TablePengguna
                     COLUMNS={columns}

@@ -6,6 +6,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import RKLoaderSpinner from '../../../../components/UI/RKLoaderSpinner/RKLoader.js';
 import './MonitoringStatus.scss';
 import { getUserList, getAppUsageList } from '../../../../components/API/filter.js'
+import dummyData from './DummyData.json'
 import MUIDataTable from "mui-datatables";
 import DatePicker from "react-datepicker";
 
@@ -20,6 +21,7 @@ const MonitoringStatus = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [isSubmit, setSubmit] = useState(false);
+    const [period, setPeriod] = useState('real');
     
     const oneDay = 24 * 60 * 60 * 1000; 
 
@@ -30,7 +32,11 @@ const MonitoringStatus = () => {
     };
 
     useEffect(() => {
-        let params={
+        if(period === 'dummy') {
+            setUserData(dummyData);
+            setLoading(false);
+        }
+        else {let params={
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu"
             },
@@ -124,8 +130,8 @@ const MonitoringStatus = () => {
         .catch(error => {
             console.log(error);
             setLoading(false);
-        })
-    }, []);
+        })}
+    }, [,period]);
 
     useEffect(() => {
         setLoadingSpinner(true);
@@ -190,12 +196,28 @@ const MonitoringStatus = () => {
         {isLoadingSpinner ? <RKLoaderSpinner/> : null}
         <div className="Monitoring">
             <Heading
-                headingName="Monitoring Status"
+                headingName="Monitoring Activity"
                 routes={[
                     { name: 'Report', path: '/report/monitoring-status' },
                     { name: 'Monitoring Status' }
                 ]}
             />
+            <div className="Dashboard_period">
+               <button className={period === 'real' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                   onClick={() => {
+                       if(period !== 'real') {
+                           setLoading(true);
+                           setPeriod('real');
+                       }
+                   }}>Real</button>
+               <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                   onClick={() => {
+                       if(period !== 'dummy') {
+                           setLoading(true);
+                           setPeriod('dummy');
+                       }
+                   }}>Dummy</button>
+           </div>
             <div className="Monitoring_datePicker">
                 <div>
                     <p>Start Date</p>
