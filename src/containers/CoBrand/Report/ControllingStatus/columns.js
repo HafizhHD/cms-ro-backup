@@ -10,14 +10,30 @@ const Columns = [
         disableFilters: true
     },
     {
+        Header: 'Email User',
+        accessor: 'emailUser',
+        disableFilters: true,
+        disableGlobalFilter: true
+    },
+    {
         Header: 'Nama',
         accessor: 'nameUser',
         disableFilters: true
     },
     {
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
+        disableFilters: true,
+        disableGlobalFilter: true
+    },
+    {
         Header: 'Nama Orangtua',
         accessor: 'parentName',
-        disableFilters: true
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Sekolah',
@@ -36,10 +52,10 @@ const Columns = [
         accessor:'lockScreenStatus',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({row}) => {
-            if(row.index % 3 === 1) return <p>Off</p>
-            else return <p>On</p>
-        }
+        // Cell: ({row}) => {
+        //     if(row.index % 3 === 1) return <p>Off</p>
+        //     else return <p>On</p>
+        // }
     },
     {
         Header: 'Status Mode Asuh',
@@ -50,10 +66,18 @@ const Columns = [
     {
         Header: 'Aplikasi yang Diblokir',
         accessor:'blockedApps',
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Aplikasi yang Dibatasi',
-        accessor:'limitedApps'
+        accessor:'limitedApps',
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Status Jadwal Penggunaan',

@@ -45,3 +45,28 @@
   text-decoration: none;
   color: #111;
 }
+
+.Dashboard_period {
+  display: grid;
+  width: max-content;
+  grid-template-columns: max-content max-content;
+  background-color: #888888;
+  padding: 5px;
+  border-radius: 2rem;
+
+  &_option {
+    padding: 8px;
+    color: white;
+    background-color:transparent;
+    border: none;
+    cursor: pointer;
+    &-active {
+      padding: 8px;
+      border: none;
+      background-color: #FFFFFF;
+      border-radius: 2rem;
+      color: var(--color-primary);
+      cursor: pointer;
+    }
+  }
+}

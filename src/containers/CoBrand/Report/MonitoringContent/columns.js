@@ -10,23 +10,41 @@ const Columns = [
         disableFilters: true
     },
     {
+        Header: 'Email User',
+        accessor: 'emailUser',
+        disableFilters: true,
+        disableGlobalFilter: true
+    },
+    {
         Header: 'Nama',
         accessor: 'nameUser',
         disableFilters: true
     },
     {
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
+        disableFilters: true,
+        disableGlobalFilter: true
+    },
+    {
         Header: 'Nama Orangtua',
         accessor: 'parentName',
-        disableFilters: true
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Nama Konten',
         accessor: 'contentName',
-        disableFilters: true,
-        Cell: ({row}) => {
-            if(row.index % 3 === 0) return <p>5 Langkah Menguasai Ujian Nasional</p>
-            else if(row.index % 3 === 1) return <p>Cara Cepat Menghafal Al-Quran</p>
-            else if(row.index % 3 === 2) return <p>Inilah Sosok Terkenal yang Mahir Berbahasa Arab</p>
+        Cell: ({value, row}) => {
+            if(value !== undefined) return <p>{value}</p>
+            else {
+                if(row.index % 3 === 0) return <p>5 Langkah Menguasai Ujian Nasional</p>
+                else if(row.index % 3 === 1) return <p>Cara Cepat Menghafal Al-Quran</p>
+                else if(row.index % 3 === 2) return <p>Inilah Sosok Terkenal yang Mahir Berbahasa Arab</p>
+            }
         }
     },
     {
@@ -34,9 +52,12 @@ const Columns = [
         accessor: 'response',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({row}) => {
-            if(row.index % 2 === 0) return <p>Dibaca</p>
-            else if(row.index % 2 === 1) return <p>Disukai</p>
+        Cell: ({value, row}) => {
+            if(value !== undefined) return <p>{value}</p>
+            else {
+                if(row.index % 2 === 0) return <p>Dibaca</p>
+                else if(row.index % 2 === 1) return <p>Disukai</p>
+            }
         }
     }
     // {

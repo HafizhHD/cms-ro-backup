@@ -1,0 +1,240 @@
+[{
+    "Nomor": "1",
+    "userType": "Parent",
+    "nameUser": "Ricko Enrile",
+    "emailUser": "rickotesting@gmail.com"
+},
+{
+    "Nomor": "2",
+    "userType": "Parent",
+    "nameUser": "Syihab Rabbani",
+    "emailUser": "syihab.rabbani@defghi.id"
+},
+{
+    "Nomor": "3",
+    "userType": "Parent",
+    "nameUser": "Kartono",
+    "emailUser": "kartono.cc@gmail.com"
+},
+{
+    "Nomor": "4",
+    "userType": "Parent",
+    "nameUser": "Tombak",
+    "emailUser": "tomsiman.id@gmail.com"
+},
+{
+    "Nomor": "5",
+    "userType": "Parent",
+    "nameUser": "Rafik Ahmad",
+    "emailUser": "rafik.ahmad@defghi.global"
+},
+{
+    "Nomor": "6",
+    "userType": "Child",
+    "nameUser": "Hafiz",
+    "emailUser": "hdcuber96@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo" : {
+        "schoolName": "TKI Al Azhar 8 Kota Bekasi",
+        "StudyLevel": "TK"
+    },
+    "gender": "Laki-Laki",
+    "address": "Bekasi Barat"
+},
+{
+    "Nomor": "7",
+    "userType": "Child",
+    "nameUser": "Nafies",
+    "emailUser": "gowesjersey@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 9 Bekasi",
+        "StudyLevel": "SD"
+    },
+    "gender": "Perempuan",
+    "address": "Bekasi Barat"
+},
+{
+    "Nomor": "8",
+    "userType": "Child",
+    "nameUser": "Santa",
+    "emailUser": "siregarsanta@defghi.id",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 8 Kembangan",
+        "StudyLevel": "SD"
+    },
+    "gender": "Perempuan",
+    "address": "Taman Alfa"
+},
+{
+    "Nomor": "9",
+    "userType": "Child",
+    "nameUser": "Jane",
+    "emailUser": "siregarjane20@gmail.com",
+    "parentName": ["Tombak"],
+    "parentEmail": ["tomsiman.id@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 9 Kembangan",
+        "StudyLevel": "TK"
+    },
+    "gender": "Perempuan",
+    "address": "Taman Alfa"
+},
+{
+    "Nomor": "10",
+    "userType": "Child",
+    "nameUser": "Nera",
+    "emailUser": "nera.rane1010@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 2 Pejaten",
+        "StudyLevel": "SMP"
+    },
+    "gender": "Perempuan",
+    "address": "Kuningan"
+},
+{
+    "Nomor": "11",
+    "userType": "Child",
+    "nameUser": "Gita",
+    "emailUser": "gitaayufachrianda@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 4 Kebayoran Lama",
+        "StudyLevel": "SD"
+    },
+    "gender": "Perempuan",
+    "address": "Kuningan"
+},
+{
+    "Nomor": "12",
+    "userType": "Child",
+    "nameUser": "Angga",
+    "emailUser": "singgih.zuliangga@defghi.id",
+    "parentName": ["Rafik Ahmad"],
+    "parentEmail": ["rafik.ahmad@defghi.global"],
+    "childInfo": {
+        "schoolName": "SDI Al Azhar 61 Serpong",
+        "StudyLevel": "SD"
+    },
+    "gender": "Laki-Laki",
+    "address": "Serpong"
+},
+{
+    "Nomor": "13",
+    "userType": "Child",
+    "nameUser": "Singgih",
+    "emailUser": "zuliangga.leo@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "gender": "Laki-Laki",
+    "address": "Pamulang Raya"
+},
+{
+    "Nomor": "14",
+    "userType": "Child",
+    "nameUser": "Rio",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 19 Pamulang",
+        "StudyLevel": "TK"
+    },
+    "gender": "Laki-Laki",
+    "address": "Pamulang Raya"
+},
+{
+    "Nomor": "15",
+    "userType": "Child",
+    "nameUser": "Christiani",
+    "emailUser": "christiani.silaen@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMA Islam Al Azhar 1 Keb. Baru",
+        "StudyLevel": "SMA"
+    },
+    "gender": "Perempuan",
+    "address": "Kebayoran Baru"
+},
+{
+    "Nomor": "16",
+    "userType": "Child",
+    "nameUser": "Nova",
+    "emailUser": "ndaritonang@gmail.com",
+    "parentName": ["Ricko Enrile"],
+    "parentEmail": ["rickotesting@gmail.com"],
+    "childInfo": {
+        "schoolName": "SMPIA 4 Kemandoran",
+        "StudyLevel": "SMP"
+    },
+    "gender": "Perempuan",
+    "address": "Kebayoran Baru"
+},
+{
+    "Nomor": "17",
+    "userType": "Child",
+    "nameUser": "Amir",
+    "emailUser": "mirza.dzaky.azizi@gmail.com",
+    "parentName": ["Kartono"],
+    "parentEmail": ["kartono.cc@gmail.com"],
+    "childInfo": {
+        "schoolName": "SDI AL Azhar 15 Pamulang",
+        "StudyLevel": "SD"
+    },
+    "gender": "Laki-Laki",
+    "address": "Pamulang Raya"
+},
+{
+    "Nomor": "18",
+    "userType": "Child",
+    "nameUser": "Enrile",
+    "emailUser": "ricko@ide2sen.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 6 Jakapermai",
+        "StudyLevel": "SMP"
+    },
+    "gender": "Laki-Laki",
+    "address": "Matraman"
+},
+{
+    "Nomor": "19",
+    "userType": "Child",
+    "nameUser": "Rajagukguk",
+    "emailUser": "rickoenrile23@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "SMPIA 8 Kemang Pratama",
+        "StudyLevel": "SMP"
+    },
+    "gender": "Laki-Laki",
+    "address": "Matraman"
+},
+{
+    "Nomor": "20",
+    "userType": "Child",
+    "nameUser": "Muhammad",
+    "emailUser": "muhammsyihab.dev@gmail.com",
+    "parentName": ["Syihab Rabbani"],
+    "parentEmail": ["syihab.rabbani@defghi.id"],
+    "childInfo": {
+        "schoolName": "TKI Al Azhar 2 Pasar Minggu",
+        "childInfo.StudyLevel": "TK"
+    },
+    "gender": "Laki-Laki",
+    "address": "Matraman"
+}]

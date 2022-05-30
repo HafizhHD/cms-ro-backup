@@ -82,6 +82,15 @@ export const getAppDetailList = (query) => axios({
     }
 });
 
+export const getNotificationList = (query) => axios({
+    method: 'post',
+    url: url + '/user/broadcastFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 export const getHKBPList = (query) => axios({
     method: 'post',
     url: url + '/cobrand/HKBPDataFilter',

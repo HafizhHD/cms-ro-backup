@@ -9,7 +9,7 @@ import columns from'./columns';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
-import { getContentList, getProgramList, getUserList, getAppUsageList } from '../../../components/API/filter';
+import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationList } from '../../../components/API/filter';
 import {FaWhatsapp} from 'react-icons/fa'
 
 import StackedChart from './component/StackedChart'
@@ -35,14 +35,24 @@ function Dashboard() {
     const conProgDataLabel = ["Content", "Program"];
     const [topUsageData, setTopUsageData] = useState([]);
     const [topUsageLabel, setTopUsageLabel] = useState([]);
+    const [notifData, setNotifData] = useState([]);
+    const [notifLabel, setNotifLabel] = useState([]);
+    const [topicCountLabel, setTopicCountLabel] = useState([]);
+    const [topicCountData, setTopicCountData] = useState([]);
+    const [topicViewLabel, setTopicViewLabel] = useState([]);
+    const [topicViewData, setTopicViewData] = useState([]);
+    const [usageStudyLevelData, setUsageStudyLevelData] = useState([]);
+    const [colors, setColors] = useState([]);
 
-    const userLabelDummy = ["Orangtua", "Anak"];
-    const conProgLabelDummy = ["Content", "Program"];
     const topUsageLabelDummy = ["Youtube", "Google", "Facebook", "Twitter", "Chrome", "Telegram", "TikTok", "Mobile Legends", "Chess", "Minecraft"];
     const notifLabelDummy = ["Pembayaran", "Pemberitahuan", "Promosi", "Laporan"];
     const topicLabelDummy = ["Agama", "Pendidikan", "Kesehatan", "Keluarga", "Berita Internal", "Berita Nasional", "Berita Dunia", "Informasi Teknologi", "Olah Raga", "Umum"];
     
     const userDummy = [
+        {
+            name: "TK",
+            data: [0, 12]
+        },
         {
             name: "SD",
             data: [0, 50]
@@ -93,6 +103,13 @@ function Dashboard() {
         setConProgData(conProgDummy);
         setTopUsageLabel(topUsageLabelDummy);
         setTopUsageData(topUsageDummy);
+        setNotifLabel(notifLabelDummy);
+        setNotifData(notifDummy);
+        setTopicCountLabel(topicLabelDummy);
+        setTopicCountData(topicCountDummy);
+        setTopicViewLabel(topicLabelDummy);
+        setTopicViewData(topicViewDummy);
+        setUsageStudyLevelData(usageStudyLevelDummy);
         setLoadingSpinner(false);
         setTimeout(() => {setLoading(true)},50);
         setTimeout(() => {setLoading(false)}, 80);
@@ -106,7 +123,8 @@ function Dashboard() {
     
 
     function retrieveData() {
-        var sd = [0, 0],
+        var tk = [0,0],
+        sd = [0, 0],
         smp = [0,0],
         sma = [0,0],
         parent = [0,0],
@@ -166,12 +184,17 @@ function Dashboard() {
             limit: Number.MAX_SAFE_INTEGER
         }
 
+        let paramNotification = {
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
         const promiseUser = getUserList(paramUser);
         const promiseContent = getContentList(paramContent);
         const promiseProgram = getProgramList(paramProgram);
         const promiseUsage = getAppUsageList(paramUsage);
+        const promiseNotification = getNotificationList(paramNotification);
 
-        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage]).then(responseAll => {
+        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification]).then(responseAll => {
             console.log(responseAll[0]);
             const dataUser = responseAll[0].data.users;
             // console.log(dataUser);
@@ -183,12 +206,17 @@ function Dashboard() {
                     else coparent[0]++;
                 }
                 else if(x.userType === 'child') {
-                    if(x.childInfo.StudyLevel === 'SD') sd[1]++;
+                    if(x.childInfo.StudyLevel === 'TK') tk[1]++;
+                    else if(x.childInfo.StudyLevel === 'SD') sd[1]++;
                     else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
                     else if(x.childInfo.StudyLevel === 'SMA') sma[1]++;
                 }
             }
             const userDataObj = [
+                {
+                    name: "TK",
+                    data: tk
+                },
                 {
                     name: "SD",
                     data: sd
@@ -210,6 +238,8 @@ function Dashboard() {
                     data: coparent
                 }
             ]
+            
+            console.log("Colors length: " + colors.length);
             setUserData(userDataObj);
 
             const contentLength = responseAll[1].data.contents.length;
@@ -269,6 +299,15 @@ function Dashboard() {
             setTopUsageData(usageFreq.slice(0,10));
             setTopUsageLabel(usageLabel.slice(0,10));
 
+            console.log(responseAll[4].data);
+            setNotifData([]);
+            setNotifLabel([]);
+            setTopicCountLabel([]);
+            setTopicCountData([]);
+            setTopicViewLabel([]);
+            setTopicViewData([]);
+            setUsageStudyLevelData([]);
+
             if(isLoading) setLoading(false);
             else if(isLoadingSpinner) {
                 setLoadingSpinner(false);
@@ -282,6 +321,16 @@ function Dashboard() {
         retrieveData();
 
     }, [, endDate]);
+
+    useEffect(() => {
+
+        var colors2 = [];
+        for(var i = 0; i < 10; i++) {
+            const colorPallete = "#" + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-3);
+            colors2.push(colorPallete);
+        }
+        setColors(colors2);
+    }, []);
 
     useEffect(() => {
         var changedStartDate = new Date();
@@ -340,38 +389,52 @@ function Dashboard() {
             <div className="Dashboard_period">
                 <button className={period === 'today' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('today');
+                        if(period !== 'today') {
+                            setLoadingSpinner(true);
+                            setPeriod('today');
+                        }
                     }}>Today</button>
                 <button className={period === 'yesterday' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('yesterday');
+                        if(period !== 'yesterday') {
+                            setLoadingSpinner(true);
+                            setPeriod('yesterday');
+                        }
                     }}>Yesterday</button>
                 <button className={period === 'week' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('week');
+                        if(period !== 'week') {
+                            setLoadingSpinner(true);
+                            setPeriod('week');
+                        }
                     }}>7 Days</button>
                 <button className={period === 'month' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('month');
+                        if(period !== 'month') {
+                            setLoadingSpinner(true);
+                            setPeriod('month');
+                        }
                     }}>30 Days</button>
                 <button className={period === 'year' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('year');
+                        if(period !== 'year') {
+                            setLoadingSpinner(true);
+                            setPeriod('year');
+                        }
                     }}>365 Days</button>
                 <button className={period === 'all' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('all');
+                        if(period !== 'all') {
+                            setLoadingSpinner(true);
+                            setPeriod('all');
+                        }
                     }}>All Time</button>
                 <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                     onClick={() => {
-                        setLoadingSpinner(true);
-                        setPeriod('dummy');
+                        if(period !== 'dummy') {
+                            setLoadingSpinner(true);
+                            setPeriod('dummy');
+                        }
                     }}>Dummy</button>
             </div>
             
@@ -390,6 +453,7 @@ function Dashboard() {
                                     data={userData}
                                     label={userDataLabel}
                                     height={400}
+                                    colors={colors}
                             />
                             
                             <div className="Dashboard_1_cards_card_item-details">
@@ -408,6 +472,7 @@ function Dashboard() {
                                     data={topUsageData}
                                     label={topUsageLabel}
                                     width={380}
+                                    colors={colors}
                             />
                             
                             <div className="Dashboard_1_cards_card_item-details">
@@ -423,8 +488,8 @@ function Dashboard() {
                             
 
                             <BarChart
-                                    data={topicCountDummy}
-                                    label={topicLabelDummy}
+                                    data={topicCountData}
+                                    label={topicCountLabel}
                                     height={400}
                             />
                             
@@ -479,8 +544,8 @@ function Dashboard() {
                             
 
                             <BarChart
-                                    data={notifDummy}
-                                    label={notifLabelDummy}
+                                    data={notifData}
+                                    label={notifLabel}
                                     height={350}
                             />
                             
@@ -497,8 +562,8 @@ function Dashboard() {
                             
 
                             <BarChart
-                                    data={topicViewDummy}
-                                    label={topicLabelDummy}
+                                    data={topicViewData}
+                                    label={topicViewLabel}
                                     height={600}
                             />
                             
@@ -514,7 +579,7 @@ function Dashboard() {
             <div className="Dashboard_table">
                 <Table
                     COLUMNS={columns}
-                    DATA={usageStudyLevelDummy}
+                    DATA={usageStudyLevelData}
                 />
             </div>
 

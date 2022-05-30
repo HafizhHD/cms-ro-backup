@@ -4,6 +4,7 @@ import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './MonitoringProgram.scss';
+import dummyData from './DummyData.json'
 import { getUserList, getModeAsuhList, getDeviceScheduleList, getAppLimitList, getAppDetailList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
 
@@ -11,6 +12,8 @@ const MonitoringProgram = () => {
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState();
     const [usageData, setUsageData] = useState();
+    const [period, setPeriod] = useState('real');
+    
 
     const options = {
         filterType: "dropdown",
@@ -19,7 +22,14 @@ const MonitoringProgram = () => {
     };
 
     useEffect(() => {
-        let params={
+        console.log('masuk sini');
+        if(period === 'dummy') {
+            setUserData(dummyData);
+            console.log('masuk sini hay!');
+            setLoading(false);
+            setLoading(false);
+        }
+        else {let params={
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
             },
@@ -38,13 +48,19 @@ const MonitoringProgram = () => {
                 let user = userDataDummy[i];
                 if(user.userType === 'child') {
                     console.log("Anjay");
+                    var parentNames = [];
+                    var parentEmails = [user.parentEmail, ...user.otherParentEmail];
                     for(var j = 0; j < userDataDummy.length; j++) {
                         let user2 = userDataDummy[j];
                         if(user.parentEmail === user2.emailUser){
-                            user['parentName'] = user2.nameUser;
-                            break;
+                            parentNames.push(user2.nameUser);
+                        }
+                        else if(user.otherParentEmail.includes(user2.emailUser)) {
+                            parentNames.push(user2.nameUser);
                         }
                     }
+                    user['parentName'] = parentNames;
+                    user['parentEmail'] = parentEmails;
                     userDataChild.push(user);
                 }
             }
@@ -147,8 +163,8 @@ const MonitoringProgram = () => {
         .catch(error => {
             console.log(error);
             setLoading(false);
-        })
-    }, []);
+        })}
+    }, [, period]);
 
     if(isLoading) {
         return <RKLoader />;
@@ -156,12 +172,28 @@ const MonitoringProgram = () => {
     return (
         <div className="Controlling">
             <Heading
-                headingName="Monitoring Content"
+                headingName="Monitoring Program"
                 routes={[
                     { name: 'Report', path: '/report/monitoring-program' },
                     { name: 'Monitoring Program' }
                 ]}
             />
+            <div className="Dashboard_period">
+               <button className={period === 'real' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                   onClick={() => {
+                       if(period !== 'real') {
+                           setLoading(true);
+                           setPeriod('real');
+                       }
+                   }}>Real</button>
+               <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                   onClick={() => {
+                       if(period !== 'dummy') {
+                           setLoading(true);
+                           setPeriod('dummy');
+                       }
+                   }}>Dummy</button>
+           </div>
             <div className="Controlling_table">
                 <TablePengguna
                     COLUMNS={columns}

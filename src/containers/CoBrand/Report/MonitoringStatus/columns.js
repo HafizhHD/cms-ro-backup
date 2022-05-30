@@ -12,14 +12,30 @@ const Columns = [
         disableFilters: true
     },
     {
+        Header: 'Email User',
+        accessor: 'emailUser',
+        disableFilters: true,
+        disableGlobalFilter: true
+    },
+    {
         Header: 'Nama',
         accessor: 'nameUser',
         disableFilters: true
     },
     {
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
+        disableFilters: true,
+        disableGlobalFilter: true
+    },
+    {
         Header: 'Nama Orangtua',
         accessor: 'parentName',
-        disableFilters: true
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Sekolah',

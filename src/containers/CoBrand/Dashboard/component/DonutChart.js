@@ -6,6 +6,7 @@ const DonutChart = (props) => {
     const [subsState] = useState({
         series: props.data,
         options: {
+            colors: props.colors,
             chart: {
                 width: props.width,
                 type: 'donut'
