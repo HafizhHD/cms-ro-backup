@@ -55,6 +55,8 @@ const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/Screen
 const ListKoment = lazy(() => import('../../containers/CoBrand/Content/ViewContent/comment/ListKomen'));
 const EditRedzone = lazy(() => import('../../containers/CoBrand/RedZone/ListRedzone/ListRedzone'));
 const EditUser = lazy(() => import('../../containers/CoBrand/User/EditUser/EditUser'));
+const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
+const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
 
 function Cobrand({
@@ -145,7 +147,7 @@ function Cobrand({
                     path="/report/redzone"
                     component={RedzoneReportAsync}
                 />
-                
+
 
                 <PrivateRoute
                     exact
@@ -172,7 +174,7 @@ function Cobrand({
                     exact
                     component={UserManagement}
                 />
-                  <PrivateRoute
+                <PrivateRoute
                     path="/cms/user-edit"
                     exact
                     component={EditUser}
@@ -201,7 +203,8 @@ function Cobrand({
                 <PrivateRoute
                     path="/cms/program"
                     exact
-                    component={ProgramAsync}
+                    // component={ProgramAsync}
+                    component={ListProgram}
                 />
                 <PrivateRoute
                     path="/cms/program/add"
@@ -219,6 +222,19 @@ function Cobrand({
                     path="/cms/program/view"
                     exact
                     component={ViewProgramAsync}
+                />
+
+                <PrivateRoute
+                    path="/cms/program/revisilist"
+                    exact
+                    // component={ListProgram}
+                    component={ProgramAsync}
+                />
+
+                <PrivateRoute
+                    path="/cms/program/revisilist-add"
+                    exact
+                    component={AddProgramRev}
                 />
 
                 <PrivateRoute
@@ -259,7 +275,7 @@ function Cobrand({
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
-                    
+
                 />
                 <PrivateRoute
                     exact

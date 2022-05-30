@@ -59,7 +59,7 @@ class Message extends React.Component {
             <div className='div'>
                 <h1>Notification</h1>
                 <form className='form'>
-                    <label>User Email</label> <br></br>
+                    <label>Destination</label> <br></br>
                     <input className='input' placeholder=''
                        ref="email" type="email"
                     ></input>
