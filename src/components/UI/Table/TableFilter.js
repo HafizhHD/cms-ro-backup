@@ -171,6 +171,57 @@ export function GlobalFilter({
     )
   }
 
+  export function DateRangeColumnFilter({
+    column: { filterValue = [], preFilteredRows, setFilter, id }}) 
+  {
+    const [min, max] = React.useMemo(() => {
+        let min = new Date('2021-01-01')
+        let max = new Date()
+        preFilteredRows.forEach(row => {
+            min = new Date(row.values[id]) <= min ? new Date(row.values[id]) : min
+            max = new Date(row.values[id]) >= max ? new Date(row.values[id]) : max
+        });
+        return [min, max];
+    }, [id, preFilteredRows]);
+    console.log(min, max)
+    return (
+        <div
+            style={{
+                display: "flex"
+            }}
+        >
+            <input
+                value={filterValue[0] || ""}
+                type="date"
+                min={min.toISOString().slice(0, 10)}
+                onChange={e => {
+                    const val = e.target.value;
+                    console.log(e.target.value);
+                    setFilter((old = []) => [val ? (val) : undefined, old[1]]);
+                }}
+                style={{
+                    width: "100px",
+                    marginRight: "0.2rem"
+                }}
+            />
+            to
+      <input
+                value={filterValue[1] || ""}
+                type="date"
+                max={max.toISOString().slice(0, 10)}
+                onChange={e => {
+                    const val = e.target.value;
+                    setFilter((old = []) => [old[0], val ? (val) : undefined]);
+                }}
+                style={{
+                    width: "100px",
+                    marginLeft: "0.2rem"
+                }}
+            />
+        </div>
+    );
+}
+
   export function filterGreaterThanOrEqual(rows, id, filterValue) {
     return rows.filter(row => {
       const rowValue = row.values[id]
@@ -191,4 +242,18 @@ export function GlobalFilter({
   
   // Let the table remove the filter if the string is empty
   fuzzyTextFilterFn.autoRemove = val => !val
+
+  export function dateBetweenFilterFn(rows, id, filterValues) {
+    let sd = new Date(filterValues[0]);
+    let ed = new Date(filterValues[1]);
+    console.log(rows, id, filterValues)
+    return rows.filter(r => {
+        var time = new Date(r.values[id]);
+        console.log(time, ed, sd)
+        if (filterValues.length === 0) return rows;
+        return (time >= sd && time <= ed);
+    });
+}
+
+dateBetweenFilterFn.autoRemove = val => !val;
   

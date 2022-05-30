@@ -1,6 +1,6 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter } from './../../../../components/UI/Table/TableFilter'
+import { SelectColumnFilter, DateRangeColumnFilter } from './../../../../components/UI/Table/TableFilter'
 
 const Columns = [
     {
@@ -11,7 +11,8 @@ const Columns = [
     {
         Header: 'Email User',
         accessor: 'emailUser',
-        disableFilters: true
+        disableFilters: true,
+        disableGlobalFilter: true
     },
     {
         Header: 'Nama',
@@ -27,12 +28,17 @@ const Columns = [
     {
         Header: 'Email Orangtua',
         accessor: 'parentEmail',
-        disableFilters: true
+        disableFilters: true,
+        disableGlobalFilter: true
     },
     {
         Header: 'Nama Orangtua',
         accessor: 'parentName',
-        disableFilters: true
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Sekolah',
@@ -59,11 +65,15 @@ const Columns = [
     },
     {
         Header: 'Mulai Berlanggan',
-        accessor: 'startSubscription'
+        accessor: 'startSubscription',
+        Filter: DateRangeColumnFilter,
+        filter: 'dateBetween'
     },
     {
         Header: 'Berlanggan Sampai',
-        accessor: 'endSubscription'
+        accessor: 'endSubscription',
+        Filter: DateRangeColumnFilter,
+        filter: 'dateBetween'
     },
     // {
     //     label: 'Tgl. Registrasi',

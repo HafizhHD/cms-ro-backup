@@ -12,7 +12,8 @@ const Columns = [
     {
         Header: 'Email User',
         accessor: 'emailUser',
-        disableFilters: true
+        disableFilters: true,
+        disableGlobalFilter: true
     },
     {
         Header: 'Nama',
@@ -22,12 +23,17 @@ const Columns = [
     {
         Header: 'Email Orangtua',
         accessor: 'parentEmail',
-        disableFilters: true
+        disableFilters: true,
+        disableGlobalFilter: true
     },
     {
         Header: 'Nama Orangtua',
         accessor: 'parentName',
-        disableFilters: true
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Sekolah',
@@ -60,10 +66,18 @@ const Columns = [
     {
         Header: 'Aplikasi yang Diblokir',
         accessor:'blockedApps',
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Aplikasi yang Dibatasi',
-        accessor:'limitedApps'
+        accessor:'limitedApps',
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
+        }
     },
     {
         Header: 'Status Jadwal Penggunaan',

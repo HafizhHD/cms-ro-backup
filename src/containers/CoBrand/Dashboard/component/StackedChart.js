@@ -6,6 +6,7 @@ const StackedChart = (props) => {
     const [subsState] = useState({
         series: props.data,
         options: {
+            colors: props.colors,
             chart: {
                 type: "bar",
                 height: props.height,

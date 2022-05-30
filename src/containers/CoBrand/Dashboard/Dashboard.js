@@ -42,12 +42,17 @@ function Dashboard() {
     const [topicViewLabel, setTopicViewLabel] = useState([]);
     const [topicViewData, setTopicViewData] = useState([]);
     const [usageStudyLevelData, setUsageStudyLevelData] = useState([]);
+    const [colors, setColors] = useState([]);
 
     const topUsageLabelDummy = ["Youtube", "Google", "Facebook", "Twitter", "Chrome", "Telegram", "TikTok", "Mobile Legends", "Chess", "Minecraft"];
     const notifLabelDummy = ["Pembayaran", "Pemberitahuan", "Promosi", "Laporan"];
     const topicLabelDummy = ["Agama", "Pendidikan", "Kesehatan", "Keluarga", "Berita Internal", "Berita Nasional", "Berita Dunia", "Informasi Teknologi", "Olah Raga", "Umum"];
     
     const userDummy = [
+        {
+            name: "TK",
+            data: [0, 12]
+        },
         {
             name: "SD",
             data: [0, 50]
@@ -118,7 +123,8 @@ function Dashboard() {
     
 
     function retrieveData() {
-        var sd = [0, 0],
+        var tk = [0,0],
+        sd = [0, 0],
         smp = [0,0],
         sma = [0,0],
         parent = [0,0],
@@ -200,12 +206,17 @@ function Dashboard() {
                     else coparent[0]++;
                 }
                 else if(x.userType === 'child') {
-                    if(x.childInfo.StudyLevel === 'SD') sd[1]++;
+                    if(x.childInfo.StudyLevel === 'TK') tk[1]++;
+                    else if(x.childInfo.StudyLevel === 'SD') sd[1]++;
                     else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
                     else if(x.childInfo.StudyLevel === 'SMA') sma[1]++;
                 }
             }
             const userDataObj = [
+                {
+                    name: "TK",
+                    data: tk
+                },
                 {
                     name: "SD",
                     data: sd
@@ -227,6 +238,8 @@ function Dashboard() {
                     data: coparent
                 }
             ]
+            
+            console.log("Colors length: " + colors.length);
             setUserData(userDataObj);
 
             const contentLength = responseAll[1].data.contents.length;
@@ -308,6 +321,16 @@ function Dashboard() {
         retrieveData();
 
     }, [, endDate]);
+
+    useEffect(() => {
+
+        var colors2 = [];
+        for(var i = 0; i < 10; i++) {
+            const colorPallete = "#" + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-3);
+            colors2.push(colorPallete);
+        }
+        setColors(colors2);
+    }, []);
 
     useEffect(() => {
         var changedStartDate = new Date();
@@ -430,6 +453,7 @@ function Dashboard() {
                                     data={userData}
                                     label={userDataLabel}
                                     height={400}
+                                    colors={colors}
                             />
                             
                             <div className="Dashboard_1_cards_card_item-details">
@@ -448,6 +472,7 @@ function Dashboard() {
                                     data={topUsageData}
                                     label={topUsageLabel}
                                     width={380}
+                                    colors={colors}
                             />
                             
                             <div className="Dashboard_1_cards_card_item-details">

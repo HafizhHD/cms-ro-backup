@@ -38,13 +38,19 @@ const MonitoringContent = () => {
                 let user = userDataDummy[i];
                 if(user.userType === 'child') {
                     console.log("Anjay");
+                    var parentNames = [];
+                    var parentEmails = [user.parentEmail, ...user.otherParentEmail];
                     for(var j = 0; j < userDataDummy.length; j++) {
                         let user2 = userDataDummy[j];
                         if(user.parentEmail === user2.emailUser){
-                            user['parentName'] = user2.nameUser;
-                            break;
+                            parentNames.push(user2.nameUser);
+                        }
+                        else if(user.otherParentEmail.includes(user2.emailUser)) {
+                            parentNames.push(user2.nameUser);
                         }
                     }
+                    user['parentName'] = parentNames;
+                    user['parentEmail'] = parentEmails;
                     userDataChild.push(user);
                 }
             }

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useTable, useSortBy, useExpanded, usePagination, useGlobalFilter, useFilters, useRowSelect } from 'react-table';
 import { BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import './Table.scss';
-import { DefaultColumnFilter, fuzzyTextFilterFn } from './TableFilter'
+import { DefaultColumnFilter, fuzzyTextFilterFn, dateBetweenFilterFn } from './TableFilter'
 import { CSVLink, CSVDownload } from "react-csv";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -15,6 +15,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
         () => ({
           // Add a new fuzzyTextFilterFn filter type.
           fuzzyText: fuzzyTextFilterFn,
+          dateBetween: dateBetweenFilterFn,
           // Or, override the default text filter to use
           // "startWith"
           text: (rows, id, filterValue) => {
@@ -204,6 +205,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(localStorage.getItem('jsonData'));
                     localStorage.setItem('emailTo', stringEmail.toString());
                     console.log(localStorage.getItem('emailTo'));
+                    localStorage.setItem('selectedUserType', 'child');
                 }}>Send Notifications to Child</NavLink></button>
              ) : null}
             {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
@@ -214,8 +216,8 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     var jsonData = [];
                     for(var i = 0; i < selectedFlatRows.length; i++) {
                         if(selectedFlatRows[i].original.parentEmail !== undefined) {
-                            if(!stringEmail.includes(selectedFlatRows[i].original.parentEmail)) {
-                                if(selectedFlatRows[i].original.userType === 'child') stringEmail.push(selectedFlatRows[i].original.parentEmail);
+                            if(!stringEmail.some(r => selectedFlatRows[i].original.parentEmail.includes(r))) {
+                                if(selectedFlatRows[i].original.userType === 'child') stringEmail.push(...selectedFlatRows[i].original.parentEmail);
                                 else stringEmail.push(selectedFlatRows[i].original.emailUser);
                             }
                         }
@@ -226,6 +228,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(localStorage.getItem('jsonData'));
                     localStorage.setItem('emailTo', stringEmail.toString());
                     console.log(localStorage.getItem('emailTo'));
+                    localStorage.setItem('selectedUserType', 'parent');
                 }}>Send Notifications to Parent</NavLink></button>
              ) : null}
             {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
@@ -237,7 +240,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     for(var i = 0; i < selectedFlatRows.length; i++) {
                         stringEmail.push(selectedFlatRows[i].original.emailUser);
                         if(selectedFlatRows[i].original.parentEmail !== undefined) {
-                            if(!stringEmail.includes(selectedFlatRows[i].original.parentEmail)) stringEmail.push(selectedFlatRows[i].original.parentEmail);
+                            if(!stringEmail.some(r => selectedFlatRows[i].original.parentEmail.includes(r))) stringEmail.push(selectedFlatRows[i].original.parentEmail);
                         }
                         console.log(stringEmail);
                         jsonData.push(selectedFlatRows[i].original);
@@ -246,6 +249,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(localStorage.getItem('jsonData'));
                     localStorage.setItem('emailTo', stringEmail.toString());
                     console.log(localStorage.getItem('emailTo'));
+                    localStorage.setItem('selectedUserType', 'all');
                 }}>Send Notifications to All</NavLink></button>
              ) : null}
         </div>
