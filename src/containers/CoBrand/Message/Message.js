@@ -27,10 +27,12 @@ class Message extends React.Component {
         //cek notif dlu
     }
     addMessage = () => {
+        let email = localStorage.getItem('emailTo')
+        let subject = localStorage.getItem('notifContext')
         let params =
         {
-            destination: this.refs.destinaation.value,
-            messageSubject: this.refs.tempat.value,
+            destination: email ? email : this.refs.destinaation.value,
+            messageSubject: subject ? subject : this.refs.tempat.value,
             messageContent: this.refs.deskripsi.value,
             scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : "",
             mediaType: this.refs.status.value,
@@ -70,18 +72,33 @@ class Message extends React.Component {
         if (this.state.send == true) {
             return <Redirect to="/cms/messaging" />
         }
+        let email = localStorage.getItem('emailTo')
+        let subject = localStorage.getItem('notifContext')
         return (
+
             <div className='div'>
                 <h1>Notification</h1>
                 <form className='form'>
                     <label>Destination</label> <br></br>
-                    <input className='input' placeholder=''
-                        ref="destinaation" type="email"
-                    ></input>
+                    {email ?
+                        <input className='input' placeholder=''
+                            ref="destinaation" value={email} type="email"
+                        ></input>
+                        :
+                        <input className='input' placeholder=''
+                            ref="destinaation" type="email"
+                        ></input>
+                    }
+
                     <br></br>
                     <label>Subject</label>
+                    {subject ? 
+                    <input className='input' placeholder=''
+                    ref="tempat" value={subject}></input>
+                    :
                     <input className='input' placeholder=''
                         ref="tempat"></input>
+                    }
                     <br></br>
                     <label>Message</label>
                     <textarea className='text' placeholder='Type here ...'
