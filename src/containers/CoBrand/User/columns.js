@@ -3,6 +3,11 @@ import { Modal, Button } from 'react-bootstrap'
 
 
 const Columns = [
+    // {
+    //     Header: 'No.',
+    //     id: 'rowNumber',
+    //     // disableFilters: true
+    // },
     {
         Header: 'No Telepon',
         accessor: 'phoneNumber'
@@ -19,15 +24,65 @@ const Columns = [
         Header: 'Nama',
         accessor: 'nameUser'
     },
-    
-    
     {
-        Header: 'Tgl. Registrasi',
-        accessor: 'dateCreated',
-        Cell: ({ value }) => {
-            return <p>{value.split('T')[0]}</p>
+        Header: 'Email Orangtua',
+        accessor: 'parentEmail',
+        // disableFilters: true,
+        // disableGlobalFilter: true
+    },
+    {
+        Header: 'Nama Orangtua',
+        accessor: 'parentName',
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.join(', ');
+            else return '';
         }
     },
+    {
+        Header: 'Sekolah',
+        accessor: 'childInfo.schoolName',
+        // Filter: SelectColumnFilter,
+        // filter: 'equals'
+    },
+    {
+        Header: 'Pendidikan',
+        accessor: 'childInfo.StudyLevel',
+        // Filter: SelectColumnFilter,
+        // filter: 'equals'
+    },
+    {
+        Header: 'Jenis Kelamin',
+        accessor:'gender',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+    },
+    {
+        Header: 'Alamat',
+        accessor:'address',
+        // disableFilters: true
+    },
+    {
+        Header: 'Mulai Berlanggan',
+        accessor: 'startSubscription',
+        // Filter: DateRangeColumnFilter,
+        // filter: 'dateBetween'
+    },
+    {
+        Header: 'Berlanggan Sampai',
+        accessor: 'endSubscription',
+        // Filter: DateRangeColumnFilter,
+        // filter: 'dateBetween'
+    },
+    
+    
+    // {
+    //     Header: 'Tgl. Registrasi',
+    //     accessor: 'dateCreated',
+    //     Cell: ({ value }) => {
+    //         return <p>{value.split('T')[0]}</p>
+    //     }
+    // },
     // {
     //     Header: 'Nama Gereja',
     //     accessor: 'namaHkbp'
