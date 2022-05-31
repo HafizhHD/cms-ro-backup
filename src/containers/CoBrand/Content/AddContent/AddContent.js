@@ -150,6 +150,22 @@ function AddContent({
                                 </select>
                             </div>
                             <div className="form-group">
+                                <label>Topic Category </label>
+                                <select>
+                                    <option value="Topik Agama">Topik Agama</option>
+                                    <option value="Topik Pendidikan">Topik Pendidikan</option>
+                                    <option value="Topik Kesehatan">Topik Kesehatan</option>
+                                    <option value="Topik Keluarga">Topik Keluarga</option>
+                                    <option value="Topik Berita Internal">Topik Berita Internal</option>
+                                    <option value="Topik Berita Nasional">Topik Berita Nasional</option>
+                                    <option value="Topik Berita Dunia">Topik Berita Dunia</option>
+                                    <option value="Topik Informasi Teknologi">Topik Informasi Teknologi</option>
+                                    <option value="Topik Olah Raga">Topik Olah Raga</option>
+                                    <option value="Topik Umum">Topik Umum</option>
+                                </select>
+                                <br></br>
+                            </div>
+                            <div className="form-group">
                                 <label>Program Name</label>
                                 <select
                                     name="programId"
