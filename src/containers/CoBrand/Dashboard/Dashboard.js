@@ -386,50 +386,50 @@ function Dashboard() {
                 <a className='wa2' href='http://wa.me/628119004410' target="_blank"><FaWhatsapp className='whatshap'/> Need Help? Click Here!</a>
             </div>
 
-            <div className="Dashboard_period">
-                <button className={period === 'today' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+            <div className="Dashboard_real_period">
+                <button className={period === 'today' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'today') {
                             setLoadingSpinner(true);
                             setPeriod('today');
                         }
                     }}>Today</button>
-                <button className={period === 'yesterday' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                <button className={period === 'yesterday' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'yesterday') {
                             setLoadingSpinner(true);
                             setPeriod('yesterday');
                         }
                     }}>Yesterday</button>
-                <button className={period === 'week' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                <button className={period === 'week' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'week') {
                             setLoadingSpinner(true);
                             setPeriod('week');
                         }
                     }}>7 Days</button>
-                <button className={period === 'month' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                <button className={period === 'month' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'month') {
                             setLoadingSpinner(true);
                             setPeriod('month');
                         }
                     }}>30 Days</button>
-                <button className={period === 'year' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                <button className={period === 'year' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'year') {
                             setLoadingSpinner(true);
                             setPeriod('year');
                         }
                     }}>365 Days</button>
-                <button className={period === 'all' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                <button className={period === 'all' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'all') {
                             setLoadingSpinner(true);
                             setPeriod('all');
                         }
                     }}>All Time</button>
-                <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
+                <button className={period === 'dummy' ? "Dashboard_real_period_option-active" : "Dashboard_real_period_option"}
                     onClick={() => {
                         if(period !== 'dummy') {
                             setLoadingSpinner(true);
