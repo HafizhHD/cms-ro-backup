@@ -238,7 +238,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(selectedFlatRows);
                     var jsonData = [];
                     for(var i = 0; i < selectedFlatRows.length; i++) {
-                        stringEmail.push(selectedFlatRows[i].original.emailUser);
+                        if(!stringEmail.includes(selectedFlatRows[i].original.emailUser)) stringEmail.push(selectedFlatRows[i].original.emailUser);
                         if(selectedFlatRows[i].original.parentEmail !== undefined) {
                             if(!stringEmail.some(r => selectedFlatRows[i].original.parentEmail.includes(r))) stringEmail.push(selectedFlatRows[i].original.parentEmail);
                         }
