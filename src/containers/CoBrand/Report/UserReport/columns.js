@@ -30,6 +30,27 @@ const Columns = [
         filter: 'equals'
     },
     {
+        Header: 'Status',
+        accessor: 'status',
+        Filter: SelectColumnFilter,
+        filter: 'equals'
+
+    },
+    // {
+    //     Header: 'Status Berlanggan',
+    //     accessor: 'subscriptionStatus',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+
+    // },
+    // {
+    //     Header: 'Paket Berlangganan',
+    //     accessor: 'subscriptionPlan',
+    //     Filter: SelectColumnFilter,
+    //     filter: 'equals'
+
+    // },
+    {
         Header: 'Email Orangtua',
         accessor: 'parentEmail',
         disableFilters: true,
@@ -43,13 +64,6 @@ const Columns = [
             if(value !== undefined) return value.join(', ');
             else return '';
         }
-    },
-    {
-        Header: 'Status',
-        accessor: 'status',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-
     },
     {
         Header: 'Sekolah',

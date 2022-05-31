@@ -200,7 +200,7 @@ export function GlobalFilter({
                     setFilter((old = []) => [val ? (val) : undefined, old[1]]);
                 }}
                 style={{
-                    width: "100px",
+                    width: "130px",
                     marginRight: "0.2rem"
                 }}
             />
@@ -214,7 +214,7 @@ export function GlobalFilter({
                     setFilter((old = []) => [old[0], val ? (val) : undefined]);
                 }}
                 style={{
-                    width: "100px",
+                    width: "130px",
                     marginLeft: "0.2rem"
                 }}
             />

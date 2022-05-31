@@ -132,8 +132,11 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                 if(currentRecords[i].cells[colIndex].column.id !== 'rowNumber' &&
                 currentRecords[i].cells[colIndex].column.id !== 'selection' &&
                 currentRecords[i].cells[colIndex].column.id !== 'buttonStatus') {
-                    record_to_download[currentRecords[i].cells[colIndex].column.Header] =
-                    currentRecords[i].cells[colIndex].value;
+                    if(currentRecords[i].cells[colIndex].value && Object.prototype.toString.call(currentRecords[i].cells[colIndex].value) === "[object Date]" && !isNaN(currentRecords[i].cells[colIndex].value))
+                        record_to_download[currentRecords[i].cells[colIndex].column.Header] =
+                        currentRecords[i].cells[colIndex].value.toISOString().split('T')[0];
+                    else record_to_download[currentRecords[i].cells[colIndex].column.Header] =
+                        currentRecords[i].cells[colIndex].value;
                 }
             }
             data_to_download.push(record_to_download);
