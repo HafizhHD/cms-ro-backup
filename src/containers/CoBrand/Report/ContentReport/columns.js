@@ -22,7 +22,7 @@ const Columns = [
     },
     {
         Header: 'Topik Konten',
-        accessor: 'contentPurpose',
+        accessor: 'topics',
         Filter: SelectColumnFilter,
         filter: 'equals',
         Cell: ({value, row}) => {
@@ -35,7 +35,7 @@ const Columns = [
     },
     {
         Header: 'Target Pembaca',
-        accessor: 'contentTarget',
+        accessor: 'targetAudiance',
         Filter: SelectColumnFilter,
         filter: 'equals',
         Cell: ({value, row}) => {

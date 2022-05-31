@@ -15,17 +15,17 @@ import TextEditor from '../../../../components/Texteditor/TextEditor';
 
 //texteditor
 import { ContentState, Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, convertFromRaw, current} from "draft-js";
+import { EditorState, convertToRaw, convertFromRaw, current } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
-import {stateToHTML} from 'draft-js-export-html'
+import { stateToHTML } from 'draft-js-export-html'
 
 function AddContent({
     onAddContent,
     isLoading
 }) {
     let editorState = EditorState.createEmpty()
-    
+
 
     const [description, setDescription] = useState(editorState)
     const onEditorStateChange = (editorState) => {
@@ -36,8 +36,8 @@ function AddContent({
     const onEditorStateChangeArtikel = (editorState) => {
         setArtikel(editorState)
     }
-    
-    
+
+
 
 
     const [isPageLoading, setPageLoading] = useState(true);
@@ -166,6 +166,19 @@ function AddContent({
                                 <br></br>
                             </div>
                             <div className="form-group">
+                                <label>Target Audience</label> <br></br>
+                                <select > {/* ref="email" */}
+                                    <option value="Semua">Semua</option>
+                                    <option value="Orangtua">Orangtua</option>
+                                    <option value="Semua Anak">Semua Anak</option>
+                                    <option value="Siswa SD">Siswa SD</option>
+                                    <option value="Siswa SMP">Siswa SMP</option>
+                                    <option value="Siswa SMA">Siswa SMA</option>
+                                    <option value="Siswa Pria">Siswa Pria</option>
+                                    <option value="Siswa Wanita">Siswa Wanita</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
                                 <label>Program Name</label>
                                 <select
                                     name="programId"
@@ -217,7 +230,7 @@ function AddContent({
                                         console.log(values.contentDescription)
                                         // console.log(dangerouslySetInnerHTML={{ __html: item.description}} )
                                     }}
-                                    
+
                                 />
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div>
@@ -231,7 +244,7 @@ function AddContent({
                                     value={values.contentSource}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                
+
                                 />
                                 {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                             </div>
@@ -256,25 +269,25 @@ function AddContent({
                                 <label>Contents</label>
                                 {values.contentType === "Artikel" ? (
                                     <Editor
-                                    editorState={artikel}
-                                    toolbarClassName="toolbarClassName"
-                                    wrapperClassName="wrapperClassName"
-                                    editorClassName="editorClassName"
-                                    onEditorStateChange={onEditorStateChangeArtikel}
-                                    // onEditorStateChange={updateTextDescription}
-                                    // value={description.values}
-                                    value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
-                                    // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                                    name="contents"
-                                    onChange={(editorState) => {
-                                        setTextValue(editorState);
-                                        // setFieldValue("contentDescription", description);
-                                        setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                        // console.log(textDeskripsi);
-                                        // console.log(values.contents)
-                                    }}
-                                    
-                                />
+                                        editorState={artikel}
+                                        toolbarClassName="toolbarClassName"
+                                        wrapperClassName="wrapperClassName"
+                                        editorClassName="editorClassName"
+                                        onEditorStateChange={onEditorStateChangeArtikel}
+                                        // onEditorStateChange={updateTextDescription}
+                                        // value={description.values}
+                                        value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                        // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                        name="contents"
+                                        onChange={(editorState) => {
+                                            setTextValue(editorState);
+                                            // setFieldValue("contentDescription", description);
+                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                            // console.log(textDeskripsi);
+                                            // console.log(values.contents)
+                                        }}
+
+                                    />
                                 ) : null}
                                 {values.contentType === "Image" ? (
                                     <div>
@@ -442,19 +455,19 @@ function AddContent({
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                             </div>
                             {/* end date */}
-                            {/* <div className="form-group">
+                            <div className="form-group">
                                 <label>End Date</label>
                                 <InputComponent
                                     type="date"
                                     className="form-group__input"
-                                    name="startDate"
-                                    value={values.startDate}
-                                    max={new Date().toISOString().split('T')[0]}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                    // name="startDate"
+                                    // value={values.startDate}
+                                    // max={new Date().toISOString().split('T')[0]}
+                                    // onChange={handleChange}
+                                    // onBlur={handleBlur}
                                 />
-                                {touched.startDate && <span className="message__error">{errors.startDate}</span>}
-                            </div> */}
+                                {/* {touched.startDate && <span className="message__error">{errors.startDate}</span>} */}
+                            </div>
                             <div className="form-group">
                                 <div className="form-group_switch">
                                     <p className="form-group_switch_status">Status:</p>

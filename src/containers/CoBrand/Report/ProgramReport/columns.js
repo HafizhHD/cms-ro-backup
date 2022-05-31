@@ -16,7 +16,7 @@ const Columns = [
     },
     {
         Header: 'Kategori Program',
-        accessor: 'programPurpose',
+        accessor: 'category',
         Filter: SelectColumnFilter,
         filter: 'equals',
 
@@ -27,7 +27,7 @@ const Columns = [
     },
     {
         Header: 'Target Pembaca',
-        accessor: 'programTarget',
+        accessor: 'target',
         Filter: SelectColumnFilter,
         filter: 'equals',
         Cell: ({row}) => {

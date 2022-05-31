@@ -4,159 +4,159 @@
             "_id": "JSOFHOSOE",
             "programName": "Membaca Jilid 1 - 3",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SD"
+            "category": "Pendidikan Agama",
+            "target": "SD"
         },
         {
             "Nomor": "2",
             "_id": "SHAISJFKCH",
             "programName": "Membaca Jilid 4-6",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SD"
+            "category": "Pendidikan Agama",
+            "target": "SD"
         },
         {
             "Nomor": "3",
             "_id": "ISOWPEORLD",
             "programName": "Membaca Ghorib",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMP"
+            "category": "Pendidikan Agama",
+            "target": "SMP"
         },
         {
             "Nomor": "4",
             "_id": "JSKDJCNVBY",
             "programName": "Membaca Tajwid",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMP"
+            "category": "Pendidikan Agama",
+            "target": "SMP"
         },
         {
             "Nomor": "5",
             "_id": "UEIEKKLNMY",
             "programName": "Membaca Juz 30",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SD, SMP, SMA"
+            "category": "Pendidikan Agama",
+            "target": "SD, SMP, SMA"
         },
         {
             "Nomor": "6",
             "_id": "SHDJFUCHCB",
             "programName": "Menghafal Ghorib",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMP"
+            "category": "Pendidikan Agama",
+            "target": "SMP"
         },
         {
             "Nomor": "7",
             "_id": "QPWOKMJSSB",
             "programName": "Menghadal Tajwid",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMP, SMA"
+            "category": "Pendidikan Agama",
+            "target": "SMP, SMA"
         },
         {
             "Nomor": "8",
             "_id": "AZHYUJISDH",
             "programName": "Menghafal Juz 30",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMP, SMA"
+            "category": "Pendidikan Agama",
+            "target": "SMP, SMA"
         },
         {
             "Nomor": "9",
             "_id": "AKIJUDOLKP",
             "programName": "Menghafal Al-Baqarah",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMA"
+            "category": "Pendidikan Agama",
+            "target": "SMA"
         },
         {
             "Nomor": "10",
             "_id": "SJEHUYHJBN",
             "programName": "Membaca juz 27",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SD, SMP, SMA"
+            "category": "Pendidikan Agama",
+            "target": "SD, SMP, SMA"
         },
         {
             "Nomor": "11",
             "_id": "JSMDJKNLKJ",
             "programName": "Menghafal Surat Al Waqiah",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMA"
+            "category": "Pendidikan Agama",
+            "target": "SMA"
         },
         {
             "Nomor": "12",
             "_id": "OIOLKJMYHU",
             "programName": "Menghafal Arti Al Fatihah dan Juz 30 ",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMA"
+            "category": "Pendidikan Agama",
+            "target": "SMA"
         },
         {
             "Nomor": "13",
             "_id": "WEYSHDGFJR",
             "programName": "Menghafal arti Al- Baqarah Juz 1",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "SMA"
+            "category": "Pendidikan Agama",
+            "target": "SMA"
         },
         {
             "Nomor": "14",
             "_id": "ASHDBCGFNY",
             "programName": "Hidup Sehat ala Rasulullah",
             "programType": "Kesehatan, Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "Semua"
+            "category": "Pendidikan Agama",
+            "target": "Semua"
         },
         {
             "Nomor": "15",
             "_id": "IELZMSJDHH",
             "programName": "Spesial Ramadhan",
             "programType": "Agama",
-            "programPurpose": "Pendidikan Agama",
-            "programTarget": "Semua Anak"
+            "category": "Pendidikan Agama",
+            "target": "Semua Anak"
         },
         {
             "Nomor": "16",
             "_id": "YAYAHSHSJK",
             "programName": "HUT Indonesia Raya ",
             "programType": "Pendidikan, Berita Nasional",
-            "programPurpose": "Pendidikan Siswa Umum",
-            "programTarget": "Semua Anak"
+            "category": "Pendidikan Siswa Umum",
+            "target": "Semua Anak"
         },
         {
             "Nomor": "17",
             "_id": "USJKMNHJJJ",
             "programName": "Ajak anak berolahraga pagi bersama ASIA",
             "programType": "Kesehatan, Keluarga, Olahraga",
-            "programPurpose": "Program Pilihan",
-            "programTarget": "Orangtua"
+            "category": "Program Pilihan",
+            "target": "Orangtua"
         },
         {
             "Nomor": "18",
             "_id": "YEHUDYFHRG",
             "programName": "Belajar Bahasa Inggris mulai dari 0 bersama pakarnya",
             "programType": "Pendidikan",
-            "programPurpose": "Program Pilihan",
-            "programTarget": "SMA"
+            "category": "Program Pilihan",
+            "target": "SMA"
         },
         {
             "Nomor": "19",
             "_id": "BVBGGVDJSH",
             "programName": "Belajar Coding dari 0 bersama pakarnya",
             "programType": "Pendidikan, Informasi Teknologi",
-            "programPurpose": "Informasi & Teknologi",
-            "programTarget": "SMP, SMA"
+            "category": "Informasi & Teknologi",
+            "target": "SMP, SMA"
         },
         {
             "Nomor": "20",
             "_id": "YYYYSSHDJN",
             "programName": "Cara mendidik anak ala dra. Riansyah Ponzi",
             "programType": "Pendidikan, Keluarga",
-            "programPurpose": "Program Pilihan",
-            "programTarget": "Orang Tua"
+            "category": "Program Pilihan",
+            "target": "Orang Tua"
         }
     ]
