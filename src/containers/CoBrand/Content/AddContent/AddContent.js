@@ -104,7 +104,7 @@ function AddContent({
     return (
         <>
             <Heading headingName="Content" routes={[
-                { path: '/content', name: 'Content' },
+                { path: '/cms/content', name: 'Content' },
                 { path: '/content/add', name: 'Create new content' }
             ]} />
             <Formik
