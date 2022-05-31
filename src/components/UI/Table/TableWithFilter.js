@@ -196,7 +196,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     for(var i = 0; i < selectedFlatRows.length; i++) {
                         stringEmail.push(selectedFlatRows[i].original.emailUser);
                         if(selectedFlatRows[i].original.userType === 'child') {
-                            stringEmail.push(selectedFlatRows[i].original.emailUser);
+                            if(!stringEmail.includes(selectedFlatRows[i].original.emailUser)) stringEmail.push(selectedFlatRows[i].original.emailUser);
                         }
                         console.log(stringEmail);
                         jsonData.push(selectedFlatRows[i].original);
