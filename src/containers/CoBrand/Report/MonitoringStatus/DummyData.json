@@ -245,7 +245,7 @@
     "parentEmail": ["syihab.rabbani@defghi.id"],
     "childInfo": {
         "schoolName": "TKI Al Azhar 2 Pasar Minggu",
-        "childInfo.StudyLevel": "TK"
+        "StudyLevel": "TK"
     },
     "screenTime": 5,
     "screenTimeStatus": "WAJAR",
