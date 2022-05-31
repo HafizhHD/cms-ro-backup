@@ -48,10 +48,10 @@ const RedzoneReport = () => {
     return (
         <div className="Redzone">
             <Heading
-                headingName="Program Report"
+                headingName="Redzone Report"
                 routes={[
-                    { name: 'Report', path: '/report/program' },
-                    { name: 'Program Report' }
+                    { name: 'Report', path: '/report/redzone' },
+                    { name: 'Redzone Report' }
                 ]}
             />
             <div className="Redzone_table">
