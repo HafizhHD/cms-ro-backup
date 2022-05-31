@@ -33,7 +33,7 @@ const Columns = [
     {
         Header: 'Nama Orangtua',
         accessor: 'parentName',
-        disableFilters: true,
+        // disableFilters: true,
         Cell: ({value}) => {
             if(value !== undefined) return value.join(', ');
             else return '';
@@ -88,42 +88,42 @@ const Columns = [
     //     accessor: 'namaHkbp'
     // },
    
-    {
-        Header: 'User status',
-        accessor: 'status',
-        Cell: ({ value }) => {
-            let style = {
-                color: 'green'
-            };
-            if (value !== 'active') {
-                style = {
-                    color: 'red'
-                }
-            }
+    // {
+    //     Header: 'User status',
+    //     accessor: 'status',
+    //     Cell: ({ value }) => {
+    //         let style = {
+    //             color: 'green'
+    //         };
+    //         if (value !== 'active') {
+    //             style = {
+    //                 color: 'red'
+    //             }
+    //         }
 
-            return <p style={style}>{value}</p>
-        }
-    },
-    {
-        Header: 'User Details',
-        id: 'expander',
-        Cell: ({ row }) => {
-            return (
-                /*<Link
-                    to="/helpdesk/pengguna/detail"
-                    className="link-action"
-                    onClick={() => {
-                        console.log(cell.row.values.emailUser);
-                        localStorage.setItem('userSelected', cell.row.values.emailUser);
-                    }}
-                    >Detail
-                </Link >*/
-                <span {...row.getToggleRowExpandedProps()}>
-                    {row.isExpanded ? '- Hide' : '+ Show'}
-                </span>
-            )
-        }
-    },
+    //         return <p style={style}>{value}</p>
+    //     }
+    // },
+    // {
+    //     Header: 'User Details',
+    //     id: 'expander',
+    //     Cell: ({ row }) => {
+    //         return (
+    //             /*<Link
+    //                 to="/helpdesk/pengguna/detail"
+    //                 className="link-action"
+    //                 onClick={() => {
+    //                     console.log(cell.row.values.emailUser);
+    //                     localStorage.setItem('userSelected', cell.row.values.emailUser);
+    //                 }}
+    //                 >Detail
+    //             </Link >*/
+    //             <span {...row.getToggleRowExpandedProps()}>
+    //                 {row.isExpanded ? '- Hide' : '+ Show'}
+    //             </span>
+    //         )
+    //     }
+    // },
 ];
 
 export default Columns;

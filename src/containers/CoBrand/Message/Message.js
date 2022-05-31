@@ -128,6 +128,7 @@ class Message extends React.Component {
                     <select className='select' ref="status">
                         <option value="email" >Email</option>
                         <option value="device" >Device</option>
+                        <option value="device & email" >All</option>
                     </select>
                     {/* <input className='input' placeholder='Email / Device'
                         ref="status"></input> */}

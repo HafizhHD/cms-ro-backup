@@ -54,7 +54,7 @@ const User = () => {
                     { name: 'Pengguna' }
                 ]}
             />
-            <button onClick={() => setTime(true)} className='btn3'>Edit User</button>
+            {/* <button onClick={() => setTime(true)} className='btn3'>Edit User</button> */}
             <div className="Pengguna_table">
                 <TablePengguna
                     COLUMNS={columns}
