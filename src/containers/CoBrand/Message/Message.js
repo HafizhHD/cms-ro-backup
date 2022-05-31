@@ -14,8 +14,9 @@ class Message extends React.Component {
         super(props)
         this.state = {
             userData: [],
-            send : false
-           
+            send: false,
+            schedule: ""
+
 
         }
     }
@@ -28,11 +29,12 @@ class Message extends React.Component {
     addMessage = () => {
         let params =
         {
-            destination: this.refs.email.value,
+            destination: this.refs.destinaation.value,
             messageSubject: this.refs.tempat.value,
             messageContent: this.refs.deskripsi.value,
-            scheduleTime: this.refs.alamat.value,
+            scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : "",
             mediaType: this.refs.status.value,
+            category: this.refs.category.value,
         }
         axios({
             method: 'post',
@@ -41,16 +43,29 @@ class Message extends React.Component {
         })
             .then(response => {
                 console.log(response.data);
-                this.setState({send : true})
-                
+                this.setState({ send: true })
+
 
                 // alert('Add Broadcast is success')
             })
             .catch(error => {
                 console.log(error + 'ini eror add BC');
             });
-        
     }
+
+    // showSChedule = () => {
+    //         this.state.schedule === true
+    //         return (
+    //             <div>
+    //                 <label>Schedule Time</label>
+    //                 <input className='input' placeholder=''
+    //                     ref="alamat" type="datetime-local"></input>
+    //                 <br></br>
+    //             </div>
+    //         )
+    //     }
+    // }
+
     render() {
         if (this.state.send == true) {
             return <Redirect to="/cms/messaging" />
@@ -61,26 +76,53 @@ class Message extends React.Component {
                 <form className='form'>
                     <label>Destination</label> <br></br>
                     <input className='input' placeholder=''
-                       ref="email" type="email"
+                        ref="destinaation" type="email"
                     ></input>
                     <br></br>
-                    <label>Subject</label> 
+                    <label>Subject</label>
                     <input className='input' placeholder=''
-                    ref="tempat"></input>
+                        ref="tempat"></input>
                     <br></br>
-                    <label>Message</label> 
+                    <label>Message</label>
                     <textarea className='text' placeholder='Type here ...'
-                    ref="deskripsi"></textarea>
+                        ref="deskripsi"></textarea>
                     <br></br>
-                    
-                    <label>Schedule Time</label> 
-                    <input className='input' placeholder=''
-                    ref="alamat" type="datetime-local"></input>
+                    {/* <label>Set schedule</label> */}
+                    {/* <select>
+                        <option value="setting" onClick={() => this.setState({ schedule: "set" })}>Setting Schedule</option>
+                        <option value="no-schedule" onClick={() => this.setState({ schedule: "notset"})}>No Setting Schedule</option>
+                    </select> */}
+                    <form className='formset'>
+                        <label>Set schedule  <input type="radio" value="setting" onClick={() => this.setState({ schedule: "set" })}></input></label>
+                        <br></br>
+                        <label>No set schedule  <input type="radio" ref="alamat" value="no-schedule" onClick={() => this.setState({ schedule: "notset" })}></input></label>
+                    </form>
+                    {this.state.schedule === "set" ?
+                        <div>
+                            <label>Schedule Time</label>
+                            <input className='input' placeholder=''
+                                ref="alamat" type="datetime-local"></input>
+                            <br></br>
+                        </div>
+                        : ""
+                    }
                     <br></br>
-                    <label>Media Type </label> 
-                    <input className='input' placeholder='Email / Device'
-                    ref="status"></input>
-                   
+                    <label>Media Type </label>
+                    <select className='select' ref="status">
+                        <option value="email" >Email</option>
+                        <option value="device" >Device</option>
+                    </select>
+                    {/* <input className='input' placeholder='Email / Device'
+                        ref="status"></input> */}
+                    <br></br><br></br>
+                    <label className='label'>Category Notification</label> <br></br>
+                    <select ref="category">
+                        <option value="Pembayaran">Pembayaran</option>
+                        <option value="Pemberitahuan">Pemberitahuan</option>
+                        <option value="Promosi">Promosi</option>
+                        <option value="Informasi & Teknologi">Informasi & Teknologi</option>
+                        <option value="Laporan">Laporan</option>
+                    </select>
                 </form>
                 <Button className='btn' onClick={this.addMessage}>Send Message</Button>
             </div>

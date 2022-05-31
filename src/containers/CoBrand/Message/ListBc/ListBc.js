@@ -61,7 +61,8 @@ class ListBc extends React.Component {
                 messageContent: this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.message[index].messageContent,
                 scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : this.state.message[index].scheduleTime,
                 mediaType: this.refs.status.value ? this.refs.status.value : this.state.message[index].mediaType,
-            
+                category: this.refs.category.value ? this.refs.category.value : this.state.message[index].category,
+
             }
         }
         axios({
@@ -92,7 +93,9 @@ class ListBc extends React.Component {
                 console.log(error + 'ini eror edit BC');
             });
     }
-    
+
+
+
     showTableBody = () => {
         const { qty } = this.state
         return (
@@ -101,10 +104,26 @@ class ListBc extends React.Component {
                     if (index == this.state.new) {
                         return (
                             <tr key={index}>
-                                <td><input type="text" placeholder={item.mediaType} ref="status"></input></td>
+                                {/* <td><input type="text" placeholder={item.mediaType} ref="status"></input></td> */}
+                                <td>
+                                    <select className='select' ref="status">
+                                        <option value="Email" >Email</option>
+                                        <option value="Device" >Device</option>
+                                    </select>
+                                </td>
                                 <td><input placeholder={item.scheduleTime} type="datetime-local" ref="alamat"></input></td>
                                 <td><input placeholder={item.destination} ref="email"></input></td>
                                 <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
+                                {/* <td><input placeholder={item.category} ref="category"></input></td> */}
+                                <td>
+                                    <select ref="category">
+                                        <option value="Pembayaran">Pembayaran</option>
+                                        <option value="Pemberitahuan">Pemberitahuan</option>
+                                        <option value="Promosi">Promosi</option>
+                                        <option value="Informasi & Teknologi">Informasi & Teknologi</option>
+                                        <option value="Laporan">Laporan</option>
+                                    </select>
+                                </td>
                                 <td><input placeholder={item.messageContent} ref="deskripsi"></input></td>
                                 <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
@@ -117,6 +136,7 @@ class ListBc extends React.Component {
                             <td>{item.scheduleTime}</td>
                             <td>{item.destination}</td>
                             <td>{item.messageSubject}</td>
+                            <td>{item.category}</td>
                             <td>{item.messageContent}</td>
                             <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
                             <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
@@ -194,8 +214,9 @@ class ListBc extends React.Component {
                             <tr>
                                 <th>Media</th>
                                 <th>Time</th>
-                                <th className='h-email'>Email</th>
+                                <th className='h-email'>Destination</th>
                                 <th>Subject</th>
+                                <th>Category</th>
                                 <th>Message</th>
                                 <th colSpan={2}>Action</th>
                             </tr>

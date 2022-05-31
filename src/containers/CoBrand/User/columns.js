@@ -4,6 +4,14 @@ import { Modal, Button } from 'react-bootstrap'
 
 const Columns = [
     {
+        Header: 'No Telepon',
+        accessor: 'phoneNumber'
+    },
+    {
+        Header: 'Tipe User',
+        accessor: 'userType'
+    },
+    {
         Header: 'Email',
         accessor: 'emailUser'
     },
@@ -11,10 +19,8 @@ const Columns = [
         Header: 'Nama',
         accessor: 'nameUser'
     },
-    {
-        Header: 'No Telepon',
-        accessor: 'phoneNumber'
-    },
+    
+    
     {
         Header: 'Tgl. Registrasi',
         accessor: 'dateCreated',
@@ -26,10 +32,7 @@ const Columns = [
     //     Header: 'Nama Gereja',
     //     accessor: 'namaHkbp'
     // },
-    {
-        Header: 'Tipe User',
-        accessor: 'userType'
-    },
+   
     {
         Header: 'User status',
         accessor: 'status',

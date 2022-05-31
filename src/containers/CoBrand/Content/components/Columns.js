@@ -10,14 +10,27 @@ const dateFormat = {
 const Columns = (setContentDeleting) => {
     return (
     [
+        // {
+        //     Header: 'Nomor',
+        //     accessor: 'index + 1'
+        // },
+        {
+            Header: 'ID Content',
+            accessor: '_id'
+        },
+   
     {
-        Header: 'Category',
-        accessor: 'contentType'
-    },
-    {
-        Header: 'Title',
+        Header: 'Nama Konten',
         accessor: 'contentName'
     },
+    {
+        Header: 'Jenis Konten',
+        accessor: 'contentType'
+    },
+      {
+            Header: 'Topik Konten',
+            accessor: 'topics'
+        },
     {
         Header: 'Start Date',
         accessor: (value) => new Date(value.startDate).toLocaleDateString("en-UK", dateFormat),
@@ -37,7 +50,7 @@ const Columns = (setContentDeleting) => {
     },
     {
         Header: 'Action',
-        accessor: '_id',
+        // accessor: '_id',
         disableSortBy: true,
         disableGlobalFilter: true,
         Cell: ({cell}) => (
