@@ -233,7 +233,7 @@
     "parentEmail": ["syihab.rabbani@defghi.id"],
     "childInfo": {
         "schoolName": "TKI Al Azhar 2 Pasar Minggu",
-        "childInfo.StudyLevel": "TK"
+        "StudyLevel": "TK"
     },
     "gender": "Laki-Laki",
     "address": "Matraman"
