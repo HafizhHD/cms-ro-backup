@@ -42,28 +42,28 @@ function RedZone() {
 
 
     // add redzone : done
-    useEffect(() => {
-        let params =
-        {
-            cobrandEmail: "muhammadsyihab.te@gmail.com",
-            placeName: "Tempat Sabung ayam",
-            description: "Tempat Sabung ayam A",
-            address: "kaliideres",
-            redZoneStatus: "active",
-            location: [-6.212694432483453, 106.85043740452949]
-        }
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneAdd',
-            data: params,
-        })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error + 'ini eror add redzone');
-            });
-    }, [])
+    // useEffect(() => {
+    //     let params =
+    //     {
+    //         cobrandEmail: "muhammadsyihab.te@gmail.com",
+    //         placeName: "Tempat Sabung ayam",
+    //         description: "Tempat Sabung ayam A",
+    //         address: "kaliideres",
+    //         redZoneStatus: "active",
+    //         location: [-6.212694432483453, 106.85043740452949]
+    //     }
+    //     axios({
+    //         method: 'post',
+    //         url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneAdd',
+    //         data: params,
+    //     })
+    //         .then(response => {
+    //             console.log(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.log(error + 'ini eror add redzone');
+    //         });
+    // }, [])
 
     // edit
     useEffect(() => {
