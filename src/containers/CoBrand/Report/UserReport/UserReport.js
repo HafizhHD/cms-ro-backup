@@ -21,7 +21,14 @@ const UserReport = () => {
 
     useEffect(() => {
         if(period === 'dummy') {
-            setUserData(dummyData);
+            var dumDat = dummyData;
+            for(var i = 0; i < dumDat.length; i++) {
+                var user = dumDat[i];
+                if(user.startSub !== undefined) user['startSubscription'] = new Date(Date.parse(user.startSub));
+                if(user.endSub !== undefined) user['endSubscription'] = new Date(Date.parse(user.endSub));
+            }
+            console.log(dumDat);
+            setUserData(dumDat);
             setLoading(false);
         }
         else {let params={
@@ -42,6 +49,8 @@ const UserReport = () => {
             for(var i = 0; i < ud.length; i++) {
                 let user = ud[i];
                 if(user.userType === 'child') {
+                    if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
+                    if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
                     console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];

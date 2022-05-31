@@ -2,31 +2,36 @@
     "Nomor": "1",
     "userType": "Parent",
     "nameUser": "Ricko Enrile",
-    "emailUser": "rickotesting@gmail.com"
+    "emailUser": "rickotesting@gmail.com",
+    "status": "active"
 },
 {
     "Nomor": "2",
     "userType": "Parent",
     "nameUser": "Syihab Rabbani",
-    "emailUser": "syihab.rabbani@defghi.id"
+    "emailUser": "syihab.rabbani@defghi.id",
+    "status": "active"
 },
 {
     "Nomor": "3",
     "userType": "Parent",
     "nameUser": "Kartono",
-    "emailUser": "kartono.cc@gmail.com"
+    "emailUser": "kartono.cc@gmail.com",
+    "status": "active"
 },
 {
     "Nomor": "4",
     "userType": "Parent",
     "nameUser": "Tombak",
-    "emailUser": "tomsiman.id@gmail.com"
+    "emailUser": "tomsiman.id@gmail.com",
+    "status": "active"
 },
 {
     "Nomor": "5",
     "userType": "Parent",
     "nameUser": "Rafik Ahmad",
-    "emailUser": "rafik.ahmad@defghi.global"
+    "emailUser": "rafik.ahmad@defghi.global",
+    "status": "active"
 },
 {
     "Nomor": "6",
@@ -40,7 +45,10 @@
         "StudyLevel": "TK"
     },
     "gender": "Laki-Laki",
-    "address": "Bekasi Barat"
+    "address": "Bekasi Barat",
+    "status": "inactive",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-06-10T00:00:00"
 },
 {
     "Nomor": "7",
@@ -54,7 +62,10 @@
         "StudyLevel": "SD"
     },
     "gender": "Perempuan",
-    "address": "Bekasi Barat"
+    "address": "Bekasi Barat",
+    "status": "active",
+    "startSub": "2021-12-29T00:00:00",
+    "endSub": "2022-06-29T00:00:00"
 },
 {
     "Nomor": "8",
@@ -68,7 +79,10 @@
         "StudyLevel": "SD"
     },
     "gender": "Perempuan",
-    "address": "Taman Alfa"
+    "address": "Taman Alfa",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-06-10T00:00:00"
 },
 {
     "Nomor": "9",
@@ -82,7 +96,10 @@
         "StudyLevel": "TK"
     },
     "gender": "Perempuan",
-    "address": "Taman Alfa"
+    "address": "Taman Alfa",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "10",
@@ -96,7 +113,10 @@
         "StudyLevel": "SMP"
     },
     "gender": "Perempuan",
-    "address": "Kuningan"
+    "address": "Kuningan",
+    "status": "active",
+    "startSub": "2021-12-25T00:00:00",
+    "endSub": "2022-12-25T00:00:00"
 },
 {
     "Nomor": "11",
@@ -110,7 +130,10 @@
         "StudyLevel": "SD"
     },
     "gender": "Perempuan",
-    "address": "Kuningan"
+    "address": "Kuningan",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "12",
@@ -124,7 +147,10 @@
         "StudyLevel": "SD"
     },
     "gender": "Laki-Laki",
-    "address": "Serpong"
+    "address": "Serpong",
+    "status": "active",
+    "startSub": "2022-01-10T00:00:00",
+    "endSub": "2023-01-10T00:00:00"
 },
 {
     "Nomor": "13",
@@ -138,7 +164,10 @@
         "StudyLevel": "SD"
     },
     "gender": "Laki-Laki",
-    "address": "Pamulang Raya"
+    "address": "Pamulang Raya",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "14",
@@ -152,7 +181,10 @@
         "StudyLevel": "TK"
     },
     "gender": "Laki-Laki",
-    "address": "Pamulang Raya"
+    "address": "Pamulang Raya",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "15",
@@ -166,7 +198,10 @@
         "StudyLevel": "SMA"
     },
     "gender": "Perempuan",
-    "address": "Kebayoran Baru"
+    "address": "Kebayoran Baru",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "16",
@@ -180,7 +215,10 @@
         "StudyLevel": "SMP"
     },
     "gender": "Perempuan",
-    "address": "Kebayoran Baru"
+    "address": "Kebayoran Baru",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "17",
@@ -194,7 +232,10 @@
         "StudyLevel": "SD"
     },
     "gender": "Laki-Laki",
-    "address": "Pamulang Raya"
+    "address": "Pamulang Raya",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "18",
@@ -208,7 +249,10 @@
         "StudyLevel": "SMP"
     },
     "gender": "Laki-Laki",
-    "address": "Matraman"
+    "address": "Matraman",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "19",
@@ -222,7 +266,10 @@
         "StudyLevel": "SMP"
     },
     "gender": "Laki-Laki",
-    "address": "Matraman"
+    "address": "Matraman",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 },
 {
     "Nomor": "20",
@@ -236,5 +283,8 @@
         "StudyLevel": "TK"
     },
     "gender": "Laki-Laki",
-    "address": "Matraman"
+    "address": "Matraman",
+    "status": "active",
+    "startSub": "2021-12-10T00:00:00",
+    "endSub": "2022-12-10T00:00:00"
 }]

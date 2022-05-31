@@ -2,6 +2,10 @@
 import { Modal, Button } from 'react-bootstrap'
 import { SelectColumnFilter, DateRangeColumnFilter } from './../../../../components/UI/Table/TableFilter'
 
+const dateFormat = {
+    year: 'numeric', month: 'long', day: 'numeric'
+}
+
 const Columns = [
     {
         Header: 'No.',
@@ -41,6 +45,13 @@ const Columns = [
         }
     },
     {
+        Header: 'Status',
+        accessor: 'status',
+        Filter: SelectColumnFilter,
+        filter: 'equals'
+
+    },
+    {
         Header: 'Sekolah',
         accessor: 'childInfo.schoolName',
         Filter: SelectColumnFilter,
@@ -67,13 +78,21 @@ const Columns = [
         Header: 'Mulai Berlanggan',
         accessor: 'startSubscription',
         Filter: DateRangeColumnFilter,
-        filter: 'dateBetween'
+        filter: 'dateBetween',
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleDateString("en-UK", dateFormat);
+            else return ''
+        }
     },
     {
         Header: 'Berlanggan Sampai',
         accessor: 'endSubscription',
         Filter: DateRangeColumnFilter,
-        filter: 'dateBetween'
+        filter: 'dateBetween',
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleDateString("en-UK", dateFormat);
+            else return ''
+        }
     },
     // {
     //     label: 'Tgl. Registrasi',

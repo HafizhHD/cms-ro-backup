@@ -199,7 +199,7 @@ const MonitoringStatus = () => {
                 headingName="Monitoring Activity"
                 routes={[
                     { name: 'Report', path: '/report/monitoring-status' },
-                    { name: 'Monitoring Status' }
+                    { name: 'Monitoring Activity' }
                 ]}
             />
             <div className="Dashboard_period">
@@ -241,9 +241,12 @@ const MonitoringStatus = () => {
                         minDate={startDate}
                     />
                 </div>
-                <button onClick={() => {
-                    setSubmit(true);
-                }}>Submit</button>
+                <div>
+                    <br/>
+                    <button onClick={() => {
+                        setSubmit(true);
+                    }}>Submit</button>
+                </div>
             </div>
             <div className="Monitoring_table">
                 <TablePengguna
