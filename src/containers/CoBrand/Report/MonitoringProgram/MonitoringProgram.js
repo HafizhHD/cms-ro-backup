@@ -185,7 +185,7 @@ const MonitoringProgram = () => {
                            setLoading(true);
                            setPeriod('real');
                        }
-                   }}>Real</button>
+                   }}>Prod</button>
                <button className={period === 'dummy' ? "Dashboard_period_option-active" : "Dashboard_period_option"}
                    onClick={() => {
                        if(period !== 'dummy') {
