@@ -73,14 +73,14 @@ function Setting({
                     { name: 'Setting' }
                 ]}
             />
-            <div className='div'>
+            {/* <div className='div'>
                 <h3>Setting Cobrand</h3>
                 <Button className='add' onClick={() => setAdd(true)}>Target Audience</Button>
                 <Button className='add' onClick={() => setTopic(true)}>Topic Content</Button>
                 <Button className='add' onClick={() => setKate(true)}>Kategory Program</Button>
                 <Button className='add' onClick={() => setNotif(true)}>Kategory Notification</Button>
                 <Button className='add' onClick={() => setTime(true)}>Standart ScreenTime</Button>
-            </div>
+            </div> */}
             
             
             <div className="Setting_card mt-medium">

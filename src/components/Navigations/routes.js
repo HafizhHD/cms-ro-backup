@@ -99,13 +99,39 @@ export const MenuCoBranding = [
             {
                 path: '/admin-staff-management',
                 pathName: 'Admin & Staff Management',
-                icon: <FiTool className="Aside__Nav_item-icon" />
+                icon: <FiUser className="Aside__Nav_item-icon" />
             },
 
             {
                 path: '/setting',
                 pathName: 'Settings',
                 icon: <FiTool className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/setting-topik',
+                pathName: 'Topik Content',
+                icon: <FiImage className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/setting-list-kateProgram',
+                pathName: 'Kategori Program',
+                icon: <FiActivity className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/setting-add',
+                pathName: 'Target Audience',
+                icon: <FiLayers className="Aside__Nav_item-icon" />
+            },
+            {
+                path: '/setting-list-kateNotif',
+                pathName: 'Kategori Notification',
+                icon: <FiInbox className="Aside__Nav_item-icon" />
+            },
+        
+            {
+                path: '/setting-list-screentime',
+                pathName: 'Standart Screen Time',
+                icon: <FiMonitor className="Aside__Nav_item-icon" />
             }
         ]
     }
