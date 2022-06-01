@@ -8,7 +8,13 @@ const StackedChart = (props) => {
         options: {
             chart: {
               type: 'bar',
-              height: props.height
+              height: props.height,
+              toolbar: {
+                show: true
+              },
+              zoom: {
+                  enabled: true
+              }
             },
             plotOptions: {
               bar: {
@@ -17,7 +23,9 @@ const StackedChart = (props) => {
               }
             },
             dataLabels: {
-              enabled: false
+              style: {
+                colors: ['#DDDDDD']
+              }
             },
             xaxis: {
                 categories: props.label

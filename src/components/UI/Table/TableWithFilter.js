@@ -59,7 +59,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
 
     const data = useMemo( () => DATA , [DATA]);
 
-    const initialState = { hiddenColumns: ['emailUser', 'parentEmail', 'status'] };
+    const initialState = { hiddenColumns: ['emailUser', 'parentEmail'] };
     
     const {
         getTableProps,
@@ -132,8 +132,11 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                 if(currentRecords[i].cells[colIndex].column.id !== 'rowNumber' &&
                 currentRecords[i].cells[colIndex].column.id !== 'selection' &&
                 currentRecords[i].cells[colIndex].column.id !== 'buttonStatus') {
-                    record_to_download[currentRecords[i].cells[colIndex].column.Header] =
-                    currentRecords[i].cells[colIndex].value;
+                    if(currentRecords[i].cells[colIndex].value && Object.prototype.toString.call(currentRecords[i].cells[colIndex].value) === "[object Date]" && !isNaN(currentRecords[i].cells[colIndex].value))
+                        record_to_download[currentRecords[i].cells[colIndex].column.Header] =
+                        currentRecords[i].cells[colIndex].value.toISOString().split('T')[0];
+                    else record_to_download[currentRecords[i].cells[colIndex].column.Header] =
+                        currentRecords[i].cells[colIndex].value;
                 }
             }
             data_to_download.push(record_to_download);
@@ -187,7 +190,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
             </div>
             <button className="btn_tools"><FaTable/> <CSVLink data={downloadAsCSV()}>Download as CSV</CSVLink></button>
             <button className="btn_tools" onClick={downloadAsPDF}><FaFilePdf/> Download as PDF</button>
-            {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
@@ -207,8 +210,8 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(localStorage.getItem('emailTo'));
                     localStorage.setItem('selectedUserType', 'child');
                 }}>Send Notifications to Child</NavLink></button>
-             ) : null}
-            {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+             ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to Child</span></button> : null}
+            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
@@ -230,8 +233,8 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(localStorage.getItem('emailTo'));
                     localStorage.setItem('selectedUserType', 'parent');
                 }}>Send Notifications to Parent</NavLink></button>
-             ) : null}
-            {selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+             ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to Parent</span></button> : null}
+            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
@@ -251,7 +254,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     console.log(localStorage.getItem('emailTo'));
                     localStorage.setItem('selectedUserType', 'all');
                 }}>Send Notifications to All</NavLink></button>
-             ) : null}
+             ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to All</span></button> : null}
         </div>
         <div className="utils">
             <div className="pagination">

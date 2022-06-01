@@ -175,11 +175,11 @@ export function GlobalFilter({
     column: { filterValue = [], preFilteredRows, setFilter, id }}) 
   {
     const [min, max] = React.useMemo(() => {
-        let min = new Date('2021-01-01')
-        let max = new Date()
+        let min = new Date('2020-01-01')
+        let max = new Date('2099-12-31')
         preFilteredRows.forEach(row => {
-            min = new Date(row.values[id]) <= min ? new Date(row.values[id]) : min
-            max = new Date(row.values[id]) >= max ? new Date(row.values[id]) : max
+            min = row.values[id] ? new Date(row.values[id]) <= min ? new Date(row.values[id]) : min : min
+            max = row.values[id] ? new Date(row.values[id]) >= max ? new Date(row.values[id]) : max : max
         });
         return [min, max];
     }, [id, preFilteredRows]);
@@ -191,30 +191,32 @@ export function GlobalFilter({
             }}
         >
             <input
-                value={filterValue[0] || ""}
+                value={filterValue[0] || min.toISOString().slice(0, 10)}
                 type="date"
                 min={min.toISOString().slice(0, 10)}
+                max={filterValue[1] || max.toISOString().slice(0, 10)}
                 onChange={e => {
                     const val = e.target.value;
                     console.log(e.target.value);
                     setFilter((old = []) => [val ? (val) : undefined, old[1]]);
                 }}
                 style={{
-                    width: "100px",
+                    width: "130px",
                     marginRight: "0.2rem"
                 }}
             />
             to
       <input
-                value={filterValue[1] || ""}
+                value={filterValue[1] || max.toISOString().slice(0, 10)}
                 type="date"
+                min={filterValue[0] || min.toISOString().slice(0, 10)}
                 max={max.toISOString().slice(0, 10)}
                 onChange={e => {
                     const val = e.target.value;
                     setFilter((old = []) => [old[0], val ? (val) : undefined]);
                 }}
                 style={{
-                    width: "100px",
+                    width: "130px",
                     marginLeft: "0.2rem"
                 }}
             />

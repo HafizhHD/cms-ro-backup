@@ -1,39 +1,4 @@
 [{
-    "Nomor": "1",
-    "userType": "Parent",
-    "nameUser": "Ricko Enrile",
-    "emailUser": "rickotesting@gmail.com",
-    "status": "Activated"
-},
-{
-    "Nomor": "2",
-    "userType": "Parent",
-    "nameUser": "Syihab Rabbani",
-    "emailUser": "syihab.rabbani@defghi.id",
-    "status": "Activated"
-},
-{
-    "Nomor": "3",
-    "userType": "Parent",
-    "nameUser": "Kartono",
-    "emailUser": "kartono.cc@gmail.com",
-    "status": "Activated"
-},
-{
-    "Nomor": "4",
-    "userType": "Parent",
-    "nameUser": "Tombak",
-    "emailUser": "tomsiman.id@gmail.com",
-    "status": "Activated"
-},
-{
-    "Nomor": "5",
-    "userType": "Parent",
-    "nameUser": "Rafik Ahmad",
-    "emailUser": "rafik.ahmad@defghi.global",
-    "status": "Activated"
-},
-{
     "Nomor": "6",
     "userType": "Child",
     "nameUser": "Hafiz",
@@ -46,11 +11,14 @@
     },
     "gender": "Laki-Laki",
     "address": "Bekasi Barat",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 1",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-06-10T00:00:00"
+    "paymentAmount": 270000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 27000,
+    "cleanAmount": 239000,
+    "myAmount": 120000,
+    "theirAmount": 119000
 },
 {
     "Nomor": "7",
@@ -65,11 +33,14 @@
     },
     "gender": "Perempuan",
     "address": "Bekasi Barat",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 1",
-    "startSub": "2021-12-29T00:00:00",
-    "endSub": "2022-06-29T00:00:00"
+    "paymentAmount": 270000,
+    "payDate": "2021-12-29T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 27000,
+    "cleanAmount": 239000,
+    "myAmount": 120000,
+    "theirAmount": 119000
 },
 {
     "Nomor": "8",
@@ -84,11 +55,14 @@
     },
     "gender": "Perempuan",
     "address": "Taman Alfa",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 1",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-06-10T00:00:00"
+    "paymentAmount": 270000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 27000,
+    "cleanAmount": 239000,
+    "myAmount": 120000,
+    "theirAmount": 119000
 },
 {
     "Nomor": "9",
@@ -103,11 +77,14 @@
     },
     "gender": "Perempuan",
     "address": "Taman Alfa",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "10",
@@ -122,11 +99,14 @@
     },
     "gender": "Perempuan",
     "address": "Kuningan",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-25T00:00:00",
-    "endSub": "2022-12-25T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-25T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "11",
@@ -141,11 +121,14 @@
     },
     "gender": "Perempuan",
     "address": "Kuningan",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "12",
@@ -160,11 +143,14 @@
     },
     "gender": "Laki-Laki",
     "address": "Serpong",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2022-01-10T00:00:00",
-    "endSub": "2023-01-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "13",
@@ -180,10 +166,14 @@
     "gender": "Laki-Laki",
     "address": "Pamulang Raya",
     "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "14",
@@ -198,11 +188,14 @@
     },
     "gender": "Laki-Laki",
     "address": "Pamulang Raya",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "15",
@@ -217,11 +210,14 @@
     },
     "gender": "Perempuan",
     "address": "Kebayoran Baru",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "16",
@@ -236,11 +232,14 @@
     },
     "gender": "Perempuan",
     "address": "Kebayoran Baru",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "17",
@@ -255,11 +254,14 @@
     },
     "gender": "Laki-Laki",
     "address": "Pamulang Raya",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "18",
@@ -274,11 +276,14 @@
     },
     "gender": "Laki-Laki",
     "address": "Matraman",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "19",
@@ -293,11 +298,14 @@
     },
     "gender": "Laki-Laki",
     "address": "Matraman",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 },
 {
     "Nomor": "20",
@@ -312,9 +320,12 @@
     },
     "gender": "Laki-Laki",
     "address": "Matraman",
-    "status": "Activated",
-    "subscriptionStatus": "Subscribed",
-    "subscriptionPlan": "Paket 2",
-    "startSub": "2021-12-10T00:00:00",
-    "endSub": "2022-12-10T00:00:00"
+    "paymentAmount": 420000,
+    "payDate": "2021-12-10T00:00:00",
+    "paymentMethod": "Transfer Bank",
+    "adminFee": 4000,
+    "taxAmount": 42000,
+    "cleanAmount": 374000,
+    "myAmount": 190000,
+    "theirAmount": 184000
 }]

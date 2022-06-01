@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import TablePengguna from './../../../../components/UI/Table/TableWithFilter';
+import TablePengguna from '../../../../components/UI/Table/TableWithFilter';
 import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
-import RKLoader from './../../../../components/UI/RKLoaderInner/RKLoader.js';
-import './UserReport.scss';
-import { getUserList } from './../../../../components/API/filter.js'
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
+import './CommercialReport.scss';
+import { getUserList } from '../../../../components/API/filter.js'
 import dummyData from './DummyData.json'
 import MUIDataTable from "mui-datatables";
 
-const UserReport = () => {
+const CommercialReport = () => {
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState();
     const [period, setPeriod] = useState('real');
@@ -24,8 +24,7 @@ const UserReport = () => {
             var dumDat = dummyData;
             for(var i = 0; i < dumDat.length; i++) {
                 var user = dumDat[i];
-                if(user.startSub !== undefined) user['startSubscription'] = new Date(Date.parse(user.startSub));
-                if(user.endSub !== undefined) user['endSubscription'] = new Date(Date.parse(user.endSub));
+                if(user.payDate !== undefined) user['paymentDate'] = new Date(Date.parse(user.payDate));
             }
             console.log(dumDat);
             setUserData(dumDat);
@@ -44,18 +43,16 @@ const UserReport = () => {
         getUserList(params)
         .then(response => {
             console.log(response.data);
-            // setUserData(response.data.users);
-            var ud = response.data.users;
-            for(var i = 0; i < ud.length; i++) {
-                let user = ud[i];
+            var userDataDummy = response.data.users;
+            var userDataChild = [];
+            for(var i = 0; i < userDataDummy.length; i++) {
+                let user = userDataDummy[i];
                 if(user.userType === 'child') {
-                    if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
-                    if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
                     console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];
-                    for(var j = 0; j < ud.length; j++) {
-                        let user2 = ud[j];
+                    for(var j = 0; j < userDataDummy.length; j++) {
+                        let user2 = userDataDummy[j];
                         if(user.parentEmail === user2.emailUser){
                             parentNames.push(user2.nameUser);
                         }
@@ -65,10 +62,10 @@ const UserReport = () => {
                     }
                     user['parentName'] = parentNames;
                     user['parentEmail'] = parentEmails;
-                    console.log(user.parentEmail);
+                    userDataChild.push(user);
                 }
             }
-            setUserData(ud);
+            setUserData(userDataChild);
             setLoading(false);
         })
         .catch(error => {
@@ -81,12 +78,12 @@ const UserReport = () => {
         return <RKLoader />;
     }
     return (
-        <div className="Pengguna">
+        <div className="Commercial">
             <Heading
-                headingName="User Report"
+                headingName="Commercial Report"
                 routes={[
-                    { name: 'Report', path: '/report/user' },
-                    { name: 'User Report' }
+                    { name: 'Report', path: '/report/commercial' },
+                    { name: 'Commercial Report' }
                 ]}
             />
              <div className="Dashboard_period">
@@ -105,12 +102,12 @@ const UserReport = () => {
                         }
                     }}>Dummy</button>
             </div>
-            <div className="Pengguna_table">
+            <div className="Commercial_table">
                 <TablePengguna
                     COLUMNS={columns}
                     DATA={userData}
                     showCheckbox={true}
-                    notifContext={"Status Berlanggan"}
+                    notifContext={"Status Pembayaran"}
                 />
             </div>
             {/* <MUIDataTable
@@ -122,4 +119,4 @@ const UserReport = () => {
     )
 }
 
-export default UserReport;
+export default CommercialReport;

@@ -1,4 +1,4 @@
-import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser, FiLayers, FiMonitor, FiSliders  } from 'react-icons/fi';
+import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser, FiLayers, FiMonitor, FiSliders, FiDollarSign  } from 'react-icons/fi';
 
 export const MenuCoBranding = [
     {
@@ -51,11 +51,16 @@ export const MenuCoBranding = [
                 pathName: 'Controlling Status',
                 icon: <FiSliders className="Aside__Nav_item-icon" />
             },
+            {
+                path: '/commercial', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Estimated Commercial Report',
+                icon: <FiDollarSign className="Aside__Nav_item-icon" />
+            },
         ]
     },
     {
         path: '/cms',
-        pathName: 'Content Management System',
+        pathName: 'Data Management',
         icon: <FiImage className="Aside__Nav_item-icon" />,
         children: [
             {
