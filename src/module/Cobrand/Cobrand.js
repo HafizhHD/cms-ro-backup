@@ -29,6 +29,7 @@ const UserReportAsync = lazy(() => import('./../../containers/CoBrand/Report/Use
 const ProgramReportAsync = lazy(() => import('./../../containers/CoBrand/Report/ProgramReport/ProgramReport'));
 const ContentReportAsync = lazy(() => import('./../../containers/CoBrand/Report/ContentReport/ContentReport'));
 const RedzoneReportAsync = lazy(() => import('./../../containers/CoBrand/Report/RedzoneReport/RedzoneReport'));
+const CommercialReportAsync = lazy(() => import('./../../containers/CoBrand/Report/CommercialReport/CommercialReport'));
 
 const MonitoringContentAsync = lazy(() => import('./../../containers/CoBrand/Report/MonitoringContent/MonitoringContent'));
 const MonitoringProgramAsync = lazy(() => import('./../../containers/CoBrand/Report/MonitoringProgram/MonitoringProgram'));
@@ -168,6 +169,15 @@ function Cobrand({
                     exact
                     path="/report/controlling-status"
                     component={ControllingStatusAsync}
+                /><PrivateRoute
+                    exact
+                    path="/report/controlling-status"
+                    component={ControllingStatusAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/report/commercial"
+                    component={CommercialReportAsync}
                 />
                 <PrivateRoute
                     path="/cms/user"

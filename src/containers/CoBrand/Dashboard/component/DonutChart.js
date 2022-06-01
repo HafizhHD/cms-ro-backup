@@ -9,7 +9,10 @@ const DonutChart = (props) => {
             colors: props.colors,
             chart: {
                 width: props.width,
-                type: 'donut'
+                type: 'donut',
+                toolbar: {
+                  show: true
+                },
             },
             plotOptions: {
                 pie: {

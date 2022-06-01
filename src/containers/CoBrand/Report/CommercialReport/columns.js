@@ -1,6 +1,6 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter, DateRangeColumnFilter } from './../../../../components/UI/Table/TableFilter'
+import { SelectColumnFilter, NumberRangeColumnFilter, DateRangeColumnFilter } from '../../../../components/UI/Table/TableFilter'
 
 const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
@@ -24,33 +24,6 @@ const Columns = [
         disableFilters: true
     },
     {
-        Header: 'Jenis User',
-        accessor: 'userType',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Status',
-        accessor: 'status',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-
-    },
-    {
-        Header: 'Status Berlanggan',
-        accessor: 'subscriptionStatus',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-
-    },
-    {
-        Header: 'Paket Berlangganan',
-        accessor: 'subscriptionPlan',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-
-    },
-    {
         Header: 'Email Orang tua',
         accessor: 'parentEmail',
         disableFilters: true,
@@ -72,25 +45,17 @@ const Columns = [
         filter: 'equals'
     },
     {
-        Header: 'Pendidikan',
-        accessor: 'childInfo.StudyLevel',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
+        Header: 'Jumlah Pembayaran (Rp)',
+        accessor:'paymentAmount',
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleString('id');
+            else return '';
+        }
     },
     {
-        Header: 'Jenis Kelamin',
-        accessor:'gender',
-        Filter: SelectColumnFilter,
-        filter: 'equals'
-    },
-    {
-        Header: 'Alamat',
-        accessor:'address',
-        disableFilters: true
-    },
-    {
-        Header: 'Mulai Berlanggan',
-        accessor: 'startSubscription',
+        Header: 'Tanggal Pembayaran',
+        accessor: 'paymentDate',
         Filter: DateRangeColumnFilter,
         filter: 'dateBetween',
         Cell: ({value}) => {
@@ -99,13 +64,54 @@ const Columns = [
         }
     },
     {
-        Header: 'Berlanggan Sampai',
-        accessor: 'endSubscription',
-        Filter: DateRangeColumnFilter,
-        filter: 'dateBetween',
+        Header: 'Metode Pembayaran',
+        accessor: 'paymentMethod',
+        Filter: SelectColumnFilter,
+        filter: 'equals'
+    },
+    {
+        Header: 'Biaya Administrasi (Rp)',
+        accessor:'adminFee',
+        disableFilters: true,
         Cell: ({value}) => {
-            if(value !== undefined) return value.toLocaleDateString("en-UK", dateFormat);
-            else return ''
+            if(value !== undefined) return value.toLocaleString('id');
+            else return '';
+        }
+    },
+    {
+        Header: 'PPN (Rp)',
+        accessor:'taxAmount',
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleString('id');
+            else return '';
+        }
+    },
+    {
+        Header: 'Dasar Perhitungan Bagi Hasil (Rp)',
+        accessor:'cleanAmount',
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleString('id');
+            else return '';
+        }
+    },
+    {
+        Header: 'Ruang Ortu (Rp)',
+        accessor:'myAmount',
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleString('id');
+            else return '';
+        }
+    },
+    {
+        Header: 'Mitra Asuh (Rp)',
+        accessor:'theirAmount',
+        disableFilters: true,
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleString('id');
+            else return '';
         }
     },
     // {
