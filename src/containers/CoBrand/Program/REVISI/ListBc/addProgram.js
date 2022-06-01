@@ -148,7 +148,7 @@ class AddProgramRev extends React.Component {
                     <Button className='btn' onClick={this.addMessage}>Add Program</Button>
                 </div>
                 <br></br><br></br>
-                <div className='div'>
+                {/* <div className='div'>
                     <h2>Title</h2>
                     <input className='input' placeholder='Menghafal Surat Pendek'
                         ref="title" 
@@ -161,7 +161,7 @@ class AddProgramRev extends React.Component {
                     <input className='input' placeholder='Disesuaikan dengan target audience yg sudah di tetapkan'
                         ref="audience" 
                     ></input>
-                </div>
+                </div> */}
                 <br></br><br></br>
                 <div className='div'>
                     <h1>Tahap 1</h1>
