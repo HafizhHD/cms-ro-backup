@@ -121,9 +121,11 @@
             border-bottom-left-radius: 1rem;
             border-bottom-right-radius: 1rem;
             color: #fff;
+            width: 100%;
+            justify-items: center;
 
-            display: flex;
-            justify-content: flex-end;
+            display: grid;
+            grid-template-columns: 50% 50%;
 
             a {
               display: flex;

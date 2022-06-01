@@ -30,8 +30,9 @@ function Dashboard() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [userData, setUserData] = useState([]);
+    const [countUser, setCountUser] = useState([0,0,0]);
     const [conProgData, setConProgData] = useState([]);
-    const userDataLabel = ["Orangtua", "Anak"];
+    const [userDataLabel, setUserDataLabel] = useState(["Orang tua: 0", "Anak: 0"]);
     const conProgDataLabel = ["Content", "Program"];
     const [topUsageData, setTopUsageData] = useState([]);
     const [topUsageLabel, setTopUsageLabel] = useState([]);
@@ -99,6 +100,8 @@ function Dashboard() {
         1200]}];
 
     function retrieveDummy() {
+        setCountUser([500, 349, 151]);
+        setUserDataLabel(['Orang tua: 349', 'Anak: 151']);
         setUserData(userDummy);
         setConProgData(conProgDummy);
         setTopUsageLabel(topUsageLabelDummy);
@@ -129,6 +132,8 @@ function Dashboard() {
         sma = [0,0],
         parent = [0,0],
         coparent = [0,0];
+
+        var countingUser = [0,0,0];
 
         let paramUser = {
             whereKeyValues: {
@@ -198,15 +203,18 @@ function Dashboard() {
         Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification]).then(responseAll => {
             console.log(responseAll[0]);
             const dataUser = responseAll[0].data.users;
+            countingUser[0] = dataUser.length;
             // console.log(dataUser);
             for(var i = 0; i < dataUser.length; i++) {
                 let x = dataUser[i];
                 if(x.userType === 'parent') {
+                    countingUser[1]++;
                     // console.log("Parent email: " + x.parentEmail);
                     if(x.parentEmail === undefined) parent[0]++;
                     else coparent[0]++;
                 }
                 else if(x.userType === 'child') {
+                    countingUser[2]++;
                     if(x.childInfo.StudyLevel === 'TK') tk[1]++;
                     else if(x.childInfo.StudyLevel === 'SD') sd[1]++;
                     else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
@@ -241,7 +249,9 @@ function Dashboard() {
             ]
             
             console.log("Colors length: " + colors.length);
+            setCountUser(countingUser);
             setUserData(userDataObj);
+            setUserDataLabel(['Orang tua: ' + countingUser[1], 'Anak: ' + countingUser[2]]);
 
             const contentLength = responseAll[1].data.contents.length;
             // console.log(responseAll[1].data.contents);
@@ -446,7 +456,7 @@ function Dashboard() {
                     <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>Populasi User</h3>
+                                <h3>{'Populasi User (Total: ' + countUser[0] + ')'}</h3>
                             </div>
                             
 
@@ -458,7 +468,9 @@ function Dashboard() {
                             />
                             
                             <div className="Dashboard_1_cards_card_item-details">
-                                <p> </p>
+                                <p></p>
+                                {/* <p>{'Orangtua: ' + countUser[1]}</p>
+                                <p>{'Anak: ' + countUser[2]}</p> */}
                             </div>
                         </div>
                     </div>

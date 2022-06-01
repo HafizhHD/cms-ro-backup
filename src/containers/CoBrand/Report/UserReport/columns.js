@@ -51,13 +51,13 @@ const Columns = [
 
     // },
     {
-        Header: 'Email Orangtua',
+        Header: 'Email Orang tua',
         accessor: 'parentEmail',
         disableFilters: true,
         disableGlobalFilter: true
     },
     {
-        Header: 'Nama Orangtua',
+        Header: 'Nama Orang tua',
         accessor: 'parentName',
         disableFilters: true,
         Cell: ({value}) => {
