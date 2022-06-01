@@ -18,16 +18,18 @@ function RedZone() {
     useEffect(() => {
         // const id = localStorage.getItem('contentSelected');
         // console.log(id);
+        const userData = JSON.parse(localStorage.getItem('userData'));
         let params =
         {
             whereKeyValues: {
-                cobrandEmail: "admin@asia.ruangortu.id",
+                cobrandEmail: userData.email,
             }
+            // "admin@asia.ruangortu.id",
         }
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneFilter',
-            // data: params,
+            data: params,
         })
             .then(response => {
                 console.log(response.data);
@@ -42,53 +44,53 @@ function RedZone() {
 
 
     // add redzone : done
-    useEffect(() => {
-        let params =
-        {
-            cobrandEmail: "muhammadsyihab.te@gmail.com",
-            placeName: "Tempat Sabung ayam",
-            description: "Tempat Sabung ayam A",
-            address: "kaliideres",
-            redZoneStatus: "active",
-            location: [-6.212694432483453, 106.85043740452949]
-        }
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneAdd',
-            data: params,
-        })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error + 'ini eror add redzone');
-            });
-    }, [])
+    // useEffect(() => {
+    //     let params =
+    //     {
+    //         cobrandEmail: "muhammadsyihab.te@gmail.com",
+    //         placeName: "Tempat Sabung ayam",
+    //         description: "Tempat Sabung ayam A",
+    //         address: "kaliideres",
+    //         redZoneStatus: "active",
+    //         location: [-6.212694432483453, 106.85043740452949]
+    //     }
+    //     axios({
+    //         method: 'post',
+    //         url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneAdd',
+    //         data: params,
+    //     })
+    //         .then(response => {
+    //             console.log(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.log(error + 'ini eror add redzone');
+    //         });
+    // }, [])
 
-    // edit
-    useEffect(() => {
-        // const id = localStorage.getItem('contentSelected');
-        // console.log(id);
-        let params =
-        {
-            whereValues: { _id: "628b4f8ac040ad69e5f317e9" },
-            newKeyValues: { placeName: "Tempat Sabung ayam yang baru dibuat iniii" }
-        }
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneUpdate',
-            data: params,
-        })
-            .then(response => {
-                console.log(response.data);
-                // setListRedzone(response.data)
-                // console.log(listRedzone)
+    // // edit
+    // useEffect(() => {
+    //     // const id = localStorage.getItem('contentSelected');
+    //     // console.log(id);
+    //     let params =
+    //     {
+    //         whereValues: { _id: "628b4f8ac040ad69e5f317e9" },
+    //         newKeyValues: { placeName: "Tempat Sabung ayam yang baru dibuat iniii" }
+    //     }
+    //     axios({
+    //         method: 'post',
+    //         url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneUpdate',
+    //         data: params,
+    //     })
+    //         .then(response => {
+    //             console.log(response.data);
+    //             // setListRedzone(response.data)
+    //             // console.log(listRedzone)
 
-            })
-            .catch(error => {
-                console.log(error + 'ini eror edit redzone');
-            });
-    }, [])
+    //         })
+    //         .catch(error => {
+    //             console.log(error + 'ini eror edit redzone');
+    //         });
+    // }, [])
 
     return (
         <div className="RedZone">

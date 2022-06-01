@@ -209,7 +209,7 @@ const Detail = ({ userSelected }) => {
                     <div className="Detail_detail_detail_group">
                         <br />
                     </div>
-                    <div className="Detail_detail_detail_button">
+                    {/* <div className="Detail_detail_detail_button">
                         <div className="Detail_detail_detail_button_active">
                         <button onClick={() => {
                                 {userData.status === 'active' ? setShow(true) : setShow1(true)}
@@ -228,7 +228,7 @@ const Detail = ({ userSelected }) => {
                                 setDeleting(true);
                             }}>Delete User</button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="Detail_table">

@@ -373,7 +373,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             contentAdd(data)
                 .then(response => {
                     console.log('Success:', response.data);
-                    history.push('/content');
+                    history.push('/cms/content');
                     dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                     dispatch(loadingStop());
                 })
