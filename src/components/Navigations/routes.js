@@ -60,7 +60,7 @@ export const MenuCoBranding = [
     },
     {
         path: '/cms',
-        pathName: 'Content Management System',
+        pathName: 'Data Management',
         icon: <FiImage className="Aside__Nav_item-icon" />,
         children: [
             {
