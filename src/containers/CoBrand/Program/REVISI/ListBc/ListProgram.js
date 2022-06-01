@@ -21,13 +21,38 @@ class ListProgram extends React.Component {
             edit: false,
             new: null,
             dataUpdate: [],
-            send: false
+            send: false,
+            destiemail : '',
+            kategori : '',
 
         }
     }
 
     componentDidMount() {
         this.daftarMessage()
+        let allCheckBox3 = document.querySelectorAll('.shapes3')
+
+        allCheckBox3.forEach((radio) => {
+            radio.addEventListener('click', (event) => {
+                if (event.target.checked) {
+                    console.log(event.target.value)
+                    this.setState({ kategori: event.target.value })
+                    console.log(this.state.kategori)
+                }
+            })
+        })
+
+        let allCheckBox2 = document.querySelectorAll('.shapes2')
+
+        allCheckBox2.forEach((radio) => {
+            radio.addEventListener('click', (event) => {
+                if (event.target.checked) {
+                    console.log(event.target.value)
+                    this.setState({ destiemail: event.target.value })
+                    console.log(this.state.destiemail)
+                }
+            })
+        })
     }
 
     daftarMessage = () => {
@@ -75,6 +100,9 @@ class ListProgram extends React.Component {
                 endDate: this.refs.endDate.value ? this.refs.endDate.value : this.state.message[index].endDate,
                 category: this.refs.category.value ? this.refs.category.value : this.state.message[index].category,
                 targetAudiance: this.refs.targetAudiance.value ? [this.refs.targetAudiance.value] : [this.state.message[index].targetAudiance],
+            
+                // category: this.refs.category.value ? this.refs.category.value : this.state.message[index].category,
+                // targetAudiance: this.state.destiemail ? [this.state.destiemail] : [this.state.message[index].targetAudiance],
             }
         }
         axios({
@@ -137,8 +165,78 @@ class ListProgram extends React.Component {
                                         <option value="Informasi & Teknologi">Informasi & Teknologi</option>
                                         <option value="Program Pilihan">Program Pilihan</option>
                                     </select>
+                                    {/* <form ref="destinaation" className='form-radio' >
+                                        <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
+                                        // onClick={() => { setRadio('internal') }}
+                                        />
+                                        <label for="internal" > Pendidikan Agama</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Pengetahuan Siswa Formal</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Pengetahuan Siswa Umum</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Informasi & Teknologi </label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Program Pilihan</label>
+                                    </form> */}
                                 </td>
-                                <td><input placeholder={item.targetAudiance} ref="targetAudiance"></input></td>
+                                <td>
+                                    <input placeholder={item.targetAudiance} ref="targetAudiance"></input>
+                                    {/* <form ref="destinaation" className='form-radio' >
+                                        <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
+                                        // onClick={() => { setRadio('internal') }}
+                                        />
+                                        <label for="internal" > Semua</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Semua Orang tua</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Semua Anak</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Anak SD</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Anak SMP</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Anak SMA</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Anak Pria</label>
+                                        <br></br>
+                                        <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
+                                        // onClick={() => setRadio('url')}
+                                        />
+                                        <label for="url" > Anak Wanita</label>
+                                        <br></br>
+                                    </form> */}
+                                </td>
                                 <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
