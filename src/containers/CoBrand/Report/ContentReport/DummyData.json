@@ -5,7 +5,8 @@
         "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!        ",
         "contentType": "Artikel",
         "topics": "Keluarga",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "2",
@@ -13,7 +14,8 @@
         "contentName": "Solusi Ampuh Mendidik Anak Di Era Digital        ",
         "contentType": "PDF",
         "topics": "Pendidikan",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "3",
@@ -21,7 +23,8 @@
         "contentName": "Parenting Dalam Islam        ",
         "contentType": "PDF",
         "topics": "Agama",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "4",
@@ -29,7 +32,8 @@
         "contentName": "Parenting di era digital",
         "contentType": "PDF",
         "topics": "Informasi Teknologi",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "5",
@@ -37,7 +41,8 @@
         "contentName": "Digital Parenting - Mendidik Anak di Era Digital        ",
         "contentType": "PDF",
         "topics": "Berita Internal",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "6",
@@ -45,7 +50,8 @@
         "contentName": "DIGITAL PARENTING SEBAGAI WAHANA TERAPI UNTUK MENYEIMBANGKAN DUNIA DIGITAL DENGAN DUNIA NYATA BAGI ANAK",
         "contentType": "PDF",
         "topics": "Berita Nasional",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "7",
@@ -53,7 +59,8 @@
         "contentName": "Psikologi Anak Usia Dini        ",
         "contentType": "PDF",
         "topics": "Kesehatan",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Active"
     },
     {
         "Nomor": "8",
@@ -61,7 +68,8 @@
         "contentName": "Tata cara sholat 5 waktu        ",
         "contentType": "Image",
         "topics": "Umum",
-        "targetAudiance": "Anak"
+        "targetAudiance": "Anak",
+        "status": "Inactive"
     },
     {
         "Nomor": "9",
@@ -69,7 +77,8 @@
         "contentName": "Bacaan Doa, Niat, dan Tata Cara Sholat 5 Waktu yang Benar        ",
         "contentType": "Artikel",
         "topics": "Olah Raga",
-        "targetAudiance": "Anak"
+        "targetAudiance": "Anak",
+        "status": "Active"
     },
     {
         "Nomor": "10",
@@ -77,6 +86,7 @@
         "contentName": "Introduction Aplikasi Ruang Ortu        ",
         "contentType": "Video",
         "topics": "Berita Dunia",
-        "targetAudiance": "Orang Tua"
+        "targetAudiance": "Orang Tua",
+        "status": "Inactive"
     }
 ]
