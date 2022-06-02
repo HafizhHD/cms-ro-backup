@@ -17,9 +17,9 @@ class Message extends React.Component {
             send: false,
             schedule: false,
             media: 'device',
-            useTarget : true,
-            destiemail : '',
-            kategori : ''
+            useTarget: true,
+            destiemail: '',
+            kategori: ''
 
 
         }
@@ -66,7 +66,7 @@ class Message extends React.Component {
             })
         })
 
-    
+
     }
 
 
@@ -83,11 +83,12 @@ class Message extends React.Component {
         let subject = localStorage.getItem('notifContext')
         let params =
         {
-            destination: email ? email : this.state.destiemail,
+            destination: email ? email : this.state.destiemail , // + this.refs.destinaation.value
             messageSubject: subject ? subject : this.refs.tempat.value,
             messageContent: this.refs.deskripsi.value,
             scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : "",
-            mediaType: this.state.media,
+            // mediaType: this.state.media,
+            mediaType: this.refs.status.value,
             category: this.state.kategori,
         }
         axios({
@@ -124,12 +125,12 @@ class Message extends React.Component {
                 <h1>Notifikasi</h1>
                 <form className='form'>
                     <label>Destination</label> <br></br>
-                    <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget : !this.state.useTarget })}></input> Penerima </label>
+                    <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget: !this.state.useTarget })}></input> Penerima </label>
                     <br></br>
-                    <textarea className='text' placeholder=''
+                    <textarea className='text' placeholder='Ketik email jika ingin kirim ke user tertentu'
                         ref="destinaation" defaultValue={email ? email : ''} type="email"
                     ></textarea>
-                    <form  ref="destinaation" className='form-radio' hidden={ this.state.useTarget === true ? true : false}>
+                    <form ref="destinaation" className='form-radio' hidden={this.state.useTarget === true ? true : false}>
                         <input type="radio" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
                         // onClick={() => { setRadio('internal') }}
                         />
@@ -212,16 +213,21 @@ class Message extends React.Component {
                     <br></br>
                     <label>Via </label>
                     <br></br>
-                    <input type="checkbox" name="device" class="shapes" value="Device" id="cb-circle" /> <label for="cb-circle">Device</label> <br></br>
+                    <select ref="status" >
+                        <option value="Semua" >Semua</option>
+                        <option value="Email" >Email</option>
+                        <option value="Device" >Device</option>
+                    </select>
+                    {/* <input type="checkbox" name="device" class="shapes" value="Device" id="cb-circle" /> <label for="cb-circle">Device</label> <br></br>
                     <input type="checkbox" name="email" class="shapes" value="Email" id="cb-circle" /> <label for="cb-circle">Email</label> <br></br>
-                    <input type="checkbox" name="semua" class="shapes" value="Semua" id="cb-circle" /> <label for="cb-circle">Semua</label> <br></br>
+                    <input type="checkbox" name="semua" class="shapes" value="Semua" id="cb-circle" /> <label for="cb-circle">Semua</label> <br></br> */}
 
                     {/* <input className='input' placeholder='Email / Device'
                         ref="status"></input> */}
                     <br></br><br></br>
                     <label className='label'>Kategori</label> <br></br>
                     {/* <select ref="category"> */}
-                    <form  ref="destinaation" className='form-radio' >
+                    <form ref="destinaation" className='form-radio' >
                         <input type="radio" id="html" name="fav_language" value={'Pembayaran'} ref="category" class="shapes3"
                         // onClick={() => { setRadio('internal') }}
                         />
