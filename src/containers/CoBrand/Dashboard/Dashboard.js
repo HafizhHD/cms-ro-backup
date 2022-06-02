@@ -496,7 +496,7 @@ function Dashboard() {
                     <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>Jumlah Pageview Content &amp; Program Berdasarkan Topik</h3>
+                                <h3>Jumlah Postingan Content &amp; Program Berdasarkan Topik</h3>
                             </div>
                             
 
