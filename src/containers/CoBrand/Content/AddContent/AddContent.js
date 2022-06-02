@@ -178,24 +178,25 @@ function AddContent({
                                     <option value="Siswa Wanita">Siswa Wanita</option>
                                 </select>
                             </div>
-                            <div className="form-group">
-                                <label>Program Name</label>
-                                <select
+                            {/* <div className="form-group"> */}
+                                {/* <label>Program Name</label> */}
+                                {/* <select
                                     name="programId"
                                     value={values.programId}
                                     onChange={handleChange}
-                                >
-                                    <option value="-1" disabled>Select Program</option>
+                                > */}
+                                    {/* <option value="-1" disabled>Select Program</option> */}
                                     {/* <option value="">(Tanpa Program)</option> */}
-                                    {
+                                    {/* {
                                         programList.map((program) => {
                                             return (
                                                 <option value={program._id}>{program.programName}</option>
                                             )
                                         })
-                                    }
-                                </select>
-                            </div>
+                                    } */}
+                                {/* </select> */}
+                            {/* </div> */}
+                            
                             <div className="form-group">
                                 <label>Title</label>
                                 <InputComponent
