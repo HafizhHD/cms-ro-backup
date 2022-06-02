@@ -83,14 +83,17 @@ class Message extends React.Component {
         let subject = localStorage.getItem('notifContext')
         let params =
         {
-            destination: email ? email : this.state.destiemail , // + this.refs.destinaation.value
+            destination: email ? email : this.refs.emailto.value || this.state.destiemail  , 
             messageSubject: subject ? subject : this.refs.tempat.value,
             messageContent: this.refs.deskripsi.value,
             scheduleTime: this.refs.alamat.value ? this.refs.alamat.value : "",
             // mediaType: this.state.media,
             mediaType: this.refs.status.value,
             category: this.state.kategori,
+
         }
+
+        console.log(this.refs.emailto.value)
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastAdd',
@@ -128,9 +131,9 @@ class Message extends React.Component {
                     <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget: !this.state.useTarget })}></input> Penerima </label>
                     <br></br>
                     <textarea className='text' placeholder='Ketik email jika ingin kirim ke user tertentu'
-                        ref="destinaation" defaultValue={email ? email : ''} type="email"
+                        ref="emailto" defaultValue={email ? email : ''} type="email"
                     ></textarea>
-                    <form ref="destinaation" className='form-radio' hidden={this.state.useTarget === true ? true : false}>
+                    <form  className='form-radio' hidden={this.state.useTarget === true ? true : false}>
                         <input type="radio" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
                         // onClick={() => { setRadio('internal') }}
                         />
