@@ -109,6 +109,7 @@ class ListBc extends React.Component {
                                     <select className='select' ref="status">
                                         <option value="Email" >Email</option>
                                         <option value="Device" >Device</option>
+                                        <option value="Semua" >Semua</option>
                                     </select>
                                 </td>
                                 <td><input placeholder={item.scheduleTime} type="datetime-local" ref="alamat"></input></td>
