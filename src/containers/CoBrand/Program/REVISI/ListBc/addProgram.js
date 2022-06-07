@@ -16,12 +16,15 @@ class AddProgramRev extends React.Component {
         super(props)
         this.state = {
             userData: [],
-            send: false,  
+            send: false,
             media: '',
-            useTarget : true,
-            destiemail : '',
-            kategori : '',
-            useTarget2 : true,
+            useTarget: true,
+            destiemail: '',
+            kategori: '',
+            useTarget2: true,
+            useTarget3: true,
+            useTarget4: true,
+            useTarget5: true,
         }
     }
 
@@ -55,6 +58,60 @@ class AddProgramRev extends React.Component {
         })
     }
 
+    cobaProg = () => {
+        let params =
+        {
+            cobrandEmail: "dara@gmail.com",
+            programName: "Belajar mate",
+            ProgramDescription: "percakapan matematika",
+            programthumnail: "sss",
+            startDate: "2022-07-01",
+            category: "Pendidikan",
+            targetAudiance: ["Anak SD", "Anak SMP"],
+            topics: ["Pendidikan"],
+            contentPrograms: [{
+                nomerUrutTahapan: "1",
+                namaTahapan: "Pertama",
+                contentName: "Menghafal contentPrograms",
+                contentDescription: "Mengenal 19 kosa kata contentPrograms",
+                contentType: "video",
+                contentSource: "",
+                contentThumbnail: "",
+                contents: "isi video",
+                startDate: "2022-07-01",
+                contentPurpose: "Menghafal 18 contentPrograms",
+                topics: ["pendidikan"],
+                targetAudiance: ["Anak SD", "Anak SMP"]
+            },
+            {
+                nomerUrutTahapan: "2",
+                namaTahapan: "Kedua",
+                contentName: "Menghafal aljabar",
+                contentDescription: "Menghafal rumus",
+                contentType: "video",
+                contentSource: "",
+                contentThumbnail: "",
+                contents: "isi video",
+                startDate: "2022-07-01",
+                contentPurpose: "Menghafal aljabar",
+                topics: ["pendidikan"],
+                targetAudiance: ["Anak SD", "Anak SMP"]
+            }]
+        }
+        axios({
+            method: 'post',
+            url: '​​https://as01.prod.ruangortu.id:8080/api/cobrand/v2-programAdd',
+            // url: '​​https://rk.defghi.biz.id:8080/api/cobrand/v2-programAdd',
+            data: params,
+        })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error + 'ini eror add PROGRAM THAPAN');
+            });
+    }
+
     handleChange(e) {
         let isChecked = e.target.checked;
         // do whatever you want with isChecked value
@@ -65,24 +122,51 @@ class AddProgramRev extends React.Component {
             cobrandEmail: this.refs.email.value,
             programName: this.refs.name.value,
             ProgramDescription: this.refs.deskripsi.value,
-            programthumnail: "",
+            programthumnail: this.refs.thumbnail.value,
             startDate: this.refs.start.value,
-            endDate: this.refs.end.value,
-            category: [this.state.kategori],
-            targetAudiance: [this.state.destiemail]
+            // endDate: this.refs.end.value,
+            category: this.state.kategori,
+            targetAudiance: [this.state.destiemail],
+            topics: [this.refs.topics.value],
+            contentPrograms: [{
+                nomerUrutTahapan: this.refs.nourut1.value,
+                namaTahapan: this.refs.namatahap1.value,
+                contentName: this.refs.namakonten1.value,
+                contentDescription: this.refs.deskripsikonten1.value,
+                contentType: this.refs.typecontent1.value,
+                contentSource: this.refs.typesource1.value,
+                contentThumbnail: this.refs.contentThumb1.value,
+                contents: this.refs.contentTahap1.value,
+                startDate: this.refs.startDateTahap1.value,
+                contentPurpose: this.refs.contPurpose1.value,
+                topics: [this.refs.topicTahap1.value],
+                targetAudiance: [this.refs.AudienceTahap1.value]
+            },
+            {
+                nomerUrutTahapan: this.refs.nourut2.value,
+                namaTahapan: this.refs.namatahap2.value,
+                contentName: this.refs.namakonten2.value,
+                contentDescription: this.refs.deskripsikonten2.value,
+                contentType: this.refs.typecontent2.value,
+                contentSource: this.refs.typesource2.value,
+                contentThumbnail: this.refs.contentThumb2.value,
+                contents: this.refs.contentTahap2.value,
+                startDate: this.refs.startDateTahap2.value,
+                contentPurpose: this.refs.contPurpose2.value,
+                topics: [this.refs.topicTahap2.value],
+                targetAudiance: [this.refs.AudienceTahap2.value]
+            }]
         }
         // console.log(params.targetAudience)
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programAdd',
+            // url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programAdd',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/v2-programAdd',
             data: params,
         })
             .then(response => {
                 console.log(response.data);
-                this.setState({ send: true })
-
-
-                // alert('Add Broadcast is success')
+                // this.setState({ send: true })
             })
             .catch(error => {
                 console.log(error + 'ini eror add BC');
@@ -111,188 +195,619 @@ class AddProgramRev extends React.Component {
                         <textarea className='text' placeholder='Deskripsi program'
                             ref="deskripsi"></textarea>
                         <br></br>
+                        <label>Program Thumbnail</label>
+                        <textarea className='text' placeholder='Deskripsi program'
+                            ref="thumbnail"></textarea>
+                        <br></br>
                         <label>Tanggal Mulai</label>
                         <input className='input' placeholder=''
                             ref="start" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
                         <br></br>
-                        <label>Tanggal Akhir</label>
+                        {/* <label>Tanggal Akhir</label>
                         <input className='input' placeholder=''
                             ref="end" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        <label className='label'>Kategori</label> <br></br>
-                    {/* <select ref="category"> */}
-                    <form  ref="destinaation" className='form-radio' >
-                        <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
-                        // onClick={() => { setRadio('internal') }}
-                        />
-                        <label for="internal" > Pendidikan Agama</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Pengetahuan Siswa Formal</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Pengetahuan Siswa Umum</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Informasi & Teknologi </label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Program Pilihan</label>
-                    </form>
+                        <br></br> */}
+                        <label className='label'> Kategori</label> <br></br>
+                        {/* <select ref="category"> */}
+                        <form ref="destinaation" className='form-radio' >
+                            <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
+                            // onClick={() => { setRadio('internal') }}
+                            />
+                            <label for="internal" > Pendidikan Agama</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Pengetahuan Siswa Formal</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Pengetahuan Siswa Umum</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Informasi & Teknologi </label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Program Pilihan</label>
+                        </form>
                         <br></br>
                         <label>Audience</label> <br></br>
-                    <form  ref="destinaation" className='form-radio' >
-                        <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
-                        // onClick={() => { setRadio('internal') }}
-                        />
-                        <label for="internal" > Semua</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Semua Orang tua</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Semua Anak</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Anak SD</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Anak SMP</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Anak SMA</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Anak Pria</label>
-                        <br></br>
-                        <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
-                        // onClick={() => setRadio('url')}
-                        />
-                        <label for="url" > Anak Wanita</label>
+                        <form ref="destinaation" className='form-radio' >
+                            <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
+                            // onClick={() => { setRadio('internal') }}
+                            />
+                            <label for="internal" > Semua</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Orang tua</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Semua Anak</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Anak SD</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Anak SMP</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Anak SMA</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Anak Pria</label>
+                            <br></br>
+                            <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
+                            // onClick={() => setRadio('url')}
+                            />
+                            <label for="url" > Anak Wanita</label>
+                            <br></br>
+                        </form>
+                        <label>Topik</label>
+                        <textarea className='text' placeholder='Deskripsi program'
+                            ref="topics"></textarea>
                         <br></br>
                     </form>
-                </form>
                     <form className='form'>
-                        <label>Tahapan</label> <br></br>
-                        <input className='input' placeholder='Judul Tahapan'
-                            ref="tahap" type="email"
-                        ></input>
                         <br></br>
-                        <label>Nama Program</label>
-                        <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                            ref="nameprogram"></input>
-                        <br></br>
-                        <label>Jadwal Mulai</label>
-                        <input className='input' placeholder=''
-                            ref="starttgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        <label>Jadwal Selesei</label>
-                        <input className='input' placeholder=''
+                        <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget2: !this.state.useTarget2 })}></input> Tambah Tahapan 1</label>
+                        <form className='form-radio' hidden={this.state.useTarget2 === true ? true : false}>
+                            <label>No Urut Tahapan </label> <br></br>
+                            <input className='input' placeholder='Judul Tahapan'
+                                ref="nourut1" type="email"
+                            ></input>
+                            <br></br>
+                            <label>Nama Tahapan</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="namatahap1"></input>
+                            <br></br>
+                            <label>Nama Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="namakonten1"></input>
+                            <br></br>
+                            <label>Deskripsi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="deskripsikonten1"></input>
+                            <br></br>
+                            <label>Tipe Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="typecontent1"></input>
+                            <br></br>
+                            <label>Sumber Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="typesource1"></input>
+                            <br></br>
+                            <label>Thumbnail Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="contentThumb1"></input>
+                            <br></br>
+                            <label>Isi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="contentTahap1"></input>
+                            <br></br>
+                            <label>Jadwal Mulai</label>
+                            <input className='input' placeholder=''
+                                ref="startDateTahap1" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
+                            <br></br>
+                            {/* <label>Jadwal Selesei</label>
+                            <input className='input' placeholder=''
                             ref="endtgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        {/* <label>Multimedia File</label>
-                        <textarea className='text' placeholder='Type here ...'
-                            ref="deskripsi"></textarea>
-                        <br></br> */}
-                        <label>Isi Program</label>
-                        <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
-                            ref="isiprogram"></textarea>
-                        <br></br>
-                        <label>Respon 1</label>
-                        <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
-                            ref="respon1"></textarea>
-                        <br></br>
-                        <label>Respon 2</label>
-                        <textarea className='text' placeholder='Type here ... (saya kesulitan)'
-                            ref="respon2"></textarea>
-                        <br></br><br></br>
-                    <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget : !this.state.useTarget })}></input> Tambah</label>
-                    <form className='form-radio' hidden={ this.state.useTarget === true ? true : false}>
-                        <label>Tahapan</label> <br></br>
-                        <input className='input' placeholder='Judul Tahapan'
-                            ref="tahap" type="email"
-                        ></input>
-                        <br></br>
-                        <label>Nama Program</label>
-                        <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                            ref="nameprogram"></input>
-                        <br></br>
-                        <label>Jadwal Mulai</label>
-                        <input className='input' placeholder=''
-                            ref="starttgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        <label>Jadwal Selesei</label>
-                        <input className='input' placeholder=''
+                            <br></br> */}
+                            <label>Tujuan Kontent</label>
+                            <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
+                                ref="contPurpose1"></textarea>
+                            <br></br>
+                            <label className='label'>Topik</label> <br></br>
+                            {/* <select ref="category"> */}
+                            <form ref="topicTahap1" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Pendidikan Agama</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Formal</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Umum</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Informasi & Teknologi </label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Program Pilihan</label>
+                            </form>
+                            <br></br>
+                            <label>Audience</label> <br></br>
+                            <form ref="AudienceTahap1" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Semua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Orang tua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Semua Anak</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SD</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMP</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMA</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Pria</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Wanita</label>
+                                <br></br>
+                            </form>
+                            {/* <label>Respon 1</label>
+                            <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
+                                ref="respon1"></textarea>
+                            <br></br>
+                            <label>Respon 2</label>
+                            <textarea className='text' placeholder='Type here ... (saya kesulitan)'
+                                ref="respon2"></textarea>
+                            <br></br> */}
+                            <br></br><br></br>
+                            <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget3: !this.state.useTarget3 })}></input> Tambah Tahapan 2</label>
+                        </form> <br></br>
+                        <form className='form-radio' hidden={this.state.useTarget3 === true ? true : false}>
+                        <label>No Urut Tahapan </label> <br></br>
+                            <input className='input' placeholder='Judul Tahapan'
+                                ref="nourut2" type="email"
+                            ></input>
+                            <br></br>
+                            <label>Nama Tahapan</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="namatahap2"></input>
+                            <br></br>
+                            <label>Nama Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="namakonten2"></input>
+                            <br></br>
+                            <label>Deskripsi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="deskripsikonten2"></input>
+                            <br></br>
+                            <label>Tipe Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="typecontent2"></input>
+                            <br></br>
+                            <label>Sumber Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="typesource2"></input>
+                            <br></br>
+                            <label>Thumbnail Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="contentThumb2"></input>
+                            <br></br>
+                            <label>Isi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="contentTahap2"></input>
+                            <br></br>
+                            <label>Jadwal Mulai</label>
+                            <input className='input' placeholder=''
+                                ref="startDateTahap2" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
+                            <br></br>
+                            {/* <label>Jadwal Selesei</label>
+                            <input className='input' placeholder=''
                             ref="endtgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        <label>Isi Program</label>
-                        <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
-                            ref="isiprogram"></textarea>
-                        <br></br>
-                        <label>Respon 1</label>
-                        <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
-                            ref="respon1"></textarea>
-                        <br></br>
-                        <label>Respon 2</label>
-                        <textarea className='text' placeholder='Type here ... (saya kesulitan)'
-                            ref="respon2"></textarea>
-                        <br></br>
-                    </form> <br></br>
-                    <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget2 : !this.state.useTarget2 })}></input> Tambah</label>
-                    <form className='form-radio' hidden={ this.state.useTarget2 === true ? true : false}>
-                        <label>Tahapan</label> <br></br>
-                        <input className='input' placeholder='Judul Tahapan'
-                            ref="tahap" type="email"
-                        ></input>
-                        <br></br>
-                        <label>Nama Program</label>
-                        <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                            ref="nameprogram"></input>
-                        <br></br>
-                        <label>Jadwal Mulai</label>
-                        <input className='input' placeholder=''
-                            ref="starttgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        <label>Jadwal Selesei</label>
-                        <input className='input' placeholder=''
+                            <br></br> */}
+                            <label>Tujuan Kontent</label>
+                            <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
+                                ref="contPurpose2"></textarea>
+                            <br></br>
+                            <label className='label'>Topik</label> <br></br>
+                            {/* <select ref="category"> */}
+                            <form ref="topicTahap2" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Pendidikan Agama</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Formal</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Umum</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Informasi & Teknologi </label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Program Pilihan</label>
+                            </form>
+                            <br></br>
+                            <label>Audience</label> <br></br>
+                            <form ref="AudienceTahap2" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Semua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Orang tua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Semua Anak</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SD</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMP</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMA</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Pria</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Wanita</label>
+                                <br></br>
+                            </form>
+                            {/* <label>Respon 1</label>
+                            <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
+                                ref="respon1"></textarea>
+                            <br></br>
+                            <label>Respon 2</label>
+                            <textarea className='text' placeholder='Type here ... (saya kesulitan)'
+                                ref="respon2"></textarea>
+                            <br></br> */}
+                            <br></br><br></br>
+                            <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget4: !this.state.useTarget4 })}></input> Tambah Tahapan 3</label>
+                        </form> <br></br>
+
+                        <form className='form-radio' hidden={this.state.useTarget4 === true ? true : false}>
+                            <label>No Urut Tahapan </label> <br></br>
+                            <input className='input' placeholder='Judul Tahapan'
+                                ref="tahap" type="email"
+                            ></input>
+                            <br></br>
+                            <label>Nama Tahapan</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Nama Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Deskripsi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Tipe Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Sumber Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Thumbnail Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Isi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Jadwal Mulai</label>
+                            <input className='input' placeholder=''
+                                ref="starttgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
+                            <br></br>
+                            {/* <label>Jadwal Selesei</label>
+                            <input className='input' placeholder=''
                             ref="endtgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
-                        <br></br>
-                        <label>Isi Program</label>
-                        <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
-                            ref="isiprogram"></textarea>
-                        <br></br>
-                        <label>Respon 1</label>
-                        <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
-                            ref="respon1"></textarea>
-                        <br></br>
-                        <label>Respon 2</label>
-                        <textarea className='text' placeholder='Type here ... (saya kesulitan)'
-                            ref="respon2"></textarea>
-                        <br></br><br></br>
-                   </form> <br></br><br></br>
+                            <br></br> */}
+                            <label>Tujuan Kontent</label>
+                            <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
+                                ref="isiprogram"></textarea>
+                            <br></br>
+                            <label className='label'>Kategori</label> <br></br>
+                            {/* <select ref="category"> */}
+                            <form ref="destinaation" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Pendidikan Agama</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Formal</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Umum</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Informasi & Teknologi </label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Program Pilihan</label>
+                            </form>
+                            <br></br>
+                            <label>Audience</label> <br></br>
+                            <form ref="destinaation" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Semua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Orang tua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Semua Anak</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SD</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMP</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMA</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Pria</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Wanita</label>
+                                <br></br>
+                            </form>
+                            {/* <label>Respon 1</label>
+                            <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
+                                ref="respon1"></textarea>
+                            <br></br>
+                            <label>Respon 2</label>
+                            <textarea className='text' placeholder='Type here ... (saya kesulitan)'
+                                ref="respon2"></textarea>
+                            <br></br> */}
+                            <br></br><br></br>
+                            <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget5: !this.state.useTarget5 })}></input> Tambah Tahapan 4</label>
+                        </form> <br></br>
+
+                        <form className='form-radio' hidden={this.state.useTarget5 === true ? true : false}>
+                            <label>No Urut Tahapan </label> <br></br>
+                            <input className='input' placeholder='Judul Tahapan'
+                                ref="tahap" type="email"
+                            ></input>
+                            <br></br>
+                            <label>Nama Tahapan</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Nama Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Deskripsi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Tipe Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Sumber Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Thumbnail Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Isi Konten</label>
+                            <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
+                                ref="nameprogram"></input>
+                            <br></br>
+                            <label>Jadwal Mulai</label>
+                            <input className='input' placeholder=''
+                                ref="starttgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
+                            <br></br>
+                            {/* <label>Jadwal Selesei</label>
+                            <input className='input' placeholder=''
+                            ref="endtgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
+                            <br></br> */}
+                            <label>Tujuan Kontent</label>
+                            <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
+                                ref="isiprogram"></textarea>
+                            <br></br>
+                            <label className='label'>Kategori</label> <br></br>
+                            {/* <select ref="category"> */}
+                            <form ref="destinaation" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Pendidikan Agama</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Formal'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Formal</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Pengetahuan Siswa Umum'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Pengetahuan Siswa Umum</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Informasi & Teknologi '} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Informasi & Teknologi </label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Program Pilihan'} ref="category" class="shapes3"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Program Pilihan</label>
+                            </form>
+                            <br></br>
+                            <label>Audience</label> <br></br>
+                            <form ref="destinaation" className='form-radio' >
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
+                                // onClick={() => { setRadio('internal') }}
+                                />
+                                <label for="internal" > Semua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Orang tua'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Orang tua</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Semua Anak'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Semua Anak</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SD'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SD</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMP'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMP</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value={'Anak SMA'} ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak SMA</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Pria' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Pria</label>
+                                <br></br>
+                                <input type="checkbox" id="html" name="fav_language" value='Anak Wanita' ref="destinaation" class="shapes2"
+                                // onClick={() => setRadio('url')}
+                                />
+                                <label for="url" > Anak Wanita</label>
+                                <br></br>
+                            </form>
+                            {/* <label>Respon 1</label>
+                            <textarea className='text' placeholder='Type here ... (saya sudah hafal)'
+                                ref="respon1"></textarea>
+                            <br></br>
+                            <label>Respon 2</label>
+                            <textarea className='text' placeholder='Type here ... (saya kesulitan)'
+                                ref="respon2"></textarea>
+                            <br></br> */}
+                            <br></br><br></br>
+                            <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget2: !this.state.useTarget2 })}></input> Tambah Tahapan 5</label>
+                        </form> <br></br>
                         <Button className='btn' onClick={this.addMessage}>Add Program</Button>
                     </form>
-                    
+
                 </div>
 
             </div>
