@@ -25,6 +25,8 @@ class Message extends React.Component {
         }
     }
 
+    //
+
     componentDidMount() {
         console.log(localStorage.getItem('emailTo'))
         console.log(localStorage.getItem('notifContext'))
