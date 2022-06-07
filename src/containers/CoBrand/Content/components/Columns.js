@@ -14,10 +14,10 @@ const Columns = (setContentDeleting) => {
         //     Header: 'Nomor',
         //     accessor: 'index + 1'
         // },
-        {
-            Header: 'ID Content',
-            accessor: '_id'
-        },
+    {
+        Header: 'ID Content',
+        accessor: '_id'
+    },
    
     {
         Header: 'Nama Konten',
@@ -27,16 +27,29 @@ const Columns = (setContentDeleting) => {
         Header: 'Jenis Konten',
         accessor: 'contentType'
     },
-      {
-            Header: 'Topik Konten',
-            accessor: 'topics'
-        },
     {
-        Header: 'Start Date',
-        accessor: (value) => new Date(value.startDate).toLocaleDateString("en-UK", dateFormat),
+        Header: 'Topik Konten',
+        accessor: 'topics'
+    },
+    {
+        Header: 'Target Pembaca',
+        accessor: 'targetAudiance'
+    },
+    {
+        Header: 'Tanggal Mulai',
+        accessor: 'startDate',
         Cell: ({value}) => (
             <>
-                {new Date(value).toLocaleDateString("en-UK", dateFormat)}
+                {value !== undefined ? new Date(value).toLocaleDateString("id-ID", dateFormat) : ''}
+            </>
+        )
+    },
+    {
+        Header: 'Tanggal Berakhir',
+        accessor: 'endDate',
+        Cell: ({value}) => (
+            <>
+                {value !== undefined ? new Date(value).toLocaleDateString("id-ID", dateFormat) : ''}
             </>
         )
     },

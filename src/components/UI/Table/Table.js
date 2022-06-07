@@ -6,6 +6,8 @@ import './Table.scss';
 function Table({ DATA, COLUMNS, renderRowSubComponent }) {
 
     const data = useMemo( () => DATA , [DATA])
+
+    const initialState = { hiddenColumns: ['_id'] };
     
     const {
         getTableProps,
@@ -28,13 +30,15 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
         setGlobalFilter
     } = useTable({
         columns: COLUMNS,
-        data: data
+        data: data,
+        initialState
     }, useGlobalFilter
     , useSortBy
     , useExpanded
     , usePagination)
 
     const { globalFilter } = state;
+
 
     return (
         <>

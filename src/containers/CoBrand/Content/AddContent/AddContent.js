@@ -117,7 +117,9 @@ function AddContent({
                     contentThumbnail: '',
                     contents: '',
                     startDate: new Date().toISOString().split('T')[0],
-                    isActive: true
+                    isActive: true,
+                    topics: [],
+                    targetAudiance: []
                 }}
                 validationSchema={validationContent}
                 validateOnChange={true}
@@ -166,7 +168,7 @@ function AddContent({
                                 <br></br>
                             </div>
                             <div className="form-group">
-                                <label>Target Audience</label> <br></br>
+                                <label>Target Audience</label>
                                 <select > {/* ref="email" */}
                                     <option value="Semua">Semua</option>
                                     <option value="Orangtua">Orangtua</option>
