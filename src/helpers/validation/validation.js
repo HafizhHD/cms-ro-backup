@@ -126,7 +126,10 @@ export const validationContent = yup.object({
             }
         ),
     startDate: yup.date('Insert start date').required('Date is required'),
-    isActive: yup.boolean()
+    endDate: yup.date('Insert end date').required('Date is required'),
+    isActive: yup.boolean(),
+    topics: yup.array().min(1),
+    targetAudience: yup.array().min(1)
 })
 
 export const validationContentEdit = yup.object({

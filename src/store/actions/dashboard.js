@@ -183,7 +183,7 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
     }
 }
 
-export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, isActive, history) => {
+export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -196,6 +196,14 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
 
         const promise = toBase64(photo);
         promise.then((result) => {
+
+            let topic = [], audi = [];
+            topics.map(e => {
+                topic.push(e.value)
+            });
+            targetAudience.map(e => {
+                audi.push(e.value)
+            });
 
             console.log(typeof result);
             const contentThumbnail = result;
@@ -220,7 +228,10 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             contentThumbnail,
                             contents,
                             status,
-                            startDate
+                            startDate,
+                            endDate,
+                            topics: topic,
+                            targetAudiance: audi
                         };
 
                         console.log(data);
@@ -263,7 +274,10 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             contentThumbnail,
                             contents,
                             status,
-                            startDate
+                            startDate,
+                            endDate,
+                            topics: topic,
+                            targetAudiance: audi
                         };
 
                         console.log(data);
@@ -303,7 +317,10 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             contentThumbnail,
                             contents,
                             status,
-                            startDate
+                            startDate,
+                            endDate,
+                            topics: topic,
+                            targetAudiance: audi
                         };
 
                         console.log(data);
@@ -364,7 +381,10 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 contentThumbnail,
                 contents,
                 status,
-                startDate
+                startDate,
+                endDate,
+                topics: topic,
+                targetAudiance: audi
             };
 
             console.log(data);

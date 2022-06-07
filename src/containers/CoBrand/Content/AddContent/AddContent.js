@@ -12,6 +12,7 @@ import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
 import TextEditor from '../../../../components/Texteditor/TextEditor';
+import { getContentTopicList, getAudienceList } from '../../../../components/API/filter';
 
 //texteditor
 import { ContentState, Editor } from "react-draft-wysiwyg";
@@ -19,6 +20,8 @@ import { EditorState, convertToRaw, convertFromRaw, current } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import { stateToHTML } from 'draft-js-export-html'
+
+import Select from 'react-select';
 
 function AddContent({
     onAddContent,
@@ -36,6 +39,9 @@ function AddContent({
     const onEditorStateChangeArtikel = (editorState) => {
         setArtikel(editorState)
     }
+
+    const [topic, setTopic] = useState([]);
+    const [audience, setAudience] = useState([]);
 
 
 
@@ -71,30 +77,26 @@ function AddContent({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
 
-    const params = {
-        whereKeyValues: {
-            cobrandEmail: cobrandEmail
-        }
-    };
-
     useEffect(() => {
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programFilter',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                console.log("Program list: ", response.data);
-                setProgramList(response.data.programs);
-                setPageLoading(false);
+        let paramTopic = {};
+        let paramAudience = {};
+        const promiseTopic = getContentTopicList(paramTopic);
+        const promiseAudience = getAudienceList(paramAudience);
+
+        Promise.all([promiseTopic, promiseAudience]).then(responseAll => {
+            // console.log(responseAll[0]);
+            // console.log(responseAll[1]);
+            var topicRaw = [], audienceRaw = [];
+            responseAll[0].data.Data.map(e => {
+                topicRaw.push({value: e.topicName, label: e.topicName});
             })
-            .catch(error => {
-                console.log(error);
-                setPageLoading(false);
-            });
+            responseAll[1].data.Data.map(e => {
+                audienceRaw.push({value: e.audianceName, label: e.audianceName});
+            })
+            setTopic(topicRaw);
+            setAudience(audienceRaw);
+            setPageLoading(false);
+        })
     }, []);
 
     if (isPageLoading) {
@@ -105,21 +107,22 @@ function AddContent({
         <>
             <Heading headingName="Content" routes={[
                 { path: '/cms/content', name: 'Content' },
-                { path: '/content/add', name: 'Create new content' }
+                { path: '/cms/content/add', name: 'Create new content' }
             ]} />
             <Formik
                 initialValues={{
                     programId: '-1',
                     contentName: '',
                     contentDescription: '',
-                    contentType: '',
+                    contentType: 'Artikel',
                     contentSource: '',
                     contentThumbnail: '',
                     contents: '',
                     startDate: new Date().toISOString().split('T')[0],
+                    endDate: new Date().toISOString().split('T')[0],
                     isActive: true,
                     topics: [],
-                    targetAudiance: []
+                    targetAudience: []
                 }}
                 validationSchema={validationContent}
                 validateOnChange={true}
@@ -127,7 +130,7 @@ function AddContent({
                     window.scrollTo(0, 0);
                     onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription,
                         values.contentType, values.contentSource, values.contentThumbnail, values.contents,
-                        values.startDate, values.isActive, history)
+                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, history)
                 }}
             >
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
@@ -144,7 +147,6 @@ function AddContent({
                                         setFieldValue("contents", '');
                                     }}
                                 >
-                                    <option value="" disabled>Select Content Type</option>
                                     <option value="Artikel">Artikel</option>
                                     <option value="Image">Image</option>
                                     <option value="Video">Video</option>
@@ -152,33 +154,59 @@ function AddContent({
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label>Topic Category </label>
-                                <select>
-                                    <option value="Topik Agama">Topik Agama</option>
-                                    <option value="Topik Pendidikan">Topik Pendidikan</option>
-                                    <option value="Topik Kesehatan">Topik Kesehatan</option>
-                                    <option value="Topik Keluarga">Topik Keluarga</option>
-                                    <option value="Topik Berita Internal">Topik Berita Internal</option>
-                                    <option value="Topik Berita Nasional">Topik Berita Nasional</option>
-                                    <option value="Topik Berita Dunia">Topik Berita Dunia</option>
-                                    <option value="Topik Informasi Teknologi">Topik Informasi Teknologi</option>
-                                    <option value="Topik Olah Raga">Topik Olah Raga</option>
-                                    <option value="Topik Umum">Topik Umum</option>
-                                </select>
-                                <br></br>
+                                <label>Topic Category</label>
+                                {/* <select
+                                    name="topics"
+                                    value={values.topics}
+                                    onChange={(e) => {
+                                        setFieldValue("topics", [e.currentTarget.value]);
+                                    }}
+                                >
+                                    {topic.map(e => {
+                                        console.log(e);
+                                        return <option value={e.topicName}>{e.topicName}</option>
+                                    })}
+                                </select> */}
+                                <Select
+                                    isMulti
+                                    value={values.topics}
+                                    onChange={(e) => {
+                                        setFieldValue("topics", e)
+                                    }}
+                                    name="topics"
+                                    options={topic}
+                                    // only allow user to choose up to 3 options
+                                    isOptionDisabled={() => values.topics.length >= 3}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                />
+                                {touched.topics && <span className="message__error">{errors.topics}</span>}
                             </div>
                             <div className="form-group">
                                 <label>Target Audience</label>
-                                <select > {/* ref="email" */}
-                                    <option value="Semua">Semua</option>
-                                    <option value="Orangtua">Orangtua</option>
-                                    <option value="Semua Anak">Semua Anak</option>
-                                    <option value="Siswa SD">Siswa SD</option>
-                                    <option value="Siswa SMP">Siswa SMP</option>
-                                    <option value="Siswa SMA">Siswa SMA</option>
-                                    <option value="Siswa Pria">Siswa Pria</option>
-                                    <option value="Siswa Wanita">Siswa Wanita</option>
-                                </select>
+                                {/* <select
+                                    name="targetAudience"
+                                    value={values.targetAudience}
+                                    onChange={(e) => {
+                                        setFieldValue("targetAudience", [e.currentTarget.value]);
+                                    }}
+                                >
+                                    {audience.map(e => {
+                                        return <option value={e.audianceName}>{e.audianceName}</option>
+                                    })}
+                                </select> */}
+                                <Select
+                                    isMulti
+                                    value={values.targetAudience}
+                                    onChange={(e) => {
+                                        setFieldValue("targetAudience", e)
+                                    }}
+                                    name="targetAudience"
+                                    options={audience}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                />
+                                {touched.targetAudience && <span className="message__error">{errors.targetAudience}</span>}
                             </div>
                             {/* <div className="form-group"> */}
                                 {/* <label>Program Name</label> */}
@@ -444,32 +472,34 @@ function AddContent({
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
-                            <div className="form-group">
-                                <label>Set Schedule</label>
-                                <InputComponent
-                                    type="date"
-                                    className="form-group__input"
-                                    name="startDate"
-                                    value={values.startDate}
-                                    min={new Date().toISOString().split('T')[0]}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                {touched.startDate && <span className="message__error">{errors.startDate}</span>}
-                            </div>
-                            {/* end date */}
-                            <div className="form-group">
-                                <label>End Date</label>
-                                <InputComponent
-                                    type="date"
-                                    className="form-group__input"
-                                    // name="startDate"
-                                    // value={values.startDate}
-                                    // max={new Date().toISOString().split('T')[0]}
-                                    // onChange={handleChange}
-                                    // onBlur={handleBlur}
-                                />
-                                {/* {touched.startDate && <span className="message__error">{errors.startDate}</span>} */}
+                            <div className="form-group-row">
+                                <div className="form-group">
+                                    <label>Start Date</label>
+                                    <InputComponent
+                                        type="date"
+                                        className="form-group__input"
+                                        name="startDate"
+                                        value={values.startDate}
+                                        min={new Date().toISOString().split('T')[0]}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {touched.startDate && <span className="message__error">{errors.startDate}</span>}
+                                </div>
+                                {/* end date */}
+                                <div className="form-group">
+                                    <label>End Date</label>
+                                    <InputComponent
+                                        type="date"
+                                        className="form-group__input"
+                                        name="endDate"
+                                        value={values.endDate}
+                                        min={values.startDate}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {touched.endDate && <span className="message__error">{errors.endDate}</span>}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <div className="form-group_switch">
@@ -521,8 +551,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, isActive, history) =>
-            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, isActive, history))
+        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, history) =>
+            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, history))
     }
 }
 

@@ -299,29 +299,30 @@
     margin: 2rem;
     font-size: 13px;
     padding: 1rem;
-}
 
-.btn {
-    width: 6vw;
-    font-size: 13px;
-    background-color: rgb(240, 84, 57);
-    border: none;
-    border-radius: 3px;
-    color: white;
-    height: 4vh;
-    margin: 1vw;
-    align-items:center;
-}
-.btn2 {
-    width: 10vw;
-    font-size: 13px;
-    background-color: rgb(18, 171, 125);
-    border: none;
-    border-radius: 3px;
-    color: white;
-    height: 4vh;
-    margin: 1vw;
-    align-items:center;
+
+    & .btn {
+        width: 6vw;
+        font-size: 13px;
+        background-color: rgb(240, 84, 57);
+        border: none;
+        border-radius: 3px;
+        color: white;
+        height: 4vh;
+        margin: 1vw;
+        align-items:center;
+    }
+    & .btn2 {
+        width: 10vw;
+        font-size: 13px;
+        background-color: rgb(18, 171, 125);
+        border: none;
+        border-radius: 3px;
+        color: white;
+        height: 4vh;
+        margin: 1vw;
+        align-items:center;
+    }
 }
 
 

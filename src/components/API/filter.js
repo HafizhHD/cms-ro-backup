@@ -89,6 +89,24 @@ export const getNotificationList = (query) => axios({
     headers: {
         'Content-Type': 'application/json',
     }
+});
+
+export const getAudienceList = (query) => axios({
+    method: 'post',
+    url: url + '/cms/audianceTargetFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
+export const getContentTopicList = (query) => axios({
+    method: 'post',
+    url: url + '/cms/contentTopicFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
 })
 
 export const getHKBPList = (query) => axios({

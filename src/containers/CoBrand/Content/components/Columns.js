@@ -29,11 +29,13 @@ const Columns = (setContentDeleting) => {
     },
     {
         Header: 'Topik Konten',
-        accessor: 'topics'
+        accessor: 'topics',
+        Cell: ({value}) => value.join(', ')
     },
     {
         Header: 'Target Pembaca',
-        accessor: 'targetAudiance'
+        accessor: 'targetAudiance',
+        Cell: ({value}) => value.join(', ')
     },
     {
         Header: 'Tanggal Mulai',
