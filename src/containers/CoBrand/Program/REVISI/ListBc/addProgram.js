@@ -129,43 +129,44 @@ class AddProgramRev extends React.Component {
             targetAudiance: [this.state.destiemail],
             topics: [this.refs.topics.value],
             contentPrograms: [{
-                nomerUrutTahapan: this.refs.nourut.value,
-                namaTahapan: this.refs.namatahap.value,
-                contentName: this.refs.namakonten.value,
-                contentDescription: this.refs.deskripsikonten.value,
-                contentType: this.refs.typecontent.value,
-                contentSource: this.refs.typesource.value,
-                contentThumbnail: this.refs.contentThumb.value,
+                nomerUrutTahapan: this.refs.nourut1.value,
+                namaTahapan: this.refs.namatahap1.value,
+                contentName: this.refs.namakonten1.value,
+                contentDescription: this.refs.deskripsikonten1.value,
+                contentType: this.refs.typecontent1.value,
+                contentSource: this.refs.typesource1.value,
+                contentThumbnail: this.refs.contentThumb1.value,
                 contents: this.refs.contentTahap1.value,
                 startDate: this.refs.startDateTahap1.value,
-                contentPurpose: this.refs.contPurpose.value,
+                contentPurpose: this.refs.contPurpose1.value,
                 topics: [this.refs.topicTahap1.value],
                 targetAudiance: [this.refs.AudienceTahap1.value]
             },
             {
-                nomerUrutTahapan: "2",
-                namaTahapan: "Kedua",
-                contentName: "Menghafal aljabar",
-                contentDescription: "Menghafal rumus",
-                contentType: "video",
-                contentSource: "",
-                contentThumbnail: "",
-                contents: "isi video",
-                startDate: "2022-07-01",
-                contentPurpose: "Menghafal aljabar",
-                topics: ["pendidikan"],
-                targetAudiance: ["Anak SD", "Anak SMP"]
+                nomerUrutTahapan: this.refs.nourut2.value,
+                namaTahapan: this.refs.namatahap2.value,
+                contentName: this.refs.namakonten2.value,
+                contentDescription: this.refs.deskripsikonten2.value,
+                contentType: this.refs.typecontent2.value,
+                contentSource: this.refs.typesource2.value,
+                contentThumbnail: this.refs.contentThumb2.value,
+                contents: this.refs.contentTahap2.value,
+                startDate: this.refs.startDateTahap2.value,
+                contentPurpose: this.refs.contPurpose2.value,
+                topics: [this.refs.topicTahap2.value],
+                targetAudiance: [this.refs.AudienceTahap2.value]
             }]
         }
         // console.log(params.targetAudience)
         axios({
             method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programAdd',
+            // url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programAdd',
+            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/v2-programAdd',
             data: params,
         })
             .then(response => {
                 console.log(response.data);
-                this.setState({ send: true })
+                // this.setState({ send: true })
             })
             .catch(error => {
                 console.log(error + 'ini eror add BC');
@@ -289,32 +290,32 @@ class AddProgramRev extends React.Component {
                         <form className='form-radio' hidden={this.state.useTarget2 === true ? true : false}>
                             <label>No Urut Tahapan </label> <br></br>
                             <input className='input' placeholder='Judul Tahapan'
-                                ref="nourut" type="email"
+                                ref="nourut1" type="email"
                             ></input>
                             <br></br>
                             <label>Nama Tahapan</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="namatahap"></input>
+                                ref="namatahap1"></input>
                             <br></br>
                             <label>Nama Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="namakonten"></input>
+                                ref="namakonten1"></input>
                             <br></br>
                             <label>Deskripsi Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="deskripsikonten"></input>
+                                ref="deskripsikonten1"></input>
                             <br></br>
                             <label>Tipe Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="typecontent"></input>
+                                ref="typecontent1"></input>
                             <br></br>
                             <label>Sumber Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="typesource"></input>
+                                ref="typesource1"></input>
                             <br></br>
                             <label>Thumbnail Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="contentThumb"></input>
+                                ref="contentThumb1"></input>
                             <br></br>
                             <label>Isi Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
@@ -330,7 +331,7 @@ class AddProgramRev extends React.Component {
                             <br></br> */}
                             <label>Tujuan Kontent</label>
                             <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
-                                ref="contPurpose"></textarea>
+                                ref="contPurpose1"></textarea>
                             <br></br>
                             <label className='label'>Topik</label> <br></br>
                             {/* <select ref="category"> */}
@@ -416,42 +417,42 @@ class AddProgramRev extends React.Component {
                             <label><input type="checkbox" value="setting" onClick={() => this.setState({ useTarget3: !this.state.useTarget3 })}></input> Tambah Tahapan 2</label>
                         </form> <br></br>
                         <form className='form-radio' hidden={this.state.useTarget3 === true ? true : false}>
-                            <label>No Urut Tahapan </label> <br></br>
+                        <label>No Urut Tahapan </label> <br></br>
                             <input className='input' placeholder='Judul Tahapan'
-                                ref="tahap" type="email"
+                                ref="nourut2" type="email"
                             ></input>
                             <br></br>
                             <label>Nama Tahapan</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="namatahap2"></input>
                             <br></br>
                             <label>Nama Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="namakonten2"></input>
                             <br></br>
                             <label>Deskripsi Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="deskripsikonten2"></input>
                             <br></br>
                             <label>Tipe Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="typecontent2"></input>
                             <br></br>
                             <label>Sumber Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="typesource2"></input>
                             <br></br>
                             <label>Thumbnail Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="contentThumb2"></input>
                             <br></br>
                             <label>Isi Konten</label>
                             <input className='input' placeholder='Misal : Menghafal Al-Fatihah'
-                                ref="nameprogram"></input>
+                                ref="contentTahap2"></input>
                             <br></br>
                             <label>Jadwal Mulai</label>
                             <input className='input' placeholder=''
-                                ref="starttgl" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
+                                ref="startDateTahap2" type="date" defaultValue={new Date().toISOString().split('T')[0]}></input>
                             <br></br>
                             {/* <label>Jadwal Selesei</label>
                             <input className='input' placeholder=''
@@ -459,11 +460,11 @@ class AddProgramRev extends React.Component {
                             <br></br> */}
                             <label>Tujuan Kontent</label>
                             <textarea className='text' placeholder='Misal : ayat Al-Fatihah - Arabic & Latin'
-                                ref="isiprogram"></textarea>
+                                ref="contPurpose2"></textarea>
                             <br></br>
-                            <label className='label'>Kategori</label> <br></br>
+                            <label className='label'>Topik</label> <br></br>
                             {/* <select ref="category"> */}
-                            <form ref="destinaation" className='form-radio' >
+                            <form ref="topicTahap2" className='form-radio' >
                                 <input type="checkbox" id="html" name="fav_language" value={'Pendidikan Agama'} ref="category" class="shapes3"
                                 // onClick={() => { setRadio('internal') }}
                                 />
@@ -491,7 +492,7 @@ class AddProgramRev extends React.Component {
                             </form>
                             <br></br>
                             <label>Audience</label> <br></br>
-                            <form ref="destinaation" className='form-radio' >
+                            <form ref="AudienceTahap2" className='form-radio' >
                                 <input type="checkbox" id="html" name="fav_language" value={'Semua'} ref="destinaation" class="shapes2"
                                 // onClick={() => { setRadio('internal') }}
                                 />
