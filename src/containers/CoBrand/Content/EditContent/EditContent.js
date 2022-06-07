@@ -116,15 +116,15 @@ function EditContent({
                               con2.contentBlocks, con2.entityMap)))
 
                         //   deskripsi
-                        let condes = new DOMParser().parseFromString(response.data.contentDescription, 'text/html');
-                        console.log(condes);
-                        let des = condes.getElementById('contentDescription');
+                        // let condes = new DOMParser().parseFromString(response.data.contents[0].contentDescription, 'text/html');
+                        // console.log(condes);
+                        let des = response.data.contents[0].contentDescription;
                         console.log(des) //null
-                        // let des2 = htmlToDraft(des.innerHTML);
-                        // setDescription(RichTextEditor.createValueFromString(des.outerHTML, 'html'));
-                        // setDescription(EditorState.createWithContent(
-                        //     ContentState.createFromBlockArray(
-                        //         des2.contentBlocks, des2.entityMap)))
+                        let des2 = htmlToDraft(des);
+                        setTextDeskripsi(RichTextEditor.createValueFromString(des.outerHTML, 'html'));
+                        setDescription(EditorState.createWithContent(
+                            ContentState.createFromBlockArray(
+                                des2.contentBlocks, des2.entityMap)))
                     }
                     else if (response.data.contents[0].contentType === 'Image') {
                         let con1 = con.getElementsByTagName('img')[0].toString();
@@ -178,8 +178,8 @@ function EditContent({
     return (
         <>
             <Heading headingName="Content" routes={[
-                { path: '/content', name: 'Content' },
-                { path: '/content/edit', name: 'Edit Selected content' }
+                { path: '/cms/content', name: 'Content' },
+                { path: '/cms/content/edit', name: 'Edit Selected content' }
             ]} />
             <Formik
                 initialValues={{ 
@@ -220,25 +220,6 @@ function EditContent({
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label>Program Name</label>
-                                <select
-                                    name="programId"
-                                    value={values.programId}
-                                    onChange={handleChange}
-                                >
-                                    <option value="" disabled>Select Program</option>
-                                    {/* <option value="">(Tanpa Program)</option> */}
-                                    {
-                                        programList ? programList.map((program) => {
-                                            return (
-                                                <option value={program._id}>{program.programName}</option>
-
-                                            )
-                                        }) : null
-                                    }
-                                </select>
-                            </div>
-                            <div className="form-group">
                                 <label>Title</label>
                                 <InputComponent
                                     type="text"
@@ -253,7 +234,7 @@ function EditContent({
                                 {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                             </div>
                             <div className="form-group">
-                                {/* <label>Description</label>
+                                <label>Description</label>
                                 <Editor
                                         editorState={description}
                                         toolbarClassName="toolbarClassName"
@@ -266,7 +247,7 @@ function EditContent({
                                         name="contentDescription"
                                         
                                         onChange={(editorState) => {
-                                            setDescription(values.contentDescription);
+                                            setTextDeskripsi(values.contentDescription);
                                             // setFieldValue("contentDescription", description);
                                             setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
                                             console.log(description); ///value yang lama
@@ -274,7 +255,7 @@ function EditContent({
                                             
                                         }}
                                         
-                                    /> */}
+                                    />
                                 {/* <RichTextEditor
                                         name="contentDescription"
                                         placeholder="Type your contents here..."

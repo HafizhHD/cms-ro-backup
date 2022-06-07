@@ -208,6 +208,7 @@ function ViewContent() {
                 <span
                     onClick={() => {
                         localStorage.setItem('contentDeleting', content._id);
+                        localStorage.setItem('contentDeletingName', content.contentName);
                     }}><NavLink to="/cms/content" className="action_btn_nav">
                         <h3><FiTrash2 /> Delete This Content</h3>
                     </NavLink></span>

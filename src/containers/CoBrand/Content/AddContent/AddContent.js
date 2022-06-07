@@ -40,6 +40,9 @@ function AddContent({
         setArtikel(editorState)
     }
 
+    const [preview, setPreview] = useState();
+    const [preview64, setPreview64] = useState();
+
     const [topic, setTopic] = useState([]);
     const [audience, setAudience] = useState([]);
 
@@ -98,6 +101,17 @@ function AddContent({
             setPageLoading(false);
         })
     }, []);
+
+    useEffect(() => {
+        if(preview) {
+            const reader = new FileReader();
+            reader.readAsDataURL(preview);
+            reader.onloadend = function() {
+                var base64data = reader.result;                
+                setPreview64(base64data);
+            }
+        }
+    }, [preview])
 
     if (isPageLoading) {
         return <RKLoader />
@@ -279,22 +293,29 @@ function AddContent({
                                 />
                                 {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                             </div>
-                            <div className="form-group">
-                                <label>Photo</label>
-                                <InputComponent
-                                    type="file"
-                                    className="form-group__input"
-                                    name="contentThumbnail"
-                                    onBlur={handleBlur}
-                                    onChange={(e) => {
-                                        let file = e.currentTarget.files[0];
-                                        if (file) {
-                                            console.log("File to upload: ", file);
-                                            setFieldValue("contentThumbnail", file);
-                                        }
-                                    }}
-                                />
-                                {touched.contentThumbnail && <span className="message__error">{errors.contentThumbnail}</span>}
+                            <div className="form-group-row">
+                                <div className="form-group">
+                                    <label>Thumbnail</label>
+                                    <InputComponent
+                                        type="file"
+                                        className="form-group__input"
+                                        name="contentThumbnail"
+                                        onBlur={handleBlur}
+                                        onChange={(e) => {
+                                            let file = e.currentTarget.files[0];
+                                            if (file) {
+                                                // console.log("File to upload: ", file);
+                                                setFieldValue("contentThumbnail", file);
+                                                setPreview(file);
+                                            }
+                                        }}
+                                    />
+                                    {touched.contentThumbnail && <span className="message__error">{errors.contentThumbnail}</span>}
+                                </div>
+                                <div className="form-group">
+                                    <label>Preview</label>
+                                    {preview64 ? <div className="form-group-preview"><img src={preview64}/></div> : null}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label>Contents</label>

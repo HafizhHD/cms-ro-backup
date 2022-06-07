@@ -439,7 +439,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                         contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         // const contentThumbnail = result;
-                        let data = {
+                        let datax = {
                             cobrandEmail,
                             programId,
                             contentName,
@@ -452,19 +452,26 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             startDate
                         };
 
+                        let data = {
+                            whereValues: {
+                                _id
+                            },
+                            newValues: datax
+                        }
+
                         console.log(data);
                         //Call API ....
 
                         contentEdit(data)
                             .then(response => {
                                 console.log('Success:', response.data);
-                                history.push('/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                history.push('/cms/content');
+                                dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
                         console.log(data);
@@ -482,7 +489,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                         console.log(contents);
                         // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-                        let data = {
+                        let datax = {
                             cobrandEmail,
                             programId,
                             contentName,
@@ -495,19 +502,26 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             startDate
                         };
 
+                        let data = {
+                            whereValues: {
+                                _id
+                            },
+                            newValues: datax
+                        }
+
                         console.log(data);
                         //Call API ....
 
                         contentEdit(data)
                             .then(response => {
                                 console.log('Success:', response.data);
-                                history.push('/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                history.push('/cms/content');
+                                dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
                         console.log(data);
@@ -522,7 +536,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     const pdf = toBase64(contents);
                     pdf.then((hasil) => {
                         contents = '<div style="width:100%;height:100vh;"><iframe src="' + hasil + '" frameborder="0" width="100%" height="100%"></iframe></div>'
-                        let data = {
+                        let datax = {
                             cobrandEmail,
                             programId,
                             contentName,
@@ -535,44 +549,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             startDate
                         };
 
-                        console.log(data);
-                        //Call API ....
-
-                        contentEdit(data)
-                            .then(response => {
-                                console.log('Success:', response.data);
-                                history.push('/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
-                                dispatch(loadingStop());
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
-                                dispatch(loadingStop());
-                            });
-                        console.log(data);
-                    })
-                }
-            }
-            else if (contentType === 'Artikel') {
-                if (typeof contents === 'string') {
-                    contents = '<div style="width:100%;height:100vh;"><iframe src="http://docs.google.com/gview?url=' + contents + (contents.includes('&embedded=true') ? '' : '&embedded=true') + '" frameborder="0" width="100%" height="100%"></iframe></div>'
-                } else {
-                    const pdf = toBase64(contents);
-                    pdf.then((hasil) => {
-                        contents = '<div style="width:100%;height:100vh;"><iframe src="' + hasil + '" frameborder="0" width="100%" height="100%"></iframe></div>'
                         let data = {
-                            cobrandEmail,
-                            programId,
-                            contentName,
-                            contentDescription,
-                            contentType,
-                            contentSource,
-                            // contentThumbnail,
-                            contents,
-                            // status,
-                            startDate
-                        };
+                            whereValues: {
+                                _id
+                            },
+                            newValues: datax
+                        }
 
                         console.log(data);
                         //Call API ....
@@ -580,7 +562,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                         contentEdit(data)
                             .then(response => {
                                 console.log('Success:', response.data);
-                                history.push('/content');
+                                history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 dispatch(loadingStop());
                             })
@@ -602,7 +584,6 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     + '#contents {'
                     + 'overflow-y: scroll;'
                     + 'text-align: justify;'
-                    + 'white-space: pre-line;'
                     + 'font-family: Arial, Helvetica, sans-serif;'
                     + 'padding: 1%;'
                     + '}'
@@ -622,7 +603,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             console.log(contents);
             // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-            let data = {
+            let datax = {
                 cobrandEmail,
                 programId,
                 contentName,
@@ -635,19 +616,26 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 startDate
             };
 
+            let data = {
+                whereValues: {
+                    _id
+                },
+                newValues: datax
+            }
+
             console.log(data);
             //Call API ....
 
             contentEdit(data)
                 .then(response => {
                     console.log('Success:', response.data);
-                    history.push('/content');
-                    dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                    history.push('/cms/content');
+                    dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
                     dispatch(loadingStop());
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
             console.log(data);

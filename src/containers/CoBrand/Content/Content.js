@@ -41,6 +41,7 @@ function Content({
             console.log("Content list: ", response.data);
             setContentList(response.data.contents);
             setLoading(false);
+            console.log(isLoading);
         })
         .catch(error => {
             console.log(error);
@@ -51,8 +52,9 @@ function Content({
     useEffect(() => {
         setLoading(true);
         if(localStorage.getItem('contentDeleting')) {
-            setContentDeleting(localStorage.getItem('contentDeleting'));
+            setContentDeleting([localStorage.getItem('contentDeleting'), localStorage.getItem('contentDeletingName')]);
             localStorage.removeItem('contentDeleting');
+            localStorage.removeItem('contentDeletingName');
         }
         retrieveList();
     }, []);

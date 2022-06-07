@@ -10,6 +10,21 @@
   grid-template-rows: max-content repeat(2, minmax(25rem, max-content));
   grid-row-gap: 2rem;
 
+  & span {
+    margin : 1rem
+  }
+
+
+  & .IconAdd {
+    color: #fff;
+    background-color: var(--color-primary);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    margin-right: 2rem;
+  }
+
   &__heading {
     display: grid;
     grid-template-columns: 1fr 12rem;
@@ -47,15 +62,6 @@
 }
 
 
-.IconAdd {
-  color: #fff;
-  background-color: var(--color-primary);
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2rem;
-  margin-left: 1rem;
-  margin-right: 2rem;
-}
 
 #add {
   color: #111;
@@ -86,8 +92,4 @@
   margin-left: 3rem;
   align-items: center;
   padding: 3vh;
-}
-
-span {
-  margin : 1rem
 }

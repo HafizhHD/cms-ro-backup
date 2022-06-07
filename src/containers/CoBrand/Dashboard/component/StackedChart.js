@@ -37,8 +37,18 @@ const StackedChart = (props) => {
             },
             xaxis: {
                 type: "category",
-                categories: props.label
+                categories: props.label,
+                decimalsInFloat: 0
             },
+            yaxis: [
+                {
+                    labels: {
+                        formatter: function(val) {
+                            return val.toFixed(0);
+                        }
+                    }
+                }
+            ],
             legend: {
                 position: "bottom",
                 offsetX: -10

@@ -38,6 +38,16 @@
     }
   }
 
+  & .editorClassName {
+    border: 1px solid #F1F1F1;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+    min-height: 15rem;
+    max-height: 15rem;
+    overflow-y: scroll;
+    cursor: text;
+  }
+
   &_rte {
     width: 100%;
     min-height: 300px;

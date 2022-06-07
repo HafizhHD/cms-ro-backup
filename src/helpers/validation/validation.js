@@ -106,7 +106,7 @@ export const validationProgramEdit = yup.object({
 export const validationContent = yup.object({
     contentName: yup.string('Enter your content title').required('Content title is required'),
     contentDescription: yup.string('Enter the content description').required('Content description is required'),
-    contents: yup.string('Enter the content description').required('Content description is required'),
+    contents: yup.string('Enter the content description').required('Content is required'),
     contentSource: yup.string('Enter the content source').required('Content source is required'),
     contentThumbnail: yup.mixed('Insert your image, 2 MB max').required('Image is required')
         .test(
@@ -135,7 +135,7 @@ export const validationContent = yup.object({
 export const validationContentEdit = yup.object({
     contentName: yup.string('Enter your content title').required('Content title is required'),
     contentDescription: yup.string('Enter the content description').required('Content description is required'),
-    contents: yup.string('Enter the content description').required('Content description is required'),
+    contents: yup.string('Enter the content description').required('Content is required'),
     contentSource: yup.string('Enter the content source').required('Content source is required'),
     startDate: yup.date('Insert start date').required('Date is required')
 })
