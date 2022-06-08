@@ -120,7 +120,7 @@ class Message extends React.Component {
 
     render() {
         if (this.state.send == true) {
-            return <Redirect to="/cms/messaging" />
+            return <Redirect to="/cms/notifications" />
         }
         let email = localStorage.getItem('emailTo')
         let subject = localStorage.getItem('notifContext')

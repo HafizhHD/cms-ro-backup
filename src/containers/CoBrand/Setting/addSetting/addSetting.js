@@ -176,7 +176,7 @@ class AddSetting extends React.Component {
 
     render() {
         if (this.state.edit == true) {
-            return <Redirect to="/cms/messaging-edit" />
+            return <Redirect to="/cms/notifications-edit" />
         }
         const { indexEdit } = this.state
         return (

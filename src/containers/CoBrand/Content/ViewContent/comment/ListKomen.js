@@ -189,12 +189,12 @@ class ListKoment extends React.Component {
 
     render() {
         if (this.state.edit == true) {
-            return <Redirect to="/cms/messaging-edit" />
+            return <Redirect to="/cms/notifications-edit" />
         }
         const { indexEdit } = this.state
         return (
             <div className='div'>
-                {/* <NavLink to="/cms/messaging-add" id="add_content">
+                {/* <NavLink to="/cms/notifications-add" id="add_content">
                     <FiPlus className="IconAdd" />
                     <span>Create New Notification</span>
                 </NavLink> */}

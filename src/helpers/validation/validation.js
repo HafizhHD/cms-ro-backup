@@ -139,3 +139,12 @@ export const validationContentEdit = yup.object({
     contentSource: yup.string('Enter the content source').required('Content source is required'),
     startDate: yup.date('Insert start date').required('Date is required')
 })
+
+export const validationNotification = yup.object({
+    destination: yup.array().min(1),
+    messageSubject: yup.string('Enter the message subject').required('Message Subject is required'),
+    messageContent: yup.string('Enter the message content').required('Message Content is required'),
+    scheduleTime: yup.date('Insert start date').required('Date is required'),
+    mediaType: yup.string('Enter the media type').required('Media type is required'),
+    category: yup.string('Enter the category').required('Category is required')
+})

@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
-import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit } from '../../components/API/dashboard';
+import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit, notificationAdd } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
 ///pdf
@@ -755,6 +755,37 @@ export const editProfile = (oldEmail, oldPassword, cobrandName, photo, phoneNumb
                     dispatch(loadingStop());
                 });
         }
+    }
+
+}
+
+export const addNotification = (destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let schedule = useSchedule ? scheduleTime : '';
+        let data = {
+            destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category
+        };
+
+        console.log(data);
+        //Call API ....
+
+        notificationAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/cms/notifications');
+                dispatch(alertSuccess('Notifikasi berhasil dikirim.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Notifikasi gagal dikirim. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
     }
 
 }

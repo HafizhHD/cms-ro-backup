@@ -91,6 +91,15 @@ export const getNotificationList = (query) => axios({
     }
 });
 
+export const getNotificationCategoryList = (query) => axios({
+    method: 'post',
+    url: url + '/cms/notificationCategoryFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
 export const getAudienceList = (query) => axios({
     method: 'post',
     url: url + '/cms/audianceTargetFilter',

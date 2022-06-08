@@ -36,8 +36,8 @@ const MonitoringProgramAsync = lazy(() => import('./../../containers/CoBrand/Rep
 const MonitoringStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/MonitoringStatus/MonitoringStatus'));
 const ControllingStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
 
-const Message = lazy(() => import('./../../containers/CoBrand/Message/Message'));
-const MessageList = lazy(() => import('./../../containers/CoBrand/Message/ListBc/ListBc'));
+const AddMessageAsync = lazy(() => import('./../../containers/CoBrand/Message/AddNotification/AddNotification'));
+const MessageListAsync = lazy(() => import('./../../containers/CoBrand/Message/ListBc/ListBc'));
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
 const Management = lazy(() => import('./../../containers/CoBrand/ManagementUser/ManagementStaff'));
@@ -190,14 +190,16 @@ function Cobrand({
                     component={EditUser}
                 />
                 <PrivateRoute
-                    path="/cms/messaging-add"
+                    path="/cms/notifications/add"
                     exact
-                    component={Message}
+                    component={(props) => {
+                        return (<AddMessageAsync {...props} />)
+                    }}
                 />
                 <PrivateRoute
-                    path="/cms/messaging"
+                    path="/cms/notifications"
                     exact
-                    component={MessageList}
+                    component={MessageListAsync}
                 />
                 <PrivateRoute
                     path="/cms/forum-add"

@@ -35,7 +35,7 @@ function Input({
         </>
         )
     }
-    else if(type === 'date') {
+    else if(type === 'date' || type === 'datetime-local') {
         return (
             <>
                 <input

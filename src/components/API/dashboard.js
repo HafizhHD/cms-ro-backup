@@ -54,3 +54,12 @@ export const contentDelete = (query) => axios({
         'Content-Type': 'application/json',
     },
 });
+
+export const notificationAdd = (query) => axios({
+    method: 'post',
+    url: url + '/user/broadcastAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});

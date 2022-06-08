@@ -190,7 +190,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
             </div>
             <button className="btn_tools"><FaTable/> <CSVLink data={downloadAsCSV()}>Download as CSV</CSVLink></button>
             <button className="btn_tools" onClick={downloadAsPDF}><FaFilePdf/> Download as PDF</button>
-            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/notifications/add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
@@ -211,7 +211,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     localStorage.setItem('selectedUserType', 'child');
                 }}>Send Notifications to Child</NavLink></button>
              ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to Child</span></button> : null}
-            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/notifications/add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
@@ -234,7 +234,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     localStorage.setItem('selectedUserType', 'parent');
                 }}>Send Notifications to Parent</NavLink></button>
              ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to Parent</span></button> : null}
-            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/messaging-add' className="btn_tools" onClick={() => {
+            {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/notifications/add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
                     console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];

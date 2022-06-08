@@ -13,27 +13,27 @@ export const MenuCoBranding = [
         children: [
             {
                 path: '/user',
-                pathName: 'User Report',
+                pathName: 'Report Pengguna',
                 icon: <FiUser className="Aside__Nav_item-icon" />
             },
             {
                 path: '/content',
-                pathName: 'Content Report',
+                pathName: 'Report Konten',
                 icon: <FiImage className="Aside__Nav_item-icon" />
             },
             {
                 path: '/program',
-                pathName: 'Program Report',
+                pathName: 'Report Program',
                 icon: <FiActivity className="Aside__Nav_item-icon" />
             },
             {
                 path: '/redzone',
-                pathName: 'Redzone Report',
+                pathName: 'Report Redzone',
                 icon: <FiMapPin className="Aside__Nav_item-icon" />
             },
             {
                 path: '/monitoring-content', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Monitoring Content',
+                pathName: 'Monitoring Konten',
                 icon: <FiMonitor className="Aside__Nav_item-icon" />
             },
             {
@@ -43,7 +43,7 @@ export const MenuCoBranding = [
             },
             {
                 path: '/monitoring-status', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Monitoring Activity',
+                pathName: 'Monitoring Aktivitas',
                 icon: <FiMonitor className="Aside__Nav_item-icon" />
             },
             {
@@ -53,19 +53,19 @@ export const MenuCoBranding = [
             },
             {
                 path: '/commercial', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Estimated Commercial Report',
+                pathName: 'Laporan Keuangan Terestimasi',
                 icon: <FiDollarSign className="Aside__Nav_item-icon" />
             },
         ]
     },
     {
         path: '/cms',
-        pathName: 'Data Management',
+        pathName: 'Manajemen Data',
         icon: <FiImage className="Aside__Nav_item-icon" />,
         children: [
             {
                 path: '/user',
-                pathName: 'User',
+                pathName: 'Pengguna',
                 icon: <FiUser className="Aside__Nav_item-icon" />
             },
             {
@@ -75,7 +75,7 @@ export const MenuCoBranding = [
             },
             {
                 path: '/content', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Content',
+                pathName: 'Konten',
                 icon: <FiImage className="Aside__Nav_item-icon" />
             },
             {
@@ -85,8 +85,8 @@ export const MenuCoBranding = [
             },
 
             {
-                path: '/messaging', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Notification',
+                path: '/notifications', //tadinya content, nanti tolong routenya diganti
+                pathName: 'Notifikasi',
                 icon: <FiInbox className="Aside__Nav_item-icon" />
             },
             {
@@ -103,13 +103,13 @@ export const MenuCoBranding = [
         children: [
             {
                 path: '/admin-staff-management',
-                pathName: 'Admin & Staff Management',
+                pathName: 'Manajemen Admin & Staff',
                 icon: <FiUser className="Aside__Nav_item-icon" />
             },
 
             {
                 path: '/setting',
-                pathName: 'Settings',
+                pathName: 'Pengaturan',
                 icon: <FiTool className="Aside__Nav_item-icon" />
             },
             {
@@ -124,12 +124,12 @@ export const MenuCoBranding = [
             },
             {
                 path: '/setting-add',
-                pathName: 'Target Audience',
+                pathName: 'Target Pembaca',
                 icon: <FiLayers className="Aside__Nav_item-icon" />
             },
             {
                 path: '/setting-list-kateNotif',
-                pathName: 'Kategori Notification',
+                pathName: 'Kategori Notifikasi',
                 icon: <FiInbox className="Aside__Nav_item-icon" />
             },
         
