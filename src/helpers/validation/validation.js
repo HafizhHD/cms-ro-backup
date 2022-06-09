@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 const PhoneRegex = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+const UserRegex = /^\S*$/;
 
 export const validationFormLogin = yup.object({
     email: yup.string('Enter your email').required('Email is required').email('Email not valid'),
@@ -147,4 +148,25 @@ export const validationNotification = yup.object({
     scheduleTime: yup.date('Insert start date').required('Date is required'),
     mediaType: yup.string('Enter the media type').required('Media type is required'),
     category: yup.string('Enter the category').required('Category is required')
+})
+
+export const validationAudience = yup.object({
+    audianceName: yup.string('Enter your audience name').required('Audience Name is required')
+})
+
+export const validationNotifCategory = yup.object({
+    category: yup.string('Enter category name').required('Category is required'),
+    description: yup.string('Enter description').required('Description is required')
+})
+
+export const validationProgCategory = yup.object({
+    category: yup.string('Enter category name').required('Category is required'),
+    description: yup.string('Enter description').required('Description is required')
+})
+
+export const validationStaff = yup.object({
+    emailUser: yup.string('Enter your email').required('Email is required').email('Email not valid'),
+    userName: yup.string('Enter your name').required('Name is required').matches(UserRegex, 'Invalid username format'),
+    phone: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
+    password: yup.string('Enter your password').required('Password is required').min(8, 'Password should be 8 characters or more')
 })

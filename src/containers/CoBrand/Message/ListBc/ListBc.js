@@ -126,7 +126,7 @@ class ListBc extends React.Component {
                                     </select>
                                 </td>
                                 <td><input placeholder={item.messageContent} ref="deskripsi"></input></td>
-                                <td><Button variant="info" className='btn999' onClick={() => this.onSave(index)}>Save</Button></td>
+                                <td><Button variant="info" className='btn998' onClick={() => this.onSave(index)}>Save</Button></td>
                                 <td><Button variant="danger" className='btn998' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
                         )
@@ -139,7 +139,7 @@ class ListBc extends React.Component {
                             <td>{item.messageSubject}</td>
                             <td>{item.category}</td>
                             <td>{item.messageContent}</td>
-                            <td><Button variant="warning" className='btn999' onClick={() => this.onEdit(index)}>Edit</Button></td>
+                            <td><Button variant="warning" className='btn998' onClick={() => this.onEdit(index)}>Edit</Button></td>
                             <td><Button variant="danger" className='btn998' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
                     )

@@ -103,8 +103,8 @@ class ListTopik extends React.Component {
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
                                 {/* <td><input placeholder={item.messageSubject} ref="tempat"></input></td>
                                 <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
-                                <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
-                                <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
+                                <td><Button variant="info" className='btn998' onClick={() => this.onSave(index)}>Save</Button></td>
+                                <td><Button variant="danger" className='btn998' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
                         )
                     }
@@ -116,8 +116,8 @@ class ListTopik extends React.Component {
                             <td>{item.dateCreated}</td>
                             {/* <td>{item.messageSubject}</td>
                             <td>{item.messageContent}</td> */}
-                            <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
-                            <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
+                            <td><Button variant="warning" className='btn998' onClick={() => this.onEdit(index)}>Edit</Button></td>
+                            <td><Button variant="danger" className='btn998' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
                     )
                 })
@@ -179,7 +179,7 @@ class ListTopik extends React.Component {
         const { indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/tools/setting-topik-add" id="add_content">
+                <NavLink to="/tools/setting/topic/add" id="add_content">
                     <FiPlus className="IconAdd" />
                     <span>Create New Topic</span>
                 </NavLink>

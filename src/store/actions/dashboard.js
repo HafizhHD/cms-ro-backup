@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
-import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit, notificationAdd } from '../../components/API/dashboard';
+import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd, adminAdd } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
 ///pdf
@@ -783,6 +783,128 @@ export const addNotification = (destination, messageSubject, messageContent, use
             .catch((error) => {
                 console.error('Error:', error);
                 dispatch(alertError('Notifikasi gagal dikirim. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const addAudience = (audianceName, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            audianceName,
+        };
+
+        console.log(data);
+        //Call API ....
+
+        audienceAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/setting/target-audience');
+                dispatch(alertSuccess('Target pembaca "' + audianceName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Target pembaca "' + audianceName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const addNotifCategory = (category, description, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            category,
+            description
+        };
+
+        console.log(data);
+        //Call API ....
+
+        notifCategoryAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/setting/notification-category');
+                dispatch(alertSuccess('Kategori Notifikasi "' + category + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Kategori Notifikasi "' + category + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const addProgCategory = (category, description, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            category,
+            description
+        };
+
+        console.log(data);
+        //Call API ....
+
+        programCategoryAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/setting/notification-category');
+                dispatch(alertSuccess('Kategori Program "' + category + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Kategori Program "' + category + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const addStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            userName, password, userType, cobrandEmail, userLevel, emailUser, phone
+        };
+
+        console.log(data);
+        //Call API ....
+
+        adminAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/admin-staff');
+                dispatch(alertSuccess('User "' + userName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('User"' + userName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
         console.log(data);

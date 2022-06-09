@@ -106,8 +106,8 @@ class ListScreenTime extends React.Component {
                                 <td><input placeholder={item.controlParameterName} ref="tempat"></input></td>
                                 <td><input placeholder={item.controlParameterValue} ref="deskripsi"></input></td>
                                 {/* <td><input placeholder={item.unit} ref="unit"></input></td> */}
-                                <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
-                                <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
+                                <td><Button variant="info" className='btn998' onClick={() => this.onSave(index)}>Save</Button></td>
+                                <td><Button variant="danger" className='btn998' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
                         )
                     }
@@ -120,8 +120,8 @@ class ListScreenTime extends React.Component {
                             <td>{item.controlParameterName}</td>
                             <td>{item.controlParameterValue} {item.unit}</td>
                             {/* <td>{item.unit}</td> */}
-                            <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
-                            <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
+                            <td><Button variant="warning" className='btn998' onClick={() => this.onEdit(index)}>Edit</Button></td>
+                            <td><Button variant="danger" className='btn998' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
                     )
                 })
@@ -179,7 +179,7 @@ class ListScreenTime extends React.Component {
     render() {
         return (
             <div className='div'>
-                <NavLink to="/tools/setting-add-screentime" id="add_content">
+                <NavLink to="/tools/setting/screentime/add" id="add_content">
                     <FiPlus className="IconAdd" />
                     <span>Create New Screentime</span>
                 </NavLink>

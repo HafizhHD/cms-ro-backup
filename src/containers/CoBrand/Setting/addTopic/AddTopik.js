@@ -79,7 +79,7 @@ class AddTopik extends React.Component {
                  
 
                 </form>
-                <Button className='btn' onClick={this.addMessage}>Send Data</Button>
+                <Button className='btn998' onClick={this.addMessage}>Send Data</Button>
             </div>
         )
     }

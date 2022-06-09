@@ -40,16 +40,16 @@ const AddMessageAsync = lazy(() => import('./../../containers/CoBrand/Message/Ad
 const MessageListAsync = lazy(() => import('./../../containers/CoBrand/Message/ListBc/ListBc'));
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
-const Management = lazy(() => import('./../../containers/CoBrand/ManagementUser/ManagementStaff'));
+const Management = lazy(() => import('../../containers/CoBrand/ManagementUser/AddStaff/AddStaff'));
 const listStaff = lazy(() => import('./../../containers/CoBrand/ManagementUser/ListStaff/ListStaff'));
-const addSetting = lazy(() => import('./../../containers/CoBrand/Setting/addSetting/addSetting'));
-const addTopik = lazy(() => import('../../containers/CoBrand/Setting/addSetting/AddAudi'));
+const Audience = lazy(() => import('../../containers/CoBrand/Setting/Audience/Audience'));
+const AddAudience = lazy(() => import('../../containers/CoBrand/Setting/Audience/AddAudi'));
 
 const Topik = lazy(() => import('../../containers/CoBrand/Setting/addTopic/topik'));
 const TopikAdd = lazy(() => import('../../containers/CoBrand/Setting/addTopic/AddTopik'));
-const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/addKateProg'));
+const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/AddKateProg'));
 const ListKategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/KategoriProgram'));
-const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/addKateNotif'));
+const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/AddKateNotif'));
 const ListKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/KategoriNotifikasi'));
 const ListScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/ListScreenTime'));
 const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/AddScrenTime'));
@@ -295,33 +295,33 @@ function Cobrand({
                     component={EditRedzone}
                 />
                 <PrivateRoute
-                    path="/tools/setting-add-kateProgram"
+                    path="/tools/setting/program-category/add"
                     exact
                     component={KategoriProgram}
                 />
                 <PrivateRoute
-                    path="/tools/setting-list-kateNotif"
+                    path="/tools/setting/notification-category"
                     exact
                     component={ListKategoriNotifikasi}
                 />
 
                 <PrivateRoute
-                    path="/tools/setting-add-kateNotif"
+                    path="/tools/setting/notification-category/add"
                     exact
                     component={AddKategoriNotifikasi}
                 />
                 <PrivateRoute
-                    path="/tools/setting-list-kateProgram"
+                    path="/tools/setting/program-category"
                     exact
                     component={ListKategoriProgram}
                 />
                 <PrivateRoute
-                    path="/tools/setting-add-screentime"
+                    path="/tools/setting/screentime/add"
                     exact
                     component={AddScreenTime}
                 />
                 <PrivateRoute
-                    path="/tools/setting-list-screentime"
+                    path="/tools/setting/screentime"
                     exact
                     component={ListScreenTime}
                 />
@@ -334,24 +334,24 @@ function Cobrand({
                 />
 
                 <PrivateRoute
-                    path="/tools/setting-add"
+                    path="/tools/setting/target-audience"
                     exact
-                    component={addSetting}
+                    component={Audience}
                 />
                 <PrivateRoute
-                    path="/tools/setting-addtopik"
+                    path="/tools/setting/target-audience/add"
                     exact
-                    component={addTopik}
+                    component={AddAudience}
                 />
 
                 <PrivateRoute
-                    path="/tools/setting-topik"
+                    path="/tools/setting/topic"
                     exact
                     component={Topik}
                 />
 
                 <PrivateRoute
-                    path="/tools/setting-topik-add"
+                    path="/tools/setting/topic/add"
                     exact
                     component={TopikAdd}
                 />
@@ -440,13 +440,13 @@ function Cobrand({
                 />
 
                 <PrivateRoute
-                    path="/tools/admin-staff-add"
+                    path="/tools/admin-staff/add"
                     exact
                     component={Management}
                 />
 
                 <PrivateRoute
-                    path="/tools/admin-staff-management"
+                    path="/tools/admin-staff"
                     exact
                     component={listStaff}
                 />

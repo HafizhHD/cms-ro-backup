@@ -135,7 +135,7 @@ class ListStaff extends React.Component {
         const { listForum, indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/tools/admin-staff-add" id="add_content">
+                <NavLink to="/tools/admin-staff/add" id="add_content">
                     <FiPlus className="IconAdd" />
                     <span>Create New Admin</span>
                 </NavLink>

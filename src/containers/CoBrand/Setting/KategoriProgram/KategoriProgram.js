@@ -103,8 +103,8 @@ class ListKategoriProgram extends React.Component {
                                 <td><input placeholder={item.dateCreated} type="datetime-local" ref="email"></input></td>
                                 <td><textarea placeholder={item.description} ref="description"></textarea></td>
                                 {/* <td><input placeholder={item.messageContent} ref="deskripsi"></input></td> */}
-                                <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
-                                <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
+                                <td><Button variant="info" className='btn998' onClick={() => this.onSave(index)}>Save</Button></td>
+                                <td><Button variant="danger" className='btn998' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                             </tr>
                         )
                     }
@@ -116,8 +116,8 @@ class ListKategoriProgram extends React.Component {
                             <td>{item.dateCreated}</td>
                             <td>{item.description}</td>
                             {/* <td>{item.messageContent}</td> */}
-                            <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
-                            <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
+                            <td><Button variant="warning" className='btn998' onClick={() => this.onEdit(index)}>Edit</Button></td>
+                            <td><Button variant="danger" className='btn998' onClick={() => this.onDelete(index)}>Delete</Button></td>
                         </tr>
                     )
                 })
@@ -179,11 +179,11 @@ class ListKategoriProgram extends React.Component {
         const { indexEdit } = this.state
         return (
             <div className='div'>
-                <NavLink to="/tools/setting-add-kateProgram" id="add_content">
+                <NavLink to="/tools/setting/program-category/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create Kategory Program</span>
+                    <span>Create Category Program</span>
                 </NavLink>
-                <h1>List Kategory Program</h1>
+                <h1>List Category Program</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>

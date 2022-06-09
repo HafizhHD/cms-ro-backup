@@ -63,3 +63,39 @@ export const notificationAdd = (query) => axios({
         'Content-Type': 'application/json',
     },
 });
+
+export const audienceAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cms/audianceTargetAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const notifCategoryAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cms/notificationCategoryAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const programCategoryAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cms/programCategoryAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const adminAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cms/userAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});

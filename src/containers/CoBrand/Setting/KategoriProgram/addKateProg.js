@@ -1,87 +1,96 @@
-// import { useState, useEffect } from 'react';
-// import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
-// import InputComponent from '../../../../components/UI/Input/Input';
-import './addkate.scss'
-// import { Formik } from 'formik';
-import axios from 'axios';
-// import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import React from 'react'
-import { Button, Toast } from 'react-bootstrap';
+import React from 'react';
+import Heading from '../../../../components/UI/Heading/Heading';
+import './AddKateProg.scss';
+import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { addProgCategory } from '../../../../store/actions/dashboard';
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
+import { connect } from 'react-redux';
+import { validationProgCategory } from '../../../../helpers/validation/validation';
+import InputComponent from '../../../../components/UI/Input/Input';
 
-class KategoriProgram extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            userData: [],
-            send: false
+function AddProgCategory({
+    onAddProgCategory,
+    isLoading
+}) {
 
+    const history = useHistory();
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
 
-        }
-    }
-
-    componentDidMount() {
-
-    }
-    addMessage = () => {
-        let params =
-        {
-            category: this.refs.category.value,
-            dateCreated: this.refs.tempat.value,
-            description : this.refs. description.value
-            // messageContent: this.refs.deskripsi.value,
-            // scheduleTime: this.refs.alamat.value,
-            // mediaType: this.refs.status.value,
-        }
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryAdd',
-            data: params,
-        })
-            .then(response => {
-                console.log(response.data);
-                this.setState({ send: true })
-                // alert('Add Broadcast is success')
-            })
-            .catch(error => {
-                console.log(error + 'ini eror add KATEGORI PROG');
-            });
-
-    }
-    render() {
-        if (this.state.send == true) {
-            return <Redirect to="/tools/setting-list-kateProgram" />
-        }
-        return (
-            <div className='div'>
-                <h1>ADD KATEGORY PROGRAM</h1>
-                <form className='form'>
-                    <label>Category Program</label> <br></br>
-                    <select ref="category">
-                        <option value="Pendidikan Agama">Pendidikan Agama</option>
-                        <option value="Pengetahuan Siswa Formal">Pengetahuan Siswa Formal</option>
-                        <option value="Pengetahuan Siswa Umum">Pengetahuan Siswa Umum</option>
-                        <option value="Informasi & Teknologi">Informasi & Teknologi</option>
-                        <option value="Program Pilihan">Program Pilihan</option>
-                    </select>
-                    <br></br>
-                    <br></br>
-                    <label>Description</label>
-                    <textarea className='input' placeholder=''
-                        ref="description"
-                    ></textarea>
-                    <br></br>
-                    <label>Date Create</label>
-                    <input className='input' placeholder=''
-                        ref="tempat" type='datetime-local'></input>
-
+    return (
+        <>
+            <Heading headingName="Kategori Program" routes={[
+                { path: '/tools/setting/program-category', name: 'Kategori Notifikasi' },
+                { path: '/tools/setting/program-category/add', name: 'Tambah' }
+            ]} />
+            <Formik
+                initialValues= {{
+                    category: '',
+                    description: ''
+                }}
+                validationSchema = {validationProgCategory}
+                validateOnChange = {true}
+                onSubmit = { values => {
+                    onAddProgCategory( values.category, values.description, history)
+                }}
+            >
+            {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
+                <form onSubmit={handleSubmit}>
+                    <div className="AddProgCategory">
+                        <h1>Tambah</h1>
+                        <div className="form-group">
+                            <label>Nama Kategori Program</label>
+                            <InputComponent 
+                                type="text"
+                                name="category"
+                                className="form-group__input form-group__input--fullwidth" 
+                                placeholder="Example"
+                                value={values.category}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {touched.category && <span className="message__error">{errors.category}</span>}
+                        </div>
+                        <div className="form-group">
+                            <label>Deskripsi</label>
+                            <InputComponent 
+                                type="text"
+                                name="description"
+                                className="form-group__input form-group__input--fullwidth" 
+                                placeholder="Example"
+                                value={values.description}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {touched.description && <span className="message__error">{errors.description}</span>}
+                        </div>
+                        <div>
+                            <button className="btn btn-submit" type="submit">
+                                Tambah
+                            </button>
+                        </div>
+                    </div>
                 </form>
-                <Button className='btn' onClick={this.addMessage}>Send Data</Button>
-            </div>
-        )
+            )}
+            </Formik>
+            {console.log(isLoading)}
+            {isLoading ? <RKLoader/> : null}
+        </>
+    )
+}
+
+const mapStateToProps = state => {
+    console.log(state.auth.isLoading);
+    return {
+        isLoading: state.auth.isLoading
     }
 }
 
-export default KategoriProgram
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAddProgCategory: ( category, description, history ) =>
+            dispatch(addProgCategory( category, description, history ))
+    }
+}
 
-
+export default connect(mapStateToProps, mapDispatchToProps) (AddProgCategory)

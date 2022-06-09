@@ -126,7 +126,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                         <Fragment {...row.getRowProps()}>
                             <tr>
                                 {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}> {cell.render('Cell')} </td>
+                                    return <td {...cell.getCellProps()}> {cell.column.id === 'rowNumber' ? i + 1 + (pageIndex * pageSize) : cell.render('Cell')} </td>
                                 })}
                             </tr>
                             {row.isExpanded ? (

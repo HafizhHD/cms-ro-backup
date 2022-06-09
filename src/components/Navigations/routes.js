@@ -102,7 +102,7 @@ export const MenuCoBranding = [
         icon: <FiTool className="Aside__Nav_item-icon" />,
         children: [
             {
-                path: '/admin-staff-management',
+                path: '/admin-staff',
                 pathName: 'Manajemen Admin & Staff',
                 icon: <FiUser className="Aside__Nav_item-icon" />
             },
@@ -110,34 +110,36 @@ export const MenuCoBranding = [
             {
                 path: '/setting',
                 pathName: 'Pengaturan',
-                icon: <FiTool className="Aside__Nav_item-icon" />
+                icon: <FiTool className="Aside__Nav_item-icon" />,
+                children: [
+                    {
+                        path: '/topic',
+                        pathName: 'Topik Konten',
+                        icon: <FiImage className="Aside__Nav_item-icon" />
+                    },
+                    {
+                        path: '/program-category',
+                        pathName: 'Kategori Program',
+                        icon: <FiActivity className="Aside__Nav_item-icon" />
+                    },
+                    {
+                        path: '/target-audience',
+                        pathName: 'Target Pembaca',
+                        icon: <FiLayers className="Aside__Nav_item-icon" />
+                    },
+                    {
+                        path: '/notification-category',
+                        pathName: 'Kategori Notifikasi',
+                        icon: <FiInbox className="Aside__Nav_item-icon" />
+                    },
+                
+                    {
+                        path: '/screentime',
+                        pathName: 'Standart Screen Time',
+                        icon: <FiMonitor className="Aside__Nav_item-icon" />
+                    }
+                ]
             },
-            {
-                path: '/setting-topik',
-                pathName: 'Topik Content',
-                icon: <FiImage className="Aside__Nav_item-icon" />
-            },
-            {
-                path: '/setting-list-kateProgram',
-                pathName: 'Kategori Program',
-                icon: <FiActivity className="Aside__Nav_item-icon" />
-            },
-            {
-                path: '/setting-add',
-                pathName: 'Target Pembaca',
-                icon: <FiLayers className="Aside__Nav_item-icon" />
-            },
-            {
-                path: '/setting-list-kateNotif',
-                pathName: 'Kategori Notifikasi',
-                icon: <FiInbox className="Aside__Nav_item-icon" />
-            },
-        
-            {
-                path: '/setting-list-screentime',
-                pathName: 'Standart Screen Time',
-                icon: <FiMonitor className="Aside__Nav_item-icon" />
-            }
         ]
     }
     
