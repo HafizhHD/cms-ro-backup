@@ -118,13 +118,6 @@ function EditContent({
                         //   deskripsi
                         // let condes = new DOMParser().parseFromString(response.data.contents[0].contentDescription, 'text/html');
                         // console.log(condes);
-                        let des = response.data.contents[0].contentDescription;
-                        console.log(des) //null
-                        let des2 = htmlToDraft(des);
-                        setTextDeskripsi(RichTextEditor.createValueFromString(des.outerHTML, 'html'));
-                        setDescription(EditorState.createWithContent(
-                            ContentState.createFromBlockArray(
-                                des2.contentBlocks, des2.entityMap)))
                     }
                     else if (response.data.contents[0].contentType === 'Image') {
                         let con1 = con.getElementsByTagName('img')[0].toString();
@@ -141,6 +134,14 @@ function EditContent({
                         if (src.includes('http://docs.google.com/gview?url=')) src = src.replace('http://docs.google.com/gview?url=', '');
                         setConFromImgVid(src);
                     }
+
+
+                    let des = response.data.contents[0].contentDescription;
+                    console.log("des", des) //null
+                    let des2 = htmlToDraft(des);
+                    setDescription(EditorState.createWithContent(
+                        ContentState.createFromBlockArray(
+                            des2.contentBlocks, des2.entityMap)))
 
                     let date = response.data.contents[0].startDate.split('T')[0];
                     console.log(date);
@@ -185,7 +186,7 @@ function EditContent({
                 initialValues={{ 
                     programId: content.programId ,
                     contentName: content.contentName,
-                    contentDescription: content.contentDescription,
+                    contentDescription: description,
                     contentType: content.contentType,
                     contentSource: content.contentSource,
                     contents: conFromImgVid,
@@ -383,7 +384,7 @@ function EditContent({
                                         className="form-group__input"
                                         name="contents"
                                         onBlur={handleBlur}
-                                        value={values.contents}
+                                        // value={values.contents}
                                         // onChange={handleChange}
                                         onChange={(e) => {
                                         let file = e.currentTarget.files[0];
