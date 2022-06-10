@@ -11,6 +11,7 @@ function Input({
     message,
     name,
     min,
+    max,
     disabled,
     isError
 }) {
@@ -48,6 +49,28 @@ function Input({
                     value={value}
                     min={min}
                     max={"9999-12-31"}
+                    disabled={disabled}
+                />
+                {isError && (
+                    <div className="message">
+                        <span className="message__error">{message}</span>
+                    </div>
+                )}
+            </>
+        )
+    }
+    else if(type === 'number') {
+        return (
+            <>
+                <input
+                    name={name}
+                    className={className} 
+                    type={type}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    min={min}
+                    max={max}
                     disabled={disabled}
                 />
                 {isError && (

@@ -135,7 +135,7 @@ export const MenuCoBranding = [
                 
                     {
                         path: '/screentime',
-                        pathName: 'Standart Screen Time',
+                        pathName: 'Standar Screen Time',
                         icon: <FiMonitor className="Aside__Nav_item-icon" />
                     }
                 ]

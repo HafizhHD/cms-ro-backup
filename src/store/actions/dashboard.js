@@ -9,7 +9,8 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
-import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd, adminAdd } from '../../components/API/dashboard';
+import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
+    adminAdd, contentTopicAdd, screenTimeAdd } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
 ///pdf
@@ -868,7 +869,7 @@ export const addProgCategory = (category, description, history) => {
         programCategoryAdd(data)
             .then(response => {
                 console.log('Success:', response.data);
-                history.push('/tools/setting/notification-category');
+                history.push('/tools/setting/program-category');
                 dispatch(alertSuccess('Kategori Program "' + category + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
             })
@@ -905,6 +906,66 @@ export const addStaff= (userName, password, userType, cobrandEmail, userLevel, e
             .catch((error) => {
                 console.error('Error:', error);
                 dispatch(alertError('User"' + userName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const addContentTopic = (topicName, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            topicName
+        };
+
+        console.log(data);
+        //Call API ....
+
+        contentTopicAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/setting/topic');
+                dispatch(alertSuccess('Topik konten "' + topicName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Topik konten "' + topicName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const addScreenTime = (cobrandEmail, controlParameterName, controlParameterValue, unit, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            cobrandEmail, controlParameterName, controlParameterValue, unit
+        };
+
+        console.log(data);
+        //Call API ....
+
+        screenTimeAdd(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/setting/screentime');
+                dispatch(alertSuccess('Standar Screentime "' + controlParameterName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Standar Screentime "' + controlParameterName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
         console.log(data);

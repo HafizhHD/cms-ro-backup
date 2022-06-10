@@ -181,9 +181,9 @@ class ListKategoriProgram extends React.Component {
             <div className='div'>
                 <NavLink to="/tools/setting/program-category/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create Category Program</span>
+                    <span>Tambah Kategori Program</span>
                 </NavLink>
-                <h1>List Category Program</h1>
+                <h1>Kategori Program</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>

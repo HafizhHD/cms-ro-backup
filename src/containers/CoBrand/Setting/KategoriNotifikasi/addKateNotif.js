@@ -17,6 +17,8 @@ function AddNotifCategory({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
 
+    if(isLoading) return <RKLoader/>
+
     return (
         <>
             <Heading headingName="Kategori Notifikasi" routes={[

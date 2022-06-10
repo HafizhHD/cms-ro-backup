@@ -181,9 +181,9 @@ class ListScreenTime extends React.Component {
             <div className='div'>
                 <NavLink to="/tools/setting/screentime/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Screentime</span>
+                    <span>Tambah Standar Screentime</span>
                 </NavLink>
-                <h1>Standart Screentime</h1>
+                <h1>Standar Screentime</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>

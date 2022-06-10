@@ -170,3 +170,12 @@ export const validationStaff = yup.object({
     phone: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
     password: yup.string('Enter your password').required('Password is required').min(8, 'Password should be 8 characters or more')
 })
+
+export const validationContentTopic = yup.object({
+    topicName: yup.string('Enter topic name').required('Topic Name is required')
+})
+
+export const validationScreenTime = yup.object({
+    controlParameterName: yup.string('Enter category name').required('Category is required'),
+    controlParameterValue: yup.number().required('Number is required')
+})

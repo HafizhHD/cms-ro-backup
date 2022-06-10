@@ -137,7 +137,7 @@ class ListStaff extends React.Component {
             <div className='div'>
                 <NavLink to="/tools/admin-staff/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Admin</span>
+                    <span>Tambah Admin/Staff</span>
                 </NavLink>
                 <h1>List Daftar Admin</h1>
                 <div className='komentar'>
@@ -165,8 +165,8 @@ class ListStaff extends React.Component {
                                             <td><input placeholder={item.cobrandEmail} ref="alamat"></input></td>
                                             <td><input placeholder={item.emailUser} ref="lokasi"></input></td>
                                             <td><input placeholder={item.phone} ref="phone"></input></td>
-                                            <td><Button variant="info" className='btn2' onClick={() => this.onSave(index)}>Save</Button></td>
-                                            <td><Button variant="danger" className='btn' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
+                                            <td><Button variant="info" className='btn998' onClick={() => this.onSave(index)}>Save</Button></td>
+                                            <td><Button variant="danger" className='btn998' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
                                         </tr>
                                     )
                                 }
@@ -178,8 +178,8 @@ class ListStaff extends React.Component {
                                         <td>{item.cobrandEmail}</td>
                                         <td>{item.emailUser}</td>
                                         <td>{item.phone}</td>
-                                        <td><Button variant="warning" className='btn2' onClick={() => this.onEdit(index)}>Edit</Button></td>
-                                        <td><Button variant="danger" className='btn' onClick={() => this.onDelete(index)}>Delete</Button></td>
+                                        <td><Button variant="warning" className='btn998' onClick={() => this.onEdit(index)}>Edit</Button></td>
+                                        <td><Button variant="danger" className='btn998' onClick={() => this.onDelete(index)}>Delete</Button></td>
                                     </tr>
                                 )
                             })

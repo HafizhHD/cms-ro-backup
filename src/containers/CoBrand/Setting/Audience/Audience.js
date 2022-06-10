@@ -183,9 +183,9 @@ class AddSetting extends React.Component {
             <div className='div'>
                 <NavLink to="/tools/setting/target-audience/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Audience</span>
+                    <span>Tambah Target Pembaca</span>
                 </NavLink>
-                <h1>List Audience</h1>
+                <h1>Target Pembaca</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>

@@ -180,7 +180,7 @@ class ListKategoriNotifikasi extends React.Component {
             <div className='div'>
                 <NavLink to="/tools/setting/notification-category/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create Category Notification</span>
+                    <span>Tambah Kategori Notifikasi</span>
                 </NavLink>
                 <h1>List Category Notification</h1>
                 <div className='komentar'>

@@ -91,9 +91,27 @@ export const programCategoryAdd = (query) => axios({
     },
 });
 
+export const contentTopicAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cms/contentTopicAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 export const adminAdd = (query) => axios({
     method: 'post',
     url: url + '/cms/userAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const screenTimeAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/configurationAdd',
     data: query,
     headers: {
         'Content-Type': 'application/json',

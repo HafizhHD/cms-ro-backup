@@ -17,10 +17,12 @@ function AddProgCategory({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
 
+    if(isLoading) return <RKLoader/>
+
     return (
         <>
             <Heading headingName="Kategori Program" routes={[
-                { path: '/tools/setting/program-category', name: 'Kategori Notifikasi' },
+                { path: '/tools/setting/program-category', name: 'Kategori Program' },
                 { path: '/tools/setting/program-category/add', name: 'Tambah' }
             ]} />
             <Formik
