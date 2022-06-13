@@ -75,10 +75,10 @@ function Program({
     return (
         <div className="Program">
             <h1>PROGRAM</h1>
-            <NavLink to="/cms/program/revisilist" id="add_program">
+            {/* <NavLink to="/cms/program/revisilist" id="add_program">
                 <FiPlus className="IconAdd" />
                <span>revisilist</span>  
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/cms/program/add" id="add_program">
                 <FiPlus className="IconAdd" />
                <span>Create New Program</span>  

@@ -10,18 +10,18 @@ const Columns = [
         disableFilters: true
     },
     {
-        Header: 'Nama Konten',
+        Header: 'Nama Artikel',
         accessor: 'contentName',
         disableFilters: true
     },
     {
-        Header: 'Jenis Konten',
+        Header: 'Jenis Artikel',
         accessor: 'contentType',
         Filter: SelectColumnFilter,
         filter: 'equals'
     },
     {
-        Header: 'Topik Konten',
+        Header: 'Topik Artikel',
         accessor: 'topics',
         Filter: SelectColumnFilter,
         filter: 'equals',

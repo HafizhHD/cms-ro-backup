@@ -8,6 +8,10 @@ const dateFormat = {
 const Columns = (setProgramDeleting) => {
     return ([
         {
+            Header: 'ID',
+            accessor: '_id'
+        },
+        {
             Header: 'Title',
             accessor: 'programName'
         },
@@ -29,7 +33,6 @@ const Columns = (setProgramDeleting) => {
         },
         {
             Header: 'Action',
-            accessor: '_id',
             disableSortBy: true,
             disableGlobalFilter: true,
             Cell: ({cell}) => (

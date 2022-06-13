@@ -3,26 +3,21 @@ import { Modal, Button } from 'react-bootstrap'
 
 
 const Columns = [
-    // {
-    //     Header: 'No.',
-    //     id: 'rowNumber',
-    //     // disableFilters: true
-    // },
     {
-        Header: 'No Telepon',
-        accessor: 'phoneNumber'
-    },
-    {
-        Header: 'Tipe User',
-        accessor: 'userType'
+        Header: 'Nama',
+        accessor: 'nameUser'
     },
     {
         Header: 'Email',
         accessor: 'emailUser'
     },
     {
-        Header: 'Nama',
-        accessor: 'nameUser'
+        Header: 'Tipe User',
+        accessor: 'userType'
+    },
+    {
+        Header: 'No Telepon',
+        accessor: 'phoneNumber'
     },
     {
         Header: 'Email Orang tua',

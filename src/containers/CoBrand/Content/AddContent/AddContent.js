@@ -119,9 +119,9 @@ function AddContent({
 
     return (
         <>
-            <Heading headingName="Content" routes={[
-                { path: '/cms/content', name: 'Content' },
-                { path: '/cms/content/add', name: 'Create new content' }
+            <Heading headingName="Artikel" routes={[
+                { path: '/cms/content', name: 'Artikel' },
+                { path: '/cms/content/add', name: 'Buat Artikel Baru' }
             ]} />
             <Formik
                 initialValues={{
@@ -150,9 +150,9 @@ function AddContent({
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
                     <form onSubmit={handleSubmit}>
                         <div className="AddContent">
-                            <h1 className="AddContent_title">Create New Content</h1>
+                            <h1 className="AddContent_title">Buat Artikel Baru</h1>
                             <div className="form-group">
-                                <label>Content Type</label>
+                                <label>Tipe Artikel</label>
                                 <select
                                     name="contentType"
                                     value={values.contentType}
@@ -168,7 +168,7 @@ function AddContent({
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label>Topic Category</label>
+                                <label>Topik</label>
                                 {/* <select
                                     name="topics"
                                     value={values.topics}
@@ -197,7 +197,7 @@ function AddContent({
                                 {touched.topics && <span className="message__error">{errors.topics}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Target Audience</label>
+                                <label>Target Pembaca</label>
                                 {/* <select
                                     name="targetAudience"
                                     value={values.targetAudience}
@@ -222,27 +222,10 @@ function AddContent({
                                 />
                                 {touched.targetAudience && <span className="message__error">{errors.targetAudience}</span>}
                             </div>
-                            {/* <div className="form-group"> */}
-                                {/* <label>Program Name</label> */}
-                                {/* <select
-                                    name="programId"
-                                    value={values.programId}
-                                    onChange={handleChange}
-                                > */}
-                                    {/* <option value="-1" disabled>Select Program</option> */}
-                                    {/* <option value="">(Tanpa Program)</option> */}
-                                    {/* {
-                                        programList.map((program) => {
-                                            return (
-                                                <option value={program._id}>{program.programName}</option>
-                                            )
-                                        })
-                                    } */}
-                                {/* </select> */}
-                            {/* </div> */}
+                            
                             
                             <div className="form-group">
-                                <label>Title</label>
+                                <label>Judul</label>
                                 <InputComponent
                                     type="text"
                                     name="contentName"
@@ -255,7 +238,7 @@ function AddContent({
                                 {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Description</label>
+                                <label>Deskripsi</label>
                                 <Editor
                                     editorState={description}
                                     toolbarClassName="toolbarClassName"
@@ -280,7 +263,7 @@ function AddContent({
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Source</label>
+                                <label>Sumber</label>
                                 <InputComponent
                                     type="text"
                                     name="contentSource"
@@ -318,7 +301,7 @@ function AddContent({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label>Contents</label>
+                                <label>Isi Artikel</label>
                                 {values.contentType === "Artikel" ? (
                                     <Editor
                                         editorState={artikel}
@@ -495,7 +478,7 @@ function AddContent({
                             </div>
                             <div className="form-group-row">
                                 <div className="form-group">
-                                    <label>Start Date</label>
+                                    <label>Tanggal Mulai</label>
                                     <InputComponent
                                         type="date"
                                         className="form-group__input"
@@ -509,7 +492,7 @@ function AddContent({
                                 </div>
                                 {/* end date */}
                                 <div className="form-group">
-                                    <label>End Date</label>
+                                    <label>Tanggal Selesai</label>
                                     <InputComponent
                                         type="date"
                                         className="form-group__input"
@@ -541,7 +524,7 @@ function AddContent({
                             </div>
                             <div>
                                 <button className="btn btn-submit" type="submit">
-                                    Post Content
+                                    Buat Artikel
                                 </button>
                             </div>
                         </div>

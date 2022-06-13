@@ -335,7 +335,11 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                         <Fragment {...row.getRowProps()}>
                             <tr>
                                 {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}> {cell.column.id === 'rowNumber' ? i + 1 + (pageIndex * pageSize) : cell.render('Cell')} </td>
+                                    console.log(cell);
+                                    return <td {...cell.getCellProps()} className={(cell.value && !Array.isArray(cell.value)) || (Array.isArray(cell.value) && cell.value.length > 0) || cell.column.id === 'selection'
+                                    || cell.column.id === 'rowNumber' ? "cell" : "cell"}> {cell.column.id !== 'rowNumber' ? 
+                                         cell.render('Cell')
+                                        : i + 1 + (pageIndex * pageSize)} </td>
                                 })}
                             </tr>
                             {row.isExpanded ? (

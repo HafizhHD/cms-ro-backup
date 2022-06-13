@@ -181,9 +181,9 @@ class ListTopik extends React.Component {
             <div className='div'>
                 <NavLink to="/tools/setting/topic/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Topic</span>
+                    <span>Buat Topik Baru</span>
                 </NavLink>
-                <h1>List Topic</h1>
+                <h1>List Topik Artikel</h1>
                 <div className='komentar'>
                     <Table striped bordered hover >
                         <thead>

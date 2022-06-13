@@ -73,10 +73,10 @@ function Content({
 
     return (
         <div className="Content">
-            <h1>CONTENT</h1>
+            <h1>ARTIKEL</h1>
             <NavLink to="/cms/content/add" id="add_content">
                 <FiPlus className="IconAdd" />
-               <span>Create New Content</span>  
+               <span>Buat Artikel Baru</span>  
             </NavLink>
             <div className="Content__table">
                 <TableContent COLUMNS={columns(setContentDeleting)} DATA={contentList}  />

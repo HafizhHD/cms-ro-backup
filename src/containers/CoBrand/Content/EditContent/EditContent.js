@@ -178,9 +178,9 @@ function EditContent({
 
     return (
         <>
-            <Heading headingName="Content" routes={[
-                { path: '/cms/content', name: 'Content' },
-                { path: '/cms/content/edit', name: 'Edit Selected content' }
+            <Heading headingName="Artikel" routes={[
+                { path: '/cms/content', name: 'Artikel' },
+                { path: '/cms/content/edit', name: 'Ubah Artikel Terpilih' }
             ]} />
             <Formik
                 initialValues={{ 
@@ -202,9 +202,9 @@ function EditContent({
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
                     <form onSubmit={handleSubmit}>
                         <div className="EditContent">
-                            <h1>Edit Selected Content: {content.contentName}</h1>
+                            <h1>Ubah Artikel: {content.contentName}</h1>
                             <div className="form-group">
-                                <label>Content Type</label>
+                                <label>Tipe Artikel</label>
                                 <select
                                     name="contentType"
                                     value={values.contentType}
@@ -221,7 +221,7 @@ function EditContent({
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label>Title</label>
+                                <label>Judul</label>
                                 <InputComponent
                                     type="text"
                                     name="contentName"
@@ -235,7 +235,7 @@ function EditContent({
                                 {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Description</label>
+                                <label>Deskripsi</label>
                                 <Editor
                                         editorState={description}
                                         toolbarClassName="toolbarClassName"
@@ -297,7 +297,7 @@ function EditContent({
                                 {/* {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>} */}
                             </div>
                             <div className="form-group">
-                                <label>Source</label>
+                                <label>Sumber</label>
                                 <InputComponent
                                     type="text"
                                     name="contentSource"
@@ -310,7 +310,7 @@ function EditContent({
                                 {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Photo</label>
+                                <label>Thumbnail</label>
                                 <img className='photo' src={content.contentThumbnail}></img>
                                 <br></br>
                                 <InputComponent
@@ -328,7 +328,7 @@ function EditContent({
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Contents</label>
+                                <label>Isi Artikel</label>
                                 {values.contentType === "Artikel" ? (
                                     /*<InputComponent
                                         type="textarea"
@@ -447,7 +447,7 @@ function EditContent({
                             </div> */}
                             <div>
                                 <button className="btn btn-submit" type="submit">
-                                    Update Content
+                                    Update Artikel
                                 </button>
                             </div>
                         </div>

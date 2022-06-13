@@ -23,7 +23,7 @@
     "html-to-draftjs": "^1.5.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.24",
-    "mapbox-gl": "^2.3.0",
+    "mapbox-gl": "^1.13.0",
     "match-sorter": "^6.3.1",
     "mui-datatables": "^4.2.2",
     "pdfjs-dist": "^2.6.347",

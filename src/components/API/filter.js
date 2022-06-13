@@ -118,6 +118,17 @@ export const getContentTopicList = (query) => axios({
     }
 })
 
+export const getProgramCategoryList = (query) => axios({
+    method: 'post',
+    url: url + '/cms/programCategoryFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
+
+
 export const getHKBPList = (query) => axios({
     method: 'post',
     url: url + '/cobrand/HKBPDataFilter',

@@ -54,12 +54,12 @@ const ContentReport = () => {
         return <RKLoader />;
     }
     return (
-        <div className="Content">
+        <div className="Artikel">
             <Heading
-                headingName="Content Report"
+                headingName="Report Artikel"
                 routes={[
-                    { name: 'Report', path: '/report/content' },
-                    { name: 'Content Report' }
+                    { name: 'Report'},
+                    { name: 'Report Artikel', path: '/report/content'}
                 ]}
             />
             <div className="Dashboard_period">

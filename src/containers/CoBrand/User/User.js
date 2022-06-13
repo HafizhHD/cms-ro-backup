@@ -16,6 +16,7 @@ const User = () => {
     useEffect(() => {
         let params={
             whereKeyValues: {packageId: "com.byasia.ruangortu"},
+            orderKeyValues: {nameUser: 1},
             limit: Number.MAX_SAFE_INTEGER
         };
         console.log(params);
@@ -48,10 +49,10 @@ const User = () => {
     return (
         <div className="Pengguna">
             <Heading
-                headingName="Helpdesk"
+                headingName="Manajemen Pengguna"
                 routes={[
-                    { name: 'Helpdesk', path: '/helpdesk' },
-                    { name: 'Pengguna' }
+                    { name: 'Manajemen Data'},
+                    { name: 'Pengguna' , path: '/cms/user' }
                 ]}
             />
             {/* <button onClick={() => setTime(true)} className='btn3'>Edit User</button> */}

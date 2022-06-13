@@ -21,7 +21,7 @@ table tr:hover {
 table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  min-width: 8rem;
+  min-width: 6.8rem;
   text-align: left;
   background-color: #ddd;
   color: var(--color-grey-dark-1);
@@ -198,4 +198,8 @@ table th {
     margin-right: 0.2rem;
     margin-bottom: 0.1rem;
   }
+}
+
+.empty_cell {
+  background-color: #777;
 }

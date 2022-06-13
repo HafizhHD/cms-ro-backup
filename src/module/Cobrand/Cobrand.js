@@ -215,8 +215,8 @@ function Cobrand({
                 <PrivateRoute
                     path="/cms/program"
                     exact
-                    // component={ProgramAsync}
-                    component={ListProgram}
+                    component={ProgramAsync}
+                    // component={ListProgram}
                 />
                 <PrivateRoute
                     path="/cms/program/add"

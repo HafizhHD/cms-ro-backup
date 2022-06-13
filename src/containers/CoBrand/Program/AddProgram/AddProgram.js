@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
 import './AddProgram.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
+import { getProgramCategoryList } from './../../../../components/API/filter'
 import { addProgram } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationProgram } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
+import { FiPlus } from 'react-icons/fi';
 
 function AddProgram({
     onAddProgram,
@@ -17,18 +19,45 @@ function AddProgram({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
 
+    const [isPageLoading, setPageLoading] = useState(true);
+    const [categoryList, setCategoryList] = useState([]);
+
+    useEffect(() => {
+        let params = {};
+        getProgramCategoryList(params)
+        .then(response => {
+            console.log(response.data.Data);
+            let catName = [];
+            for(var i = 0; i < response.data.Data.length; i++) {
+                catName.push(response.data.Data[i].category);
+            }
+            setCategoryList(catName);
+            setPageLoading(false);
+        })
+
+    }, [])
+
+    if(isLoading || isPageLoading) {
+        return <RKLoader />
+    }
+
     return (
         <>
             <Heading headingName="Program" routes={[
-                { path: '/cms/program', name: 'On Going Program' },
-                { path: '/cms/program/add', name: 'Create new Program' }
+                { path: '/cms/program', name: 'Program' },
+                { path: '/cms/program/add', name: 'Buat Program Baru' }
             ]} />
             <Formik
                 initialValues= {{
                     programName: '',
                     programDescription: '',
                     programThumbnail: '',
-                    startDate: new Date().toISOString().split('T')[0]
+                    startDate: new Date().toISOString().split('T')[0],
+                    endDate: new Date().toISOString().split('T')[0],
+                    category: categoryList[0],
+                    targetAudiance: [],
+                    topics: [],
+                    contentPrograms: []
                 }}
                 validationSchema = {validationProgram}
                 validateOnChange = {true}
@@ -39,9 +68,9 @@ function AddProgram({
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="AddProgram">
-                        <h1>Create New Program</h1>
+                        <h1>Buat Program Baru</h1>
                         <div className="form-group">
-                            <label>Title</label>
+                            <label>Judul</label>
                             <InputComponent 
                                 type="text"
                                 name="programName"
@@ -53,8 +82,25 @@ function AddProgram({
                             />
                             {touched.programName && <span className="message__error">{errors.programName}</span>}
                         </div>
+
                         <div className="form-group">
-                            <label>Description</label>
+                            <label>Kategori Program</label>
+                            <select
+                                name="category"
+                                value={values.category}
+                                onChange={handleChange}
+                            >
+                                {
+                                    categoryList.map((category) => {
+                                        return (
+                                            <option value={category}>{category}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Deskripsi</label>
                             <InputComponent
                                 type="textarea"
                                 name="programDescription"
@@ -66,7 +112,7 @@ function AddProgram({
                            {touched.programDescription && <span className="message__error">{errors.programDescription}</span>}
                         </div>
                         <div className="form-group">
-                            <label>Photo</label>
+                            <label>Thumbnail</label>
                             <InputComponent
                                 type="file"
                                 className="form-group__input"
@@ -82,22 +128,42 @@ function AddProgram({
                             />
                             { touched.programThumbnail && <span className="message__error">{errors.programThumbnail}</span> }
                         </div>
-                        <div className="form-group">
-                            <label>Set Schedule</label>
-                            <InputComponent
-                                type="date"
-                                className="form-group__input"
-                                name="startDate"
-                                min={new Date().toISOString().split('T')[0]}
-                                value={values.startDate}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
+                        <div className="form-group-row">
+                            <div className="form-group">
+                                <label>Tanggal Mulai</label>
+                                <InputComponent
+                                    type="date"
+                                    className="form-group__input"
+                                    name="startDate"
+                                    value={values.startDate}
+                                    min={new Date().toISOString().split('T')[0]}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.startDate && <span className="message__error">{errors.startDate}</span>}
+                            </div>
+                            {/* end date */}
+                            <div className="form-group">
+                                <label>Tanggal Selesai</label>
+                                <InputComponent
+                                    type="date"
+                                    className="form-group__input"
+                                    name="endDate"
+                                    value={values.endDate}
+                                    min={values.startDate}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.endDate && <span className="message__error">{errors.endDate}</span>}
+                            </div>
                         </div>
+                        <button id="add_program">
+                            <FiPlus className="IconAdd" />
+                            <span>Tambah Tahap Program</span>  
+                        </button>
                         <div>
                             <button className="btn btn-submit" type="submit">
-                                Post Program
+                                Buat Program
                             </button>
                         </div>
                     </div>

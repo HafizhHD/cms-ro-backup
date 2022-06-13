@@ -74,7 +74,7 @@ function AddNotification({
                     useSchedule: false,
                     scheduleTime: sche.toISOString().slice(0, -8),
                     mediaType: 'Semua',
-                    category: '',
+                    category: 'Umum',
 
                 }}
                 validationSchema = {validationNotification}

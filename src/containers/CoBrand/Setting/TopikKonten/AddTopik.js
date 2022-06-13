@@ -21,8 +21,8 @@ function AddContentTopic({
 
     return (
         <>
-            <Heading headingName="Topik Konten" routes={[
-                { path: '/tools/setting/topic', name: 'Topik Konten' },
+            <Heading headingName="Topik Artikel" routes={[
+                { path: '/tools/setting/topic', name: 'Topik Artikel' },
                 { path: '/tools/setting/topic/add', name: 'Tambah' }
             ]} />
             <Formik
@@ -40,7 +40,7 @@ function AddContentTopic({
                     <div className="AddContentTopic">
                         <h1>Tambah</h1>
                         <div className="form-group">
-                            <label>Nama Topik Konten</label>
+                            <label>Nama Topik Artikel</label>
                             <InputComponent 
                                 type="text"
                                 name="topicName"
