@@ -95,7 +95,19 @@ export const validationProgram = yup.object({
                 }
             }
         ),
-    startDate: yup.date('Insert start date').required('Date is required')
+    startDate: yup.date('Insert start date').required('Date is required'),
+    endDate: yup.date('Insert end date').required('Date is required'),
+    category: yup.string(),
+    targetAudiance: yup.array().min(1, 'Pilih minimal 1'),
+    contentPrograms: yup.array().min(1).of(
+        yup.object({
+            namaTahapan: yup.string().required('Nama Tahapan harus diisi'),
+            contentName: yup.string().required('Judul Tahapan harus diisi'),
+            contents: yup.string().required('Isi Tahapan harus diisi'),
+            startDate: yup.date('Insert start date').required('Date is required'),
+            endDate: yup.date('Insert end date').required('Date is required'),
+        })
+    )
 })
 
 export const validationProgramEdit = yup.object({

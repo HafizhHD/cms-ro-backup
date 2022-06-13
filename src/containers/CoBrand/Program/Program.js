@@ -81,7 +81,7 @@ function Program({
             </NavLink> */}
             <NavLink to="/cms/program/add" id="add_program">
                 <FiPlus className="IconAdd" />
-               <span>Create New Program</span>  
+               <span>Buat Program Baru</span>  
             </NavLink>
             <div className="Program__table">
                 <TableProgram 

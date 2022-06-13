@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
-import { contentAdd, contentDelete, contentEdit, programAdd, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
+import { contentAdd, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, contentTopicAdd, screenTimeAdd } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
@@ -38,7 +38,7 @@ export const alertSuccess = (message, id) => ({
     idMessage: id
 })
 
-export const addProgram = (cobrandEmail, programName, ProgramDescription, photo, startDate, history) => {
+export const addProgram = (cobrandEmail, programName, ProgramDescription, photo, startDate, endDate, category, targetAudience, contentProg, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -50,18 +50,51 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
             console.log(typeof result);
             const programthumnail = result;
 
+            let contentPrograms = [];
+            for(var i = 0; i < contentProg.length; i++) {
+                let x = contentProg[i];
+                let respons = {};
+                for(var j = 0; j < x.response.length; j++) {
+                    respons[x.response[j]] = 0;
+                }
+                let dataRaw = {
+                    nomerUrutTahapan: x.nomerUrutTahapan,
+                    namaTahapan: x.namaTahapan,
+                    contentName: x.contentName,
+                    contentType: x.contentType,
+                    contentSource: x.contentSource,
+                    contents: x.contents,
+                    startDate: x.startDate,
+                    endDate: x.endDate,
+                    topics: x.topics,
+                    targetAudiance: x.targetAudiance,
+                    respons: respons
+                }
+                contentPrograms.push(dataRaw);
+            }
+
+            let targetAudiance = [];
+            for(var j = 0; j < targetAudience.length; j++) {
+                targetAudiance.push(targetAudience[j].value);
+            }
+
             let data = {
                 cobrandEmail,
                 programName,
                 ProgramDescription,
                 programthumnail,
-                startDate
+                startDate,
+                endDate,
+                category,
+                targetAudiance,
+                contentPrograms
             };
 
             console.log(data);
             //Call API ....
 
-            programAdd(data)
+            // programAdd(data)
+            programAddv2(data)
                 .then(response => {
                     console.log('Success:', response.data);
                     history.push('/cms/program');

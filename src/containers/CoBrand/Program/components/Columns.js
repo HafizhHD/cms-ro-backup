@@ -12,24 +12,39 @@ const Columns = (setProgramDeleting) => {
             accessor: '_id'
         },
         {
-            Header: 'Title',
-            accessor: 'programName'
+            Header: 'Nama Program',
+            accessor: 'programName',
+            disableFilters: true
         },
         {
-            Header: 'Start Date',
-            accessor: (value) => new Date(value.startDate).toLocaleDateString("en-UK", dateFormat),
-            Cell: ({value}) => (
-                <>
-                    {new Date(value).toLocaleDateString("en-UK", dateFormat)}
-                </>
-            )
+            Header: 'Kategori Program',
+            accessor: 'category',
+            // Filter: SelectColumnFilter,
+            // filter: 'equals',
+    
+            Cell: ({value, row}) => {
+                if(value !== undefined) return value;
+                else {
+                    if(row.index % 3 === 1) return <p>Pendidikan Agama</p>
+                    else return <p>Pengetahuan Siswa Umum</p>
+                }
+            }
+        },
+        {
+            Header: 'Target Pembaca',
+            accessor: 'targetAudiance',
+            // Filter: SelectColumnFilter,
+            // filter: 'equals',
+            Cell: ({value, row}) => {
+                if(value !== undefined) return value.join(', ');
+                else return <p>Semua</p>
+            }
         },
         {
             Header: 'Status',
             accessor: 'status',
-            Cell: ({ value }) => {
-                return <p style={{ color: 'green', fontWeight: 'bold' }}>{value}</p>
-            }
+            // Filter: SelectColumnFilter,
+            // filter: 'equals'
         },
         {
             Header: 'Action',

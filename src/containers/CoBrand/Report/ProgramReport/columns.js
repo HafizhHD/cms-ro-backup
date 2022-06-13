@@ -30,13 +30,21 @@ const Columns = [
     },
     {
         Header: 'Target Pembaca',
-        accessor: 'target',
+        accessor: 'targetAudiance',
         Filter: SelectColumnFilter,
         filter: 'equals',
         Cell: ({value, row}) => {
-            if(value !== undefined) return value;
+            if(value !== undefined) return value.join(', ');
             else return <p>Semua</p>
         }
+    },
+    {
+        Header: 'Jumlah View',
+        accessor: 'totalView',
+    },
+    {
+        Header: 'Jumlah Tahap',
+        accessor: 'contentPrograms.length',
     },
     {
         Header: 'Status',

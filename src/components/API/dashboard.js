@@ -10,6 +10,16 @@ export const programAdd = (query) => axios({
     },
 });
 
+export const programAddv2 = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/v2-programAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+
 export const programEdit = (query) => axios({
     method: 'post',
     url: url + '/cobrand/programUpdate',

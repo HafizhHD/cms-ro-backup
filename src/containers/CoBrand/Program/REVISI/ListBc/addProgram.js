@@ -104,12 +104,12 @@ class AddProgramRev extends React.Component {
             // url: '​​https://rk.defghi.biz.id:8080/api/cobrand/v2-programAdd',
             data: params,
         })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error + 'ini eror add PROGRAM THAPAN');
-            });
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log(error + 'ini eror add PROGRAM THAPAN');
+        });
     }
 
     handleChange(e) {

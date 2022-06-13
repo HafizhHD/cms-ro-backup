@@ -44,6 +44,14 @@ const Columns = [
         }
     },
     {
+        Header: 'Jumlah View',
+        accessor: 'totalView',
+    },
+    {
+        Header: 'Jumlah Like',
+        accessor: 'respons.like',
+    },
+    {
         Header: 'Status',
         accessor: 'status',
         Filter: SelectColumnFilter,

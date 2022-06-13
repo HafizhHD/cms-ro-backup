@@ -4,7 +4,7 @@
   margin: auto;
 
   display: grid;
-  grid-template-rows: repeat(6, max-content);
+  grid-template-rows: repeat(auto-fit, max-content);
   grid-row-gap: 2rem;
   padding: 1rem;
 
@@ -39,6 +39,14 @@
     height: 2rem;
     border-radius: 2rem;
   }
+
+  .IconDelete {
+    color: #fff;
+    background-color: red;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+  }
 }
 
 .form-group {
@@ -64,6 +72,16 @@
 
   }
 
+  & .editorClassName {
+    border: 1px solid #F1F1F1;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+    min-height: 15rem;
+    max-height: 15rem;
+    overflow-y: scroll;
+    cursor: text;
+  }
+
   &__input {
     background-color: rgba(#ccc, 0.4);
     border: none;
@@ -72,6 +90,10 @@
 
     &--fullwidth {
       width: 100%;
+    }
+
+    &--halfwidth {
+      width: 60%;
     }
   }
 
@@ -109,4 +131,13 @@
     transform: scale(0.9);
     -webkit-transform: scale(0.9);
   }
+}
+
+.steps {
+  padding: 2rem;
+  border: 1px solid grey;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, max-content);
+  grid-row-gap: 2rem;
+  padding: 1rem;
 }

@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../../components/UI/Heading/Heading';
 import { FiArrowLeftCircle, FiCalendar, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { getContentList } from './../../../../components/API/filter';
+
+import TableProgram from './../../../../components/UI/Table/Table';
 import { useState, useEffect } from 'react';
+import columns from './columns'
 import axios from 'axios';
 import './ViewProgram.scss';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
@@ -10,6 +14,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 function ViewProgram() {
 
     const [program, setProgram] = useState();
+    const [steps, setSteps] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
     const [programDeleting, setProgramDeleting] = useState(null);
@@ -30,21 +35,31 @@ function ViewProgram() {
                     _id: id
                 }
             };
+            const params2 = {
+                whereKeyValues: {
+                    programId: id
+                },
+                orderKeyValues: {
+                    nomerUrutTahapan: 1
+                }
+            };
 
-            axios({
+            const promiseProgram = axios({
                 method: 'post',
                 url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programFilter',
                 data: params,
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            })
-            .then(response => {
-                console.log("Response data: ", response.data);
-                setProgram(response.data.programs[0]);
+            });
+            const promiseStep = getContentList(params2);
+            Promise.all([promiseProgram, promiseStep]).then(response => {
+                console.log("Response data: ", response[0].data);
+                setProgram(response[0].data.programs[0]);
                 console.log("This is ", program);
+                setSteps(response[1].data.contents);
                 setLoading(false);
-                let date = new Date(response.data.programs[0].startDate).toLocaleDateString("en-UK", dateFormat);
+                let date = new Date(response[0].data.programs[0].startDate).toLocaleDateString("en-UK", dateFormat);
                 setStartDate(date);
             })
             .catch(error => {
@@ -100,6 +115,12 @@ function ViewProgram() {
                         <p>{program.ProgramDescription}</p>
                     </div>
                 </div>
+            </div>
+            <div className="Program__table">
+                <TableProgram 
+                    COLUMNS={columns} 
+                    DATA={steps}  
+                />
             </div>
         </>
     )
