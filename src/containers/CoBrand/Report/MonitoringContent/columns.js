@@ -36,7 +36,7 @@ const Columns = [
         }
     },
     {
-        Header: 'Nama Konten',
+        Header: 'Nama Artikel',
         accessor: 'contentName',
         Cell: ({value, row}) => {
             if(value !== undefined) return <p>{value}</p>

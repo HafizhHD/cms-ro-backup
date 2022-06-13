@@ -33,7 +33,7 @@ function Dashboard() {
     const [countUser, setCountUser] = useState([0,0,0]);
     const [conProgData, setConProgData] = useState([]);
     const [userDataLabel, setUserDataLabel] = useState(["Orang tua: 0", "Anak: 0"]);
-    const conProgDataLabel = ["Content", "Program"];
+    const conProgDataLabel = ["Artikel", "Program"];
     const [topUsageData, setTopUsageData] = useState([]);
     const [topUsageLabel, setTopUsageLabel] = useState([]);
     const [notifData, setNotifData] = useState([]);
@@ -496,7 +496,7 @@ function Dashboard() {
                     <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>Jumlah Postingan Content &amp; Program Berdasarkan Topik</h3>
+                                <h3>Jumlah Postingan Artikel &amp; Program Berdasarkan Topik</h3>
                             </div>
                             
 
@@ -534,7 +534,7 @@ function Dashboard() {
                     <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>Total Content &amp; Program</h3>
+                                <h3>Total Artikel &amp; Program</h3>
                             </div>
                             
 
@@ -570,7 +570,7 @@ function Dashboard() {
                     <div className="Dashboard_1_cards_card">
                         <div className="Dashboard_1_cards_card_item">
                             <div className="Dashboard_1_cards_card_item-heading">
-                                <h3>Jumlah Pageview Content &amp; Program Berdasarkan Topik</h3>
+                                <h3>Jumlah Pageview Artikel &amp; Program Berdasarkan Topik</h3>
                             </div>
                             
 

@@ -168,10 +168,10 @@ const MonitoringContent = () => {
     return (
         <div className="Controlling">
             <Heading
-                headingName="Monitoring Content"
+                headingName="Monitoring Artikel"
                 routes={[
                     { name: 'Report', path: '/report/monitoring-content' },
-                    { name: 'Monitoring Content' }
+                    { name: 'Monitoring Artikel' }
                 ]}
             />
             <div className="Dashboard_period">

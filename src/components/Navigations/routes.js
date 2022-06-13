@@ -18,7 +18,7 @@ export const MenuCoBranding = [
             },
             {
                 path: '/content',
-                pathName: 'Report Konten',
+                pathName: 'Report Artikel',
                 icon: <FiImage className="Aside__Nav_item-icon" />
             },
             {
@@ -33,7 +33,7 @@ export const MenuCoBranding = [
             },
             {
                 path: '/monitoring-content', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Monitoring Konten',
+                pathName: 'Monitoring Artikel',
                 icon: <FiMonitor className="Aside__Nav_item-icon" />
             },
             {
@@ -75,7 +75,7 @@ export const MenuCoBranding = [
             },
             {
                 path: '/content', //tadinya content, nanti tolong routenya diganti
-                pathName: 'Konten',
+                pathName: 'Artikel',
                 icon: <FiImage className="Aside__Nav_item-icon" />
             },
             {
@@ -114,7 +114,7 @@ export const MenuCoBranding = [
                 children: [
                     {
                         path: '/topic',
-                        pathName: 'Topik Konten',
+                        pathName: 'Topik Artikel',
                         icon: <FiImage className="Aside__Nav_item-icon" />
                     },
                     {

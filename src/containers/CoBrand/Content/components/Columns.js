@@ -20,15 +20,15 @@ const Columns = (setContentDeleting) => {
     },
    
     {
-        Header: 'Nama Konten',
+        Header: 'Nama Artikel',
         accessor: 'contentName'
     },
     {
-        Header: 'Jenis Konten',
+        Header: 'Jenis Artikel',
         accessor: 'contentType'
     },
     {
-        Header: 'Topik Konten',
+        Header: 'Topik Artikel',
         accessor: 'topics',
         Cell: ({value}) => value.join(', ')
     },
