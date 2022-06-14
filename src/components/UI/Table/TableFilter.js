@@ -147,6 +147,7 @@ export function GlobalFilter({
             const val = e.target.value
             setFilter((old = []) => [val ? parseInt(val, 10) : undefined, old[1]])
           }}
+          min={min}
           placeholder={`Min (${min})`}
           style={{
             width: '70px',
@@ -161,6 +162,7 @@ export function GlobalFilter({
             const val = e.target.value
             setFilter((old = []) => [old[0], val ? parseInt(val, 10) : undefined])
           }}
+          min={min}
           placeholder={`Max (${max})`}
           style={{
             width: '70px',

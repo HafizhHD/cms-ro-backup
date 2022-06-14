@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import TablePengguna from './../../../components/UI/Table/Table';
 import columns from './columns';
 import Heading from './../../../components/UI/Heading/Heading'
-import RKLoader from './../../../components/UI/RKLoader/RKLoader.js';
+import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader';
 import './User.scss';
 import { getUserList } from './../../../components/API/filter'
 import Detail from './Detail/Detail';
@@ -42,9 +42,6 @@ const User = () => {
 
     if(isLoading) {
         return <RKLoader />;
-    }
-    else if (time == true) {
-        return <Redirect to="/cms/user-edit" />
     }
     return (
         <div className="Pengguna">

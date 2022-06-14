@@ -476,7 +476,7 @@ function AddContent({
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
-                            <div className="form-group-row">
+                            {/* <div className="form-group-row">
                                 <div className="form-group">
                                     <label>Tanggal Mulai</label>
                                     <InputComponent
@@ -490,7 +490,6 @@ function AddContent({
                                     />
                                     {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                                 </div>
-                                {/* end date */}
                                 <div className="form-group">
                                     <label>Tanggal Selesai</label>
                                     <InputComponent
@@ -504,7 +503,7 @@ function AddContent({
                                     />
                                     {touched.endDate && <span className="message__error">{errors.endDate}</span>}
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="form-group">
                                 <div className="form-group_switch">
                                     <p className="form-group_switch_status">Status:</p>

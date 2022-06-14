@@ -1,8 +1,12 @@
 
-import { Modal, Button } from 'react-bootstrap'
-
+import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { NavLink } from 'react-router-dom';
 
 const Columns = [
+    {
+        Header: 'ID',
+        accessor: '_id'
+    },
     {
         Header: 'Nama',
         accessor: 'nameUser'
@@ -69,6 +73,29 @@ const Columns = [
         // Filter: DateRangeColumnFilter,
         // filter: 'dateBetween'
     },
+    {
+        Header: 'Edit',
+        disableSortBy: true,
+        disableGlobalFilter: true,
+        Cell: ({cell}) => (
+            <>
+                <NavLink to="/cms/user/edit"
+                    className="nav_btn"
+                    title="Edit User"
+                    onClick={() => {
+                        localStorage.setItem('userSelected', cell.row.values.emailUser)
+                    }}>
+                    <button
+                        className="btn_action"
+                    >
+                        <div>
+                            <FiEdit2 className="btn_action-icon" />
+                        </div>
+                    </button>
+                </NavLink>
+            </>
+        )
+    }
     
     
     // {

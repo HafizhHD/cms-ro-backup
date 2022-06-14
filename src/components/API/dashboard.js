@@ -127,3 +127,12 @@ export const screenTimeAdd = (query) => axios({
         'Content-Type': 'application/json',
     },
 });
+
+export const appUserEdit = (query) => axios({
+    method: 'post',
+    url: url + '/user/edit',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});

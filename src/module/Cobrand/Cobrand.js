@@ -185,7 +185,7 @@ function Cobrand({
                     component={UserManagement}
                 />
                 <PrivateRoute
-                    path="/cms/user-edit"
+                    path="/cms/user/edit"
                     exact
                     component={EditUser}
                 />

@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
-    adminAdd, contentTopicAdd, screenTimeAdd } from '../../components/API/dashboard';
+    adminAdd, contentTopicAdd, screenTimeAdd, appUserEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
 ///pdf
@@ -999,6 +999,37 @@ export const addScreenTime = (cobrandEmail, controlParameterName, controlParamet
             .catch((error) => {
                 console.error('Error:', error);
                 dispatch(alertError('Standar Screentime "' + controlParameterName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber,  history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            whereValues: {emailUser: oldEmail},
+            newValues: {nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber}
+        };
+
+        console.log(data);
+        //Call API ....
+
+        appUserEdit(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/cms/user');
+                dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Informasi pengguna "' + oldEmail + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
         console.log(data);

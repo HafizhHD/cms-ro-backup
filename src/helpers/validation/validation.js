@@ -151,6 +151,12 @@ export const validationContentEdit = yup.object({
     contents: yup.string('Enter the content description').required('Content is required'),
     contentSource: yup.string('Enter the content source').required('Content source is required'),
     startDate: yup.date('Insert start date').required('Date is required')
+});
+
+export const validationUserEdit = yup.object({
+    nameUser: yup.string('Enter your content title').required('User name is required'),
+    emailUser: yup.string('Enter the content description').required('Email is required').email('Email not valid'),
+    birdDate: yup.date('Insert start date').required('Date is required')
 })
 
 export const validationNotification = yup.object({
