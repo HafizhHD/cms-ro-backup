@@ -77,7 +77,7 @@ function EditUser({
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
-                    <div className="EditProgram">
+                    <div className="EditUser">
                         <h1>Ubah Pengguna Terpilih: {user.nameUser}</h1>
                         <div className="form-group">
                             <label>Nama</label>

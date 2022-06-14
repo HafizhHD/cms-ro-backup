@@ -80,7 +80,7 @@ class RedzoneAdd extends React.Component {
                     <input className='input' placeholder=''
                     ref="lokasi"></input>
                 </form>
-                <Button className='btn' onClick={this.addRedzone}>Kirim Redzone</Button>
+                <Button className='btn99' onClick={this.addRedzone}>Kirim Redzone</Button>
             </div>
         )
     }

@@ -85,7 +85,7 @@ function AddNotification({
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
-                    <div className="AddProgram">
+                    <div className="AddNotification">
                         <div className="form-group">
                             <label className="form-group-label">Tujuan</label>
                             <label className="form-group-option">
