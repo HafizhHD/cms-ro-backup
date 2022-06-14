@@ -137,7 +137,7 @@ function EditUser({
                                 type="text"
                                 name="address"
                                 className="form-group__input form-group__input--fullwidth" 
-                                placeholder="example@example.com"
+                                placeholder="Jl. Example"
                                 value={values.address}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
