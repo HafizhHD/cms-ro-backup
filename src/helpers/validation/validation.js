@@ -106,6 +106,11 @@ export const validationProgram = yup.object({
             contents: yup.string().required('Isi Tahapan harus diisi'),
             startDate: yup.date('Insert start date').required('Date is required'),
             endDate: yup.date('Insert end date').required('Date is required'),
+            answerKey: yup.string().when('category', {
+                is: 'Ujian',
+                then: yup.string().required('Kunci Jawaban harus diisi'),
+                otherwise: yup.string()
+            })
         })
     )
 })

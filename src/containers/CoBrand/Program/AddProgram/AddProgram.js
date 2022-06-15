@@ -194,7 +194,7 @@ function AddProgram({
                             </div>
                         </div>
                         <div className="form-group">
-                            <label>{"Jumlah Respon (Jawaban) di Setiap Tahap"}</label>
+                            <label>{"Jumlah Respon/Jawaban di Setiap Tahap"}</label>
                             <InputComponent 
                                 type="number"
                                 className="form-group__input"
@@ -202,9 +202,20 @@ function AddProgram({
                                 min={1}
                                 onChange={(e) => {
                                     console.log(e.currentTarget.value);
+                                    if(responseCount > e.currentTarget.value) {
+                                        values.contentPrograms.map((x) => {
+                                            if(x.answerKey === x.response[x.response.length-1]) x.answerKey = x.response[0]
+                                            x.response.splice(-1, 1)
+                                        })
+                                    }
+                                    else {
+                                        values.contentPrograms.map((x) => {
+                                            x.response.push('');
+                                        })
+                                    }
                                     setResponseCount(e.currentTarget.value)
                                 }}
-                                disabled={isStepAdded}
+                                disabled={false}
                             />
                         </div>
                         {values.contentPrograms.map((content, i) => {
@@ -403,23 +414,43 @@ function AddProgram({
                                         {stepTouched.contents && <span className="message__error">{stepErrors.contents}</span>}
                                     </div>
                                     <div className="form-group">
-                                    <label>Respon</label>
-                                    {content.response.map((res, index) => {
-                                        console.log("Content response:", content.response)
-                                        return <InputComponent
-                                            type="text"
-                                            name="response"
-                                            className="form-group__input form-group__input--halfwidth"
-                                            placeholder="Example"
-                                            value={res}
-                                            onChange={(e) => {
-                                                setFieldValue(`contentPrograms.${i}.response.${index}`, e.currentTarget.value);
-                                            }}
-                                            onBlur={handleBlur}
-                                        />
-                                    })}
+                                        <label>Respon/Jawaban</label>
+                                        {content.response.map((res, index) => {
+                                            console.log("Content response:", content.response)
+                                            return <InputComponent
+                                                type="text"
+                                                name="response"
+                                                className="form-group__input form-group__input--halfwidth"
+                                                placeholder="Example"
+                                                value={res}
+                                                onChange={(e) => {
+                                                    setFieldValue(`contentPrograms.${i}.response.${index}`, e.currentTarget.value);
+                                                }}
+                                                onBlur={handleBlur}
+                                            />
+                                        })}
                                     </div>
-                                    <div className="form-group-row">
+                                    {values.category === 'Ujian' ? (
+                                        <div className="form-group">
+                                            <label>Kunci Jawaban</label>
+                                            <select
+                                                name="category"
+                                                value={content.answerKey}
+                                                onChange={(e) => {
+                                                    setFieldValue(`contentPrograms.${i}.answerKey`, e.currentTarget.value)
+                                                }}
+                                            >
+                                                {
+                                                    content.response.map((category) => {
+                                                        return (
+                                                            <option value={category}>{category}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    ) : null}
+                                    {/* <div className="form-group-row">
                                         <div className="form-group">
                                             <label>Tanggal Mulai</label>
                                             <InputComponent
@@ -435,7 +466,6 @@ function AddProgram({
                                             />
                                             {stepTouched.startDate && <span className="message__error">{stepErrors.startDate}</span>}
                                         </div>
-                                        {/* end date */}
                                         <div className="form-group">
                                             <label>Tanggal Selesai</label>
                                             <InputComponent
@@ -451,7 +481,7 @@ function AddProgram({
                                             />
                                             {stepTouched.endDate && <span className="message__error">{stepErrors.endDate}</span>}
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <button id="add_program" type="button" onClick={() => {
                                         let conProg = values.contentPrograms;
                                         conProg.splice(i, 1);
@@ -485,7 +515,8 @@ function AddProgram({
                                 endDate: values.endDate,
                                 topics: [],
                                 targetAudiance: [],
-                                response: newResponse
+                                response: newResponse,
+                                answerKey: newResponse[0]
                             }
                             let steps = values.contentPrograms;
                             steps.push(newStep);

@@ -68,7 +68,8 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     endDate: x.endDate,
                     topics: x.topics,
                     targetAudiance: x.targetAudiance,
-                    respons: respons
+                    respons: respons,
+                    answerKey: x.answerKey
                 }
                 contentPrograms.push(dataRaw);
             }
