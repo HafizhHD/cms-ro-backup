@@ -4,11 +4,17 @@ import './EditProgram.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { editProgram } from '../../../../store/actions/dashboard';
+import { getProgramCategoryList, getAudienceList, getContentList, getProgramList } from './../../../../components/API/filter'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationProgramEdit } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
+
+import TableProgram from './../../../../components/UI/Table/Table';
+import columns from './columns'
+
+import Select from 'react-select';
 
 function EditProgram({
     onEditProgram,
@@ -23,38 +29,74 @@ function EditProgram({
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
     const _id = localStorage.getItem('programSelected');
 
+    const [categoryList, setCategoryList] = useState([]);
+    const [audience, setAudience] = useState([]);
+    const [steps, setSteps] = useState([]);
+    const [stepDeleting, setStepDeleting] = useState(null);
+    const [audienceVal, setAudienceVal] = useState([]);
+    // const [isStepAdded, setStepAdded] = useState(false);
+    // const [stepCount, setStepCount] = useState(0);
+    // const [responseCount, setResponseCount] = useState(1);
+
     useEffect(() => {
         setPageLoading(true);
         console.log(_id);
         if(_id) {
-            const params = {
+            let paramTopic = {};
+            let paramAudience = {};
+            const params2 = {
                 whereKeyValues: {
-                    cobrandEmail: cobrandEmail,
-                    _id: _id
+                    programId: _id
+                },
+                orderKeyValues: {
+                    nomerUrutTahapan: 1
                 }
             };
+            const promiseTopic = getProgramCategoryList(paramTopic);
+            const promiseAudience = getAudienceList(paramAudience);
+            const promiseStep = getContentList(params2);
 
-            axios({
-                method: 'post',
-                url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programFilter',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            Promise.all([promiseTopic, promiseAudience, promiseStep]).then(responseAll => {
+                console.log(responseAll[0]);
+                console.log(responseAll[1]);
+                var topicRaw = [], audienceRaw = [];
+                responseAll[0].data.Data.map(e => {
+                    topicRaw.push(e.category);
+                })
+                responseAll[1].data.Data.map(e => {
+                    audienceRaw.push({value: e.audianceName, label: e.audianceName});
+                })
+                console.log("Topic raw", topicRaw);
+                console.log("Audience raw", audienceRaw);
+                setCategoryList(topicRaw);
+                setAudience(audienceRaw);
+                console.log("This is ", responseAll[2]);
+                setSteps(responseAll[2].data.contents);
+
+                const params = {
+                    whereKeyValues: {
+                        cobrandEmail: cobrandEmail,
+                        _id: _id
+                    }
+                };
+
+                getProgramList(params)
+                .then(response => {
+                    console.log("Response data: ", response.data);
+                    setProgram(response.data.programs[0]);
+                    var audienceValRaw = [];
+                    response.data.programs[0].targetAudiance.map(e => {
+                        audienceValRaw.push({value: e, label: e});
+                    })
+                    setAudienceVal(audienceValRaw);
+                    setPageLoading(false);
+                    
+                })
+                .catch(error => {
+                    console.log(error);
+                    setPageLoading(false);
+                });
             })
-            .then(response => {
-                console.log("Response data: ", response.data);
-                setProgram(response.data.programs[0]);
-                console.log("This is ", program);
-                let date = response.data.programs[0].startDate.split('T')[0];
-                console.log(date);
-                setProgramStartDate(date);
-                setPageLoading(false);;
-            })
-            .catch(error => {
-                console.log(error);
-                setPageLoading(false);
-            });
         }
     }, []);
 
@@ -65,27 +107,30 @@ function EditProgram({
     return (
         <>
             <Heading headingName="Program" routes={[
-                { path: '/cms/program', name: 'On Going Program' },
-                { path: '/cms/program/edit', name: 'Edit Selected Program' }
+                { path: '/cms/program', name: 'Program' },
+                { path: '/cms/program/edit', name: 'Ubah Program Terpilih' }
             ]} />
             <Formik
                 initialValues= {{
                     programName: program.programName,
                     programDescription: program.ProgramDescription,
-                    startDate: programStartDate
+                    startDate: program.startDate.split('T')[0],
+                    endDate: program.endDate.split('T')[0],
+                    category: program.category,
+                    targetAudiance: program.targetAudiance
                 }}
                 validationSchema = {validationProgramEdit}
                 validateOnChange = {true}
                 onSubmit = { values => {
-                    onEditProgram( _id, cobrandEmail, values.programName, values.programDescription, '', values.startDate, history)
+                    onEditProgram( _id, cobrandEmail, values.programName, values.programDescription, values.startDate, values.endDate, values.category, values.targetAudiance, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="EditProgram">
-                        <h1>Edit Selected Program: {program.programName}</h1>
+                        <h1>Ubah Program Terpilih: {program.programName}</h1>
                         <div className="form-group">
-                            <label>Title</label>
+                            <label>Judul</label>
                             <InputComponent 
                                 type="text"
                                 name="programName"
@@ -98,7 +143,38 @@ function EditProgram({
                             {touched.programName && <span className="message__error">{errors.programName}</span>}
                         </div>
                         <div className="form-group">
-                            <label>Description</label>
+                            <label>Kategori Program</label>
+                            <select
+                                name="category"
+                                value={values.category}
+                                onChange={handleChange}
+                            >
+                                {
+                                    categoryList.map((category) => {
+                                        return (
+                                            <option value={category}>{category}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Target Pembaca</label>
+                            <Select
+                                isMulti
+                                value={audienceVal}
+                                onChange={(e) => {
+                                    setFieldValue("targetAudiance", e)
+                                }}
+                                name="targetAudience"
+                                options={audience}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                            />
+                            {touched.targetAudiance && <span className="message__error">{errors.targetAudiance}</span>}
+                        </div>
+                        <div className="form-group">
+                            <label>Deskripsi</label>
                             <InputComponent
                                 type="textarea"
                                 name="programDescription"
@@ -125,18 +201,42 @@ function EditProgram({
                             />
                             <span className="message__error">{errors.programThumbnailEdit}</span>
                         </div>*/}
+                        <div className="form-group-row">
+                            <div className="form-group">
+                                <label>Tanggal Mulai</label>
+                                <InputComponent
+                                    type="date"
+                                    className="form-group__input"
+                                    name="startDate"
+                                    value={values.startDate}
+                                    min={"2020-01-01"}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.startDate && <span className="message__error">{errors.startDate}</span>}
+                            </div>
+                            {/* end date */}
+                            <div className="form-group">
+                                <label>Tanggal Selesai</label>
+                                <InputComponent
+                                    type="date"
+                                    className="form-group__input"
+                                    name="endDate"
+                                    value={values.endDate}
+                                    min={values.startDate}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.endDate && <span className="message__error">{errors.endDate}</span>}
+                            </div>
+                        </div>
                         <div className="form-group">
-                            <label>Set Schedule</label>
-                            <InputComponent
-                                type="date"
-                                className="form-group__input"
-                                name="startDate"
-                                value={values.startDate}
-                                min={new Date().toISOString().split('T')[0]}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.startDate && <span className="message__error">{errors.startDate}</span>}
+                            <div className="Program__table">
+                                <TableProgram 
+                                    COLUMNS={columns(setStepDeleting)} 
+                                    DATA={steps}  
+                                />
+                            </div>
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit">

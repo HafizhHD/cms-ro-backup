@@ -335,11 +335,11 @@ function Dashboard() {
 
     useEffect(() => {
 
-        var colors2 = [];
-        for(var i = 0; i < 10; i++) {
-            const colorPallete = "#" + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-3);
-            colors2.push(colorPallete);
-        }
+        var colors2 = ['#44a6cc', '#cc44a6', '#a6cc44', '#44cca6', '#cca644', '#a644cc', '#117399', '#991173', '#739911', '#119973'];
+        // for(var i = 0; i < 10; i++) {
+        //     const colorPallete = "#" + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-3);
+        //     colors2.push(colorPallete);
+        // }
         setColors(colors2);
     }, []);
 

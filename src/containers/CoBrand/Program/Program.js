@@ -55,7 +55,7 @@ function Program({
     useEffect(() => {
         setLoading(true);
         if(localStorage.getItem('programDeleting')) {
-            setProgramDeleting(localStorage.getItem('programDeleting'));
+            setProgramDeleting(JSON.parse(localStorage.getItem('programDeleting')));
             localStorage.removeItem('programDeleting');
         }
         retrieveList();

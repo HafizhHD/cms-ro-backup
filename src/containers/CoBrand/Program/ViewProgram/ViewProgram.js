@@ -93,7 +93,7 @@ function ViewProgram() {
                         //     localStorage.removeItem('programDeleting');
                         // }
                         
-                        localStorage.setItem('programDeleting', program._id);
+                        localStorage.setItem('programDeleting', JSON.stringify([program._id, program.programName]));
                     }}><NavLink to="/cms/program" className="program_action_btn_nav">
                     <h3><FiTrash2 /> Delete This Program</h3>
                 </NavLink></span>

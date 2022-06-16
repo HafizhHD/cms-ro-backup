@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { validationProgram } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import { FiPlus, FiMinus } from 'react-icons/fi';
+import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
 
 import { ContentState, Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw, current } from "draft-js";
@@ -34,6 +35,25 @@ function AddProgram({
     const [isStepAdded, setStepAdded] = useState(false);
     const [stepCount, setStepCount] = useState(0);
     const [responseCount, setResponseCount] = useState(1);
+
+    const embedVideoCallBack = (link) =>{
+        
+        const asd = getEmbedUrl(link);
+        console.log("Video embed ", asd);
+        return asd;
+    }
+
+    const uploadCallback = (file) => new Promise(
+        (resolve, reject) => {
+        const reader= new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            console.log(reader.result);
+            resolve({data: {link: reader.result}});
+        }
+        reader.onerror = error => reject(error);
+        }
+    );
 
     useEffect(() => {
         let paramTopic = {};
@@ -285,6 +305,18 @@ function AddProgram({
                                                 value={draftToHtml(convertToRaw(content.artikel.getCurrentContent()))}
                                                 // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                                 name="contents"
+                                                toolbar={{
+                                                    image: {
+                                                        uploadEnabled: true,
+                                                        alignmentEnabled: true,
+                                                        previewImage: true,
+                                                        uploadCallback: uploadCallback,
+                                                        inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                                    },
+                                                    embedded:{
+                                                        embedCallback: embedVideoCallBack
+                                                    }
+                                                }}
                                                 onChange={() => {
                                                     // setTextValue(editorState);
                                                     // setFieldValue("contentDescription", description);

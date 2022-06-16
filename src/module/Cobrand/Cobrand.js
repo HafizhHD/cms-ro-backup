@@ -12,6 +12,7 @@ const ProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/Progr
 const AddProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
 const EditProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
 const ViewProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/ViewProgram/ViewProgram'));
+const ViewProgramStepAsync = lazy(() => import('./../../containers/CoBrand/Program/ViewProgram/ViewStep/ViewStep'));
 const ContentAsync = lazy(() => import('./../../containers/CoBrand/Content/Content'));
 const AddContentAsync = lazy(() => import('./../../containers/CoBrand/Content/AddContent/AddContent'));
 const EditContentAsync = lazy(() => import('./../../containers/CoBrand/Content/EditContent/EditContent'));
@@ -234,6 +235,11 @@ function Cobrand({
                     path="/cms/program/view"
                     exact
                     component={ViewProgramAsync}
+                />
+                <PrivateRoute
+                    path="/cms/program/view/step"
+                    exact
+                    component={ViewProgramStepAsync}
                 />
 
                 <PrivateRoute
