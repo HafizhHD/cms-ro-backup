@@ -472,6 +472,7 @@ function AddProgram({
                                                     setFieldValue(`contentPrograms.${i}.answerKey`, e.currentTarget.value)
                                                 }}
                                             >
+                                                <option value='-1' disabled>{" "}</option>
                                                 {
                                                     content.response.map((category) => {
                                                         return (
@@ -548,7 +549,7 @@ function AddProgram({
                                 topics: [],
                                 targetAudiance: [],
                                 response: newResponse,
-                                answerKey: newResponse[0]
+                                answerKey: '-1'
                             }
                             let steps = values.contentPrograms;
                             steps.push(newStep);

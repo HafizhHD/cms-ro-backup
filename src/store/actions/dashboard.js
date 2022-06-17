@@ -57,13 +57,36 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                 for(var j = 0; j < x.response.length; j++) {
                     respons[x.response[j]] = 0;
                 }
+                let realContents = '<!DOCTYPE html>'
+                        + '<html lang="en">'
+                        + '<head>'
+                        + '<meta charset="utf-8">'
+                        + '<style>'
+                        + '#contents {'
+                        + 'overflow-y: scroll;'
+                        + 'text-align: justify;'
+                        + 'white-space: pre-line;'
+                        + 'font-family: Arial, Helvetica, sans-serif;'
+                        + 'padding: 1%;'
+                        + '}'
+                        + '#contents li {'
+                        + 'margin-left: 5%;'
+                        + '}'
+                        + '</style>'
+                        + '</head>'
+                        + '<body>'
+                        + '<div id="contents">'
+                        + x.contents
+                        + '</div>'
+                        + '</body>'
+                        + '</html>';
                 let dataRaw = {
                     nomerUrutTahapan: x.nomerUrutTahapan,
                     namaTahapan: x.namaTahapan,
                     contentName: x.contentName,
                     contentType: x.contentType,
                     contentSource: x.contentSource,
-                    contents: x.contents,
+                    contents: realContents,
                     startDate: x.startDate,
                     endDate: x.endDate,
                     topics: x.topics,

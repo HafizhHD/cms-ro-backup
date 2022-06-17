@@ -125,8 +125,8 @@ function EditStep({
                     console.log(con);
                     if (response.data.contents[0].contentType === 'Artikel') {
                         let con1 = con.getElementById('contents');
-                        console.log('Ini adalah con1 outer' + con1.outerHTML);
-                        console.log('Ini adalah con1 inner' + con1.innerHTML);
+                        console.log('Ini adalah con1 outer',  con1.outerHTML);
+                        console.log('Ini adalah con1 inner',  con1.innerHTML);
                         let con2 = htmlToDraft(con1.innerHTML);
                         setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
                         setConFromImgVid(con1.outerHTML);
@@ -156,33 +156,7 @@ function EditStep({
                     }
 
 
-                    let des = response.data.contents[0].contentDescription;
-                    console.log("des", des) //null
-                    let des2 = htmlToDraft(des);
-                    setDescription(EditorState.createWithContent(
-                        ContentState.createFromBlockArray(
-                            des2.contentBlocks, des2.entityMap)))
-
-                    let date = response.data.contents[0].startDate.split('T')[0];
-                    console.log(date);
-                    setContentStartDate(date);
-                    axios({
-                        method: 'post',
-                        url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programFilter',
-                        data: params1,
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                        .then(response => {
-                            console.log("Program list: ", response.data);
-                            setProgramList(response.data.programs);
-                            setPageLoading(false);
-                        })
-                        .catch(error => {
-                            console.log(error);
-                            setPageLoading(false);
-                        });
+                    setPageLoading(false);
                 })
                 .catch(error => {
                     console.log(error);
@@ -208,7 +182,7 @@ function EditStep({
                     namaTahapan: content.namaTahapan,
                     contentName: content.contentName,
                     contentType: content.contentType,
-                    contents: artikel,
+                    contents: conFromImgVid,
                     response: Object.keys(content.respons) ?? [],
                     answerKey: content.answerKey ?? ''
                 }}
