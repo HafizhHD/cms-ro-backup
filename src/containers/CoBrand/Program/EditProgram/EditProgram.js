@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
 import './EditProgram.scss';
 import { Formik } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { editProgram } from '../../../../store/actions/dashboard';
 import { getProgramCategoryList, getAudienceList, getContentList, getProgramList } from './../../../../components/API/filter'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { validationProgramEdit } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
+import { FiPlus } from 'react-icons/fi';
 
 import TableProgram from './../../../../components/UI/Table/Table';
 import columns from './columns'
@@ -72,6 +73,11 @@ function EditProgram({
                 setAudience(audienceRaw);
                 console.log("This is ", responseAll[2]);
                 setSteps(responseAll[2].data.contents);
+                if(responseAll[2].data.contents.length > 0) {
+                    localStorage.setItem('responseCount', Object.keys(responseAll[2].data.contents[0].respons).length);
+                }
+                else localStorage.setItem('responseCount', 0);
+                localStorage.setItem('noUrutTahap', responseAll[2].data.contents.length);
 
                 const params = {
                     whereKeyValues: {
@@ -85,6 +91,8 @@ function EditProgram({
                     console.log("Response data: ", response.data);
                     setProgram(response.data.programs[0]);
                     localStorage.setItem('programCategory', response.data.programs[0].category);
+                    localStorage.setItem('startDateProgram', response.data.programs[0].startDate);
+                    localStorage.setItem('endDateProgram', response.data.programs[0].endDate);
                     var audienceValRaw = [];
                     response.data.programs[0].targetAudiance.map(e => {
                         audienceValRaw.push({value: e, label: e});
@@ -239,6 +247,10 @@ function EditProgram({
                                 />
                             </div>
                         </div>
+                        <NavLink id="add_program" to="/cms/program/edit/add-step">
+                            <FiPlus className="IconAdd" />
+                            <span>Tambah Tahap Program</span>  
+                        </NavLink>
                         <div>
                             <button className="btn btn-submit" type="submit">
                                 Update Program

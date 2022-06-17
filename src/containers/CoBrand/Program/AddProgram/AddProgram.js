@@ -222,18 +222,37 @@ function AddProgram({
                                 min={1}
                                 onChange={(e) => {
                                     console.log(e.currentTarget.value);
-                                    if(responseCount > e.currentTarget.value) {
-                                        values.contentPrograms.map((x) => {
-                                            if(x.answerKey === x.response[x.response.length-1]) x.answerKey = x.response[0]
-                                            x.response.splice(-1, 1)
-                                        })
+                                    if(e.currentTarget.value) {
+                                        console.log('Yes masuk');
+                                        if(responseCount > e.currentTarget.value) {
+                                            values.contentPrograms.map((x, i) => {
+                                                var y = x.response;
+                                                if(x.answerKey === x.response[x.response.length-1] && values.category === 'Ujian') setFieldValue(`contentPrograms.${i}.answerKey`, x.response[0])
+                                                y.splice(e.currentTarget.value-responseCount, responseCount-e.currentTarget.value);
+                                                // console.log('Panjang respon: ' + y.length)
+                                                setFieldValue(`contentPrograms.${i}.response`, y);
+                                            })
+                                        }
+                                        else {
+                                            // console.log("Nambah loh");
+                                            values.contentPrograms.map((x, i) => {
+                                                var y = x.response;
+                                                for(var j = 0; j < e.currentTarget.value-responseCount; j++) {
+                                                    console.log("Ini nambah?");
+                                                    y.push('');
+                                                }
+                                                // console.log('Panjang respon: ' + y.length)
+                                                setFieldValue(`contentPrograms.${i}.response`, y);
+                                            })
+                                        }
+                                        setResponseCount(e.currentTarget.value)
                                     }
                                     else {
-                                        values.contentPrograms.map((x) => {
-                                            x.response.push('');
+                                        setResponseCount(0);
+                                        values.contentPrograms.map((x, i) => {
+                                            setFieldValue(`contentPrograms.${i}.response`, []);
                                         })
                                     }
-                                    setResponseCount(e.currentTarget.value)
                                 }}
                                 disabled={false}
                             />
@@ -293,6 +312,7 @@ function AddProgram({
                                     </div>
                                     <div className="form-group">
                                         <label>Isi Tahap</label>
+                                        <p>*Untuk memasukkan video dengan URL, tekan tombol "Embedded" di sebelah kanan "Link".</p>
                                         {content.contentType === "Artikel" ? (
                                             <Editor
                                                 editorState={content.artikel}
@@ -306,15 +326,29 @@ function AddProgram({
                                                 // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                                 name="contents"
                                                 toolbar={{
+                                                    list: {
+                                                        inDropdown: true,
+                                                    },
+                                                    textAlign: {
+                                                        inDropdown: true,
+                                                    },
                                                     image: {
                                                         uploadEnabled: true,
                                                         alignmentEnabled: true,
                                                         previewImage: true,
                                                         uploadCallback: uploadCallback,
                                                         inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                                        defaultSize: {
+                                                            height: 'auto',
+                                                            width: '360px',
+                                                        },
                                                     },
                                                     embedded:{
-                                                        embedCallback: embedVideoCallBack
+                                                        embedCallback: embedVideoCallBack,
+                                                        defaultSize: {
+                                                            height: 'auto',
+                                                            width: '360px',
+                                                        },
                                                     }
                                                 }}
                                                 onChange={() => {

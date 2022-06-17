@@ -8,6 +8,30 @@
   grid-row-gap: 2rem;
   padding: 1rem;
 
+  #add_program {
+    color: #111;
+    font-weight: 800;
+    text-decoration: none;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px rgba(#ddd, 0.9);
+
+    justify-self: start;
+    border-radius: 2rem;
+
+    display: grid;
+    grid-template-columns: 2rem max-content 0.4rem;
+    grid-column-gap: 0.4rem;
+    align-items: center;
+  }
+
+  .IconAdd {
+    color: #fff;
+    background-color: var(--color-primary);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+  }
+
   h1 {
     color: var(--color-primary);
   }

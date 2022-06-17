@@ -176,6 +176,53 @@ export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, 
 
 }
 
+export const addStep = (programId, cobrandEmail, nomerUrutTahapan, namaTahapan, contentName, contentType, contentSource, contents, startDate, endDate, topics, targetAudiance, response, answerKey, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let respons = {};
+        for(var j = 0; j < response.length; j++) {
+            respons[response[j]] = 0;
+        }
+        let data = {
+            programId,
+            cobrandEmail,
+            nomerUrutTahapan,
+            namaTahapan,
+            contentName,
+            contentType,
+            contentSource,
+            contents,
+            startDate,
+            endDate,
+            topics,
+            targetAudiance,
+            respons,
+            answerKey,
+            status: 'active'
+        };
+
+        console.log(data);
+        //Call API ....
+
+        contentEdit(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/cms/program/edit/');
+                dispatch(alertSuccess('Tahap program "' + contentName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Tahap program "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+    }
+
+}
+
 export const editStep = (_id, cobrandEmail, namaTahapan, contentName, contents, response, answerKey, history) => {
     return dispatch => {
         dispatch(loadingStart());

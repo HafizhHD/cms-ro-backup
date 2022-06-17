@@ -382,6 +382,7 @@ function EditStep({
                                             setFieldValue('answerKey', e.currentTarget.value)
                                         }}
                                     >
+                                        <option value='-1' disabled>{" "}</option>
                                         {
                                             values.response.map((category) => {
                                                 return (

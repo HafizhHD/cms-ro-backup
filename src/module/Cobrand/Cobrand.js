@@ -10,6 +10,7 @@ import RKLoader from '../../components/UI/RKLoader/RKLoader';
 
 const ProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/Program'));
 const AddProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/AddProgram/AddProgram'));
+const AddProgramStepAsync = lazy(() => import('./../../containers/CoBrand/Program/EditProgram/AddStep/AddStep'));
 const EditProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/EditProgram/EditProgram'));
 const EditProgramStepAsync = lazy(() => import('./../../containers/CoBrand/Program/EditProgram/EditStep/EditStep'));
 const ViewProgramAsync = lazy(() => import('./../../containers/CoBrand/Program/ViewProgram/ViewProgram'));
@@ -231,6 +232,11 @@ function Cobrand({
                     path="/cms/program/edit"
                     exact
                     component={EditProgramAsync}
+                />
+                <PrivateRoute
+                    path="/cms/program/edit/add-step"
+                    exact
+                    component={AddProgramStepAsync}
                 />
                 <PrivateRoute
                     path="/cms/program/edit/step"
