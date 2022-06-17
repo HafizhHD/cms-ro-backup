@@ -207,7 +207,7 @@ export const addStep = (programId, cobrandEmail, nomerUrutTahapan, namaTahapan, 
         console.log(data);
         //Call API ....
 
-        contentEdit(data)
+        contentAdd(data)
             .then(response => {
                 console.log('Success:', response.data);
                 history.push('/cms/program/edit/');
