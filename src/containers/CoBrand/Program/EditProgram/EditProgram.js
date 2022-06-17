@@ -84,6 +84,7 @@ function EditProgram({
                 .then(response => {
                     console.log("Response data: ", response.data);
                     setProgram(response.data.programs[0]);
+                    localStorage.setItem('programCategory', response.data.programs[0].category);
                     var audienceValRaw = [];
                     response.data.programs[0].targetAudiance.map(e => {
                         audienceValRaw.push({value: e, label: e});
@@ -262,8 +263,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEditProgram: ( _id, cobrandEmail, programName, programDescription, programThumbnailEdit, startDate, history ) =>
-            dispatch(editProgram( _id, cobrandEmail, programName, programDescription, programThumbnailEdit, startDate, history ))
+        onEditProgram: ( _id, cobrandEmail, programName, programDescription, programThumbnailEdit, startDate, endDate, category, targetAudiance, history ) =>
+            dispatch(editProgram( _id, cobrandEmail, programName, programDescription, programThumbnailEdit, startDate, endDate, category, targetAudiance, history ))
     }
 }
 

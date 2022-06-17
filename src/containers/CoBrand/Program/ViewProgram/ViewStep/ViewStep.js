@@ -14,6 +14,7 @@ import { getContentList } from '../../../../../components/API/filter';
 function ViewStep() {
 
     const [content, setContent] = useState("");
+    const [response, setResponse] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
     const [isActive, setActive] = useState(true);
@@ -48,6 +49,7 @@ function ViewStep() {
                     if (response.data.contents[0].status === 'active') setActive(true);
                     else setActive(false);
                     console.log("This is ", content);
+                    setResponse(Object.keys(response.data.contents[0].respons));
                     setLoading(false);
                     let date = new Date(response.data.contents[0].startDate).toLocaleDateString("en-UK", dateFormat);
                     setStartDate(date);
@@ -61,30 +63,30 @@ function ViewStep() {
 
     // komentar
     // get komentar by id done
-    useEffect(() => {
-        const id = localStorage.getItem('contentSelected');
-        console.log(id);
-        let params =
-        {
-            whereKeyValues: {
-                contentId: id,
-            }
-        }
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
-            data: params,
-        })
-            .then(response => {
-                console.log(response.data.resultData);
-                setKomen(response.data.resultData)
-                console.log(response.data.resultData[0]._id); //id komentar
-                // console.log(response.data.resultData[0].emailUser);
-            })
-            .catch(error => {
-                console.log(error + 'ini eror komentar');
-            });
-    }, [])
+    // useEffect(() => {
+    //     const id = localStorage.getItem('contentSelected');
+    //     console.log(id);
+    //     let params =
+    //     {
+    //         whereKeyValues: {
+    //             contentId: id,
+    //         }
+    //     }
+    //     axios({
+    //         method: 'post',
+    //         url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
+    //         data: params,
+    //     })
+    //         .then(response => {
+    //             console.log(response.data.resultData);
+    //             setKomen(response.data.resultData)
+    //             console.log(response.data.resultData[0]._id); //id komentar
+    //             // console.log(response.data.resultData[0].emailUser);
+    //         })
+    //         .catch(error => {
+    //             console.log(error + 'ini eror komentar');
+    //         });
+    // }, [])
 
     // post komentar
     // useEffect(() => {
@@ -196,7 +198,7 @@ function ViewStep() {
                 <NavLink to="/cms/program/view" className="action_btn_nav">
                     <h3><FiArrowLeftCircle /> Kembali ke Lihat Program</h3>
                 </NavLink>
-                <NavLink to="/cms/content/edit" className="action_btn_nav">
+                <NavLink to="/cms/program/edit/step" className="action_btn_nav">
                     <h3><FiEdit /> Ubah Tahap Ini</h3>
                 </NavLink>
                 <span
@@ -206,7 +208,7 @@ function ViewStep() {
                     }}><NavLink to="/cms/content" className="action_btn_nav">
                         <h3><FiTrash2 /> Hapus Tahap Ini</h3>
                     </NavLink></span>
-                <div className="action_btn_switch">
+                {/* <div className="action_btn_switch">
                     <p className="action_btn_switch_status">Status:</p>
                     <p className="action_btn_switch_inactive">Inactive</p>
                     <label className="action_btn_switch_switch">
@@ -243,7 +245,7 @@ function ViewStep() {
                         <span className="action_btn_switch_switch_slider"></span>
                     </label>
                     <p className="action_btn_switch_active">Active</p>
-                </div>
+                </div> */}
             </div>
             <div className="section_title">
                 <h2>Detail Tahap</h2>
@@ -260,24 +262,33 @@ function ViewStep() {
                         </div>
                     </div>
                     <div className="content_detail_bottom">
-                        <div className="content_detail_bottom_detail">
+                        {/* <div className="content_detail_bottom_detail">
                             <p className="content_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
                             <p className="content_detail_group"><FiFileText /> Type: <span>{content.contentType}</span> </p>
                             <p className="content_detail_group"><FiLink /> Source: <span>{content.contentSource}</span> </p>
                         </div>
                         <div className="content_detail_bottom_description">
                             <p className="content_detail_group" >Description:</p>
-                            {/* <p>{content.contentDescription}</p> */}
+                            <p>{content.contentDescription}</p>
                             <p dangerouslySetInnerHTML={{ __html: content.contentDescription }}></p>
-                        </div>
+                        </div> */}
                         <div className="content_detail_bottom_contents">
-                            <p className="content_detail_group">Contents:</p>
+                            <p className="content_detail_group">Isi Tahap:</p>
 
                             {typeof content.contents === 'string' ? (
                                 <div dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                             ) : (
                                 <div className='pdf-style' dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                             )}
+
+                            <p className="content_detail_group">Pilihan Respon/Jawaban:</p>
+                            <div className="content_detail_bottom_contents_choice">
+                                {response.map(e => {
+                                    return (
+                                        <p>&bull; {e}</p>
+                                    )
+                                })}
+                            </div>
 
                         </div>
                     </div>
@@ -290,8 +301,8 @@ function ViewStep() {
                                 <div className="content_preview_smartphone_display_top_title">
                                     <h2>{content.contentName}</h2>
                                     <br />
-                                    <p>{startDate}</p>
-                                    <p>Sumber: {content.contentSource}</p>
+                                    {/* <p>{startDate}</p>
+                                    <p>Sumber: {content.contentSource}</p> */}
                                 </div>
                             </div>
                             <div className="content_preview_smartphone_display_html" dangerouslySetInnerHTML={{ __html: content.contents }}></div>

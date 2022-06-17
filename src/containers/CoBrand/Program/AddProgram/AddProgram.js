@@ -259,7 +259,7 @@ function AddProgram({
                                         />
                                         {stepTouched.namaTahapan && <span className="message__error">{stepErrors.namaTahapan}</span>}
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label>Tipe Tahap</label>
                                         <select
                                             name="contentType"
@@ -274,7 +274,7 @@ function AddProgram({
                                             <option value="Video">Video</option>
                                             <option value="Pdf">File Pdf</option>
                                         </select>
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="form-group">
                                         <label>Judul Tahap</label>

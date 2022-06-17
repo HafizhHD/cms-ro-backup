@@ -113,79 +113,85 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
 
 }
 
-export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, photo, startDate, history) => {
+export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, startDate, endDate, category, targetAudiance, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
-        console.log('Photo is empty:', photo === '');
-        if (photo === '') {
-            let data = {
-                whereValues: {
-                    cobrandEmail,
-                    _id
-                },
-                newValues: {
-                    programName,
-                    ProgramDescription,
-                    startDate
-                }
-            };
+        let data = {
+            whereValues: {
+                cobrandEmail,
+                _id
+            },
+            newValues: {
+                programName,
+                ProgramDescription,
+                startDate,
+                endDate,
+                category,
+                targetAudiance
+            }
+        };
 
-            console.log(data);
-            //Call API ....
+        console.log(data);
+        //Call API ....
 
-            programEdit(data)
-                .then(response => {
-                    console.log('Success:', response.data);
-                    history.push('/cms/program');
-                    dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
-                    dispatch(loadingStop());
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
-                    dispatch(loadingStop());
-                });
-        }
-
-        else {
-            const promise = toBase64(photo);
-            promise.then((result) => {
-                console.log(typeof result);
-                const programthumnail = result;
-
-                let data = {
-                    whereValues: {
-                        cobrandEmail,
-                        _id
-                    },
-                    newValues: {
-                        programName,
-                        ProgramDescription,
-                        programthumnail,
-                        startDate
-                    }
-                };
-
-                console.log(data);
-                //Call API ....
-
-                programEdit(data)
-                    .then(response => {
-                        console.log('Success:', response.data);
-                        history.push('/cms/program');
-                        dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
-                        dispatch(loadingStop());
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
-                        dispatch(loadingStop());
-                    });
+        programEdit(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/cms/program');
+                dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Program "' + programName + '" gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
             });
+    }
+
+}
+
+export const editStep = (_id, cobrandEmail, namaTahapan, contentName, contents, response, answerKey, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let respons = {};
+        for(var j = 0; j < response.length; j++) {
+            respons[response[j]] = 0;
         }
+        let data = {
+            whereValues: {
+                cobrandEmail,
+                _id
+            },
+            newValues: {
+                namaTahapan,
+                contentName,
+                contents,
+                response,
+                answerKey
+            }
+        };
+
+        console.log(data);
+        //Call API ....
+
+        contentEdit(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/cms/program/view/step');
+                dispatch(alertSuccess('Tahap program "' + contentName + '" berhasil diubah.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Tahap program "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
     }
 
 }

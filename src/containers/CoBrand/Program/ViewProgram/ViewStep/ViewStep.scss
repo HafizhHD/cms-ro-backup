@@ -6,7 +6,7 @@
     background: linear-gradient(180deg, #ffffff 75%, #dddddd 100%);
     display: grid;
     width: 100%;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 0.2rem;
     text-align: center;
     border: 1px solid black;
@@ -177,6 +177,11 @@
             &_contents {
                 white-space: pre-line;
                 font-weight: 10;
+
+                &_choice {
+                    display: grid;
+                    grid-template-columns: repeat(3, 30%);
+                }
             }
         }
 

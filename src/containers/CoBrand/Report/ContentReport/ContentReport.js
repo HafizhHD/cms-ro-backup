@@ -79,7 +79,7 @@ const ContentReport = () => {
                        }
                    }}>Dummy</button>
            </div>
-            <div className="Content_table">
+            <div className="Artikel_table">
                 <TablePengguna
                     COLUMNS={columns}
                     DATA={contentData}

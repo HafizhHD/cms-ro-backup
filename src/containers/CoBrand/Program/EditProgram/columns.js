@@ -18,6 +18,10 @@ const Columns = (setStepDeleting) => {
         accessor: '_id'
     },
     {
+        Header: 'No. Urut Tahap',
+        accessor: 'nomerUrutTahapan'
+    },
+    {
         Header: 'Nama Tahap',
         accessor: 'namaTahapan'
     },
@@ -25,10 +29,10 @@ const Columns = (setStepDeleting) => {
         Header: 'Judul Tahap',
         accessor: 'contentName'
     },
-    {
-        Header: 'Jenis Tahap',
-        accessor: 'contentType'
-    },
+    // {
+    //     Header: 'Jenis Tahap',
+    //     accessor: 'contentType'
+    // },
     // {
     //     Header: 'Topik Artikel',
     //     accessor: 'topics',
@@ -39,32 +43,32 @@ const Columns = (setStepDeleting) => {
     //     accessor: 'targetAudiance',
     //     Cell: ({value}) => value.join(', ')
     // },
-    {
-        Header: 'Tanggal Mulai',
-        accessor: 'startDate',
-        Cell: ({value}) => (
-            <>
-                {value !== undefined ? new Date(value).toLocaleDateString("id-ID", dateFormat) : ''}
-            </>
-        )
-    },
-    {
-        Header: 'Tanggal Berakhir',
-        accessor: 'endDate',
-        Cell: ({value}) => (
-            <>
-                {value !== undefined ? new Date(value).toLocaleDateString("id-ID", dateFormat) : ''}
-            </>
-        )
-    },
-    {
-        Header: 'Status',
-        accessor: 'status',
-        Cell: ({ value }) => {
-            if(value === 'active') return <p style={{ color: 'green', fontWeight: 'bold' }}>{value}</p>
-            else return <p style={{ color: 'red', fontWeight: 'bold' }}>{value}</p>
-        }
-    },
+    // {
+    //     Header: 'Tanggal Mulai',
+    //     accessor: 'startDate',
+    //     Cell: ({value}) => (
+    //         <>
+    //             {value !== undefined ? new Date(value).toLocaleDateString("id-ID", dateFormat) : ''}
+    //         </>
+    //     )
+    // },
+    // {
+    //     Header: 'Tanggal Berakhir',
+    //     accessor: 'endDate',
+    //     Cell: ({value}) => (
+    //         <>
+    //             {value !== undefined ? new Date(value).toLocaleDateString("id-ID", dateFormat) : ''}
+    //         </>
+    //     )
+    // },
+    // {
+    //     Header: 'Status',
+    //     accessor: 'status',
+    //     Cell: ({ value }) => {
+    //         if(value === 'active') return <p style={{ color: 'green', fontWeight: 'bold' }}>{value}</p>
+    //         else return <p style={{ color: 'red', fontWeight: 'bold' }}>{value}</p>
+    //     }
+    // },
     {
         Header: 'Action',
         // accessor: '_id',

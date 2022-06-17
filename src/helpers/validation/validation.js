@@ -119,7 +119,13 @@ export const validationProgramEdit = yup.object({
     programName: yup.string('Enter your program title').required('Program title is required'),
     programDescription: yup.string('Enter the program description').required('Program description is required'),
     startDate: yup.date('Insert start date').required('Date is required')
-})
+});
+
+export const validationStepEdit = yup.object({
+    namaTahapan: yup.string().required('Nama Tahapan harus diisi'),
+    contentName: yup.string().required('Judul Tahapan harus diisi'),
+    contents: yup.string().required('Isi Tahapan harus diisi'),
+});
 
 export const validationContent = yup.object({
     contentName: yup.string('Enter your content title').required('Content title is required'),

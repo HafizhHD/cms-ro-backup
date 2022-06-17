@@ -56,6 +56,7 @@ function ViewProgram() {
             Promise.all([promiseProgram, promiseStep]).then(response => {
                 console.log("Response data: ", response[0].data);
                 setProgram(response[0].data.programs[0]);
+                localStorage.setItem('programCategory', response[0].data.programs[0].category);
                 console.log("This is ", program);
                 setSteps(response[1].data.contents);
                 setLoading(false);
