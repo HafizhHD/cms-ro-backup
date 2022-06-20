@@ -9,7 +9,7 @@ import columns from'./columns';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
-import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationList } from '../../../components/API/filter';
+import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList } from '../../../components/API/filter';
 import {FaWhatsapp} from 'react-icons/fa'
 
 import StackedChart from './component/StackedChart'
@@ -191,6 +191,16 @@ function Dashboard() {
         }
 
         let paramNotification = {
+            whereKeyValues: {
+                scheduleTime: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
+        let paramNotificationCategory = {
             limit: Number.MAX_SAFE_INTEGER
         }
 
@@ -199,8 +209,9 @@ function Dashboard() {
         const promiseProgram = getProgramList(paramProgram);
         const promiseUsage = getAppUsageList(paramUsage);
         const promiseNotification = getNotificationList(paramNotification);
+        const promiseNotificationCategory = getNotificationCategoryList(paramNotificationCategory);
 
-        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification]).then(responseAll => {
+        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification, promiseNotificationCategory]).then(responseAll => {
             console.log(responseAll[0]);
             const dataUser = responseAll[0].data.users;
             countingUser[0] = dataUser.length;
@@ -311,8 +322,23 @@ function Dashboard() {
             setTopUsageLabel(usageLabel.slice(0,10));
 
             console.log(responseAll[4].data);
-            setNotifData([]);
-            setNotifLabel([]);
+            console.log(responseAll[5].data);
+            var notifCat = [];
+            var notifDat = [];
+            responseAll[5].data.Data.map(e => {
+                notifCat.push(e.category);
+                notifDat.push(0);
+            });
+            responseAll[4].data.resultData.map(e => {
+                for(var i = 0; i < notifDat.length; i++) {
+                    if(e.category === notifCat[i]) {
+                        notifDat[i]++;
+                        break;
+                    }
+                }
+            });
+            setNotifData([{data: notifDat}]);
+            setNotifLabel(notifCat);
             setTopicCountLabel([]);
             setTopicCountData([]);
             setTopicViewLabel([]);

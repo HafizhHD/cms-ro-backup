@@ -28,6 +28,15 @@ const DonutChart = (props) => {
                 }
             },
             labels: props.label,
+            tooltip: {
+                enabled: true,
+                custom: ({ series, seriesIndex, dataPointIndex, w }) => {
+                    let total = 0;
+                    for (let x of series) { total += x; }
+                    let selected = series[seriesIndex];
+                    return '<div style="color:white;padding:5px;background-color:' + props.colors[seriesIndex] + ';font-weight:bold" >' + w.config.labels[seriesIndex] + ": " + selected + " (" + (selected / total * 100).toFixed(1) + "%)" + '</div>';
+                }
+            },
             responsive: [{
                 breakpoint: 480,
                 options: {
