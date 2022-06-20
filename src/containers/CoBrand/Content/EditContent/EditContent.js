@@ -70,7 +70,7 @@ function EditContent({
     };
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const _id = localStorage.getItem('contentSelected');
 
     const params1 = {

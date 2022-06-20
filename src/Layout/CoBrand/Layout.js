@@ -123,7 +123,7 @@ function Layout({
                     <div className="Header__infoaccount__profile">
                         <button className="Header__activeUser" onClick={onClickDropDown}>
                             <img src={userData.thumbnail} className={`Header__profileImg ${isActive && 'Header__profileImg__active'}`} />
-                            <span>{userData.cobrandName}</span>
+                            <span>{userData.userName}</span>
                             {isActive ? <FiChevronUp /> : <FiChevronDown /> }  
                         </button>
                         <nav 

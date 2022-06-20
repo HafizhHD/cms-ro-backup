@@ -15,7 +15,7 @@ function AddScreenTime({
 }) {
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const unit = "jam";
 
     if(isLoading) return <RKLoader/>

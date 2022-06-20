@@ -27,7 +27,7 @@ function AddProgram({
 }) {
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
 
     const [isPageLoading, setPageLoading] = useState(true);
     const [categoryList, setCategoryList] = useState([]);

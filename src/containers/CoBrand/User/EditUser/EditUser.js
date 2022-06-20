@@ -21,7 +21,7 @@ function EditUser({
     const [programStartDate, setProgramStartDate] = useState();
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const _emailUser = localStorage.getItem('userSelected');
 
     useEffect(() => {

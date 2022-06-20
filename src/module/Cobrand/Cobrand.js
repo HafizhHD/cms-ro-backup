@@ -80,8 +80,10 @@ function Cobrand({
         let check = localStorage.getItem('accessToken');
 
         if (check) {
+            console.log('Yes masuk');
             onAuthSuccess()
         } else {
+            console.log('Yah gagal');
             onAuthFailed()
         }
 

@@ -3,7 +3,7 @@ import url from "./urlApi";
 
 export const cobrandLogin = (query) => axios({
     method: 'post',
-    url: url + '/cobrand/cobrandLogin',
+    url: url + '/cms/cmsLogin',
     data: query,
     headers: {
         'Content-Type': 'application/json',

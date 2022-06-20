@@ -4,7 +4,7 @@ const PhoneRegex = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]
 const UserRegex = /^\S*$/;
 
 export const validationFormLogin = yup.object({
-    email: yup.string('Enter your email').required('Email is required').email('Email not valid'),
+    userName: yup.string('Enter your email').required('Email is required'),
     password: yup.string('Enter your password').required('Password is required')
 })
 

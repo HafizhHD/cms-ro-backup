@@ -15,7 +15,7 @@ function AddStaff({
 }) {
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
 
     return (
         <>

@@ -20,7 +20,7 @@ function AddNotification({
 
     const history = useHistory();
     const [sche, setSche] = useState(new Date());
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const [emailList, setEmailList] = useState([]);
     const [notifContext, setNotifContext] = useState('');
     const [isTargetChecked, setTargetChecked] = useState(false);

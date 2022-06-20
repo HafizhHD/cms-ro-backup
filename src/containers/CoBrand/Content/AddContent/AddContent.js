@@ -78,7 +78,7 @@ function AddContent({
     };
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
 
     useEffect(() => {
         let paramTopic = {};

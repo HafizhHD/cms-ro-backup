@@ -89,7 +89,7 @@ function AddStep({
     };
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const programId = localStorage.getItem('programSelected');
 
     useEffect(() => {

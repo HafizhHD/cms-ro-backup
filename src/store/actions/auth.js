@@ -12,16 +12,16 @@ import { cobrandLogin, cobrandRegister } from '../../components/API/auth';
 export const authStart = () => ({ type: AUTH_START });
 export const authFailed = () => ({ type: AUTH_FAILED });
 export const authSuccess = () => ({ type: AUTH_SUCCESS })
-export const auth = ( email, password ) => {
+export const auth = ( userName, password ) => {
     console.log({
-        email,
+        userName,
         password
     })
     return dispatch => {
         dispatch( authStart() );
         
         let data = {
-            email,
+            userName,
             password
         };
         //Call API ....
@@ -29,7 +29,7 @@ export const auth = ( email, password ) => {
         .then(response => {
             console.log(response.data);
             let loginData = response.data;
-            if (loginData.resultCode === "OK" && loginData.resultData && loginData.resultData.user.password === password) {
+            if (loginData.resultCode === "OK" && loginData.resultData) {
                 localStorage.setItem('accessToken', loginData.resultData.token);
                 localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
                 localStorage.removeItem('loginMessage');

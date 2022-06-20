@@ -22,12 +22,12 @@ function Login({
 
     const formik = useFormik({
         initialValues: {
-            email: '',
+            userName: '',
             password: ''
         },
         validationSchema: validationFormLogin,
         onSubmit: values => {
-            onLogin( values.email, values.password )
+            onLogin( values.userName, values.password )
         }
     });
 
@@ -75,14 +75,14 @@ function Login({
                             </div>
                             <form className="Login-middle-right-form" onSubmit={formik.handleSubmit}>
                                 <InputComponent 
-                                    placeholder="Your E-mail (example@mail.com)"
+                                    placeholder="User Name"
                                     type="text"
-                                    name="email"
+                                    name="userName"
                                     onChange={formik.handleChange}
-                                    value={formik.values.email}
+                                    value={formik.values.userName}
                                     className="Input-control Input-control__with-focus mb-tiny"
-                                    isError={formik.touched.email && Boolean(formik.errors.email) }
-                                    message={formik.touched.email && formik.errors.email}
+                                    isError={formik.touched.userName && Boolean(formik.errors.userName) }
+                                    message={formik.touched.userName && formik.errors.userName}
                                 />
                                 <InputComponent 
                                     placeholder="Password"
@@ -138,7 +138,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (email, password) => dispatch( auth( email, password )  )
+        onLogin: (userName, password) => dispatch( auth( userName, password )  )
     }
 }
 

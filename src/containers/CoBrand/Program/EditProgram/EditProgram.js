@@ -28,7 +28,7 @@ function EditProgram({
     const [programStartDate, setProgramStartDate] = useState();
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).email;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const _id = localStorage.getItem('programSelected');
 
     const [categoryList, setCategoryList] = useState([]);
