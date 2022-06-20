@@ -88,7 +88,7 @@ function AddStaff({
                                 name="userLevel"
                                 value={values.userLevel}
                                 onChange={(e) => {
-                                    setFieldValue("userType", e.currentTarget.value);
+                                    setFieldValue("userLevel", e.currentTarget.value);
                                 }}
                             >
                                 <option value="Super Admin">Super Admin</option>
