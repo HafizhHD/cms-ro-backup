@@ -7,7 +7,7 @@ const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
 }
 
-const Columns = (setStepDeleting) => {
+const Columns = (setStepDeleting, setWarning) => {
     return [
         // {
         //     Header: 'Nomor',
@@ -97,6 +97,8 @@ const Columns = (setStepDeleting) => {
                     title="Hapus Tahap"
                     onClick={() => {
                         setStepDeleting([cell.row.values._id, cell.row.values.contentName]);
+                        setWarning(true);
+                        document.body.style.overflow = 'hidden';
                     }}
                     >
                     <button

@@ -184,7 +184,7 @@ class AddProgramRev extends React.Component {
                     <form className='form'>
                         <label>Email</label> <br></br>
                         <input className='input'
-                            ref="email" type="email" defaultValue={userData.email}
+                            ref="email" type="email" defaultValue={userData.cobrandEmail}
                         ></input>
                         <br></br>
                         <label>Judul</label>

@@ -88,7 +88,7 @@ function Setting({
                     <h2>Edit Account</h2>
                     <Formik
                         initialValues= {{
-                            email: userData.email,
+                            email: userData.cobrandEmail,
                             password: '',
                             confirmPassword: '',
                             cobrandName: userData.cobrandName,
@@ -99,7 +99,7 @@ function Setting({
                         validationSchema = {validationFormEdit}
                         validateOnChange = {true}
                         onSubmit = {values => {
-                            onEditProfile(userData.email, userData.password, values.cobrandName, values.thumbnail, values.phoneNumber, values.address, values.password)
+                            onEditProfile(userData.cobrandEmail, userData.password, values.cobrandName, values.thumbnail, values.phoneNumber, values.address, values.password)
                         }}
                     >
                     {({handleChange, handleBlur, handleSubmit, setFieldValue, touched, values, errors}) => (

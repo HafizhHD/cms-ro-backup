@@ -30,7 +30,7 @@ const ProgramReport = () => {
         }
         else {let params={
             whereKeyValues: {
-                cobrandEmail: userData.email,
+                cobrandEmail: userData.cobrandEmail,
                 programId: _id
             },
             orderKeyValues: {

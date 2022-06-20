@@ -59,7 +59,7 @@ class ListProgram extends React.Component {
         const userData = JSON.parse(localStorage.getItem('userData'));
         const params = {
             whereKeyValues: {
-                cobrandEmail: userData.email
+                cobrandEmail: userData.cobrandEmail
                 // admin@asia.ruangortu.id
             },
             includeThumbnailData: false,
@@ -116,7 +116,7 @@ class ListProgram extends React.Component {
                 const userData = JSON.parse(localStorage.getItem('userData'));
                 const params2 = {
                     whereKeyValues: {
-                        cobrandEmail: userData.email
+                        cobrandEmail: userData.cobrandEmail
                         // admin@asia.ruangortu.id
                     },
                     includeThumbnailData: false,
@@ -287,7 +287,7 @@ class ListProgram extends React.Component {
                 const userData = JSON.parse(localStorage.getItem('userData'));
                 const params2 = {
                     whereKeyValues: {
-                        cobrandEmail: userData.email
+                        cobrandEmail: userData.cobrandEmail
                         // admin@asia.ruangortu.id
                     },
                     includeThumbnailData: false,

@@ -22,7 +22,7 @@ const RedzoneReport = () => {
     useEffect(() => {
         let params={
             whereKeyValues: {
-                cobrandEmail: userData.email
+                cobrandEmail: userData.cobrandEmail
             },
             orderKeyValues: {
                 placeName: 1

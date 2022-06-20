@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Heading from '../../../../components/UI/Heading/Heading';
 import { FiArrowLeftCircle, FiCalendar, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { getContentList } from './../../../../components/API/filter';
@@ -10,6 +10,7 @@ import columns from './columns'
 import axios from 'axios';
 import './ViewProgram.scss';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
+import Warning from '../../../../components/UI/Warning/Warning'
 
 function ViewProgram() {
 
@@ -18,10 +19,24 @@ function ViewProgram() {
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
     const [programDeleting, setProgramDeleting] = useState(null);
+    const [showWarning, setShowWarning] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    
+    const history = useHistory();
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     }
+
+    useEffect(() => {
+        if(confirmDelete) history.push('/cms/program');
+    }, [confirmDelete]);
+
+    useEffect(() => {
+        if(!showWarning && !confirmDelete) {
+            localStorage.removeItem('programDeleting');
+        }
+    }, [showWarning, confirmDelete])
 
     useEffect(() => {
         setLoading(true);
@@ -31,7 +46,7 @@ function ViewProgram() {
             const userData = JSON.parse(localStorage.getItem('userData'));
             const params = {
                 whereKeyValues: {
-                    cobrandEmail: userData.email,
+                    cobrandEmail: userData.cobrandEmail,
                     _id: id
                 }
             };
@@ -76,6 +91,8 @@ function ViewProgram() {
 
     return (
         <>
+            {showWarning ? <Warning setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Program"}/> : null}
+
             <Heading headingName="Program" routes={[
                 { path: '/cms/program', name: 'On Going Program' },
                 { path: '/cms/program/view', name: 'View Program Detail' }
@@ -95,7 +112,9 @@ function ViewProgram() {
                         // }
                         
                         localStorage.setItem('programDeleting', JSON.stringify([program._id, program.programName]));
-                    }}><NavLink to="/cms/program" className="program_action_btn_nav">
+                        setShowWarning(true);
+                        document.body.style.overflow = 'hidden';
+                    }}><NavLink to="/cms/program/view" className="program_action_btn_nav">
                     <h3><FiTrash2 /> Delete This Program</h3>
                 </NavLink></span>
             </div>

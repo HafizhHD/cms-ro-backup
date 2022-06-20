@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getContentList } from '../../../components/API/filter';
+import Warning from '../../../components/UI/Warning/Warning'
 
 
 
@@ -21,12 +22,13 @@ function Content({
     const [isLoading, setLoading] = useState(true);
     const [contentList, setContentList] = useState();
     const [contentDeleting, setContentDeleting] = useState(null);
-    const [showModal, setShowModal] = useState(false);
+    const [showWarning, setShowWarning] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     const userData = JSON.parse(localStorage.getItem('userData'));
     const params = {
         whereKeyValues: {
-            cobrandEmail: userData.email,
+            cobrandEmail: userData.cobrandEmail,
             status: {"$in" : ["active", "inactive"]},
             programId: "-1"
         },
@@ -52,7 +54,9 @@ function Content({
     useEffect(() => {
         setLoading(true);
         if(localStorage.getItem('contentDeleting')) {
+            console.log('masyuk syini');
             setContentDeleting([localStorage.getItem('contentDeleting'), localStorage.getItem('contentDeletingName')]);
+            setConfirmDelete(true);
             localStorage.removeItem('contentDeleting');
             localStorage.removeItem('contentDeletingName');
         }
@@ -60,11 +64,13 @@ function Content({
     }, []);
 
     useEffect(() => {
-        if(contentDeleting) {
+        if(contentDeleting && confirmDelete) {
             setLoading(true);
-            onDeleteContent(userData.email, contentDeleting, retrieveList);
+            onDeleteContent(userData.cobrandEmail, contentDeleting, retrieveList);
+            setConfirmDelete(false);
+            setContentDeleting(null);
         }
-    }, [contentDeleting])
+    }, [contentDeleting, confirmDelete])
 
 
     if(isLoading || isCurrentlyLoading) {
@@ -72,6 +78,7 @@ function Content({
     }
 
     return (
+        <>
         <div className="Content">
             <h1>ARTIKEL</h1>
             <NavLink to="/cms/content/add" id="add_content">
@@ -79,9 +86,11 @@ function Content({
                <span>Buat Artikel Baru</span>  
             </NavLink>
             <div className="Content__table">
-                <TableContent COLUMNS={columns(setContentDeleting)} DATA={contentList}  />
+                <TableContent COLUMNS={columns(setContentDeleting, setShowWarning)} DATA={contentList}  />
             </div>
+            {showWarning ? <Warning setDeleting={setContentDeleting} setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Artikel"}/> : null}
         </div>
+        </>
     )
 }
 

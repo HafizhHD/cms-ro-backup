@@ -281,9 +281,24 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
         programDelete(deleting)
             .then(response => {
                 console.log(response.data);
-                dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
-                dispatch(loadingStop());
-                retrieveList();
+                let paramu = {
+                    whereValues: {
+                        programId: programId[0]
+                    }
+                }
+                contentDelete(paramu)
+                .then(response2 => {
+                    console.log(response2.data);
+                    dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
+                    dispatch(loadingStop());
+                    retrieveList();
+                })
+                .catch(error => {
+                    console.log(error);
+                    dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus, namun tahap pada program gagal dihapus.'));
+                    dispatch(loadingStop());
+                    retrieveList();
+                });
             })
             .catch(error => {
                 console.log(error);

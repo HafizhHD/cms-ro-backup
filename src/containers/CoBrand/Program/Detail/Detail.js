@@ -91,7 +91,7 @@ const Detail = ({ userSelected }) => {
 
             let param = {
                 whereValues: {
-                    emailUser: userData.emailUser
+                    emailUser: userData.cobrandEmailUser
                 },
                 newValues: {
                     status: stats
@@ -190,7 +190,7 @@ const Detail = ({ userSelected }) => {
                             <h5>: </h5>
                         </div>
                         <div className="Detail_detail_detail_group_value">
-                            <h5>{userData.emailUser}</h5>
+                            <h5>{userData.cobrandEmailUser}</h5>
                         </div>
                     </div>
                     <div className="Detail_detail_detail_group">

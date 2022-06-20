@@ -5,7 +5,7 @@ const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
 }
 
-const Columns = (setProgramDeleting) => {
+const Columns = (setProgramDeleting, setWarning) => {
     return ([
         {
             Header: 'ID',
@@ -85,6 +85,8 @@ const Columns = (setProgramDeleting) => {
                         title="Delete Program"
                         onClick={() => {
                             setProgramDeleting([cell.row.values._id, cell.row.values.programName]);
+                            setWarning(true);
+                            document.body.style.overflow = 'hidden';
                         }}
                         replace>
                         <button

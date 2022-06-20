@@ -12,6 +12,7 @@ import { validationProgramEdit } from '../../../../helpers/validation/validation
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import { FiPlus } from 'react-icons/fi';
+import Warning from '../../../../components/UI/Warning/Warning'
 
 import TableProgram from './../../../../components/UI/Table/Table';
 import columns from './columns'
@@ -36,6 +37,9 @@ function EditProgram({
     const [steps, setSteps] = useState([]);
     const [stepDeleting, setStepDeleting] = useState(null);
     const [audienceVal, setAudienceVal] = useState([]);
+
+    const [showWarning, setShowWarning] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     // const [isStepAdded, setStepAdded] = useState(false);
     // const [stepCount, setStepCount] = useState(0);
     // const [responseCount, setResponseCount] = useState(1);
@@ -111,7 +115,8 @@ function EditProgram({
     }, []);
 
     useEffect(() => {
-        if(stepDeleting) {
+        if(stepDeleting && confirmDelete) {
+            console.log('yatta!')
             console.log('ini id step', stepDeleting[0]);
             setPageLoading(true);
             let param = {
@@ -122,6 +127,7 @@ function EditProgram({
             contentDelete(param)
             .then(response => {
                 setStepDeleting(null);
+                setConfirmDelete(false);
                 console.log('ini respon step deleting', response);
                 const params2 = {
                     whereKeyValues: {
@@ -143,7 +149,7 @@ function EditProgram({
                 console.log(error);
             })
         }
-    }, [stepDeleting]);
+    }, [stepDeleting, confirmDelete]);
 
     if(isPageLoading || isLoading) {
         return <RKLoader/>
@@ -151,6 +157,7 @@ function EditProgram({
 
     return (
         <>
+            {showWarning ? <Warning setDeleting={setStepDeleting} setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Tahap"}/> : null}
             <Heading headingName="Program" routes={[
                 { path: '/cms/program', name: 'Program' },
                 { path: '/cms/program/edit', name: 'Ubah Program Terpilih' }
@@ -278,7 +285,7 @@ function EditProgram({
                         <div className="form-group">
                             <div className="Program__table">
                                 <TableProgram 
-                                    COLUMNS={columns(setStepDeleting)} 
+                                    COLUMNS={columns(setStepDeleting, setShowWarning)} 
                                     DATA={steps}  
                                 />
                             </div>

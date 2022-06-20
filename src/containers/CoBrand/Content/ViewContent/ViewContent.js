@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Heading from '../../../../components/UI/Heading/Heading';
 import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
@@ -8,6 +8,8 @@ import './ViewContent.scss';
 import { Table, Button } from 'react-bootstrap'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { Redirect } from 'react-router-dom';
+
+import Warning from '../../../../components/UI/Warning/Warning'
 // import TableContent from './../../../components/UI/Table/Table';
 
 function ViewContent() {
@@ -21,11 +23,17 @@ function ViewContent() {
     const [indexEdit, setIndex] = useState(null);
     const [newi, setNewi] = useState(null);
     const [add, setAdd] = useState(false);
+
+
+    const [showWarning, setShowWarning] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     
 
     const dateFormat = {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     }
+
+    const history = useHistory();
 
     useEffect(() => {
         setLoading(true);
@@ -35,7 +43,7 @@ function ViewContent() {
             const userData = JSON.parse(localStorage.getItem('userData'));
             let params = {
                 whereKeyValues: {
-                    cobrandEmail: userData.email,
+                    cobrandEmail: userData.cobrandEmail,
                     _id: id,
                     status: { "$in": ["active", "inactive"] }
                 }
@@ -65,6 +73,17 @@ function ViewContent() {
                 });
         }
     }, []);
+
+    useEffect(() => {
+        if(confirmDelete) history.push('/cms/content');
+    }, [confirmDelete]);
+
+    useEffect(() => {
+        if(!showWarning && !confirmDelete) {
+            localStorage.removeItem('contentDeleting');
+            localStorage.removeItem('contentDeletingName');
+        }
+    }, [showWarning, confirmDelete])
 
     // komentar
     // get komentar by id done
@@ -194,6 +213,7 @@ function ViewContent() {
 
     return (
         <div className="container">
+            {showWarning ? <Warning setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Artikel"}/> : null}
             <Heading headingName="Content" routes={[
                 { path: '/cms/content', name: 'On Going Content' },
                 { path: '/cms/content/view', name: 'View Content Detail' }
@@ -209,7 +229,9 @@ function ViewContent() {
                     onClick={() => {
                         localStorage.setItem('contentDeleting', content._id);
                         localStorage.setItem('contentDeletingName', content.contentName);
-                    }}><NavLink to="/cms/content" className="action_btn_nav">
+                        setShowWarning(true);
+                        document.body.style.overflow = 'hidden';
+                    }}><NavLink to="/cms/content/view" className="action_btn_nav">
                         <h3><FiTrash2 /> Delete This Content</h3>
                     </NavLink></span>
                 <div className="action_btn_switch">

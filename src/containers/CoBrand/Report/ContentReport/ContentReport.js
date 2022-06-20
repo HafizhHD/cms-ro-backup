@@ -28,7 +28,7 @@ const ContentReport = () => {
         }
         else {let params={
             whereKeyValues: {
-                cobrandEmail: userData.email,
+                cobrandEmail: userData.cobrandEmail,
                 programId: {"$in" : ["-1"]},
                 status: {"$in" : ["active", "inactive"]}
             },

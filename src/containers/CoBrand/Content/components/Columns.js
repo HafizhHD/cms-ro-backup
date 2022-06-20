@@ -7,7 +7,7 @@ const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
 }
 
-const Columns = (setContentDeleting) => {
+const Columns = (setContentDeleting, setWarning) => {
     return (
     [
         // {
@@ -107,8 +107,10 @@ const Columns = (setContentDeleting) => {
                     title="Delete Content"
                     onClick={() => {
                         setContentDeleting([cell.row.values._id, cell.row.values.contentName]);
+                        setWarning(true);
+                        document.body.style.overflow = 'hidden';
                     }}
-                    replace>
+                    >
                     <button
                         className="btn_action"
                     >

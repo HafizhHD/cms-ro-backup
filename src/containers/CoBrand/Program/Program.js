@@ -10,6 +10,7 @@ import axios from 'axios';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import {connect} from 'react-redux';
 import { getProgramList } from '../../../components/API/filter';
+import Warning from '../../../components/UI/Warning/Warning'
 
 // import Modal from '../../../components/UI/Modal/Modal';
 
@@ -22,6 +23,8 @@ function Program({
     const [isLoading, setLoading] = useState(true);
     const [programList, setProgramList] = useState();
     const [programDeleting, setProgramDeleting] = useState(null);
+    const [showWarning, setShowWarning] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     /*
     const submitModal = () => {
@@ -32,7 +35,7 @@ function Program({
     const userData = JSON.parse(localStorage.getItem('userData'));
     const params = {
         whereKeyValues: {
-            cobrandEmail: userData.email
+            cobrandEmail: userData.cobrandEmail
         },
         orderKeyValues: {
             dateCreated: -1
@@ -59,24 +62,28 @@ function Program({
         setLoading(true);
         if(localStorage.getItem('programDeleting')) {
             setProgramDeleting(JSON.parse(localStorage.getItem('programDeleting')));
+            setConfirmDelete(true);
             localStorage.removeItem('programDeleting');
         }
         retrieveList();
     }, []);
 
     useEffect(() => {
-        if(programDeleting) {
+        if(programDeleting && confirmDelete) {
             setLoading(true);
-            onDeleteProgram(userData.email, programDeleting, retrieveList);
+            onDeleteProgram(userData.cobrandEmail, programDeleting, retrieveList);
+            setConfirmDelete(false);
+            setProgramDeleting(null);
         }
-    }, [programDeleting]);
+    }, [programDeleting, confirmDelete]);
 
     if(isLoading || isCurrentlyLoading) {
         return <RKLoader/>
     }
 
     return (
-        <div className="Program">
+        <div className="Program">            
+            {showWarning ? <Warning setDeleting={setProgramDeleting} setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Program"}/> : null}
             <h1>PROGRAM</h1>
             {/* <NavLink to="/cms/program/revisilist" id="add_program">
                 <FiPlus className="IconAdd" />
@@ -88,7 +95,7 @@ function Program({
             </NavLink>
             <div className="Program__table">
                 <TableProgram 
-                    COLUMNS={columns(setProgramDeleting)} 
+                    COLUMNS={columns(setProgramDeleting, setShowWarning)} 
                     DATA={programList.programs}  
                 />
             </div>
