@@ -59,7 +59,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
 
     const data = useMemo( () => DATA , [DATA]);
 
-    const initialState = { hiddenColumns: ['emailUser', 'parentEmail'] };
+    const initialState = { hiddenColumns: ['emailUser', 'parentEmail', '_id'] };
     
     const {
         getTableProps,

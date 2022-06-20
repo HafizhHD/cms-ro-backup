@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './Dashboard.scss';
-import Table from './../../../components/UI/Table/Table'
+import Table from './../../../components/UI/Table/TableWithFilter'
 import { FiArrowRightCircle, FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import Heading from '../../../components/UI/Heading/Heading';

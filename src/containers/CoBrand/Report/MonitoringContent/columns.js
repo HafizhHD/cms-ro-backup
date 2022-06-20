@@ -38,27 +38,27 @@ const Columns = [
     {
         Header: 'Nama Artikel',
         accessor: 'contentName',
-        Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else {
-                if(row.index % 3 === 0) return <p>5 Langkah Menguasai Ujian Nasional</p>
-                else if(row.index % 3 === 1) return <p>Cara Cepat Menghafal Al-Quran</p>
-                else if(row.index % 3 === 2) return <p>Inilah Sosok Terkenal yang Mahir Berbahasa Arab</p>
-            }
-        }
+        // Cell: ({value, row}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else {
+        //         if(row.index % 3 === 0) return <p>5 Langkah Menguasai Ujian Nasional</p>
+        //         else if(row.index % 3 === 1) return <p>Cara Cepat Menghafal Al-Quran</p>
+        //         else if(row.index % 3 === 2) return <p>Inilah Sosok Terkenal yang Mahir Berbahasa Arab</p>
+        //     }
+        // }
     },
     {
         Header: 'Respon',
         accessor: 'response',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else {
-                if(row.index % 2 === 0) return <p>Dibaca</p>
-                else if(row.index % 2 === 1) return <p>Disukai</p>
-            }
-        }
+        // Cell: ({value, row}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else {
+        //         if(row.index % 2 === 0) return <p>Dibaca</p>
+        //         else if(row.index % 2 === 1) return <p>Disukai</p>
+        //     }
+        // }
     }
     // {
     //     Header: 'Sekolah',

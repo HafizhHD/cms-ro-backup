@@ -58,8 +58,8 @@ const ProgramReport = () => {
             <Heading
                 headingName="Program Report"
                 routes={[
-                    { name: 'Report', path: '/report/program' },
-                    { name: 'Program Report' }
+                    { name: 'Report'},
+                    { name: 'Program Report', path: '/report/program' }
                 ]}
             />
             <div className="Dashboard_period">

@@ -170,8 +170,8 @@ const MonitoringContent = () => {
             <Heading
                 headingName="Monitoring Artikel"
                 routes={[
-                    { name: 'Report', path: '/report/monitoring-content' },
-                    { name: 'Monitoring Artikel' }
+                    { name: 'Report'},
+                    { name: 'Monitoring Artikel', path: '/report/monitoring-content'  }
                 ]}
             />
             <div className="Dashboard_period">

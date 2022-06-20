@@ -40,33 +40,33 @@ const Columns = [
         accessor: 'stepNumber',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else return <p>{row.index % 4 + 1}</p>
-        }
+        // Cell: ({value, row}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else return <p>{row.index % 4 + 1}</p>
+        // }
         
     },
     {
         Header: 'Nama Tahap',
         accessor: 'stepName',
         disableFilters: true,
-        Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else {
-                if(row.index % 4 === 0) return <p>Menghafal Surah Al-Ikhlas</p>
-                else if(row.index % 4 === 1) return <p>Menyempurnakan Gerakan Sholat</p>
-                else if(row.index % 4 === 2) return <p>Membaca Surah An-Nisa</p>
-                else if(row.index % 4 === 3) return <p>Belajar Kaligrafi</p>
-            }
-        }
+        // Cell: ({value, row}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else {
+        //         if(row.index % 4 === 0) return <p>Menghafal Surah Al-Ikhlas</p>
+        //         else if(row.index % 4 === 1) return <p>Menyempurnakan Gerakan Sholat</p>
+        //         else if(row.index % 4 === 2) return <p>Membaca Surah An-Nisa</p>
+        //         else if(row.index % 4 === 3) return <p>Belajar Kaligrafi</p>
+        //     }
+        // }
     },
     {
         Header: 'Periode Tahap',
         accessor: 'stepPeriod',
-        Cell: ({value}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else return <p>18 Mei 2022 - 14 Juni 2022</p>
-        }
+        // Cell: ({value}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else return <p>18 Mei 2022 - 14 Juni 2022</p>
+        // }
     },
 
     {
@@ -74,26 +74,26 @@ const Columns = [
         accessor: 'response',
         Filter: SelectColumnFilter,
         filter: 'equals',
-        Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else {
-                if(row.index % 3 === 0) return <p>Kesulitan Melaksanakannya</p>
-                else if(row.index % 3 === 1) return <p>Selesai Dilaksanakan</p>
-                else if(row.index % 3 === 2) return <p>Belum Dilaksanakan</p>
-            }
-        }
+        // Cell: ({value, row}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else {
+        //         if(row.index % 3 === 0) return <p>Kesulitan Melaksanakannya</p>
+        //         else if(row.index % 3 === 1) return <p>Selesai Dilaksanakan</p>
+        //         else if(row.index % 3 === 2) return <p>Belum Dilaksanakan</p>
+        //     }
+        // }
     },
     {
         Header: 'Nama Program',
         accessor: 'programName',
         disableFilters: true,
-        Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
-            else {
-                if(row.index % 2 === 0) return <p>Belajar Al-Quran</p>
-                 else if(row.index % 2 === 1) return <p>Aktivitas yang Menenangkan Hati</p>
-            }
-        }
+        // Cell: ({value, row}) => {
+        //     if(value !== undefined) return <p>{value}</p>
+        //     else {
+        //         if(row.index % 2 === 0) return <p>Belajar Al-Quran</p>
+        //          else if(row.index % 2 === 1) return <p>Aktivitas yang Menenangkan Hati</p>
+        //     }
+        // }
     },
     // {
     //     Header: 'Sekolah',

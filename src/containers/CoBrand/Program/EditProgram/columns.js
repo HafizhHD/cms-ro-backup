@@ -98,7 +98,7 @@ const Columns = (setStepDeleting) => {
                     onClick={() => {
                         setStepDeleting([cell.row.values._id, cell.row.values.contentName]);
                     }}
-                    replace>
+                    >
                     <button
                         className="btn_action"
                     >

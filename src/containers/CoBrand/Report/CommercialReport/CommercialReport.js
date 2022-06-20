@@ -80,10 +80,10 @@ const CommercialReport = () => {
     return (
         <div className="Commercial">
             <Heading
-                headingName="Commercial Report"
+                headingName="Laporan Keuangan Terestimasi"
                 routes={[
-                    { name: 'Report', path: '/report/commercial' },
-                    { name: 'Commercial Report' }
+                    { name: 'Report'},
+                    { name: 'Laporan Keuangan', path: '/report/commercial'  }
                 ]}
             />
              <div className="Dashboard_period">

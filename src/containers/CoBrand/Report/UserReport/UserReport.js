@@ -83,10 +83,10 @@ const UserReport = () => {
     return (
         <div className="Pengguna">
             <Heading
-                headingName="User Report"
+                headingName="Report Pengguna"
                 routes={[
-                    { name: 'Report', path: '/report/user' },
-                    { name: 'User Report' }
+                    { name: 'Report'},
+                    { name: 'Report Pengguna', path: '/report/user'  }
                 ]}
             />
              <div className="Dashboard_period">

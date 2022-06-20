@@ -1,6 +1,8 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
 import { SelectColumnFilter } from './../../../../components/UI/Table/TableFilter'
+import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { NavLink } from 'react-router-dom'
 
 
 const Columns = [
@@ -8,6 +10,10 @@ const Columns = [
         Header: 'No.',
         id: 'rowNumber',
         disableFilters: true
+    },
+    {
+        Header: 'ID',
+        accessor: '_id'
     },
     {
         Header: 'Nama Program',
@@ -52,6 +58,30 @@ const Columns = [
         Filter: SelectColumnFilter,
         filter: 'equals'
     },
+    {
+        Header: 'Lihat Tahap',
+        id: 'action',
+        Cell: ({cell}) => (
+            <>
+                <NavLink
+                    to="/report/program/step/"
+                    className="nav_btn"
+                    title="Lihat Tahap"
+                    onClick={() => {
+                        localStorage.setItem('stepReportSelected', cell.row.values._id)
+                    }}
+                >
+                <button 
+                    className="btn_action"
+                >
+                    <div>
+                        <FiEye className="btn_action-icon" />
+                    </div>
+                </button>
+                </NavLink>
+            </>
+        )
+    }
 ];
 
 // const Columns = [

@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import { NavLink, useHistory } from 'react-router-dom';
 import { editProgram } from '../../../../store/actions/dashboard';
 import { getProgramCategoryList, getAudienceList, getContentList, getProgramList } from './../../../../components/API/filter'
+import { contentDelete } from './../../../../components/API/dashboard'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationProgramEdit } from '../../../../helpers/validation/validation';
@@ -108,6 +109,41 @@ function EditProgram({
             })
         }
     }, []);
+
+    useEffect(() => {
+        if(stepDeleting) {
+            console.log('ini id step', stepDeleting[0]);
+            setPageLoading(true);
+            let param = {
+                whereValues: {
+                    _id: stepDeleting[0]
+                }
+            };
+            contentDelete(param)
+            .then(response => {
+                setStepDeleting(null);
+                console.log('ini respon step deleting', response);
+                const params2 = {
+                    whereKeyValues: {
+                        programId: _id
+                    },
+                    orderKeyValues: {
+                        nomerUrutTahapan: 1
+                    }
+                };
+                getContentList(params2)
+                .then(res => {
+                    console.log('ini respon ambil step', res);
+                    setSteps(res.data.contents);
+                    localStorage.setItem('noUrutTahap', res.data.contents.length);
+                    setPageLoading(false);
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+    }, [stepDeleting]);
 
     if(isPageLoading || isLoading) {
         return <RKLoader/>
