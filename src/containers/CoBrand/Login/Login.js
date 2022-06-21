@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
-import Logo from './../../../assets/img/Logo_2.png'
-import DeviceImage from './../../../assets/img/device2.png';
+import Logo from './../../../assets/img/Logo_4.png'
+import DeviceImage from './../../../assets/img/device3.png';
 import InputComponent from '../../../components/UI/Input/Input';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import { useFormik } from 'formik';
