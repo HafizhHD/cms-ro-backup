@@ -127,6 +127,15 @@ export const getProgramCategoryList = (query) => axios({
     }
 })
 
+export const getAdminList = (query) => axios({
+    method: 'post',
+    url: url + '/cms/userFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 
 
 export const getHKBPList = (query) => axios({
@@ -137,3 +146,4 @@ export const getHKBPList = (query) => axios({
         'Content-Type': 'application/json',
     }
 });
+

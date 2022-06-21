@@ -1,198 +1,130 @@
-// import { useState, useEffect } from 'react';
-// import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
-// import InputComponent from '../../../../components/UI/Input/Input';
-import './listStaff.scss'
-// import { Formik } from 'formik';
-import axios from 'axios';
-// import { connect } from 'react-redux';
-import { Table, Button } from 'react-bootstrap'
-import React from 'react'
+import  { useState, useEffect } from 'react';
+import './ListStaff.scss';
+import TableProgram from '../../../../components/UI/Table/Table';
+import columns from './columns';
+import { deleteStaff } from '../../../../store/actions/dashboard';
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
+import axios from 'axios';
+import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
+import {connect} from 'react-redux';
+import { getAdminList } from '../../../../components/API/filter';
+import Warning from '../../../../components/UI/Warning/Warning'
 
+// import Modal from '../../../components/UI/Modal/Modal';
 
-class ListStaff extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            userData: [],
-            kirimforum: [],
-            listForum: [],
-            new: null
+function ListStaff({
+    isCurrentlyLoading,
+    onDeleteStaff
+}) {
+    const [showModal, setShowModal] = useState(false);
 
+    const [isLoading, setLoading] = useState(true);
+    const [staffList, setStaffList] = useState();
+    const [staffDeleting, setStaffDeleting] = useState(null);
+    const [showWarning, setShowWarning] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
+
+    /*
+    const submitModal = () => {
+        alert('ok')
+    }
+    */
+    
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const params = {
+        whereKeyValues: {
+            cobrandEmail: userData.cobrandEmail
+        },
+        orderKeyValues: {
+            dateCreated: -1
+        },
+        limit: Number.MAX_SAFE_INTEGER
+    };
+
+    
+    function retrieveList() {
+        getAdminList(params)
+        .then(response => {
+            setStaffList(response.data.Data);
+            console.log(response.data);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setLoading(false);
+        });
+    }
+    
+    useEffect(() => {
+        setLoading(true);
+        if(localStorage.getItem('staffDeleting')) {
+            setStaffDeleting(JSON.parse(localStorage.getItem('staffDeleting')));
+            setConfirmDelete(true);
+            localStorage.removeItem('staffDeleting');
         }
-    }
+        retrieveList();
+    }, []);
 
-    componentDidMount() {
-        this.daftarAdmin()
-    }
-
-    daftarAdmin = () => {
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
-        })
-            .then(response => {
-                console.log(response.data.Data);
-                this.setState({ listForum: response.data.Data })
-            })
-            .catch(error => {
-                console.log(error + 'ini eror LIST ADMIN');
-            });
-    }
-
-    onSave = (index) => {
-        localStorage.setItem('idUser', this.state.listForum[index]._id)
-        let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.listForum[index].userName)
-        let params =
-        {
-            whereValues:
-                { _id: idkomen },
-            newKeyValues:
-            {
-                userName: this.refs.email.value ? this.refs.email.value : this.state.listForum[index].userName,
-                // password: this.refs.tempat.value ? this.refs.tempat.value : this.state.listForum[index].password,
-                userType: this.refs.deskripsi.value ? this.refs.deskripsi.value : this.state.listForum[index].userType,
-                cobrandEmail: this.refs.alamat.valu ? this.refs.alamat.value : this.state.listForum[index].cobrandEmail,
-                // userLevel: this.refs.status.value ? this.refs.status.value : this.state.listForum[index].userLevel,
-                emailUser: this.refs.lokasi.value ? this.refs.lokasi.value : this.state.listForum[index].emailUser,
-                phone: this.refs.phone.value ? this.refs.phone.value : this.state.listForum[index].phone,
-            }
+    useEffect(() => {
+        if(staffDeleting && confirmDelete) {
+            setLoading(true);
+            onDeleteStaff(userData.cobrandEmail, staffDeleting, retrieveList);
+            setConfirmDelete(false);
+            setStaffDeleting(null);
         }
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userUpdate',
-            data: params,
-        })
-            .then(response => {
-                console.log(response.data);
-                // alert('Add Broadcast is success')
-                axios({
-                    method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
-                })
-                    .then(response => {
-                        console.log(response.data.Data);
-                        this.setState({ listForum: response.data.Data })
-                        this.setState({ new: null })
-                    })
-                    .catch(error => {
-                        console.log(error + 'ini eror LIST ADMIN');
-                    });
-            })
-            .catch(error => {
-                console.log(error + 'ini eror edit cms');
-            });
+    }, [staffDeleting, confirmDelete]);
 
+    if(isLoading || isCurrentlyLoading) {
+        return <RKLoader/>
     }
 
-    onDelete = (index) => {
-        localStorage.setItem('idUser', this.state.listForum[index]._id)
-        let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.listForum[index]._id)
-        console.log(idkomen)
-        let params =
-        {
-            whereValues: {
-                _id: idkomen,
-            }
-        };
-        axios({
-            method: 'post',
-            url: 'https://as01.prod.ruangortu.id:8080/api/cms/userRemove',
-            data: params,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                console.log(response.data.Data);
-                axios({
-                    method: 'post',
-                    url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
-                })
-                    .then(response => {
-                        console.log(response.data.Data);
-                        this.setState({ listForum: response.data.Data })
-                    })
-                    .catch(error => {
-                        console.log(error + 'ini eror LIST ADMIN');
-                    });
-            })
-            .catch(error => {
-                console.log(error + 'ini delete Cms admin');
-            });
-    }
-    onEdit(index) {
-        this.setState({ new: index })
-        console.log(index) //null
-        console.log(this.state.new)
-    }
-
-    render() {
-        const { listForum, indexEdit } = this.state
-        return (
-            <div className='div'>
-                <NavLink to="/tools/admin-staff/add" id="add_content">
-                    <FiPlus className="IconAdd" />
-                    <span>Tambah Admin/Staff</span>
-                </NavLink>
-                <h1>List Daftar Admin</h1>
-                <div className='komentar'>
-                    <Table striped bordered hover >
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Username</th>
-                                <th>User Type</th>
-                                <th className='h-email'>Cobrand Email</th>
-                                <th>Email User</th>
-                                <th>Phone</th>
-                                <th colSpan={2}>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* {console.log(this.state.listForum)} */}
-                            {this.state.listForum.map((item, index) => {
-                                if (index == this.state.new) {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{index + 1}</td>
-                                            <td><input placeholder={item.userName} ref="email"></input></td>
-                                            <td><input placeholder={item.userType} ref="deskripsi"></input></td>
-                                            <td><input placeholder={item.cobrandEmail} ref="alamat"></input></td>
-                                            <td><input placeholder={item.emailUser} ref="lokasi"></input></td>
-                                            <td><input placeholder={item.phone} ref="phone"></input></td>
-                                            <td><Button variant="info" className='btn998' onClick={() => this.onSave(index)}>Save</Button></td>
-                                            <td><Button variant="danger" className='btn998' onClick={() => this.setState({ new: null })}>Cancel</Button></td>
-                                        </tr>
-                                    )
-                                }
-                                return (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item.userName}</td>
-                                        <td>{item.userType}</td>
-                                        <td>{item.cobrandEmail}</td>
-                                        <td>{item.emailUser}</td>
-                                        <td>{item.phone}</td>
-                                        <td><Button variant="warning" className='btn998' onClick={() => this.onEdit(index)}>Edit</Button></td>
-                                        <td><Button variant="danger" className='btn998' onClick={() => this.onDelete(index)}>Delete</Button></td>
-                                    </tr>
-                                )
-                            })
-                            }
-
-                        </tbody>
-                    </Table>
-                </div>
+    return (
+        <div className="Staff">            
+            {showWarning ? <Warning setDeleting={setStaffDeleting} setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Admin/Staff"}/> : null}
+            <h1>ADMIN &amp; STAFF</h1>
+            {/* <NavLink to="/cms/program/revisilist" id="add_program">
+                <FiPlus className="IconAdd" />
+               <span>revisilist</span>  
+            </NavLink> */}
+            <NavLink to="/tools/admin-staff/add" id="add_staff">
+                <FiPlus className="IconAdd" />
+               <span>Tambah Admin/Staff Baru</span>  
+            </NavLink>
+            <div className="Staff__table">
+                <TableProgram 
+                    COLUMNS={columns(setStaffDeleting, setShowWarning)} 
+                    DATA={staffList}  
+                />
             </div>
-        )
+
+            {/* <button 
+                onClick={() => setShowModal(true)}>
+                Show Modal
+            </button> */}
+            
+            {/* <Modal 
+                isShow={showModal}
+                onClose={() => setShowModal(false)} 
+                onSubmit={submitModal}
+                title="Modal Title"
+            >
+                <p>Hello Worlds</p>
+            </Modal> */}
+        </div>
+    )
+}
+
+const mapStateToProps = state => {
+    return {
+        isCurrentlyLoading: state.auth.isLoading
     }
 }
 
-export default ListStaff
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDeleteStaff: (email, deletingStaff, retrieveList) => dispatch(deleteStaff(email, deletingStaff, retrieveList))
+    }
+}
 
-
+export default connect(mapStateToProps, mapDispatchToProps) (ListStaff)

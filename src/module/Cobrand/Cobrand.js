@@ -45,6 +45,7 @@ const MessageListAsync = lazy(() => import('./../../containers/CoBrand/Message/L
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
 const Management = lazy(() => import('../../containers/CoBrand/ManagementUser/AddStaff/AddStaff'));
+const EditStaffAsync = lazy(() => import('../../containers/CoBrand/ManagementUser/EditStaff/EditStaff'));
 const listStaff = lazy(() => import('./../../containers/CoBrand/ManagementUser/ListStaff/ListStaff'));
 const Audience = lazy(() => import('../../containers/CoBrand/Setting/Audience/Audience'));
 const AddAudience = lazy(() => import('../../containers/CoBrand/Setting/Audience/AddAudi'));
@@ -469,6 +470,12 @@ function Cobrand({
                     path="/tools/admin-staff/add"
                     exact
                     component={Management}
+                />
+
+                <PrivateRoute
+                    path="/tools/admin-staff/edit"
+                    exact
+                    component={EditStaffAsync}
                 />
 
                 <PrivateRoute

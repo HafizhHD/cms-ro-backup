@@ -47,6 +47,21 @@
       padding: 1rem 1rem;
       font-family: inherit;
     }
+
+    & .form-checkbox {
+      display: flex;
+      flex-direction: row;
+
+      & > input {
+        margin: 0.2rem;
+      }
+
+      & > label {
+        font-weight: normal;
+        font-size: 0.8rem;
+      }
+      
+    }
   }
 
   & .btn {

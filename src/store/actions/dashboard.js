@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
-    adminAdd, contentTopicAdd, screenTimeAdd, appUserEdit } from '../../components/API/dashboard';
+    adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
 ///pdf
@@ -1036,6 +1036,69 @@ export const addStaff= (userName, password, userType, cobrandEmail, userLevel, e
         console.log(data);
     }
 
+}
+
+export const editStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            whereValues: {
+                _id: localStorage.getItem('staffSelected')
+            },
+            newKeyValues: {
+                userName, password, userType, cobrandEmail, userLevel, emailUser, phone
+            }
+        };
+
+        console.log(data);
+        //Call API ....
+
+        adminEdit(data)
+            .then(response => {
+                console.log('Success:', response.data);
+                history.push('/tools/admin-staff');
+                dispatch(alertSuccess('User "' + userName + '" berhasil diubah.'));
+                dispatch(loadingStop());
+                localStorage.removeItem('staffSelected');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('User"' + userName + '" gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        console.log(data);
+    }
+
+}
+
+export const deleteStaff = (cobrandEmail, staffId, retrieveList) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        const deleting = {
+            whereValues: {
+                _id: staffId[0]
+            }
+        }
+        adminDelete(deleting)
+            .then(response => {
+                console.log(response.data);
+                dispatch(alertSuccess('User "' + staffId[1] + '" berhasil dihapus.'));
+                dispatch(loadingStop());
+                retrieveList();
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(alertError('User "' + staffId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                retrieveList();
+            });
+    }
 }
 
 export const addContentTopic = (topicName, history) => {

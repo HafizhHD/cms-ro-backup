@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
 import './AddStaff.scss';
 import { Formik } from 'formik';
@@ -16,6 +16,7 @@ function AddStaff({
 
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
+    const [isPasswordVisible, showPassword] = useState(false);
 
     return (
         <>
@@ -58,15 +59,30 @@ function AddStaff({
                             {touched.userName && <span className="message__error">{errors.userName}</span>}
                         </div>
                         <div className="form-group">
-                            <label>Password</label>
+                        <label>Password</label>
                             <InputComponent 
-                                type="password"
+                                type={isPasswordVisible ? "text" : "password"}
                                 name="password"
                                 className="form-group__input form-group__input--fullwidth"
-                                value={values.description}
+                                value={values.password}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
+                            <div className="form-checkbox">
+                                <InputComponent
+                                    type="checkbox"
+                                    name="showPassword"
+                                    onChange={(e) => {
+                                        if(e.currentTarget.checked) {
+                                            showPassword(true);
+                                        }
+                                        else {
+                                            showPassword(false);
+                                        }
+                                    }}
+                                />
+                                <label>Show Password</label>
+                            </div>
                             {touched.password && <span className="message__error">{errors.password}</span>}
                         </div>
                         <div className="form-group">

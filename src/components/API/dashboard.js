@@ -119,6 +119,24 @@ export const adminAdd = (query) => axios({
     },
 });
 
+export const adminEdit = (query) => axios({
+    method: 'post',
+    url: url + '/cms/userUpdate',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const adminDelete = (query) => axios({
+    method: 'post',
+    url: url + '/cms/userRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 export const screenTimeAdd = (query) => axios({
     method: 'post',
     url: url + '/cobrand/configurationAdd',
