@@ -7,6 +7,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 function Navigations({ MenuItems, ShowAside }) {
     const currentLocation = useLocation();
     console.log("Current location:", currentLocation);
+    console.log('Menu items', MenuItems);
 
     const [isActive, setActive] = useState({path: currentLocation.pathname, active: true});
     const [isChildActive, setChildActive] = useState({path: currentLocation.pathname, active: true});

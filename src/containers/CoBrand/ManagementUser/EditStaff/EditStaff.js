@@ -54,7 +54,7 @@ function EditStaff({
                     password: staff.password ?? '',
                     userType: staff.userType ?? 'Co-Brand',
                     cobrandEmail: staff.cobrandEmail ?? cobrandEmail,
-                    userLevel: staff.userLevel ?? '',
+                    userLevel: staff.userLevel ?? 'Reporter',
                     emailUser: staff.emailUser ?? '',
                     phone: staff.phone ?? ''
                 }}
@@ -133,7 +133,8 @@ function EditStaff({
                             >
                                 <option value="Super Admin">Super Admin</option>
                                 <option value="Admin">Admin</option>
-                                <option value="Staff">Staff</option>
+                                <option value="Editor">Editor</option>
+                                <option value="Reporter">Reporter</option>
                             </select>
                         </div>
                         <div className="form-group">

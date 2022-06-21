@@ -32,6 +32,7 @@ export const auth = ( userName, password ) => {
             if (loginData.resultCode === "OK" && loginData.resultData) {
                 localStorage.setItem('accessToken', loginData.resultData.token);
                 localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
+                localStorage.setItem('userLevel', loginData.resultData.user.userLevel);
                 localStorage.removeItem('loginMessage');
                 dispatch( authSuccess() );
             }

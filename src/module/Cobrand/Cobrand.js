@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, lazy } from 'react';
+import React, { useEffect, useCallback, lazy, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Layout from '../../Layout/CoBrand/Layout';
 import PrivateRoute from '../../hoc/PrivateRoute';
@@ -76,12 +76,16 @@ function Cobrand({
 }) {
     const history = useHistory();
 
+    const [userLevel, setUserLevel] = useState('');
+
     const checkIsLogin = useCallback(() => {
 
         let check = localStorage.getItem('accessToken');
 
         if (check) {
             console.log('Yes masuk');
+            setUserLevel(JSON.parse(localStorage.getItem('userData')).userLevel);
+            console.log('User level', JSON.parse(localStorage.getItem('userData')).userLevel)
             onAuthSuccess()
         } else {
             console.log('Yah gagal');
@@ -135,355 +139,296 @@ function Cobrand({
                     path="/"
                     component={DashboardAsync}
                 />
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/user"
                     component={UserReportAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/program"
                     component={ProgramReportAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/program/step"
                     component={StepReportAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/content"
                     component={ContentReportAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/redzone"
                     component={RedzoneReportAsync}
-                />
+                /> : null}
 
-
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-content"
                     component={MonitoringContentAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-program"
                     component={MonitoringProgramAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-status"
                     component={MonitoringStatusAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/controlling-status"
                     component={ControllingStatusAsync}
-                /><PrivateRoute
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                <PrivateRoute
                     exact
                     path="/report/controlling-status"
                     component={ControllingStatusAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/commercial"
                     component={CommercialReportAsync}
                 />
+                : null}
+
+                
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/user"
                     exact
                     component={UserManagement}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/user/edit"
                     exact
                     component={EditUser}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     path="/cms/notifications/add"
                     exact
                     component={(props) => {
                         return (<AddMessageAsync {...props} />)
                     }}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     path="/cms/notifications"
                     exact
                     component={MessageListAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/forum-add"
                     exact
                     component={Forum}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/forum-moderator"
                     exact
                     component={ForumList}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program"
                     exact
                     component={ProgramAsync}
                     // component={ListProgram}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program/add"
                     exact
                     component={(props) => {
                         return (<AddProgramAsync {...props} />)
                     }}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program/edit"
                     exact
                     component={EditProgramAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program/edit/add-step"
                     exact
                     component={AddProgramStepAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program/edit/step"
                     exact
                     component={EditProgramStepAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program/view"
                     exact
                     component={ViewProgramAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/program/view/step"
                     exact
                     component={ViewProgramStepAsync}
-                />
-
-                <PrivateRoute
-                    path="/cms/program/revisilist"
-                    exact
-                    // component={ListProgram}
-                    component={ProgramAsync}
-                />
-
-                <PrivateRoute
-                    path="/cms/program/revisilist-add"
-                    exact
-                    component={AddProgramRev}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content"
                     exact
                     component={ContentAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/add"
                     exact
                     component={(props) => {
                         return (<AddContentAsync {...props} />)
                     }}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/edit"
                     exact
                     component={EditContentAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/view"
                     exact
                     component={ViewContentAsync}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/view-komen"
                     exact
                     component={ListKoment}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/redzone"
                     exact
                     component={RedZoneAsync}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
-
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     exact
                     path="/cms/redzone/edit"
                     component={EditRedzone}
-                />
+                /> : null}
+
+
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/program-category/add"
                     exact
                     component={KategoriProgram}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/notification-category"
                     exact
                     component={ListKategoriNotifikasi}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/notification-category/add"
                     exact
                     component={AddKategoriNotifikasi}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/program-category"
                     exact
                     component={ListKategoriProgram}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/screentime/add"
                     exact
                     component={AddScreenTime}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/screentime"
                     exact
                     component={ListScreenTime}
-                />
+                /> : null}
 
 
-                <PrivateRoute
+                {/* <PrivateRoute
                     path="/tools/setting"
                     exact
                     component={SettingAsync}
-                />
-
+                /> */}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/target-audience"
                     exact
                     component={Audience}
-                />
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/target-audience/add"
                     exact
                     component={AddAudience}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/topic"
                     exact
                     component={Topik}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/setting/topic/add"
                     exact
                     component={TopikAdd}
-                />
-
-
-                <PrivateRoute
-                    exact
-                    path="/"
-                    component={DashboardAsync}
-                />
-                <PrivateRoute
-                    exact
-                    path="/report/user"
-                    component={UserReportAsync}
-                />
-
-                <PrivateRoute
-                    path="/cms/user"
-                    exact
-                    component={UserManagement}
-                />
-
-
-                <PrivateRoute
-                    path="/cms/program"
-                    exact
-                    component={ProgramAsync}
-                />
-                <PrivateRoute
-                    path="/cms/program/add"
-                    exact
-                    component={(props) => {
-                        return (<AddProgramAsync {...props} />)
-                    }}
-                />
-                <PrivateRoute
-                    path="/cms/program/edit"
-                    exact
-                    component={EditProgramAsync}
-                />
-                <PrivateRoute
-                    path="/cms/program/view"
-                    exact
-                    component={ViewProgramAsync}
-                />
-
-                <PrivateRoute
-                    path="/cms/content"
-                    exact
-                    component={ContentAsync}
-                />
-                <PrivateRoute
-                    path="/cms/content/add"
-                    exact
-                    component={(props) => {
-                        return (<AddContentAsync {...props} />)
-                    }}
-                />
-                <PrivateRoute
-                    path="/cms/content/edit"
-                    exact
-                    component={EditContentAsync}
-                />
-                <PrivateRoute
-                    path="/cms/content/view"
-                    exact
-                    component={ViewContentAsync}
-                />
-
-
-                <PrivateRoute
-                    path="/cms/redzone"
-                    exact
-                    component={RedZoneAsync}
-                />
-                <PrivateRoute
-                    path="/cms/redzone/add"
-                    exact
-                    component={RedZoneAdd}
-                />
-
-                <PrivateRoute
-                    path="/tools/setting"
-                    exact
-                    component={SettingAsync}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' ?
                 <PrivateRoute
                     path="/tools/admin-staff/add"
                     exact
                     component={Management}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' ?
                 <PrivateRoute
                     path="/tools/admin-staff/edit"
                     exact
                     component={EditStaffAsync}
-                />
-
+                /> : null}
+                {userLevel === 'Super Admin' ?
                 <PrivateRoute
                     path="/tools/admin-staff"
                     exact
                     component={listStaff}
-                />
-
+                /> : null}
             </Switch>
         </Layout>
     );

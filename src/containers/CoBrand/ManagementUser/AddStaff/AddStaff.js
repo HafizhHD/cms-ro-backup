@@ -30,7 +30,7 @@ function AddStaff({
                     password: '',
                     userType: 'Co-Brand',
                     cobrandEmail: cobrandEmail,
-                    userLevel: 'Staff',
+                    userLevel: 'Reporter',
                     emailUser: '',
                     phone: ''
                 }}
@@ -109,7 +109,8 @@ function AddStaff({
                             >
                                 <option value="Super Admin">Super Admin</option>
                                 <option value="Admin">Admin</option>
-                                <option value="Staff">Staff</option>
+                                <option value="Editor">Editor</option>
+                                <option value="Reporter">Reporter</option>
                             </select>
                         </div>
                         <div className="form-group">
