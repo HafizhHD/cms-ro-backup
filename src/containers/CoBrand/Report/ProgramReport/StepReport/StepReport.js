@@ -39,15 +39,15 @@ const ProgramReport = () => {
             includeContentData:false,
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getContentList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             setStepData(response.data.contents);
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })}
     }, [, period]);

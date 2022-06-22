@@ -28,17 +28,17 @@ class Message extends React.Component {
     //
 
     componentDidMount() {
-        console.log(localStorage.getItem('emailTo'))
-        console.log(localStorage.getItem('notifContext'))
+        // console.log(localStorage.getItem('emailTo'))
+        // console.log(localStorage.getItem('notifContext'))
 
         let allCheckBox = document.querySelectorAll('.shapes')
 
         allCheckBox.forEach((checkbox) => {
             checkbox.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ media: event.target.value })
-                    console.log(this.state.media)
+                    // console.log(this.state.media)
                 }
             })
         })
@@ -49,9 +49,9 @@ class Message extends React.Component {
         allCheckBox2.forEach((radio) => {
             radio.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ destiemail: event.target.value })
-                    console.log(this.state.destiemail)
+                    // console.log(this.state.destiemail)
                 }
             })
         })
@@ -61,9 +61,9 @@ class Message extends React.Component {
         allCheckBox3.forEach((radio) => {
             radio.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ kategori: event.target.value })
-                    console.log(this.state.kategori)
+                    // console.log(this.state.kategori)
                 }
             })
         })
@@ -74,12 +74,12 @@ class Message extends React.Component {
 
     addMessage = () => {
         let cour = ''
-        console.log(document.getElementsByName('cour'))
+        // console.log(document.getElementsByName('cour'))
         document.getElementsByName('via').forEach(item => {
             if (item.checked === true) {
                 cour += item.value + ' '
             }
-            console.log(cour)
+            // console.log(cour)
         })
         let email = localStorage.getItem('emailTo')
         let subject = localStorage.getItem('notifContext')
@@ -95,14 +95,14 @@ class Message extends React.Component {
 
         }
 
-        console.log(this.refs.emailto.value)
+        // console.log(this.refs.emailto.value)
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastAdd',
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({ send: true })
                 localStorage.removeItem('emailTo')
                 localStorage.removeItem('notifContext')
@@ -110,7 +110,7 @@ class Message extends React.Component {
                 // alert('Add Broadcast is success')
             })
             .catch(error => {
-                console.log(error + 'ini eror add BC');
+                // console.log(error + 'ini eror add BC');
             });
     }
 

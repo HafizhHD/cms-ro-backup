@@ -34,16 +34,16 @@ const ControllingStatus = () => {
             },
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getUserList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             var userDataDummy = response.data.users;
             var userDataChild = [];
             for(var i = 0; i < userDataDummy.length; i++) {
                 let user = userDataDummy[i];
                 if(user.userType === 'child') {
-                    console.log("Anjay");
+                    // console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];
                     for(var j = 0; j < userDataDummy.length; j++) {
@@ -72,10 +72,10 @@ const ControllingStatus = () => {
             const promiseAppDetail = getAppDetailList(paramsAll);
 
             Promise.all([promiseAsuh, promiseSchedule, promiseLimit, promiseAppDetail]).then(responseAll => {
-                console.log(responseAll[0]);
-                console.log(responseAll[1]);
-                console.log(responseAll[2]);
-                console.log(responseAll[3]);
+                // console.log(responseAll[0]);
+                // console.log(responseAll[1]);
+                // console.log(responseAll[2]);
+                // console.log(responseAll[3]);
 
                 const asuhList = responseAll[0].data.childModeAsuhs;
                 const scheduleList = responseAll[1].data.deviceUsageSchedules;
@@ -101,20 +101,20 @@ const ControllingStatus = () => {
                     for(var j = 0; j < limitList.length; j++) {
                         if(user.emailUser === limitList[j].emailUser) {
                             if(limitList[j].limit > 0) {
-                                console.log('Mantap2');
+                                // console.log('Mantap2');
                                 for(var k = 0; k < appDetailList.length; k++) {
                                     if(limitList[j].appId === appDetailList[k].appId) {
-                                        console.log('Mantap2-1');
+                                        // console.log('Mantap2-1');
                                         limitedApps.push(appDetailList[k].appName);
                                         break;
                                     }
                                 }
                             }
                             else if(limitList[j].limit === 0) {
-                                console.log('Mantap21');
+                                // console.log('Mantap21');
                                 for(var k = 0; k < appDetailList.length; k++) {
                                     if(limitList[j].appId === appDetailList[k].appId){
-                                        console.log('Mantap21-1');
+                                        // console.log('Mantap21-1');
                                         blockedApps.push(appDetailList[k].appName);
                                         break;
                                     }
@@ -157,7 +157,7 @@ const ControllingStatus = () => {
 
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })}
     }, [, period]);

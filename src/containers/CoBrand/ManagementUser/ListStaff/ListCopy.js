@@ -33,19 +33,19 @@ class ListStaff extends React.Component {
             url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 this.setState({ listForum: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST ADMIN');
+                // console.log(error + 'ini eror LIST ADMIN');
             });
     }
 
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.listForum[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.listForum[index].userName)
+        // console.log(idkomen)
+        // console.log(this.state.listForum[index].userName)
         let params =
         {
             whereValues:
@@ -67,23 +67,23 @@ class ListStaff extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ listForum: response.data.Data })
                         this.setState({ new: null })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST ADMIN');
+                        // console.log(error + 'ini eror LIST ADMIN');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit cms');
+                // console.log(error + 'ini eror edit cms');
             });
 
     }
@@ -91,8 +91,8 @@ class ListStaff extends React.Component {
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.listForum[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.listForum[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.listForum[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -108,27 +108,27 @@ class ListStaff extends React.Component {
             },
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cms/userFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ listForum: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST ADMIN');
+                        // console.log(error + 'ini eror LIST ADMIN');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete Cms admin');
+                // console.log(error + 'ini delete Cms admin');
             });
     }
     onEdit(index) {
         this.setState({ new: index })
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
 
     render() {

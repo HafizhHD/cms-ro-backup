@@ -37,7 +37,7 @@ function AddStaff({
                 validationSchema = {validationStaff}
                 validateOnChange = {true}
                 onSubmit = { values => {
-                    console.log(values);
+                    // console.log(values);
                     onAddStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, history)
                 }}
             >
@@ -144,7 +144,7 @@ function AddStaff({
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit" onClick={() => {
-                                console.log(values);
+                                // console.log(values);
                             }}>
                                 Tambah
                             </button>
@@ -153,14 +153,14 @@ function AddStaff({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

@@ -10,6 +10,7 @@ import { validationContentEdit } from '../../../../helpers/validation/validation
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
+import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
 
 //texteditor
 import { Editor } from "react-draft-wysiwyg";
@@ -45,6 +46,25 @@ function EditContent({
     const [contentStartDate, setContentStartDate] = useState();
     const [conFromImgVid, setConFromImgVid] = useState('');
     const [valueRadio, setRadio] = useState('');
+
+    const embedVideoCallBack = (link) =>{
+        
+        const asd = getEmbedUrl(link);
+        // console.log("Video embed ", asd);
+        return asd;
+    }
+
+    const uploadCallback = (file) => new Promise(
+        (resolve, reject) => {
+        const reader= new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            // console.log(reader.result);
+            resolve({data: {link: reader.result}});
+        }
+        reader.onerror = error => reject(error);
+        }
+    );
 
     const [textDeskripsi, setTextDeskripsi] = useState(RichTextEditor.createEmptyValue());
     const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
@@ -82,7 +102,7 @@ function EditContent({
 
     useEffect(() => {
         setPageLoading(true);
-        console.log(_id);
+        // console.log(_id);
         if (_id) {
             const params = {
                 whereKeyValues: {
@@ -100,14 +120,14 @@ function EditContent({
                 },
             })
                 .then(response => {
-                    console.log("Response data: ", response.data);
+                    // console.log("Response data: ", response.data);
                     setContent(response.data.contents[0]);
                     let con = new DOMParser().parseFromString(response.data.contents[0].contents, 'text/html');
-                    console.log(con);
+                    // console.log(con);
                     if (response.data.contents[0].contentType === 'Artikel') {
                         let con1 = con.getElementById('contents');
-                        console.log('Ini adalah con1 outer' + con1.outerHTML);
-                        console.log('Ini adalah con1 inner' + con1.innerHTML);
+                        // console.log('Ini adalah con1 outer' + con1.outerHTML);
+                        // console.log('Ini adalah con1 inner' + con1.innerHTML);
                         let con2 = htmlToDraft(con1.innerHTML);
                         setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
                         setConFromImgVid(con1.outerHTML);
@@ -118,7 +138,7 @@ function EditContent({
 
                         //   deskripsi
                         // let condes = new DOMParser().parseFromString(response.data.contents[0].contentDescription, 'text/html');
-                        // console.log(condes);
+                        // // console.log(condes);
                     }
                     else if (response.data.contents[0].contentType === 'Image') {
                         let con1 = con.getElementsByTagName('img')[0].toString();
@@ -138,13 +158,13 @@ function EditContent({
 
 
                     let des = response.data.contents[0].contentDescription;
-                    console.log("des", des) //null
+                    // console.log("des", des) //null
                     let des2 = htmlToDraft(des);
                     setDescription(EditorState.createWithContent(
                         ContentState.createFromBlockArray(
                             des2.contentBlocks, des2.entityMap)))
                     let date = response.data.contents[0].startDate.split('T')[0];
-                    console.log(date);
+                    // console.log(date);
                     setContentStartDate(date);
                     axios({
                         method: 'post',
@@ -155,17 +175,17 @@ function EditContent({
                         },
                     })
                         .then(response => {
-                            console.log("Program list: ", response.data);
+                            // console.log("Program list: ", response.data);
                             setProgramList(response.data.programs);
                             setPageLoading(false);
                         })
                         .catch(error => {
-                            console.log(error);
+                            // console.log(error);
                             setPageLoading(false);
                         });
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     setPageLoading(false);
                 });
         }
@@ -243,18 +263,44 @@ function EditContent({
                                         toolbarClassName="toolbarClassName"
                                         wrapperClassName="wrapperClassName"
                                         editorClassName="editorClassName"
-                                        onEditorStateChange={onEditorStateChangeArtikel}
+                                        onEditorStateChange={(editorState) => setArtikel(editorState)}
                                         // onEditorStateChange={updateTextDescription}
                                         // value={description.values}
                                         value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
                                         // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                         name="contents"
-                                        onChange={(editorState) => {
-                                            setTextValue(editorState);
+                                        toolbar={{
+                                            list: {
+                                                inDropdown: true,
+                                            },
+                                            textAlign: {
+                                                inDropdown: true,
+                                            },
+                                            image: {
+                                                uploadEnabled: true,
+                                                alignmentEnabled: true,
+                                                previewImage: true,
+                                                uploadCallback: uploadCallback,
+                                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                                defaultSize: {
+                                                    height: 'auto',
+                                                    width: '360px',
+                                                },
+                                            },
+                                            embedded:{
+                                                embedCallback: embedVideoCallBack,
+                                                defaultSize: {
+                                                    height: 'auto',
+                                                    width: '360px',
+                                                },
+                                            }
+                                        }}
+                                        onChange={() => {
+                                            // setTextValue(editorState);
                                             // setFieldValue("contentDescription", description);
-                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                            // console.log(textDeskripsi);
-                                            // console.log(values.contents)
+                                            setFieldValue('contents', draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                            // // console.log(textDeskripsi);
+                                            // // console.log(values.contents)
                                         }}
 
                                     /></>
@@ -287,7 +333,7 @@ function EditContent({
                                                 onChange={(e) => {
                                                     let file = e.currentTarget.files[0];
                                                     if (file) {
-                                                        console.log("File to upload: ", file);
+                                                        // console.log("File to upload: ", file);
                                                         setFieldValue("contents", file);
                                                     }
                                                 }}
@@ -335,7 +381,7 @@ function EditContent({
                                     //         onChange={(e) => {
                                     //             let file = e.currentTarget.files[0];
                                     //             if (file) {
-                                    //                 console.log("File to upload: ", file);
+                                    //                 // console.log("File to upload: ", file);
                                     //                 setFieldValue("contents", file);
                                     //             }
                                     //         }}
@@ -395,7 +441,7 @@ function EditContent({
                                                 onChange={(e) => {
                                                     let file = e.currentTarget.files[0];
                                                     if (file) {
-                                                        console.log("File to upload: ", file);
+                                                        // console.log("File to upload: ", file);
                                                         setFieldValue("contents", file);
                                                     }
                                                 }}
@@ -417,28 +463,53 @@ function EditContent({
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
                             </div>
                             {values.contentType !== 'Artikel' ? <div className="form-group">
-                                <label>Isi Artikel</label>
+                            <label>Isi Artikel</label>
                                 <Editor
-                                        editorState={description}
-                                        toolbarClassName="toolbarClassName"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="editorClassName"
-                                        onEditorStateChange={onEditorStateChange}
-                                        // value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
-                                        values={values.contentDescription}
-       
-                                        name="contentDescription"
-                                        
-                                        onChange={(editorState) => {
-                                            setTextDeskripsi(values.contentDescription);
-                                            // setFieldValue("contentDescription", description);
-                                            setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
-                                            console.log(description); ///value yang lama
-                                            console.log(values.contentDescription) //get nilai yg terbaru
-                                            
-                                        }}
-                                        
-                                    />
+                                    editorState={description}
+                                    toolbarClassName="toolbarClassName"
+                                    wrapperClassName="wrapperClassName"
+                                    editorClassName="editorClassName"
+                                    onEditorStateChange={(editorState) => setDescription(editorState)}
+                                    // onEditorStateChange={updateTextDescription}
+                                    // value={description.values}
+                                    value={draftToHtml(convertToRaw(description.getCurrentContent()))}
+                                    // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                    name="contentDescription"
+                                    toolbar={{
+                                        list: {
+                                            inDropdown: true,
+                                        },
+                                        textAlign: {
+                                            inDropdown: true,
+                                        },
+                                        image: {
+                                            uploadEnabled: true,
+                                            alignmentEnabled: true,
+                                            previewImage: true,
+                                            uploadCallback: uploadCallback,
+                                            inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                            defaultSize: {
+                                                height: 'auto',
+                                                width: '360px',
+                                            },
+                                        },
+                                        embedded:{
+                                            embedCallback: embedVideoCallBack,
+                                            defaultSize: {
+                                                height: 'auto',
+                                                width: '360px',
+                                            },
+                                        }
+                                    }}
+                                    onChange={() => {
+                                        // setTextValue(editorState);
+                                        // setFieldValue("contentDescription", description);
+                                        setFieldValue('contentDescription', draftToHtml(convertToRaw(description.getCurrentContent())));
+                                        // // console.log(textDeskripsi);
+                                        // // console.log(values.contents)
+                                    }}
+
+                                />
                                 {/* <RichTextEditor
                                         name="contentDescription"
                                         placeholder="Type your contents here..."
@@ -451,7 +522,7 @@ function EditContent({
                                         onChange={(e) => {
                                             setTextDeskripsi(e);
                                             setFieldValue("contentDescription", e.toString("html"));
-                                            console.log(values.contentDescription);
+                                            // console.log(values.contentDescription);
                                         }}
                                 /> */}
                                 {/* <RichTextEditor
@@ -465,7 +536,7 @@ function EditContent({
                                         onChange={(e) => {
                                             setTextDeskripsi(e);
                                             setFieldValue("contentDescription", e.toString("html"));
-                                            console.log(values.contentDescription);
+                                            // console.log(values.contentDescription);
                                         }}
                                     /> */}
                                 {/* <InputComponent
@@ -503,7 +574,7 @@ function EditContent({
                                     onChange={(e) => {
                                         let file = e.currentTarget.files[0];
                                         if (file) {
-                                            console.log("File to upload: ", file);
+                                            // console.log("File to upload: ", file);
                                             setFieldValue("contentThumbnail", file);
                                         }
                                     }}
@@ -524,9 +595,9 @@ function EditContent({
                             </div> */}
                             <div>
                                 <button className="btn btn-submit" type="submit" onClick={() =>{
-                                    console.log("Description", description);
-                                    console.log("Touched:", touched);
-                                    console.log("Error:", errors);
+                                    // console.log("Description", description);
+                                    // console.log("Touched:", touched);
+                                    // console.log("Error:", errors);
                                 }}>
                                     Update Artikel
                                 </button>
@@ -541,7 +612,7 @@ function EditContent({
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

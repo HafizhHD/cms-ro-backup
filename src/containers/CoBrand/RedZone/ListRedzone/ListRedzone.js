@@ -39,19 +39,19 @@ class ListRedzone extends React.Component {
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneFilter',
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST redzone');
+                // console.log(error + 'ini eror LIST redzone');
             });
     }
 
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.message[index].cobrandEmail)
+        // console.log(idkomen)
+        // console.log(this.state.message[index].cobrandEmail)
         let params =
         {
             whereValues:
@@ -71,23 +71,23 @@ class ListRedzone extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                         this.setState({ new: null })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST redzone');
+                        // console.log(error + 'ini eror LIST redzone');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit redzone');
+                // console.log(error + 'ini eror edit redzone');
             });
     }
 
@@ -129,8 +129,8 @@ class ListRedzone extends React.Component {
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.message[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.message[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -146,30 +146,30 @@ class ListRedzone extends React.Component {
             },
         })
             .then(response => {
-                console.log(params)
-                console.log(response.data);
+                // console.log(params)
+                // console.log(response.data);
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                         this.setState({ new: null })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST redzone');
+                        // console.log(error + 'ini eror LIST redzone');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete broadcast');
+                // console.log(error + 'ini delete broadcast');
             });
     }
 
     onEdit(index) {
         this.setState({ new: index })
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
 
     render() {
@@ -193,18 +193,18 @@ class ListRedzone extends React.Component {
                             placeholder="Search"
                             name="search"
                             onChange={(e) => {
-                                console.log(e.currentTarget.value);
+                                // console.log(e.currentTarget.value);
                                 let urlBuilder = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURI(e.currentTarget.value) + '.json?access_token=' + accessToken;
                                 axios({
                                     method: 'get',
                                     url: urlBuilder
                                 })
                                     .then(response => {
-                                        //console.log("Response data: ", response.data);
+                                        //// console.log("Response data: ", response.data);
                                         this.setState({mapSeacrh : response.data.features[0]});
                                     })
                                     .catch(error => {
-                                        console.log(error);
+                                        // console.log(error);
                                     });
                             }}
                         />

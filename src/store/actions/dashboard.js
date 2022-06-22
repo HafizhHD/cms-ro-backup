@@ -47,7 +47,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
 
         const promise = toBase64(photo);
         promise.then((result) => {
-            console.log(typeof result);
+            // console.log(typeof result);
             const programthumnail = result;
 
             let contentPrograms = [];
@@ -114,13 +114,13 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                 contentPrograms
             };
 
-            console.log(data);
+            // console.log(data);
             //Call API ....
 
             // programAdd(data)
             programAddv2(data)
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/cms/program');
                     dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
                     dispatch(loadingStop());
@@ -130,7 +130,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     dispatch(alertError('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
-            console.log(data);
+            // console.log(data);
         });
     }
 
@@ -157,12 +157,12 @@ export const editProgram = (_id, cobrandEmail, programName, ProgramDescription, 
             }
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         programEdit(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/cms/program');
                 dispatch(alertSuccess('Program "' + programName + '" berhasil diubah.'));
                 dispatch(loadingStop());
@@ -204,12 +204,12 @@ export const addStep = (programId, cobrandEmail, nomerUrutTahapan, namaTahapan, 
             status: 'active'
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         contentAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/cms/program/edit/');
                 dispatch(alertSuccess('Tahap program "' + contentName + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -247,12 +247,12 @@ export const editStep = (_id, cobrandEmail, namaTahapan, contentName, contents, 
             }
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         contentEdit(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/cms/program/view/step');
                 dispatch(alertSuccess('Tahap program "' + contentName + '" berhasil diubah.'));
                 dispatch(loadingStop());
@@ -280,7 +280,7 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
         }
         programDelete(deleting)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 let paramu = {
                     whereValues: {
                         programId: programId[0]
@@ -288,20 +288,20 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
                 }
                 contentDelete(paramu)
                 .then(response2 => {
-                    console.log(response2.data);
+                    // console.log(response2.data);
                     dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus.'));
                     dispatch(loadingStop());
                     retrieveList();
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     dispatch(alertSuccess('Program "' + programId[1] + '" berhasil dihapus, namun tahap pada program gagal dihapus.'));
                     dispatch(loadingStop());
                     retrieveList();
                 });
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 dispatch(alertError('Program "' + programId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
                 retrieveList();
@@ -331,7 +331,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 audi.push(e.value)
             });
 
-            console.log(typeof result);
+            // console.log(typeof result);
             const contentThumbnail = result;
             let status = isActive ? 'active' : 'inactive';
 
@@ -360,12 +360,12 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             targetAudiance: audi
                         };
 
-                        console.log(data);
+                        // console.log(data);
                         //Call API ....
 
                         contentAdd(data)
                             .then(response => {
-                                console.log('Success:', response.data);
+                                // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 dispatch(loadingStop());
@@ -375,7 +375,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
-                        console.log(data);
+                        // console.log(data);
                     })
                 }
 
@@ -387,7 +387,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                     const gambar = toBase64(contents);
                     gambar.then((hasil) => {
                         contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>";
-                        console.log(contents);
+                        // console.log(contents);
                         // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
                         let data = {
@@ -406,12 +406,12 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             targetAudiance: audi
                         };
 
-                        console.log(data);
+                        // console.log(data);
                         //Call API ....
 
                         contentAdd(data)
                             .then(response => {
-                                console.log('Success:', response.data);
+                                // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 dispatch(loadingStop());
@@ -421,7 +421,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
-                        console.log(data);
+                        // console.log(data);
 
                     })
                 }
@@ -449,12 +449,12 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             targetAudiance: audi
                         };
 
-                        console.log(data);
+                        // console.log(data);
                         //Call API ....
 
                         contentAdd(data)
                             .then(response => {
-                                console.log('Success:', response.data);
+                                // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 dispatch(loadingStop());
@@ -464,7 +464,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
-                        console.log(data);
+                        // console.log(data);
                     })
                 }
             }
@@ -494,7 +494,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                     + '</html>';
             }
 
-            console.log(contents);
+            // console.log(contents);
             // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
             let data = {
@@ -513,12 +513,12 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 targetAudiance: audi
             };
 
-            console.log(data);
+            // console.log(data);
             //Call API ....
 
             contentAdd(data)
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/cms/content');
                     dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                     dispatch(loadingStop());
@@ -528,7 +528,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                     dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
-            console.log(data);
+            // console.log(data);
         });
     }
 }
@@ -549,7 +549,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
         // const promise = toBase64(photo);
         // promise.then((result) => {
 
-            // console.log(typeof result);
+            // // console.log(typeof result);
             // const contentThumbnail = result;
             const contentThumbnail = photo;
             // let status = isActive ? 'active' : 'inactive';
@@ -585,12 +585,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             newValues: datax
                         }
 
-                        console.log(data);
+                        // console.log(data);
                         //Call API ....
 
                         contentEdit(data)
                             .then(response => {
-                                console.log('Success:', response.data);
+                                // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
                                 dispatch(loadingStop());
@@ -600,7 +600,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                                 dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
-                        console.log(data);
+                        // console.log(data);
                     })
                 }
 
@@ -612,7 +612,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     const gambar = toBase64(contents);
                     gambar.then((hasil) => {
                         contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>";
-                        console.log(contents);
+                        // console.log(contents);
                         // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
                         let datax = {
@@ -635,12 +635,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             newValues: datax
                         }
 
-                        console.log(data);
+                        // console.log(data);
                         //Call API ....
 
                         contentEdit(data)
                             .then(response => {
-                                console.log('Success:', response.data);
+                                // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
                                 dispatch(loadingStop());
@@ -650,7 +650,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                                 dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
-                        console.log(data);
+                        // console.log(data);
 
                     })
                 }
@@ -682,12 +682,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             newValues: datax
                         }
 
-                        console.log(data);
+                        // console.log(data);
                         //Call API ....
 
                         contentEdit(data)
                             .then(response => {
-                                console.log('Success:', response.data);
+                                // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 dispatch(loadingStop());
@@ -697,7 +697,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                                 dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
-                        console.log(data);
+                        // console.log(data);
                     })
                 }
             }
@@ -726,7 +726,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     + '</html>';
             }
 
-            console.log(contents);
+            // console.log(contents);
             // <div style="position:relative;padding-bottom:56.25%;"><iframe src="https://www.youtube.com/embed/jVKzomlvDgE" style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
             let datax = {
@@ -749,12 +749,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 newValues: datax
             }
 
-            console.log(data);
+            // console.log(data);
             //Call API ....
 
             contentEdit(data)
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/cms/content');
                     dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
                     dispatch(loadingStop());
@@ -764,7 +764,7 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                     dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
-            console.log(data);
+            // console.log(data);
         // });
     }
     
@@ -785,13 +785,13 @@ export const deleteContent = (cobrandEmail, contentId, retrieveList) => {
         }
         contentDelete(deleting)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 dispatch(alertSuccess('Content "' + contentId[1] + '" berhasil dihapus.'));
                 dispatch(loadingStop());
                 retrieveList();
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 dispatch(alertError('Content "' + contentId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
                 retrieveList();
@@ -817,18 +817,18 @@ export const editProfile = (oldEmail, oldPassword, cobrandName, photo, phoneNumb
             const promise = toBase64(photo);
             promise.then((result) => {
                 newValues = Object.assign(newValues, { thumbnail: result });
-                console.log('whereValues: ', whereValues);
-                console.log('newValues: ', newValues);
+                // console.log('whereValues: ', whereValues);
+                // console.log('newValues: ', newValues);
                 cobrandEdit(whereValues, newValues)
                     .then(response => {
-                        console.log('Success:', response.data);
+                        // console.log('Success:', response.data);
                         if (password) {
-                            console.log('YOI BRUH');
+                            // console.log('YOI BRUH');
                             whereValues.password = password;
                         }
                         cobrandLogin(whereValues)
                             .then(response2 => {
-                                console.log('Success 2: ', response2.data);
+                                // console.log('Success 2: ', response2.data);
                                 let loginData = response2.data;
                                 localStorage.removeItem('accessToken');
                                 localStorage.removeItem('userData');
@@ -851,18 +851,18 @@ export const editProfile = (oldEmail, oldPassword, cobrandName, photo, phoneNumb
             });
         }
         else {
-            console.log('whereValues: ', whereValues);
-            console.log('newValues: ', newValues);
+            // console.log('whereValues: ', whereValues);
+            // console.log('newValues: ', newValues);
             cobrandEdit(whereValues, newValues)
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     if (password) {
-                        console.log('YOI BRUH');
+                        // console.log('YOI BRUH');
                         whereValues.password = password;
                     }
                     cobrandLogin(whereValues)
                         .then(response2 => {
-                            console.log('Success 2: ', response2.data);
+                            // console.log('Success 2: ', response2.data);
                             let loginData = response2.data;
                             localStorage.setItem('accessToken', loginData.resultData.token);
                             localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
@@ -896,12 +896,12 @@ export const addNotification = (destination, messageSubject, messageContent, use
             destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         notificationAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/cms/notifications');
                 dispatch(alertSuccess('Notifikasi berhasil dikirim.'));
                 dispatch(loadingStop());
@@ -911,7 +911,7 @@ export const addNotification = (destination, messageSubject, messageContent, use
                 dispatch(alertError('Notifikasi gagal dikirim. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -926,12 +926,12 @@ export const addAudience = (audianceName, history) => {
             audianceName,
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         audienceAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/setting/target-audience');
                 dispatch(alertSuccess('Target pembaca "' + audianceName + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -941,7 +941,7 @@ export const addAudience = (audianceName, history) => {
                 dispatch(alertError('Target pembaca "' + audianceName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -957,12 +957,12 @@ export const addNotifCategory = (category, description, history) => {
             description
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         notifCategoryAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/setting/notification-category');
                 dispatch(alertSuccess('Kategori Notifikasi "' + category + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -972,7 +972,7 @@ export const addNotifCategory = (category, description, history) => {
                 dispatch(alertError('Kategori Notifikasi "' + category + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -988,12 +988,12 @@ export const addProgCategory = (category, description, history) => {
             description
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         programCategoryAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/setting/program-category');
                 dispatch(alertSuccess('Kategori Program "' + category + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -1003,7 +1003,7 @@ export const addProgCategory = (category, description, history) => {
                 dispatch(alertError('Kategori Program "' + category + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -1018,12 +1018,12 @@ export const addStaff= (userName, password, userType, cobrandEmail, userLevel, e
             userName, password, userType, cobrandEmail, userLevel, emailUser, phone
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         adminAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/admin-staff');
                 dispatch(alertSuccess('User "' + userName + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -1033,7 +1033,7 @@ export const addStaff= (userName, password, userType, cobrandEmail, userLevel, e
                 dispatch(alertError('User"' + userName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -1053,12 +1053,12 @@ export const editStaff= (userName, password, userType, cobrandEmail, userLevel, 
             }
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         adminEdit(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/admin-staff');
                 dispatch(alertSuccess('User "' + userName + '" berhasil diubah.'));
                 dispatch(loadingStop());
@@ -1069,7 +1069,7 @@ export const editStaff= (userName, password, userType, cobrandEmail, userLevel, 
                 dispatch(alertError('User"' + userName + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -1087,13 +1087,13 @@ export const deleteStaff = (cobrandEmail, staffId, retrieveList) => {
         }
         adminDelete(deleting)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 dispatch(alertSuccess('User "' + staffId[1] + '" berhasil dihapus.'));
                 dispatch(loadingStop());
                 retrieveList();
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 dispatch(alertError('User "' + staffId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
                 retrieveList();
@@ -1111,12 +1111,12 @@ export const addContentTopic = (topicName, history) => {
             topicName
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         contentTopicAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/setting/topic');
                 dispatch(alertSuccess('Topik konten "' + topicName + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -1126,7 +1126,7 @@ export const addContentTopic = (topicName, history) => {
                 dispatch(alertError('Topik konten "' + topicName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -1141,12 +1141,12 @@ export const addScreenTime = (cobrandEmail, controlParameterName, controlParamet
             cobrandEmail, controlParameterName, controlParameterValue, unit
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         screenTimeAdd(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/tools/setting/screentime');
                 dispatch(alertSuccess('Standar Screentime "' + controlParameterName + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
@@ -1156,7 +1156,7 @@ export const addScreenTime = (cobrandEmail, controlParameterName, controlParamet
                 dispatch(alertError('Standar Screentime "' + controlParameterName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }
@@ -1172,12 +1172,12 @@ export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, add
             newValues: {nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber}
         };
 
-        console.log(data);
+        // console.log(data);
         //Call API ....
 
         appUserEdit(data)
             .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 history.push('/cms/user');
                 dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
                 dispatch(loadingStop());
@@ -1187,7 +1187,7 @@ export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, add
                 dispatch(alertError('Informasi pengguna "' + oldEmail + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
-        console.log(data);
+        // console.log(data);
     }
 
 }

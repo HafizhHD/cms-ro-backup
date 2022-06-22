@@ -38,7 +38,7 @@ function AddStep({
     const embedVideoCallBack = (link) =>{
         
         const asd = getEmbedUrl(link);
-        console.log("Video embed ", asd);
+        // console.log("Video embed ", asd);
         return asd;
     }
 
@@ -47,7 +47,7 @@ function AddStep({
         const reader= new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            console.log(reader.result);
+            // console.log(reader.result);
             resolve({data: {link: reader.result}});
         }
         reader.onerror = error => reject(error);
@@ -94,7 +94,7 @@ function AddStep({
 
     useEffect(() => {
     //     setPageLoading(true);
-    //     console.log(_id);
+    //     // console.log(_id);
     //     if (_id) {
     //         const params = {
     //             whereKeyValues: {
@@ -112,14 +112,14 @@ function AddStep({
     //             },
     //         })
     //             .then(response => {
-    //                 console.log("Response data: ", response.data);
+    //                 // console.log("Response data: ", response.data);
     //                 setContent(response.data.contents[0]);
     //                 let con = new DOMParser().parseFromString(response.data.contents[0].contents, 'text/html');
-    //                 console.log(con);
+    //                 // console.log(con);
     //                 if (response.data.contents[0].contentType === 'Artikel') {
     //                     let con1 = con.getElementById('contents');
-    //                     console.log('Ini adalah con1 outer',  con1.outerHTML);
-    //                     console.log('Ini adalah con1 inner',  con1.innerHTML);
+    //                     // console.log('Ini adalah con1 outer',  con1.outerHTML);
+    //                     // console.log('Ini adalah con1 inner',  con1.innerHTML);
     //                     let con2 = htmlToDraft(con1.innerHTML);
     //                     setTextValue(RichTextEditor.createValueFromString(con1.outerHTML, 'html'));
     //                     setConFromImgVid(con1.outerHTML);
@@ -130,7 +130,7 @@ function AddStep({
 
     //                     //   deskripsi
     //                     // let condes = new DOMParser().parseFromString(response.data.contents[0].contentDescription, 'text/html');
-    //                     // console.log(condes);
+    //                     // // console.log(condes);
     //                 }
     //                 else if (response.data.contents[0].contentType === 'Image') {
     //                     let con1 = con.getElementsByTagName('img')[0].toString();
@@ -152,7 +152,7 @@ function AddStep({
     //                 setPageLoading(false);
     //             })
     //             .catch(error => {
-    //                 console.log(error);
+    //                 // console.log(error);
     //                 setPageLoading(false);
     //             });
     //     }
@@ -277,8 +277,8 @@ function AddStep({
                                             // setTextValue(editorState);
                                             // setFieldValue("contentDescription", description);
                                             setFieldValue('contents', draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                            // console.log(textDeskripsi);
-                                            // console.log(values.contents)
+                                            // // console.log(textDeskripsi);
+                                            // // console.log(values.contents)
                                         }}
 
                                     />
@@ -296,7 +296,7 @@ function AddStep({
                                         onChange={(e) => {
                                         let file = e.currentTarget.files[0];
                                         if (file) {
-                                            console.log("File to upload: ", file);
+                                            // console.log("File to upload: ", file);
                                             setFieldValue("contents", file);
                                         }
                                     }}
@@ -356,7 +356,7 @@ function AddStep({
                             <div className="form-group">
                                 <label>Respon/Jawaban</label>
                                 {values.response.map((res, index) => {
-                                    console.log("Content response:", res)
+                                    // console.log("Content response:", res)
                                     return <InputComponent
                                         type="text"
                                         name="response"
@@ -405,7 +405,7 @@ function AddStep({
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

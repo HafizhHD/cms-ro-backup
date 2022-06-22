@@ -38,11 +38,11 @@ class RedzoneAdd extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({kirim : true})
             })
             .catch(error => {
-                console.log(error + 'ini eror add redzone');
+                // console.log(error + 'ini eror add redzone');
             });
     }
 
@@ -110,10 +110,10 @@ export default RedzoneAdd
 //             data: params,
 //         })
 //             .then(response => {
-//                 console.log(response.data);
+//                 // console.log(response.data);
 //             })
 //             .catch(error => {
-//                 console.log(error + 'ini eror add redzone');
+//                 // console.log(error + 'ini eror add redzone');
 //             });
 //     }, [])
 //     // if (isCurrentlyLoading) {
@@ -174,7 +174,7 @@ export default RedzoneAdd
 //                                 onChange={(e) => {
 //                                     let file = e.currentTarget.files[0];
 //                                     if(file) {
-//                                         console.log("File to upload: ", file);
+//                                         // console.log("File to upload: ", file);
 //                                         setFieldValue("programThumbnail", file);
 //                                     }
 //                                 }}

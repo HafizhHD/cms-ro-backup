@@ -122,12 +122,12 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
 
     const downloadAsCSV = () => {
         const currentRecords = rows;
-        console.log(currentRecords);
+        // console.log(currentRecords);
         var data_to_download = [];
         for (var i = 0; i < currentRecords.length; i++) {
             let record_to_download = {};
             prepareRow(currentRecords[i]);
-            console.log(currentRecords[i].cells);
+            // console.log(currentRecords[i].cells);
             for (var colIndex = 0; colIndex < currentRecords[i].cells.length; colIndex++) {
                 if(currentRecords[i].cells[colIndex].column.id !== 'rowNumber' &&
                 currentRecords[i].cells[colIndex].column.id !== 'selection' &&
@@ -192,30 +192,30 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
             <button className="btn_tools" onClick={downloadAsPDF}><FaFilePdf/> Download as PDF</button>
             {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/notifications/add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
-                    console.log(localStorage.getItem('notifContext'));
+                    // console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
-                    console.log(selectedFlatRows);
+                    // console.log(selectedFlatRows);
                     var jsonData = [];
                     for(var i = 0; i < selectedFlatRows.length; i++) {
                         stringEmail.push(selectedFlatRows[i].original.emailUser);
                         if(selectedFlatRows[i].original.userType === 'child') {
                             if(!stringEmail.includes(selectedFlatRows[i].original.emailUser)) stringEmail.push(selectedFlatRows[i].original.emailUser);
                         }
-                        console.log(stringEmail);
+                        // console.log(stringEmail);
                         jsonData.push(selectedFlatRows[i].original);
                     }
                     localStorage.setItem('jsonData', JSON.stringify(jsonData));
-                    console.log(localStorage.getItem('jsonData'));
+                    // console.log(localStorage.getItem('jsonData'));
                     localStorage.setItem('emailTo', stringEmail.toString());
-                    console.log(localStorage.getItem('emailTo'));
+                    // console.log(localStorage.getItem('emailTo'));
                     localStorage.setItem('selectedUserType', 'child');
                 }}>Send Notifications to Child</NavLink></button>
              ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to Child</span></button> : null}
             {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/notifications/add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
-                    console.log(localStorage.getItem('notifContext'));
+                    // console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
-                    console.log(selectedFlatRows);
+                    // console.log(selectedFlatRows);
                     var jsonData = [];
                     for(var i = 0; i < selectedFlatRows.length; i++) {
                         if(selectedFlatRows[i].original.parentEmail !== undefined) {
@@ -224,34 +224,34 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                                 else stringEmail.push(selectedFlatRows[i].original.emailUser);
                             }
                         }
-                        console.log(stringEmail);
+                        // console.log(stringEmail);
                         jsonData.push(selectedFlatRows[i].original);
                     }
                     localStorage.setItem('jsonData', JSON.stringify(jsonData));
-                    console.log(localStorage.getItem('jsonData'));
+                    // console.log(localStorage.getItem('jsonData'));
                     localStorage.setItem('emailTo', stringEmail.toString());
-                    console.log(localStorage.getItem('emailTo'));
+                    // console.log(localStorage.getItem('emailTo'));
                     localStorage.setItem('selectedUserType', 'parent');
                 }}>Send Notifications to Parent</NavLink></button>
              ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to Parent</span></button> : null}
             {showCheckbox ? selectedFlatRows.length > 0 ? (<button className="btn_tools"><FaBell/><NavLink to='/cms/notifications/add' className="btn_tools" onClick={() => {
                     localStorage.setItem('notifContext', notifContext);
-                    console.log(localStorage.getItem('notifContext'));
+                    // console.log(localStorage.getItem('notifContext'));
                     var stringEmail = [];
-                    console.log(selectedFlatRows);
+                    // console.log(selectedFlatRows);
                     var jsonData = [];
                     for(var i = 0; i < selectedFlatRows.length; i++) {
                         if(!stringEmail.includes(selectedFlatRows[i].original.emailUser)) stringEmail.push(selectedFlatRows[i].original.emailUser);
                         if(selectedFlatRows[i].original.parentEmail !== undefined) {
                             if(!stringEmail.some(r => selectedFlatRows[i].original.parentEmail.includes(r))) stringEmail.push(selectedFlatRows[i].original.parentEmail);
                         }
-                        console.log(stringEmail);
+                        // console.log(stringEmail);
                         jsonData.push(selectedFlatRows[i].original);
                     }
                     localStorage.setItem('jsonData', JSON.stringify(jsonData));
-                    console.log(localStorage.getItem('jsonData'));
+                    // console.log(localStorage.getItem('jsonData'));
                     localStorage.setItem('emailTo', stringEmail.toString());
-                    console.log(localStorage.getItem('emailTo'));
+                    // console.log(localStorage.getItem('emailTo'));
                     localStorage.setItem('selectedUserType', 'all');
                 }}>Send Notifications to All</NavLink></button>
              ) : <button className="btn_tools_disabled"><FaBell/><span className="btn_tools_disabled">Send Notifications to All</span></button> : null}
@@ -335,7 +335,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                         <Fragment {...row.getRowProps()}>
                             <tr>
                                 {row.cells.map(cell => {
-                                    console.log(cell);
+                                    // console.log(cell);
                                     return <td {...cell.getCellProps()} className={(cell.value && !Array.isArray(cell.value)) || (Array.isArray(cell.value) && cell.value.length > 0) || cell.column.id === 'selection'
                                     || cell.column.id === 'rowNumber' ? "cell" : "cell"}> {cell.column.id !== 'rowNumber' ? 
                                          cell.render('Cell')

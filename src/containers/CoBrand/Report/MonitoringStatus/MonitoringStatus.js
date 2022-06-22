@@ -45,17 +45,17 @@ const MonitoringStatus = () => {
             },
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getUserList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             // setUserData(response.data.users);
             var userDataDummy = response.data.users;
             var userDataChild = [];
             for(var i = 0; i < userDataDummy.length; i++) {
                 let user = userDataDummy[i];
                 if(user.userType === 'child') {
-                    console.log("Anjay");
+                    // console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];
                     for(var j = 0; j < userDataDummy.length; j++) {
@@ -87,7 +87,7 @@ const MonitoringStatus = () => {
             }
             getAppUsageList(params2)
             .then(response2 => {
-                console.log(response2.data);
+                // console.log(response2.data);
                 for(var i = 0; i < userLength; i++) {
 
                     var totalUsage = Array(userLength).fill(0),
@@ -96,13 +96,13 @@ const MonitoringStatus = () => {
                     videoUsage = Array(userLength).fill(0);
 
                     let userEmail = userDataChild[i].emailUser;
-                    console.log("Email user: " + userEmail);
+                    // console.log("Email user: " + userEmail);
                     let appUsages = response2.data.appUsages
                     for(var j = 0; j < appUsages.length; j++) {
                         let x = appUsages[j];
                         if(x.emailUser === userEmail) {
 
-                            console.log("Yes Masuk! " + userEmail);
+                            // console.log("Yes Masuk! " + userEmail);
                             let y = x.appUsages;
                             for(var k = 0; k < y.length; k++) {
                                 totalUsage[i] += y[k].duration;
@@ -117,7 +117,7 @@ const MonitoringStatus = () => {
                     userDataChild[i]['screenTimeGames'] = (gamesUsage[i] / 3600000).toFixed(1);
                     userDataChild[i]['screenTimeVideo'] = (videoUsage[i] / 3600000).toFixed(1);
 
-                    console.log(userDataChild[i]['screenTime']);
+                    // console.log(userDataChild[i]['screenTime']);
 
                     //10 adalah batas penggunaan yang ditentukan cobrand
                     if(userDataChild[i]['screenTime'] > 10) userDataChild[i]['screenTimeStatus'] = "Tidak Wajar";
@@ -128,7 +128,7 @@ const MonitoringStatus = () => {
             })
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })}
     }, [,period]);
@@ -150,7 +150,7 @@ const MonitoringStatus = () => {
         }
         getAppUsageList(params2)
         .then(response2 => {
-            console.log(response2.data);
+            // console.log(response2.data);
             for(var i = 0; i < userLength; i++) {
 
                 var totalUsage = Array(userLength).fill(0),
@@ -159,13 +159,13 @@ const MonitoringStatus = () => {
                 videoUsage = Array(userLength).fill(0);
 
                 let userEmail = userDataChild[i].emailUser;
-                console.log("Email user: " + userEmail);
+                // console.log("Email user: " + userEmail);
                 let appUsages = response2.data.appUsages
                 for(var j = 0; j < appUsages.length; j++) {
                     let x = appUsages[j];
                     if(x.emailUser === userEmail) {
 
-                        console.log("Yes Masuk! " + userEmail);
+                        // console.log("Yes Masuk! " + userEmail);
                         let y = x.appUsages;
                         for(var k = 0; k < y.length; k++) {
                             totalUsage[i] += y[k].duration;

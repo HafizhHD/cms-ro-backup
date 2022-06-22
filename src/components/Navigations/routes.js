@@ -2,7 +2,7 @@ import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser,
 
 export const MenuCoBranding = () => { 
     const userLevel = localStorage.getItem('userLevel');
-    console.log('User level', userLevel);
+    // console.log('User level', userLevel);
     var routeArray = [
         {
             path: '/',
@@ -212,7 +212,7 @@ export const MenuCoBranding = () => {
             ]
         })
     }
-    console.log('Route Array', routeArray);
+    // console.log('Route Array', routeArray);
     return routeArray;
 //     return [
 //     {

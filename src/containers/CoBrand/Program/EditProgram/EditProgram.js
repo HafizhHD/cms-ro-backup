@@ -46,7 +46,7 @@ function EditProgram({
 
     useEffect(() => {
         setPageLoading(true);
-        console.log(_id);
+        // console.log(_id);
         if(_id) {
             let paramTopic = {};
             let paramAudience = {};
@@ -63,8 +63,8 @@ function EditProgram({
             const promiseStep = getContentList(params2);
 
             Promise.all([promiseTopic, promiseAudience, promiseStep]).then(responseAll => {
-                console.log(responseAll[0]);
-                console.log(responseAll[1]);
+                // console.log(responseAll[0]);
+                // console.log(responseAll[1]);
                 var topicRaw = [], audienceRaw = [];
                 responseAll[0].data.Data.map(e => {
                     topicRaw.push(e.category);
@@ -72,11 +72,11 @@ function EditProgram({
                 responseAll[1].data.Data.map(e => {
                     audienceRaw.push({value: e.audianceName, label: e.audianceName});
                 })
-                console.log("Topic raw", topicRaw);
-                console.log("Audience raw", audienceRaw);
+                // console.log("Topic raw", topicRaw);
+                // console.log("Audience raw", audienceRaw);
                 setCategoryList(topicRaw);
                 setAudience(audienceRaw);
-                console.log("This is ", responseAll[2]);
+                // console.log("This is ", responseAll[2]);
                 setSteps(responseAll[2].data.contents);
                 if(responseAll[2].data.contents.length > 0) {
                     localStorage.setItem('responseCount', Object.keys(responseAll[2].data.contents[0].respons).length);
@@ -93,7 +93,7 @@ function EditProgram({
 
                 getProgramList(params)
                 .then(response => {
-                    console.log("Response data: ", response.data);
+                    // console.log("Response data: ", response.data);
                     setProgram(response.data.programs[0]);
                     localStorage.setItem('programCategory', response.data.programs[0].category);
                     localStorage.setItem('startDateProgram', response.data.programs[0].startDate);
@@ -107,7 +107,7 @@ function EditProgram({
                     
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     setPageLoading(false);
                 });
             })
@@ -116,8 +116,8 @@ function EditProgram({
 
     useEffect(() => {
         if(stepDeleting && confirmDelete) {
-            console.log('yatta!')
-            console.log('ini id step', stepDeleting[0]);
+            // console.log('yatta!')
+            // console.log('ini id step', stepDeleting[0]);
             setPageLoading(true);
             let param = {
                 whereValues: {
@@ -128,7 +128,7 @@ function EditProgram({
             .then(response => {
                 setStepDeleting(null);
                 setConfirmDelete(false);
-                console.log('ini respon step deleting', response);
+                // console.log('ini respon step deleting', response);
                 const params2 = {
                     whereKeyValues: {
                         programId: _id
@@ -139,14 +139,14 @@ function EditProgram({
                 };
                 getContentList(params2)
                 .then(res => {
-                    console.log('ini respon ambil step', res);
+                    // console.log('ini respon ambil step', res);
                     setSteps(res.data.contents);
                     localStorage.setItem('noUrutTahap', res.data.contents.length);
                     setPageLoading(false);
                 })
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             })
         }
     }, [stepDeleting, confirmDelete]);
@@ -246,7 +246,7 @@ function EditProgram({
                                 onChange={(e) => {
                                     let file = e.currentTarget.files[0];
                                     if(file) {
-                                        console.log("File to upload: ", file);
+                                        // console.log("File to upload: ", file);
                                         setFieldValue("programThumbnailEdit", file);
                                     }
                                 }}
@@ -303,14 +303,14 @@ function EditProgram({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

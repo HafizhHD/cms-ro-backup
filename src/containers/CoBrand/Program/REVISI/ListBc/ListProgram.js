@@ -35,9 +35,9 @@ class ListProgram extends React.Component {
         allCheckBox3.forEach((radio) => {
             radio.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ kategori: event.target.value })
-                    console.log(this.state.kategori)
+                    // console.log(this.state.kategori)
                 }
             })
         })
@@ -47,9 +47,9 @@ class ListProgram extends React.Component {
         allCheckBox2.forEach((radio) => {
             radio.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ destiemail: event.target.value })
-                    console.log(this.state.destiemail)
+                    // console.log(this.state.destiemail)
                 }
             })
         })
@@ -72,20 +72,20 @@ class ListProgram extends React.Component {
 
         })
             .then(response => {
-                console.log(response.data.programs);
-                console.log(response.data);
+                // console.log(response.data.programs);
+                // console.log(response.data);
                 this.setState({ message: response.data.programs })
             })
             .catch(error => {
-                console.log(error + 'ini eror program');
+                // console.log(error + 'ini eror program');
             });
     }
 
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.message[index].programName)
+        // console.log(idkomen)
+        // console.log(this.state.message[index].programName)
         let params =
         {
             whereValues:
@@ -111,7 +111,7 @@ class ListProgram extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 const userData = JSON.parse(localStorage.getItem('userData'));
                 const params2 = {
@@ -129,17 +129,17 @@ class ListProgram extends React.Component {
 
                 })
                     .then(response => {
-                        console.log(response.data.programs);
-                        console.log(response.data);
+                        // console.log(response.data.programs);
+                        // console.log(response.data);
                         this.setState({ message: response.data.programs })
                         this.setState({ new: null })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror program');
+                        // console.log(error + 'ini eror program');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit BC');
+                // console.log(error + 'ini eror edit BC');
             });
     }
 
@@ -265,8 +265,8 @@ class ListProgram extends React.Component {
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.message[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.message[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -282,8 +282,8 @@ class ListProgram extends React.Component {
             },
         })
             .then(response => {
-                console.log(params)
-                console.log(response.data);
+                // console.log(params)
+                // console.log(response.data);
                 const userData = JSON.parse(localStorage.getItem('userData'));
                 const params2 = {
                     whereKeyValues: {
@@ -300,25 +300,25 @@ class ListProgram extends React.Component {
 
                 })
                     .then(response => {
-                        console.log(response.data.programs);
-                        console.log(response.data);
+                        // console.log(response.data.programs);
+                        // console.log(response.data);
                         this.setState({ message: response.data.programs })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror program');
+                        // console.log(error + 'ini eror program');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete program');
+                // console.log(error + 'ini delete program');
             });
     }
 
     onEdit(index) {
         this.setState({ indexEdit: index })
         this.setState({ new: index })
-        console.log(this.state.indexEdit)
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(this.state.indexEdit)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
 
     render() {

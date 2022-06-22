@@ -41,7 +41,7 @@ function ViewProgram() {
     useEffect(() => {
         setLoading(true);
         const id = localStorage.getItem('programSelected');
-        console.log(id);
+        // console.log(id);
         if(id) {
             const userData = JSON.parse(localStorage.getItem('userData'));
             const params = {
@@ -69,17 +69,17 @@ function ViewProgram() {
             });
             const promiseStep = getContentList(params2);
             Promise.all([promiseProgram, promiseStep]).then(response => {
-                console.log("Response data: ", response[0].data);
+                // console.log("Response data: ", response[0].data);
                 setProgram(response[0].data.programs[0]);
                 localStorage.setItem('programCategory', response[0].data.programs[0].category);
-                console.log("This is ", program);
+                // console.log("This is ", program);
                 setSteps(response[1].data.contents);
                 setLoading(false);
                 let date = new Date(response[0].data.programs[0].startDate).toLocaleDateString("en-UK", dateFormat);
                 setStartDate(date);
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 setLoading(false);
             });
         }

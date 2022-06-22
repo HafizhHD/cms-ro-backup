@@ -37,15 +37,15 @@ const ProgramReport = () => {
             includeThumbnailData: false,
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getProgramList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             setProgramData(response.data.programs);
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })}
     }, [, period]);

@@ -32,7 +32,7 @@ function ViewStep() {
     useEffect(() => {
         setLoading(true);
         const id = localStorage.getItem('stepSelected');
-        console.log(id);
+        // console.log(id);
         if (id) {
             const userData = JSON.parse(localStorage.getItem('userData'));
             let params = {
@@ -44,18 +44,18 @@ function ViewStep() {
 
             getContentList(params)
                 .then(response => {
-                    console.log("Response data: ", response.data);
+                    // console.log("Response data: ", response.data);
                     setContent(response.data.contents[0]);
                     if (response.data.contents[0].status === 'active') setActive(true);
                     else setActive(false);
-                    console.log("This is ", content);
+                    // console.log("This is ", content);
                     setResponse(Object.keys(response.data.contents[0].respons));
                     setLoading(false);
                     let date = new Date(response.data.contents[0].startDate).toLocaleDateString("en-UK", dateFormat);
                     setStartDate(date);
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     setLoading(false);
                 });
         }
@@ -65,7 +65,7 @@ function ViewStep() {
     // get komentar by id done
     // useEffect(() => {
     //     const id = localStorage.getItem('contentSelected');
-    //     console.log(id);
+    //     // console.log(id);
     //     let params =
     //     {
     //         whereKeyValues: {
@@ -78,20 +78,20 @@ function ViewStep() {
     //         data: params,
     //     })
     //         .then(response => {
-    //             console.log(response.data.resultData);
+    //             // console.log(response.data.resultData);
     //             setKomen(response.data.resultData)
-    //             console.log(response.data.resultData[0]._id); //id komentar
-    //             // console.log(response.data.resultData[0].emailUser);
+    //             // console.log(response.data.resultData[0]._id); //id komentar
+    //             // // console.log(response.data.resultData[0].emailUser);
     //         })
     //         .catch(error => {
-    //             console.log(error + 'ini eror komentar');
+    //             // console.log(error + 'ini eror komentar');
     //         });
     // }, [])
 
     // post komentar
     // useEffect(() => {
     //     const id = localStorage.getItem('contentSelected');
-    //     console.log(id);
+    //     // console.log(id);
     //     let params = {
     //         contentId: id,
     //         emailUser: "nina@gmail.com",
@@ -108,14 +108,14 @@ function ViewStep() {
     //         },
     //     })
     //         .then(response => {
-    //             console.log(response.data);
+    //             // console.log(response.data);
 
-    //             // console.log(response.data.resultData[0]);
+    //             // // console.log(response.data.resultData[0]);
     //             // setKomen(response.data.resultData[0])
-    //             // console.log(response.data.resultData[0].emailUser);
+    //             // // console.log(response.data.resultData[0].emailUser);
     //         })
     //         .catch(error => {
-    //             console.log(error + 'ini eror post komentar baru');
+    //             // console.log(error + 'ini eror post komentar baru');
     //         });
     // }, [])
 
@@ -125,7 +125,7 @@ function ViewStep() {
     //     setIndex({ indexEdit: index })
     //     localStorage.setItem('idUser', komentar[index]._id)
     //     let idkomen = localStorage.getItem('idUser')
-    //     console.log(idkomen)
+    //     // console.log(idkomen)
     //     let params =
     //     {
     //         whereValues: {
@@ -141,9 +141,9 @@ function ViewStep() {
     //         },
     //     })
     //         .then(response => {
-    //             console.log(response.data);
+    //             // console.log(response.data);
     //             const id = localStorage.getItem('contentSelected');
-    //             console.log(id);
+    //             // console.log(id);
     //             let params =
     //             {
     //                 whereKeyValues: {
@@ -156,17 +156,17 @@ function ViewStep() {
     //                 data: params,
     //             })
     //                 .then(response => {
-    //                     console.log(response.data.resultData);
+    //                     // console.log(response.data.resultData);
     //                     setKomen(response.data.resultData)
-    //                     console.log(response.data.resultData[0]._id); //id komentar
-    //                     // console.log(response.data.resultData[0].emailUser);
+    //                     // console.log(response.data.resultData[0]._id); //id komentar
+    //                     // // console.log(response.data.resultData[0].emailUser);
     //                 })
     //                 .catch(error => {
-    //                     console.log(error + 'ini eror komentar');
+    //                     // console.log(error + 'ini eror komentar');
     //                 });
     //         })
     //         .catch(error => {
-    //             console.log(error + 'ini delete komentar');
+    //             // console.log(error + 'ini delete komentar');
     //         });
     // }
 
@@ -175,8 +175,8 @@ function ViewStep() {
     // // useEffect((index) => {
     //     function onEdit(index) {
     //         setNewi( {newi : index})
-    //         console.log(index) //null
-    //         console.log(newi)
+    //         // console.log(index) //null
+    //         // console.log(newi)
     //     }
 
 
@@ -224,7 +224,7 @@ function ViewStep() {
                                         status: changedStatus
                                     }
                                 }
-                                console.log(param);
+                                // console.log(param);
                                 axios({
                                     method: 'post',
                                     url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/contentUpdate',
@@ -234,10 +234,10 @@ function ViewStep() {
                                     },
                                 })
                                     .then(response => {
-                                        console.log("Response data: ", response.data);
+                                        // console.log("Response data: ", response.data);
                                     })
                                     .catch(error => {
-                                        console.log(error);
+                                        // console.log(error);
                                         setLoading(false);
                                     });
                                 setActive(!isActive);
@@ -326,7 +326,7 @@ function ViewStep() {
                     <tbody>
                         {console.log(komentar)}
                         {komentar ? komentar.map((item, index) => {
-                            console.log(item._id)
+                            // console.log(item._id)
                             if (index == newi) {
                                 return (
                                     <tr>

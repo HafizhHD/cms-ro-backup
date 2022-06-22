@@ -26,7 +26,7 @@ function EditUser({
 
     useEffect(() => {
         setPageLoading(true);
-        console.log(_emailUser);
+        // console.log(_emailUser);
         if(_emailUser) {
             const params = {
                 whereKeyValues: {
@@ -36,12 +36,12 @@ function EditUser({
 
             getUserList(params)
             .then(response => {
-                console.log("Response data: ", response.data);
+                // console.log("Response data: ", response.data);
                 setUser(response.data.users[0]);
                 setPageLoading(false);
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 setPageLoading(false);
             });
         }
@@ -187,14 +187,14 @@ function EditUser({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

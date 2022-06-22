@@ -36,11 +36,11 @@ class ListKategoriNotifikasi extends React.Component {
             url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryFilter',
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST kate notif');
+                // console.log(error + 'ini eror LIST kate notif');
             });
     }
 
@@ -48,8 +48,8 @@ class ListKategoriNotifikasi extends React.Component {
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.message[index].category)
+        // console.log(idkomen)
+        // console.log(this.state.message[index].category)
         let params =
         {
             whereValues:
@@ -67,23 +67,23 @@ class ListKategoriNotifikasi extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST kate notif');
+                        // console.log(error + 'ini eror LIST kate notif');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit kate notif');
+                // console.log(error + 'ini eror edit kate notif');
             });
     }
     
@@ -129,8 +129,8 @@ class ListKategoriNotifikasi extends React.Component {
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.message[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.message[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -146,29 +146,29 @@ class ListKategoriNotifikasi extends React.Component {
             },
         })
             .then(response => {
-                console.log(params)
-                console.log(response.data);
+                // console.log(params)
+                // console.log(response.data);
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cms/notificationCategoryFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST kate notif');
+                        // console.log(error + 'ini eror LIST kate notif');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete kate notif');
+                // console.log(error + 'ini delete kate notif');
             });
     }
 
     onEdit(index) {
         this.setState({ new: index })
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
 
     render() {

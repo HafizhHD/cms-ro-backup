@@ -27,7 +27,7 @@ export const auth = ( userName, password ) => {
         //Call API ....
         cobrandLogin(data)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             let loginData = response.data;
             if (loginData.resultCode === "OK" && loginData.resultData) {
                 localStorage.setItem('accessToken', loginData.resultData.token);
@@ -70,7 +70,7 @@ export const registerAuth = ( email, accountName, cobrandName, photo, phoneNumbe
 
         const promise = toBase64(photo);
         promise.then((result) => {
-            console.log(result);
+            // console.log(result);
             const thumbnail = result;
 
             setTimeout( () => {
@@ -88,13 +88,13 @@ export const registerAuth = ( email, accountName, cobrandName, photo, phoneNumbe
                 
                 cobrandRegister(data)
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     localStorage.setItem('loginMessage', "Successfully registered. You can now log in.");
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-                console.log(data);
+                // console.log(data);
                 history.push('/');
                 dispatch({
                     type: AUTH_LOGOUT

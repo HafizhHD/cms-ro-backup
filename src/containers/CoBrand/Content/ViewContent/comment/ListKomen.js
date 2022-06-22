@@ -32,7 +32,7 @@ class ListKoment extends React.Component {
 
     daftarMessage = () => {
         const id = localStorage.getItem('contentSelected');
-        console.log(id);
+        // console.log(id);
         let params =
         {
             whereKeyValues: {
@@ -45,12 +45,12 @@ class ListKoment extends React.Component {
             // data: params,
         })
             .then(response => {
-                console.log(response.data.resultData);
-                console.log(response.data);
+                // console.log(response.data.resultData);
+                // console.log(response.data);
                 this.setState({ message: response.data.resultData })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST koment');
+                // console.log(error + 'ini eror LIST koment');
             });
     }
 
@@ -58,8 +58,8 @@ class ListKoment extends React.Component {
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.message[index].emailUser)
+        // console.log(idkomen)
+        // console.log(this.state.message[index].emailUser)
         let params =
         {
             whereValues:
@@ -80,7 +80,7 @@ class ListKoment extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
@@ -88,17 +88,17 @@ class ListKoment extends React.Component {
                     // data: params,
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
-                        console.log(response.data);
+                        // console.log(response.data.resultData);
+                        // console.log(response.data);
                         this.setState({ message: response.data.resultData })
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST koment');
+                        // console.log(error + 'ini eror LIST koment');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit koment');
+                // console.log(error + 'ini eror edit koment');
             });
     }
     
@@ -143,8 +143,8 @@ class ListKoment extends React.Component {
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.message[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.message[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -160,31 +160,31 @@ class ListKoment extends React.Component {
             },
         })
             .then(response => {
-                console.log(params)
-                console.log(response.data);
+                // console.log(params)
+                // console.log(response.data);
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/commentContentFilter',
                 })
                     .then(response => {
-                        console.log(response.data.resultData);
+                        // console.log(response.data.resultData);
                         this.setState({ message: response.data.resultData })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST koment');
+                        // console.log(error + 'ini eror LIST koment');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete komen');
+                // console.log(error + 'ini delete komen');
             });
     }
 
     onEdit(index) {
         this.setState({ indexEdit: index })
         this.setState({ new: index })
-        console.log(this.state.indexEdit)
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(this.state.indexEdit)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
 
     render() {

@@ -31,7 +31,7 @@ const Columns = [
     //         <>
     //             {/* <button 
     //                 className="btn_action"
-    //                 onClick={() => console.log(row)}>
+    //                 onClick={() => // console.log(row)}>
     //                 <div>
     //                     <FiEye className="btn_action-icon" />
     //                 </div>

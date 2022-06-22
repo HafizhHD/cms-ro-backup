@@ -6,8 +6,8 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 function Navigations({ MenuItems, ShowAside }) {
     const currentLocation = useLocation();
-    console.log("Current location:", currentLocation);
-    console.log('Menu items', MenuItems);
+    // console.log("Current location:", currentLocation);
+    // console.log('Menu items', MenuItems);
 
     const [isActive, setActive] = useState({path: currentLocation.pathname, active: true});
     const [isChildActive, setChildActive] = useState({path: currentLocation.pathname, active: true});
@@ -16,7 +16,7 @@ function Navigations({ MenuItems, ShowAside }) {
         <aside className="Aside">
             <ul className="Aside__Nav">
                 {MenuItems.map((item, i) => {
-                    console.log(item.path);
+                    // console.log(item.path);
                     return (
                         <li key={i} className="Aside__Nav_item">
                             {!item.children ? 
@@ -63,7 +63,7 @@ function Navigations({ MenuItems, ShowAside }) {
                                     </NavLink>
                                     {isActive.path === item.path && isActive.active === true ? 
                                         item.children.map((x, idx) => {
-                                            console.log(x.path);
+                                            // console.log(x.path);
                                             
                                             return (
                                                 <li key={item.path + idx} className="Aside__Nav_item">
@@ -98,7 +98,7 @@ function Navigations({ MenuItems, ShowAside }) {
                                                             </NavLink>
                                                             {isChildActive.path === item.path + x.path && isChildActive.active === true ? 
                                                                 x.children.map((y, idx) => {
-                                                                    console.log(y.path);
+                                                                    // console.log(y.path);
                                                                     
                                                                     return (
                                                                         <li key={item.path + x.path + idx} className="Aside__Nav_item">

@@ -32,7 +32,7 @@ function EditStaff({
         }
         getAdminList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             setStaff(response.data.Data[0]);
             setPageLoading(false);
         })
@@ -61,7 +61,7 @@ function EditStaff({
                 validationSchema = {validationStaff}
                 validateOnChange = {true}
                 onSubmit = { values => {
-                    console.log(values);
+                    // console.log(values);
                     onEditStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, history)
                 }}
             >
@@ -168,7 +168,7 @@ function EditStaff({
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit" onClick={() => {
-                                console.log(values);
+                                // console.log(values);
                             }}>
                                 Simpan Perubahan
                             </button>
@@ -177,14 +177,14 @@ function EditStaff({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

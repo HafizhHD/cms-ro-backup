@@ -135,7 +135,7 @@ const Columns = [
     //                 to="/helpdesk/pengguna/detail"
     //                 className="link-action"
     //                 onClick={() => {
-    //                     console.log(cell.row.values.emailUser);
+    //                     // console.log(cell.row.values.emailUser);
     //                     localStorage.setItem('userSelected', cell.row.values.emailUser);
     //                 }}
     //                 >Detail

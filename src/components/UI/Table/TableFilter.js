@@ -185,7 +185,7 @@ export function GlobalFilter({
         });
         return [min, max];
     }, [id, preFilteredRows]);
-    console.log(min, max)
+    // console.log(min, max)
     return (
         <div
             style={{
@@ -199,7 +199,7 @@ export function GlobalFilter({
                 max={filterValue[1] || max.toISOString().slice(0, 10)}
                 onChange={e => {
                     const val = e.target.value;
-                    console.log(e.target.value);
+                    // console.log(e.target.value);
                     setFilter((old = []) => [val ? (val) : undefined, old[1]]);
                 }}
                 style={{
@@ -250,10 +250,10 @@ export function GlobalFilter({
   export function dateBetweenFilterFn(rows, id, filterValues) {
     let sd = new Date(filterValues[0]);
     let ed = new Date(filterValues[1]);
-    console.log(rows, id, filterValues)
+    // console.log(rows, id, filterValues)
     return rows.filter(r => {
         var time = new Date(r.values[id]);
-        console.log(time, ed, sd)
+        // console.log(time, ed, sd)
         if (filterValues.length === 0) return rows;
         return (time >= sd && time <= ed);
     });

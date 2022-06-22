@@ -25,13 +25,13 @@ const Detail = ({ userSelected }) => {
     // const handleShow = () => setShow(true);
 
     useEffect(() => {
-        console.log(userSelected);
+        // console.log(userSelected);
         let params = {
             whereKeyValues: {
                 emailUser: userSelected
             }
         };
-        console.log(params);
+        // console.log(params);
         axios({
             method: 'post',
             url: `${URL}/api/user/userFilter`,
@@ -41,7 +41,7 @@ const Detail = ({ userSelected }) => {
             }
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 setUserData(response.data.users[0]);
                 let params2 = {
                     whereKeyValues: {}
@@ -60,7 +60,7 @@ const Detail = ({ userSelected }) => {
                         }
                     }
                 }
-                console.log(params2);
+                // console.log(params2);
                 axios({
                     method: 'post',
                     url: `${URL}/api/user/userFilter`,
@@ -70,17 +70,17 @@ const Detail = ({ userSelected }) => {
                     }
                 })
                     .then(response2 => {
-                        console.log(response2);
+                        // console.log(response2);
                         setRelativesData(response2.data.users);
                         setLoading(false);
                     })
                     .catch(error => {
-                        console.log(error);
+                        // console.log(error);
                         setLoading(false);
                     })
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 setLoading(false);
             })
     }, []);
@@ -99,7 +99,7 @@ const Detail = ({ userSelected }) => {
                     status: stats
                 }
             }
-            console.log(param);
+            // console.log(param);
             axios({
                 method: 'post',
                 url: `${URL}/api/user/edit`,
@@ -109,12 +109,12 @@ const Detail = ({ userSelected }) => {
                 },
             })
                 .then(response => {
-                    console.log("Response data: ", response.data);
+                    // console.log("Response data: ", response.data);
                     setUpdating(false);
                     window.location.reload();
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     setUpdating(false);
                 });
             setLoading(false);
@@ -127,7 +127,7 @@ const Detail = ({ userSelected }) => {
             let param = {
                 userId: userData._id
             }
-            console.log(param);
+            // console.log(param);
             axios({
                 method: 'post',
                 url: `${URL}/api/user/remove`,
@@ -137,12 +137,12 @@ const Detail = ({ userSelected }) => {
                 },
             })
                 .then(response => {
-                    console.log("Response data: ", response.data);
+                    // console.log("Response data: ", response.data);
                     setDeleting(false);
                     window.location.reload();
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                     setDeleting(false);
                 });
             setLoading(false);

@@ -212,15 +212,15 @@ function Dashboard() {
         const promiseNotificationCategory = getNotificationCategoryList(paramNotificationCategory);
 
         Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification, promiseNotificationCategory]).then(responseAll => {
-            console.log(responseAll[0]);
+            // console.log(responseAll[0]);
             const dataUser = responseAll[0].data.users;
             countingUser[0] = dataUser.length;
-            // console.log(dataUser);
+            // // console.log(dataUser);
             for(var i = 0; i < dataUser.length; i++) {
                 let x = dataUser[i];
                 if(x.userType === 'parent') {
                     countingUser[1]++;
-                    // console.log("Parent email: " + x.parentEmail);
+                    // // console.log("Parent email: " + x.parentEmail);
                     if(x.parentEmail === undefined) parent[0]++;
                     else coparent[0]++;
                 }
@@ -259,34 +259,34 @@ function Dashboard() {
                 }
             ]
             
-            console.log("Colors length: " + colors.length);
+            // console.log("Colors length: " + colors.length);
             setCountUser(countingUser);
             setUserData(userDataObj);
             setUserDataLabel(['Orang tua: ' + countingUser[1], 'Anak: ' + countingUser[2]]);
 
             const contentLength = responseAll[1].data.contents.length;
-            // console.log(responseAll[1].data.contents);
-            // console.log(responseAll[2].data.programs);
+            // // console.log(responseAll[1].data.contents);
+            // // console.log(responseAll[2].data.programs);
             const programLength = responseAll[2].data.programs.length;
 
             const dataConProg = [contentLength, programLength];
-            // console.log(dataConProg);
+            // // console.log(dataConProg);
             const conProgObj = [{
                 data: dataConProg
             }];
             setConProgData(conProgObj);
 
-            // console.log(responseAll[3].data);
+            // // console.log(responseAll[3].data);
 
             const usageData = responseAll[3].data.appUsages;
-            // console.log(usageData);
+            // // console.log(usageData);
             var usageLabel = [], usageFreq = [];
             for(var i = 0; i < usageData.length; i++) {
                 let x = usageData[i].appUsages;
-                // console.log(x);
+                // // console.log(x);
                 for(var j = 0; j < x.length; j++) {
                     let y = x[j];
-                    // console.log(y);
+                    // // console.log(y);
                     if(y.usageHour !== undefined && y.usageHour.length > 0) {
                         if(!usageLabel.includes(y.appName)) {
                             usageLabel.push(y.appName);
@@ -315,14 +315,14 @@ function Dashboard() {
                 usageLabel[k] = list[k].name;
                 usageFreq[k] = list[k].age;
             }
-            // console.log(usageLabel.slice(0,10));
-            // console.log(usageFreq.slice(0,10));
+            // // console.log(usageLabel.slice(0,10));
+            // // console.log(usageFreq.slice(0,10));
 
             setTopUsageData(usageFreq.slice(0,10));
             setTopUsageLabel(usageLabel.slice(0,10));
 
-            console.log(responseAll[4].data);
-            console.log(responseAll[5].data);
+            // console.log(responseAll[4].data);
+            // console.log(responseAll[5].data);
             var notifCat = [];
             var notifDat = [];
             responseAll[5].data.Data.map(e => {
@@ -631,8 +631,8 @@ function Dashboard() {
                             name="programTotalSelect"
                             value={programTotalSelect}
                             onChange={(e) => {
-                                console.log('bruh');
-                                console.log(e.currentTarget.value);
+                                // console.log('bruh');
+                                // console.log(e.currentTarget.value);
                                 setProgramTotalSelect(e.currentTarget.value);
                                 setUpdatingActive(true);
                             }}>
@@ -659,8 +659,8 @@ function Dashboard() {
                             name="contentTotalSelect"
                             value={contentTotalSelect}
                             onChange={(e) => {
-                                console.log('bruh');
-                                console.log(e.currentTarget.value);
+                                // console.log('bruh');
+                                // console.log(e.currentTarget.value);
                                 setContentTotalSelect(e.currentTarget.value);
                                 setUpdatingActive(true);
                             }}>

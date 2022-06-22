@@ -34,7 +34,7 @@ function Setting({
                 setPhotoPreview(result);
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             })
         // } else if(coverRaw) {
         //     let convertedPhoto = toBase64(coverRaw);
@@ -42,7 +42,7 @@ function Setting({
         //         setPhotoPreview(result);
         //     })
         //     .catch(error => {
-        //         console.log(error);
+        //         // console.log(error);
         //     })
         }
     }, [photoRaw])
@@ -159,7 +159,7 @@ function Setting({
                                         onChange={(e) => {
                                             let file = e.currentTarget.files[0];
                                             if(file) {
-                                                console.log("File to upload: ", file);
+                                                // console.log("File to upload: ", file);
                                                 setFieldValue("thumbnail", file);
                                                 setPhotoRaw(file);
                                             }
@@ -174,10 +174,10 @@ function Setting({
                                         <h2>Cover</h2>
                                         <input type="file"
                                             onChange={(e) => {
-                                                console.log(e.currentTarget.files[0]);
+                                                // console.log(e.currentTarget.files[0]);
                                                 const promise = toBase64(e.currentTarget.files[0]);
                                                 promise.then(result => {
-                                                    console.log(result)
+                                                    // console.log(result)
                                                     setCover(result);
                                                 })
                                             }}
@@ -196,7 +196,7 @@ function Setting({
                                         onChange={(e) => {
                                             let file = e.currentTarget.files[0];
                                             if(file) {
-                                                console.log("File to upload: ", file);
+                                                // console.log("File to upload: ", file);
                                                 setFieldValue("thumbnail", file);
                                                 setPhotoRaw(file);
                                             }

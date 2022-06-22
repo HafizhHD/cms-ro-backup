@@ -36,11 +36,11 @@ class ListKategoriProgram extends React.Component {
             url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryFilter',
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 this.setState({ message: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST kate program');
+                // console.log(error + 'ini eror LIST kate program');
             });
     }
 
@@ -48,8 +48,8 @@ class ListKategoriProgram extends React.Component {
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.message[index].category)
+        // console.log(idkomen)
+        // console.log(this.state.message[index].category)
         let params =
         {
             whereValues:
@@ -67,24 +67,24 @@ class ListKategoriProgram extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
-                console.log(response.data);
+                // console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                         this.setState({new : null})
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST kate program');
+                        // console.log(error + 'ini eror LIST kate program');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit kate program');
+                // console.log(error + 'ini eror edit kate program');
             });
     }
     
@@ -130,8 +130,8 @@ class ListKategoriProgram extends React.Component {
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.message[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.message[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.message[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -147,29 +147,29 @@ class ListKategoriProgram extends React.Component {
             },
         })
             .then(response => {
-                console.log(params)
-                console.log(response.data);
+                // console.log(params)
+                // console.log(response.data);
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cms/programCategoryFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ message: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST kate program');
+                        // console.log(error + 'ini eror LIST kate program');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete kate program');
+                // console.log(error + 'ini delete kate program');
             });
     }
 
     onEdit(index) {
         this.setState({ new: index })
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
 
     render() {

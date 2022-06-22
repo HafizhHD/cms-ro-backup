@@ -5,7 +5,7 @@ const Chart = (props) => {
 
     let data = [], label = [];
 
-    console.log(props);
+    // console.log(props);
 
     props.chartData.forEach((value, i) => {
         if(value !== 0) {
@@ -14,8 +14,8 @@ const Chart = (props) => {
         }
     })
 
-    console.log('data: ', data);
-    console.log('label: ', label);
+    // console.log('data: ', data);
+    // console.log('label: ', label);
 
     const [subsState] = useState({
         series: data,

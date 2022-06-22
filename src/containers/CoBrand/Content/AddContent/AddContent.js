@@ -13,6 +13,7 @@ import RichTextEditor from 'react-rte';
 import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
 import TextEditor from '../../../../components/Texteditor/TextEditor';
 import { getContentTopicList, getAudienceList } from '../../../../components/API/filter';
+import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
 
 //texteditor
 import { ContentState, Editor } from "react-draft-wysiwyg";
@@ -45,6 +46,25 @@ function AddContent({
 
     const [topic, setTopic] = useState([]);
     const [audience, setAudience] = useState([]);
+
+    const embedVideoCallBack = (link) =>{
+        
+        const asd = getEmbedUrl(link);
+        // console.log("Video embed ", asd);
+        return asd;
+    }
+
+    const uploadCallback = (file) => new Promise(
+        (resolve, reject) => {
+        const reader= new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            // console.log(reader.result);
+            resolve({data: {link: reader.result}});
+        }
+        reader.onerror = error => reject(error);
+        }
+    );
 
 
 
@@ -87,8 +107,8 @@ function AddContent({
         const promiseAudience = getAudienceList(paramAudience);
 
         Promise.all([promiseTopic, promiseAudience]).then(responseAll => {
-            // console.log(responseAll[0]);
-            // console.log(responseAll[1]);
+            // // console.log(responseAll[0]);
+            // // console.log(responseAll[1]);
             var topicRaw = [], audienceRaw = [];
             responseAll[0].data.Data.map(e => {
                 topicRaw.push({value: e.topicName, label: e.topicName});
@@ -177,7 +197,7 @@ function AddContent({
                                     }}
                                 >
                                     {topic.map(e => {
-                                        console.log(e);
+                                        // console.log(e);
                                         return <option value={e.topicName}>{e.topicName}</option>
                                     })}
                                 </select> */}
@@ -245,19 +265,44 @@ function AddContent({
                                         toolbarClassName="toolbarClassName"
                                         wrapperClassName="wrapperClassName"
                                         editorClassName="editorClassName"
-                                        onEditorStateChange={onEditorStateChangeArtikel}
+                                        onEditorStateChange={(editorState) => setArtikel(editorState)}
                                         // onEditorStateChange={updateTextDescription}
                                         // value={description.values}
                                         value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
                                         // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                         name="contents"
-                                        handlePastedText={() => false}
-                                        onChange={(editorState) => {
-                                            setTextValue(editorState);
+                                        toolbar={{
+                                            list: {
+                                                inDropdown: true,
+                                            },
+                                            textAlign: {
+                                                inDropdown: true,
+                                            },
+                                            image: {
+                                                uploadEnabled: true,
+                                                alignmentEnabled: true,
+                                                previewImage: true,
+                                                uploadCallback: uploadCallback,
+                                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                                defaultSize: {
+                                                    height: 'auto',
+                                                    width: '360px',
+                                                },
+                                            },
+                                            embedded:{
+                                                embedCallback: embedVideoCallBack,
+                                                defaultSize: {
+                                                    height: 'auto',
+                                                    width: '360px',
+                                                },
+                                            }
+                                        }}
+                                        onChange={() => {
+                                            // setTextValue(editorState);
                                             // setFieldValue("contentDescription", description);
-                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                            // console.log(textDeskripsi);
-                                            // console.log(values.contents)
+                                            setFieldValue('contents', draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                            // // console.log(textDeskripsi);
+                                            // // console.log(values.contents)
                                         }}
 
                                     /></>
@@ -290,7 +335,7 @@ function AddContent({
                                                 onChange={(e) => {
                                                     let file = e.currentTarget.files[0];
                                                     if (file) {
-                                                        console.log("File to upload: ", file);
+                                                        // console.log("File to upload: ", file);
                                                         setFieldValue("contents", file);
                                                     }
                                                 }}
@@ -338,7 +383,7 @@ function AddContent({
                                     //         onChange={(e) => {
                                     //             let file = e.currentTarget.files[0];
                                     //             if (file) {
-                                    //                 console.log("File to upload: ", file);
+                                    //                 // console.log("File to upload: ", file);
                                     //                 setFieldValue("contents", file);
                                     //             }
                                     //         }}
@@ -398,7 +443,7 @@ function AddContent({
                                                 onChange={(e) => {
                                                     let file = e.currentTarget.files[0];
                                                     if (file) {
-                                                        console.log("File to upload: ", file);
+                                                        // console.log("File to upload: ", file);
                                                         setFieldValue("contents", file);
                                                     }
                                                 }}
@@ -426,20 +471,44 @@ function AddContent({
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
                                     editorClassName="editorClassName"
-                                    onEditorStateChange={onEditorStateChange}
+                                    onEditorStateChange={(editorState) => setDescription(editorState)}
                                     // onEditorStateChange={updateTextDescription}
                                     // value={description.values}
                                     value={draftToHtml(convertToRaw(description.getCurrentContent()))}
                                     // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                     name="contentDescription"
-                                    handlePastedText={() => false}
-                                    onChange={(editorState) => {
-                                        setTextDeskripsi(editorState);
+                                    toolbar={{
+                                        list: {
+                                            inDropdown: true,
+                                        },
+                                        textAlign: {
+                                            inDropdown: true,
+                                        },
+                                        image: {
+                                            uploadEnabled: true,
+                                            alignmentEnabled: true,
+                                            previewImage: true,
+                                            uploadCallback: uploadCallback,
+                                            inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                            defaultSize: {
+                                                height: 'auto',
+                                                width: '360px',
+                                            },
+                                        },
+                                        embedded:{
+                                            embedCallback: embedVideoCallBack,
+                                            defaultSize: {
+                                                height: 'auto',
+                                                width: '360px',
+                                            },
+                                        }
+                                    }}
+                                    onChange={() => {
+                                        // setTextValue(editorState);
                                         // setFieldValue("contentDescription", description);
-                                        setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
-                                        console.log(textDeskripsi);
-                                        console.log(values.contentDescription)
-                                        // console.log(dangerouslySetInnerHTML={{ __html: item.description}} )
+                                        setFieldValue('contentDescription', draftToHtml(convertToRaw(description.getCurrentContent())));
+                                        // // console.log(textDeskripsi);
+                                        // // console.log(values.contents)
                                     }}
 
                                 />
@@ -470,7 +539,7 @@ function AddContent({
                                         onChange={(e) => {
                                             let file = e.currentTarget.files[0];
                                             if (file) {
-                                                // console.log("File to upload: ", file);
+                                                // // console.log("File to upload: ", file);
                                                 setFieldValue("contentThumbnail", file);
                                                 setPreview(file);
                                             }
@@ -521,7 +590,7 @@ function AddContent({
                                             defaultChecked={values.isActive}
                                             onChange={() => {
                                                 values.isActive = !values.isActive;
-                                                console.log(values.isActive);
+                                                // console.log(values.isActive);
                                             }}></input>
                                         <span className="form-group_switch_switch_slider"></span>
                                     </label>
@@ -537,7 +606,7 @@ function AddContent({
                     </form>
                 )}
             </Formik>
-            {console.log(isLoading)}
+            {/*console.log(isLoading)*/}
             {isLoading ? <RKLoader /> : null}
         </>
     )
@@ -553,7 +622,7 @@ function AddContent({
 // its so loadingStart, i am very tired n feell sleepy, well will be ok rgight, 
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

@@ -33,19 +33,19 @@ class ListForum extends React.Component {
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumFilter',
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 this.setState({ listForum: response.data.Data })
             })
             .catch(error => {
-                console.log(error + 'ini eror LIST DISKUSI');
+                // console.log(error + 'ini eror LIST DISKUSI');
             });
     }
 
     onSave = (index) => {
         localStorage.setItem('idUser', this.state.listForum[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(idkomen)
-        console.log(this.state.listForum[index].userEmail)
+        // console.log(idkomen)
+        // console.log(this.state.listForum[index].userEmail)
         let params =
         {
             whereValues:
@@ -64,31 +64,31 @@ class ListForum extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Add Broadcast is success')
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ listForum: response.data.Data })
                         this.setState({ new: null })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST DISKUSI');
+                        // console.log(error + 'ini eror LIST DISKUSI');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini eror edit BC');
+                // console.log(error + 'ini eror edit BC');
             });
     }
 
     onDelete = (index) => {
         localStorage.setItem('idUser', this.state.listForum[index]._id)
         let idkomen = localStorage.getItem('idUser')
-        console.log(this.state.listForum[index]._id)
-        console.log(idkomen)
+        // console.log(this.state.listForum[index]._id)
+        // console.log(idkomen)
         let params =
         {
             whereValues: {
@@ -104,28 +104,28 @@ class ListForum extends React.Component {
             },
         })
             .then(response => {
-                console.log(response.data.Data);
+                // console.log(response.data.Data);
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/forumFilter',
                 })
                     .then(response => {
-                        console.log(response.data.Data);
+                        // console.log(response.data.Data);
                         this.setState({ listForum: response.data.Data })
                     })
                     .catch(error => {
-                        console.log(error + 'ini eror LIST DISKUSI');
+                        // console.log(error + 'ini eror LIST DISKUSI');
                     });
             })
             .catch(error => {
-                console.log(error + 'ini delete forum DISKUSI');
+                // console.log(error + 'ini delete forum DISKUSI');
             });
     }
 
     onEdit(index) {
         this.setState({ new: index })
-        console.log(index) //null
-        console.log(this.state.new)
+        // console.log(index) //null
+        // console.log(this.state.new)
     }
     render() {
         const { listForum, indexEdit } = this.state

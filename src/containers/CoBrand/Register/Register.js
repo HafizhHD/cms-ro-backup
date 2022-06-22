@@ -159,7 +159,7 @@ function Register({
                                         onChange={(e) => {
                                             let file = e.currentTarget.files[0];
                                             if(file) {
-                                            console.log("File to upload: ", file);
+                                            // console.log("File to upload: ", file);
                                             setFieldValue("thumbnail", file);
                                             }
                                         }}

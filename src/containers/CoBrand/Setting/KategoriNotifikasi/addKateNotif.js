@@ -75,14 +75,14 @@ function AddNotifCategory({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

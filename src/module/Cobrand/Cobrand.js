@@ -83,12 +83,12 @@ function Cobrand({
         let check = localStorage.getItem('accessToken');
 
         if (check) {
-            console.log('Yes masuk');
+            // console.log('Yes masuk');
             setUserLevel(JSON.parse(localStorage.getItem('userData')).userLevel);
-            console.log('User level', JSON.parse(localStorage.getItem('userData')).userLevel)
+            // console.log('User level', JSON.parse(localStorage.getItem('userData')).userLevel)
             onAuthSuccess()
         } else {
-            console.log('Yah gagal');
+            // console.log('Yah gagal');
             onAuthFailed()
         }
 

@@ -17,7 +17,7 @@ function RedZone() {
     // get redzone : done
     useEffect(() => {
         // const id = localStorage.getItem('contentSelected');
-        // console.log(id);
+        // // console.log(id);
         const userData = JSON.parse(localStorage.getItem('userData'));
         let params =
         {
@@ -32,13 +32,13 @@ function RedZone() {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 setListRedzone(response.data.Data)
-                console.log(listRedzone)
+                // console.log(listRedzone)
 
             })
             .catch(error => {
-                console.log(error + 'ini eror get list redzone');
+                // console.log(error + 'ini eror get list redzone');
             });
     }, [])
 
@@ -60,17 +60,17 @@ function RedZone() {
     //         data: params,
     //     })
     //         .then(response => {
-    //             console.log(response.data);
+    //             // console.log(response.data);
     //         })
     //         .catch(error => {
-    //             console.log(error + 'ini eror add redzone');
+    //             // console.log(error + 'ini eror add redzone');
     //         });
     // }, [])
 
     // // edit
     // useEffect(() => {
     //     // const id = localStorage.getItem('contentSelected');
-    //     // console.log(id);
+    //     // // console.log(id);
     //     let params =
     //     {
     //         whereValues: { _id: "628b4f8ac040ad69e5f317e9" },
@@ -82,13 +82,13 @@ function RedZone() {
     //         data: params,
     //     })
     //         .then(response => {
-    //             console.log(response.data);
+    //             // console.log(response.data);
     //             // setListRedzone(response.data)
-    //             // console.log(listRedzone)
+    //             // // console.log(listRedzone)
 
     //         })
     //         .catch(error => {
-    //             console.log(error + 'ini eror edit redzone');
+    //             // console.log(error + 'ini eror edit redzone');
     //         });
     // }, [])
 
@@ -108,18 +108,18 @@ function RedZone() {
                         placeholder="Search"
                         name="search"
                         onChange={(e) => {
-                            console.log(e.currentTarget.value);
+                            // console.log(e.currentTarget.value);
                             let urlBuilder = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURI(e.currentTarget.value) + '.json?access_token=' + accessToken;
                             axios({
                                 method: 'get',
                                 url: urlBuilder
                             })
                                 .then(response => {
-                                    //console.log("Response data: ", response.data);
+                                    //// console.log("Response data: ", response.data);
                                     mapSearchInput(response.data.features[0]);
                                 })
                                 .catch(error => {
-                                    console.log(error);
+                                    // console.log(error);
                                 });
                         }}
                     />

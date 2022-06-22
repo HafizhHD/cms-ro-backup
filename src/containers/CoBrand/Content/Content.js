@@ -40,13 +40,13 @@ function Content({
     function retrieveList() {
         getContentList(params)
         .then(response => {
-            console.log("Content list: ", response.data);
+            // console.log("Content list: ", response.data);
             setContentList(response.data.contents);
             setLoading(false);
-            console.log(isLoading);
+            // console.log(isLoading);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         });
     }
@@ -54,13 +54,13 @@ function Content({
     useEffect(() => {
         setLoading(true);
         if(localStorage.getItem('contentDeleting')) {
-            console.log('masyuk syini');
+            // console.log('masyuk syini');
             setContentDeleting([localStorage.getItem('contentDeleting'), localStorage.getItem('contentDeletingName')]);
             setConfirmDelete(true);
             localStorage.removeItem('contentDeleting');
             localStorage.removeItem('contentDeletingName');
         }
-        retrieveList();
+        else retrieveList();
     }, []);
 
     useEffect(() => {

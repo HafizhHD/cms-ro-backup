@@ -65,11 +65,11 @@ const Report = ({
         getProgramList(params)
         .then(response => {
             setProgramList(response.data);
-            console.log(response.data);
+            // console.log(response.data);
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         });
     }
@@ -106,14 +106,14 @@ const Report = ({
 
         Promise.all([promiseX, promise1]).then(response => {
 
-            console.log(response[1].data);
+            // console.log(response[1].data);
 
             response[1].data.HKBPData.forEach(e => {
                 if(!(e.distrik in HKBPString)) HKBPString = Object.assign(HKBPString, {[e.distrik]: {}});
                 if(!(("Ressort " + e.ressort) in HKBPString[e.distrik])) HKBPString[e.distrik] = Object.assign(HKBPString[e.distrik], {["Ressort " + e.ressort]: []});
                 if(!HKBPString[e.distrik]["Ressort " + e.ressort].includes("Huria " + e.nama)) HKBPString[e.distrik]["Ressort " + e.ressort].push("Huria " + e.nama);
             });
-            console.log(HKBPString);
+            // console.log(HKBPString);
 
             setStringHKBP(HKBPString);
 
@@ -144,14 +144,14 @@ const Report = ({
                 packageId: "com.asia.ruangortu"
             }
         }
-        console.log(params);
+        // console.log(params);
         getUserList(params)
         .then(response => {
             setCountUser(response.data.users.length);
             setUpdatingRegistered(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setUpdatingRegistered(false);
         });
     }, [isUpdatingRegistered]);
@@ -174,7 +174,7 @@ const Report = ({
 //parameter child & parent
             }
         }
-        console.log(params);
+        // console.log(params);
         getUserList(params)
         .then(response => {
             setCountActive(response.data.users.length);
@@ -199,12 +199,12 @@ const Report = ({
                 setUpdatingActive(false);
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 setUpdatingActive(false);
             });
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setUpdatingActive(false);
         });
     }, [isUpdatingActive]);
@@ -220,7 +220,7 @@ const Report = ({
                 });
                 countingUserRessort.push(countUserPerRessort);
             });
-            console.log(Object.keys(stringHKBP[selectedDistrik]));
+            // console.log(Object.keys(stringHKBP[selectedDistrik]));
             setCountUserRessort(countingUserRessort);
             setUpdatingRessort(false);
         }
@@ -237,7 +237,7 @@ const Report = ({
                 });
                 countingUserHuria.push(countUserPerHuria);
             });
-            console.log(stringHKBP[selectedDistrik][selectedRessort]);
+            // console.log(stringHKBP[selectedDistrik][selectedRessort]);
             setCountUserHuria(countingUserHuria);
             setUpdatingHuria(false);
         }
@@ -258,11 +258,11 @@ const Report = ({
 
         // axios.get("https://rk.defghi.biz.id:8080/api/user/getAllUser", body)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
 
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
     },[])
 
@@ -291,8 +291,8 @@ const Report = ({
                                     name="userType"
                                     value={userType}
                                     onChange={(e) => {
-                                        console.log('bruh');
-                                        console.log(e.currentTarget.value);
+                                        // console.log('bruh');
+                                        // console.log(e.currentTarget.value);
                                         setUserType(e.currentTarget.value);
                                         setUpdatingRegistered(true);
                                     }}>
@@ -329,8 +329,8 @@ const Report = ({
                                     name="userTypeActive"
                                     value={userTypeActive}
                                     onChange={(e) => {
-                                        console.log('bruh');
-                                        console.log(e.currentTarget.value);
+                                        // console.log('bruh');
+                                        // console.log(e.currentTarget.value);
                                         setUserTypeActive(e.currentTarget.value);
                                         setUpdatingActive(true);
                                     }}>

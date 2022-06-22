@@ -11,7 +11,7 @@ const Map = ReactMapboxGl({
 export const accessToken = 'pk.eyJ1Ijoid2FoeXVhbGZhcmlzaSIsImEiOiJja3B3Mm5ta3QxZ2loMnBxcjUyMXdxaWE4In0.MAGeb1tYnIwwMx9chvnHwg';
 
 const GoogleMaps = ({search}) => {
-    console.log(search);
+    // console.log(search);
     
     return (
       <Map

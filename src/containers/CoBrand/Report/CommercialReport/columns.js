@@ -176,7 +176,7 @@ const Columns = [
 //             filter: true,
 //             sort: true,
 //             customBodyRender: (value, tableMeta, updateValue) => {
-//                 console.log(value);
+//                 // console.log(value);
 //                 if(value != null) return value.StudyLevel;
 //                 else return ' '
 //             },

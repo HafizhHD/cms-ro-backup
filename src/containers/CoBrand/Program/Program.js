@@ -49,11 +49,11 @@ function Program({
         getProgramList(params)
         .then(response => {
             setProgramList(response.data);
-            console.log(response.data);
+            // console.log(response.data);
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         });
     }
@@ -65,7 +65,7 @@ function Program({
             setConfirmDelete(true);
             localStorage.removeItem('programDeleting');
         }
-        retrieveList();
+        else retrieveList();
     }, []);
 
     useEffect(() => {

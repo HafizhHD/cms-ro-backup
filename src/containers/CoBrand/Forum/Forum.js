@@ -38,13 +38,13 @@ class Forum extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // alert('Kirim Pesan Berhasil')
                 this.setState({kirimforum : true})
                 
             })
             .catch(error => {
-                console.log(error + 'ini eror addForum DISKUSI');
+                // console.log(error + 'ini eror addForum DISKUSI');
             });
         
     }

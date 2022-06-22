@@ -27,7 +27,7 @@ const UserReport = () => {
                 if(user.startSub !== undefined) user['startSubscription'] = new Date(Date.parse(user.startSub));
                 if(user.endSub !== undefined) user['endSubscription'] = new Date(Date.parse(user.endSub));
             }
-            console.log(dumDat);
+            // console.log(dumDat);
             setUserData(dumDat);
             setLoading(false);
         }
@@ -40,10 +40,10 @@ const UserReport = () => {
             },
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getUserList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             // setUserData(response.data.users);
             var ud = response.data.users;
             for(var i = 0; i < ud.length; i++) {
@@ -51,7 +51,7 @@ const UserReport = () => {
                 if(user.userType === 'child') {
                     if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
                     if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
-                    console.log("Anjay");
+                    // console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];
                     for(var j = 0; j < ud.length; j++) {
@@ -65,14 +65,14 @@ const UserReport = () => {
                     }
                     user['parentName'] = parentNames;
                     user['parentEmail'] = parentEmails;
-                    console.log(user.parentEmail);
+                    // console.log(user.parentEmail);
                 }
             }
             setUserData(ud);
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })}
     }, [, period]);

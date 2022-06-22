@@ -29,15 +29,15 @@ const RedzoneReport = () => {
             },
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getRedzoneList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             setRedzoneData(response.data.Data);
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })
     }, []);

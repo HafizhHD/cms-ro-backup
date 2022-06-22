@@ -35,7 +35,7 @@ function AddNotification({
         let x = sche;
         x.setTime(x.getTime() + 7 * 60 * 60 * 1000);
         setSche(x);
-        console.log(new Date().toISOString())
+        // console.log(new Date().toISOString())
         if(localStorage.getItem('emailTo')) {
             setEmailList(localStorage.getItem('emailTo').split(','));
             localStorage.removeItem('emailTo');
@@ -49,8 +49,8 @@ function AddNotification({
         let promiseCategory = getNotificationCategoryList(params);
         Promise.all([promiseAudience, promiseCategory])
         .then(response => {
-            console.log(response[0].data.Data);
-            console.log(response[1].data.Data);
+            // console.log(response[0].data.Data);
+            // console.log(response[1].data.Data);
             setTargetList(response[0].data.Data);
             setCategoryList(response[1].data.Data);
             setPageLoading(false);
@@ -242,14 +242,14 @@ function AddNotification({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }

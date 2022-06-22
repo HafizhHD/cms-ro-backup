@@ -29,8 +29,8 @@ class AddProgramRev extends React.Component {
     }
 
     componentDidMount() {
-        console.log(localStorage.getItem('emailTo'))
-        console.log(localStorage.getItem('notifContext'))
+        // console.log(localStorage.getItem('emailTo'))
+        // console.log(localStorage.getItem('notifContext'))
         //cek notif dlu
 
         let allCheckBox3 = document.querySelectorAll('.shapes3')
@@ -38,9 +38,9 @@ class AddProgramRev extends React.Component {
         allCheckBox3.forEach((radio) => {
             radio.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ kategori: event.target.value })
-                    console.log(this.state.kategori)
+                    // console.log(this.state.kategori)
                 }
             })
         })
@@ -50,9 +50,9 @@ class AddProgramRev extends React.Component {
         allCheckBox2.forEach((radio) => {
             radio.addEventListener('click', (event) => {
                 if (event.target.checked) {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
                     this.setState({ destiemail: event.target.value })
-                    console.log(this.state.destiemail)
+                    // console.log(this.state.destiemail)
                 }
             })
         })
@@ -105,10 +105,10 @@ class AddProgramRev extends React.Component {
             data: params,
         })
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
         })
         .catch(error => {
-            console.log(error + 'ini eror add PROGRAM THAPAN');
+            // console.log(error + 'ini eror add PROGRAM THAPAN');
         });
     }
 
@@ -157,7 +157,7 @@ class AddProgramRev extends React.Component {
                 targetAudiance: [this.refs.AudienceTahap2.value]
             }]
         }
-        // console.log(params.targetAudience)
+        // // console.log(params.targetAudience)
         axios({
             method: 'post',
             // url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/programAdd',
@@ -165,11 +165,11 @@ class AddProgramRev extends React.Component {
             data: params,
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // this.setState({ send: true })
             })
             .catch(error => {
-                console.log(error + 'ini eror add BC');
+                // console.log(error + 'ini eror add BC');
             });
 
     }

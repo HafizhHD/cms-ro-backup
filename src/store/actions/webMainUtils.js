@@ -65,7 +65,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
 
         const promise = toBase64(photo);
         promise.then((result) => {
-            console.log(typeof result);
+            // console.log(typeof result);
             const programthumnail = result;
 
             setTimeout( () => {
@@ -77,7 +77,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                     startDate
                 };
 
-                console.log(data);
+                // console.log(data);
                 //Call API ....
                 
                 axios({
@@ -89,7 +89,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                     },
                 })
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/program');
                     dispatch(authFailed());
                 })
@@ -97,7 +97,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
                     console.error('Error:', error);
                     dispatch(authFailed());
                 });
-                console.log(data);
+                // console.log(data);
             },2000)
         });
     }
@@ -107,7 +107,7 @@ export const addProgram = ( cobrandEmail, programName, ProgramDescription, photo
 export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription, photo, startDate, history ) => {
     return dispatch => {
         dispatch( authStart() );
-        console.log('Photo is empty:', photo === '');
+        // console.log('Photo is empty:', photo === '');
         if(photo === '') {
             setTimeout( () => {
                 let data = {
@@ -122,7 +122,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                     }
                 };
 
-                console.log(data);
+                // console.log(data);
                 //Call API ....
                 
                 axios({
@@ -134,7 +134,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                     },
                 })
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/program');
                     dispatch(authFailed());
                 })
@@ -142,14 +142,14 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                     console.error('Error:', error);
                     dispatch(authFailed());
                 });
-                console.log(data);
+                // console.log(data);
             },2000)
         }
 
         else {
             const promise = toBase64(photo);
             promise.then((result) => {
-                console.log(typeof result);
+                // console.log(typeof result);
                 const programthumnail = result;
 
                 setTimeout( () => {
@@ -166,7 +166,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                         }
                     };
 
-                    console.log(data);
+                    // console.log(data);
                     //Call API ....
                     
                     axios({
@@ -178,7 +178,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                         },
                     })
                     .then(response => {
-                        console.log('Success:', response.data);
+                        // console.log('Success:', response.data);
                         history.push('/program');
                         dispatch(authFailed());
                     })
@@ -186,7 +186,7 @@ export const editProgram = ( _id, cobrandEmail, programName, ProgramDescription,
                         console.error('Error:', error);
                         dispatch(authFailed());
                     });
-                    console.log(data);
+                    // console.log(data);
                 },2000)
             });
         }
@@ -200,7 +200,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
 
         const promise = toBase64(photo);
         promise.then((result) => {
-            console.log(typeof result);
+            // console.log(typeof result);
             const contentThumbnail = result;
             let status = isActive ? 'active' : 'inactive';
 
@@ -236,7 +236,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
                             + '</html>';
             }
 
-            console.log(contents);
+            // console.log(contents);
 
             setTimeout( () => {
                 let data = {
@@ -252,7 +252,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
                     startDate
                 };
 
-                console.log(data);
+                // console.log(data);
                 //Call API ....
                 
                 axios({
@@ -264,7 +264,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
                     },
                 })
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/content');
                     dispatch(authFailed());
                 })
@@ -272,7 +272,7 @@ export const addContent = ( cobrandEmail, programId, contentName, contentDescrip
                     console.error('Error:', error);
                     dispatch(authFailed());
                 });
-                console.log(data);
+                // console.log(data);
             },2000)
         });
     }
@@ -285,7 +285,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
     return dispatch => {
         dispatch( authStart() );
 
-        console.log('Photo is empty:', photo === '');
+        // console.log('Photo is empty:', photo === '');
         if(photo === '') {
             if(contentType === 'Video') {
                 contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
@@ -319,7 +319,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                             + '</html>';
             }
 
-            console.log(contents);
+            // console.log(contents);
             setTimeout( () => {
                 let data = {
                     whereValues: {
@@ -337,7 +337,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                     }
                 };
 
-                console.log(data);
+                // console.log(data);
                 //Call API ....
                 
                 axios({
@@ -349,7 +349,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                     },
                 })
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     history.push('/content');
                     dispatch(authFailed());
                 })
@@ -357,14 +357,14 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                     console.error('Error:', error);
                     dispatch(authFailed());
                 });
-                console.log(data);
+                // console.log(data);
             },2000)
         }
 
         else {
             const promise = toBase64(photo);
             promise.then((result) => {
-                console.log(typeof result);
+                // console.log(typeof result);
                 const programthumnail = result;
 
                 setTimeout( () => {
@@ -384,7 +384,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                         }
                     };
 
-                    console.log(data);
+                    // console.log(data);
                     //Call API ....
                     
                     axios({
@@ -396,7 +396,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                         },
                     })
                     .then(response => {
-                        console.log('Success:', response.data);
+                        // console.log('Success:', response.data);
                         history.push('/content');
                         dispatch(authFailed());
                     })
@@ -404,7 +404,7 @@ export const editContent = ( _id, cobrandEmail, programId, contentName, contentD
                         console.error('Error:', error);
                         dispatch(authFailed());
                     });
-                    console.log(data);
+                    // console.log(data);
                 },2000)
             });
         }

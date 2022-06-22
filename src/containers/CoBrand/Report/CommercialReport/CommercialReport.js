@@ -26,7 +26,7 @@ const CommercialReport = () => {
                 var user = dumDat[i];
                 if(user.payDate !== undefined) user['paymentDate'] = new Date(Date.parse(user.payDate));
             }
-            console.log(dumDat);
+            // console.log(dumDat);
             setUserData(dumDat);
             setLoading(false);
         }
@@ -39,16 +39,16 @@ const CommercialReport = () => {
             },
             limit: Number.MAX_SAFE_INTEGER
         };
-        console.log(params);
+        // console.log(params);
         getUserList(params)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             var userDataDummy = response.data.users;
             var userDataChild = [];
             for(var i = 0; i < userDataDummy.length; i++) {
                 let user = userDataDummy[i];
                 if(user.userType === 'child') {
-                    console.log("Anjay");
+                    // console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];
                     for(var j = 0; j < userDataDummy.length; j++) {
@@ -69,7 +69,7 @@ const CommercialReport = () => {
             setLoading(false);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         })}
     }, [, period]);

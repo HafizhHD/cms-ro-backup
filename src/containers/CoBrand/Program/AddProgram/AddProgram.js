@@ -39,7 +39,7 @@ function AddProgram({
     const embedVideoCallBack = (link) =>{
         
         const asd = getEmbedUrl(link);
-        console.log("Video embed ", asd);
+        // console.log("Video embed ", asd);
         return asd;
     }
 
@@ -48,7 +48,7 @@ function AddProgram({
         const reader= new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            console.log(reader.result);
+            // console.log(reader.result);
             resolve({data: {link: reader.result}});
         }
         reader.onerror = error => reject(error);
@@ -62,8 +62,8 @@ function AddProgram({
         const promiseAudience = getAudienceList(paramAudience);
 
         Promise.all([promiseTopic, promiseAudience]).then(responseAll => {
-            console.log(responseAll[0]);
-            console.log(responseAll[1]);
+            // console.log(responseAll[0]);
+            // console.log(responseAll[1]);
             var topicRaw = [], audienceRaw = [];
             responseAll[0].data.Data.map(e => {
                 topicRaw.push(e.category);
@@ -71,8 +71,8 @@ function AddProgram({
             responseAll[1].data.Data.map(e => {
                 audienceRaw.push({value: e.audianceName, label: e.audianceName});
             })
-            console.log("Topic raw", topicRaw);
-            console.log("Audience raw", audienceRaw);
+            // console.log("Topic raw", topicRaw);
+            // console.log("Audience raw", audienceRaw);
             setCategoryList(topicRaw);
             setAudience(audienceRaw);
             setPageLoading(false);
@@ -177,7 +177,7 @@ function AddProgram({
                                 onChange={(e) => {
                                     let file = e.currentTarget.files[0];
                                     if(file) {
-                                        console.log("File to upload: ", file);
+                                        // console.log("File to upload: ", file);
                                         setFieldValue("programThumbnail", file);
                                     }
                                 }}
@@ -221,27 +221,27 @@ function AddProgram({
                                 value={responseCount}
                                 min={1}
                                 onChange={(e) => {
-                                    console.log(e.currentTarget.value);
+                                    // console.log(e.currentTarget.value);
                                     if(e.currentTarget.value) {
-                                        console.log('Yes masuk');
+                                        // console.log('Yes masuk');
                                         if(responseCount > e.currentTarget.value) {
                                             values.contentPrograms.map((x, i) => {
                                                 var y = x.response;
                                                 if(x.answerKey === x.response[x.response.length-1] && values.category === 'Ujian') setFieldValue(`contentPrograms.${i}.answerKey`, x.response[0])
                                                 y.splice(e.currentTarget.value-responseCount, responseCount-e.currentTarget.value);
-                                                // console.log('Panjang respon: ' + y.length)
+                                                // // console.log('Panjang respon: ' + y.length)
                                                 setFieldValue(`contentPrograms.${i}.response`, y);
                                             })
                                         }
                                         else {
-                                            // console.log("Nambah loh");
+                                            // // console.log("Nambah loh");
                                             values.contentPrograms.map((x, i) => {
                                                 var y = x.response;
                                                 for(var j = 0; j < e.currentTarget.value-responseCount; j++) {
-                                                    console.log("Ini nambah?");
+                                                    // console.log("Ini nambah?");
                                                     y.push('');
                                                 }
-                                                // console.log('Panjang respon: ' + y.length)
+                                                // // console.log('Panjang respon: ' + y.length)
                                                 setFieldValue(`contentPrograms.${i}.response`, y);
                                             })
                                         }
@@ -355,8 +355,8 @@ function AddProgram({
                                                     // setTextValue(editorState);
                                                     // setFieldValue("contentDescription", description);
                                                     setFieldValue(`contentPrograms.${i}.contents`, draftToHtml(convertToRaw(content.artikel.getCurrentContent())));
-                                                    // console.log(textDeskripsi);
-                                                    // console.log(values.contents)
+                                                    // // console.log(textDeskripsi);
+                                                    // // console.log(values.contents)
                                                 }}
 
                                             />
@@ -482,7 +482,7 @@ function AddProgram({
                                     <div className="form-group">
                                         <label>Respon/Jawaban</label>
                                         {content.response.map((res, index) => {
-                                            console.log("Content response:", content.response)
+                                            // console.log("Content response:", content.response)
                                             return <InputComponent
                                                 type="text"
                                                 name="response"
@@ -567,7 +567,7 @@ function AddProgram({
                             for(var x = 0; x < responseCount; x++) {
                                 newResponse.push('');
                             }
-                            console.log("New response", newResponse);
+                            // console.log("New response", newResponse);
                             let newStep = {
                                 artikel: EditorState.createEmpty(),
                                 contentMedia: 'url',
@@ -594,8 +594,8 @@ function AddProgram({
                         </button>
                         <div>
                             <button className="btn btn-submit" type="submit" onClick={() => {
-                                console.log("Touched", touched);
-                                console.log("Error", errors)
+                                // console.log("Touched", touched);
+                                // console.log("Error", errors)
                             }}>
                                 Buat Program
                             </button>
@@ -604,14 +604,14 @@ function AddProgram({
                 </form>
             )}
             </Formik>
-            {console.log(isLoading)}
+            {/* {console.log(isLoading)} */}
             {isLoading ? <RKLoader/> : null}
         </>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.auth.isLoading);
+    // console.log(state.auth.isLoading);
     return {
         isLoading: state.auth.isLoading
     }
