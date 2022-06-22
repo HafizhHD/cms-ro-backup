@@ -44,6 +44,7 @@ function EditContent({
     const [content, setContent] = useState();
     const [contentStartDate, setContentStartDate] = useState();
     const [conFromImgVid, setConFromImgVid] = useState('');
+    const [valueRadio, setRadio] = useState('');
 
     const [textDeskripsi, setTextDeskripsi] = useState(RichTextEditor.createEmptyValue());
     const [textValue, setTextValue] = useState(RichTextEditor.createEmptyValue());
@@ -142,7 +143,6 @@ function EditContent({
                     setDescription(EditorState.createWithContent(
                         ContentState.createFromBlockArray(
                             des2.contentBlocks, des2.entityMap)))
-
                     let date = response.data.contents[0].startDate.split('T')[0];
                     console.log(date);
                     setContentStartDate(date);
@@ -186,7 +186,7 @@ function EditContent({
                 initialValues={{ 
                     programId: content.programId ,
                     contentName: content.contentName,
-                    contentDescription: description,
+                    contentDescription: draftToHtml(convertToRaw(description.getCurrentContent())),
                     contentType: content.contentType,
                     contentSource: content.contentSource,
                     contents: conFromImgVid,
@@ -195,6 +195,7 @@ function EditContent({
                 validationSchema={validationContentEdit}
                 validateOnChange={true}
                 onSubmit={values => {
+                    window.scroll(0,0);
                     onEditContent(_id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, history)
                 }}
             >
@@ -235,7 +236,188 @@ function EditContent({
                                 {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Deskripsi</label>
+                                {values.contentType === "Artikel" ? (<>
+                                    <label>Isi Artikel</label>
+                                    <Editor
+                                        editorState={artikel}
+                                        toolbarClassName="toolbarClassName"
+                                        wrapperClassName="wrapperClassName"
+                                        editorClassName="editorClassName"
+                                        onEditorStateChange={onEditorStateChangeArtikel}
+                                        // onEditorStateChange={updateTextDescription}
+                                        // value={description.values}
+                                        value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                        // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                        name="contents"
+                                        onChange={(editorState) => {
+                                            setTextValue(editorState);
+                                            // setFieldValue("contentDescription", description);
+                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                            // console.log(textDeskripsi);
+                                            // console.log(values.contents)
+                                        }}
+
+                                    /></>
+                                ) : null}
+                                {values.contentType === "Image" ? (<>
+                                    <label>Isi Image</label>
+                                    <div>
+                                        <p>Pilih media yang ingin di upload :</p>
+                                        <form>
+                                            <input type="radio" id="html" name="fav_language" value={'internal'}
+                                                onClick={() => { setRadio('internal') }}
+                                            />
+                                            <label for="internal" >Media Internal Komputer</label>
+                                            <br></br>
+                                            <input type="radio" id="html" name="fav_language" value={'url'}
+                                                onClick={() => setRadio('url')}
+                                            />
+                                            <label for="url" >Alamat URL</label>
+                                            <br></br>
+                                        </form>
+
+                                        {valueRadio === 'internal' ?
+                                            <InputComponent
+                                                type="file"
+                                                className="form-group__input"
+                                                name="contents"
+                                                onBlur={handleBlur}
+                                                //   value={values.contents}
+                                                //   onChange={handleChange}
+                                                onChange={(e) => {
+                                                    let file = e.currentTarget.files[0];
+                                                    if (file) {
+                                                        console.log("File to upload: ", file);
+                                                        setFieldValue("contents", file);
+                                                    }
+                                                }}
+                                            />
+                                            :
+                                            <InputComponent
+                                                type="text"
+                                                name="contents"
+                                                className="form-group__input form-group__input--fullwidth"
+                                                placeholder="Type Image URL... (https://example.com/something/something.jpg)"
+                                                value={values.contents}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                            />
+                                        }
+
+                                    </div>
+                                    </>
+                                ) : null}
+                                {values.contentType === "Video" ?
+                                    // (
+                                    //     <div>
+                                    //         <p>Pilih media yang ingin di upload :</p>
+                                    //         <form>
+                                    //             <input type="radio" id="html" name="fav_language" value={'internal'}
+                                    //             onClick={() => {setRadio('internal')}}
+                                    //             />
+                                    //             <label for="internal" >Media Internal Komputer</label>
+                                    //             <br></br>
+                                    //             <input type="radio" id="html" name="fav_language" value={'url'}
+                                    //             onClick={() =>setRadio('url')}
+                                    //             />
+                                    //             <label for="url" >Alamat URL</label>
+                                    //             <br></br>
+                                    //         </form>
+
+                                    //         {valueRadio === 'internal' ? 
+                                    //         <InputComponent
+                                    //         type="file"
+                                    //         className="form-group__input"
+                                    //         name="contents"
+                                    //         onBlur={handleBlur}
+                                    //         //   value={values.contents}
+                                    //         //   onChange={handleChange}
+                                    //         onChange={(e) => {
+                                    //             let file = e.currentTarget.files[0];
+                                    //             if (file) {
+                                    //                 console.log("File to upload: ", file);
+                                    //                 setFieldValue("contents", file);
+                                    //             }
+                                    //         }}
+                                    //         />
+                                    //         : 
+                                    //         <InputComponent
+                                    //         type="text"
+                                    //         name="contents"
+                                    //         className="form-group__input form-group__input--fullwidth"
+                                    //         placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                    //         value={values.contents}
+                                    //         onChange={handleChange}
+                                    //         onBlur={handleBlur}
+                                    //         />
+                                    //         }
+                                    //     </div>
+
+                                    // )
+                                    <>
+                                    <label>URL Video</label>
+                                    <InputComponent
+                                        type="text"
+                                        name="contents"
+                                        className="form-group__input form-group__input--fullwidth"
+                                        placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
+                                        value={values.contents}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    /></>
+                                    : null}
+                                {values.contentType === "Pdf" ? (
+                                    <>
+                                    <label>Isi PDF</label>
+                                    <div>
+                                        <p>Pilih media yang ingin di upload :</p>
+                                        <form>
+                                            <input type="radio" id="html" name="fav_language" value={'internal'}
+                                                onClick={() => { setRadio('internal') }}
+                                            />
+                                            <label for="internal" >Media Internal - Maks 300kb</label>
+                                            <br></br>
+                                            <input type="radio" id="html" name="fav_language" value={'url'}
+                                                onClick={() => setRadio('url')}
+                                            />
+                                            <label for="url" >Alamat URL</label>
+                                            <br></br>
+                                        </form>
+
+                                        {valueRadio === 'internal' ?
+                                            <InputComponent
+                                                type="file"
+                                                className="form-group__input"
+                                                name="contents"
+                                                onBlur={handleBlur}
+                                                //   value={values.contents}
+                                                //   onChange={handleChange}
+                                                onChange={(e) => {
+                                                    let file = e.currentTarget.files[0];
+                                                    if (file) {
+                                                        console.log("File to upload: ", file);
+                                                        setFieldValue("contents", file);
+                                                    }
+                                                }}
+                                            />
+                                            :
+                                            <InputComponent
+                                                type="text"
+                                                name="contents"
+                                                className="form-group__input form-group__input--fullwidth"
+                                                placeholder="Type Pdf URL... (Pdf file)"
+                                                value={values.contents}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                            />
+                                        }
+                                    </div>
+                                    </>
+                                ) : null}
+                                {touched.contents && <span className="message__error">{errors.contents}</span>}
+                            </div>
+                            {values.contentType !== 'Artikel' ? <div className="form-group">
+                                <label>Isi Artikel</label>
                                 <Editor
                                         editorState={description}
                                         toolbarClassName="toolbarClassName"
@@ -295,7 +477,7 @@ function EditContent({
                                     onBlur={handleBlur}
                                 /> */}
                                 {/* {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>} */}
-                            </div>
+                            </div> : null}
                             <div className="form-group">
                                 <label>Sumber</label>
                                 <InputComponent
@@ -327,111 +509,6 @@ function EditContent({
                                     }}
                                 />
                             </div>
-                            <div className="form-group">
-                                <label>Isi Artikel</label>
-                                {values.contentType === "Artikel" ? (
-                                    /*<InputComponent
-                                        type="textarea"
-                                        name="contents"
-                                        placeholder="Type Something..."
-                                        value={values.contents}
-                                        onChange={handleChange}
-                                    />*/
-
-                                    <Editor
-                                        editorState={artikel}
-                                        toolbarClassName="toolbarClassName"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="editorClassName"
-                                        onEditorStateChange={onEditorStateChangeArtikel}
-                                        // value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
-                                        values={values.contents}
-       
-                                        name="contents"
-                                        
-                                        onChange={(editorState) => {
-                                            setTextValue(values.contents);
-                                            // setFieldValue("contentDescription", description);
-                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                            console.log(textValue); ///value yang lama
-                                            console.log(values.contents) //get nilai yg terbaru
-                                            console.log(artikel) //get nilai yg terbaru
-                                            
-                                        }}
-                                        
-                                    />
-
-
-                                    // <RichTextEditor
-                                    //     name="contents"
-                                    //     placeholder="Type your contents here..."
-                                    //     className="form-group_rte"
-                                    //     value={textValue}
-                                    //     toolbarConfig={toolbarConfig}
-                                    //     onBlur={handleBlur}
-                                    //     onChange={(e) => {
-                                    //         setTextValue(e);
-                                    //         setFieldValue("contents", e.toString("html"));
-                                    //         console.log(values.contents);
-                                    //     }}
-                                    // />
-                                ) : null}
-                                {values.contentType === "Image" ? (
-                                    // <img src={conFromImgVid}></img>
-
-                                    <InputComponent
-                                        type="file"
-                                        className="form-group__input"
-                                        name="contents"
-                                        onBlur={handleBlur}
-                                        // value={values.contents}
-                                        // onChange={handleChange}
-                                        onChange={(e) => {
-                                        let file = e.currentTarget.files[0];
-                                        if (file) {
-                                            console.log("File to upload: ", file);
-                                            setFieldValue("contents", file);
-                                        }
-                                    }}
-                                    />
-
-                                    // <InputComponent
-                                    //     type="text"
-                                    //     name="contents"
-                                    //     className="form-group__input form-group__input--fullwidth" 
-                                    //     placeholder="Type Image URL... (https://example.com/something/something.jpg)"
-                                    //     value={values.contents}
-                                    //     onChange={handleChange}
-                                    //     onBlur={handleBlur}
-                                    // />
-                                ) : null}
-                                {values.contentType === "Video" ? (
-                                    <InputComponent
-                                        type="text"
-                                        name="contents"
-                                        className="form-group__input form-group__input--fullwidth"
-                                        placeholder="Type Video URL... (Youtube/Vimeo/Dailymotion/etc)"
-                                        value={values.contents}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-                                ) : null}
-                                {values.contentType === "Pdf" ? (
-                                    <InputComponent
-                                        type="text"
-                                        name="contents"
-                                        className="form-group__input form-group__input--fullwidth"
-                                        placeholder="Type Pdf URL... (just for pdf file)"
-                                        // placeholder={values.contents}
-                                        value={values.contents}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-                                    // untuk internal masih diupdate
-                                    //url ok
-                                ) : null}
-                                {touched.contents && <span className="message__error">{errors.contents}</span>}
-                            </div>
                             {/* <div className="form-group">
                                 <label>Set Schedule</label>
                                 <InputComponent
@@ -446,7 +523,11 @@ function EditContent({
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                             </div> */}
                             <div>
-                                <button className="btn btn-submit" type="submit">
+                                <button className="btn btn-submit" type="submit" onClick={() =>{
+                                    console.log("Description", description);
+                                    console.log("Touched:", touched);
+                                    console.log("Error:", errors);
+                                }}>
                                     Update Artikel
                                 </button>
                             </div>

@@ -238,71 +238,8 @@ function AddContent({
                                 {touched.contentName && <span className="message__error">{errors.contentName}</span>}
                             </div>
                             <div className="form-group">
-                                <label>Deskripsi</label>
-                                <Editor
-                                    editorState={description}
-                                    toolbarClassName="toolbarClassName"
-                                    wrapperClassName="wrapperClassName"
-                                    editorClassName="editorClassName"
-                                    onEditorStateChange={onEditorStateChange}
-                                    // onEditorStateChange={updateTextDescription}
-                                    // value={description.values}
-                                    value={draftToHtml(convertToRaw(description.getCurrentContent()))}
-                                    // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                                    name="contentDescription"
-                                    onChange={(editorState) => {
-                                        setTextDeskripsi(editorState);
-                                        // setFieldValue("contentDescription", description);
-                                        setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
-                                        console.log(textDeskripsi);
-                                        console.log(values.contentDescription)
-                                        // console.log(dangerouslySetInnerHTML={{ __html: item.description}} )
-                                    }}
-
-                                />
-                                {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
-                            </div>
-                            <div className="form-group">
-                                <label>Sumber</label>
-                                <InputComponent
-                                    type="text"
-                                    name="contentSource"
-                                    className="form-group__input form-group__input--fullwidth"
-                                    placeholder="Example"
-                                    value={values.contentSource}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-
-                                />
-                                {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
-                            </div>
-                            <div className="form-group-row">
-                                <div className="form-group">
-                                    <label>Thumbnail</label>
-                                    <InputComponent
-                                        type="file"
-                                        className="form-group__input"
-                                        name="contentThumbnail"
-                                        onBlur={handleBlur}
-                                        onChange={(e) => {
-                                            let file = e.currentTarget.files[0];
-                                            if (file) {
-                                                // console.log("File to upload: ", file);
-                                                setFieldValue("contentThumbnail", file);
-                                                setPreview(file);
-                                            }
-                                        }}
-                                    />
-                                    {touched.contentThumbnail && <span className="message__error">{errors.contentThumbnail}</span>}
-                                </div>
-                                <div className="form-group">
-                                    <label>Preview</label>
-                                    {preview64 ? <div className="form-group-preview"><img src={preview64}/></div> : null}
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label>Isi Artikel</label>
-                                {values.contentType === "Artikel" ? (
+                                {values.contentType === "Artikel" ? (<>
+                                    <label>Isi Artikel</label>
                                     <Editor
                                         editorState={artikel}
                                         toolbarClassName="toolbarClassName"
@@ -314,6 +251,7 @@ function AddContent({
                                         value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
                                         // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                                         name="contents"
+                                        handlePastedText={() => false}
                                         onChange={(editorState) => {
                                             setTextValue(editorState);
                                             // setFieldValue("contentDescription", description);
@@ -322,9 +260,10 @@ function AddContent({
                                             // console.log(values.contents)
                                         }}
 
-                                    />
+                                    /></>
                                 ) : null}
-                                {values.contentType === "Image" ? (
+                                {values.contentType === "Image" ? (<>
+                                    <label>Isi Image</label>
                                     <div>
                                         <p>Pilih media yang ingin di upload :</p>
                                         <form>
@@ -369,7 +308,7 @@ function AddContent({
                                         }
 
                                     </div>
-
+                                    </>
                                 ) : null}
                                 {values.contentType === "Video" ?
                                     // (
@@ -417,7 +356,9 @@ function AddContent({
                                     //         }
                                     //     </div>
 
-                                    // ) 
+                                    // )
+                                    <>
+                                    <label>URL Video</label>
                                     <InputComponent
                                         type="text"
                                         name="contents"
@@ -426,9 +367,11 @@ function AddContent({
                                         value={values.contents}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                    />
+                                    /></>
                                     : null}
                                 {values.contentType === "Pdf" ? (
+                                    <>
+                                    <label>Isi PDF</label>
                                     <div>
                                         <p>Pilih media yang ingin di upload :</p>
                                         <form>
@@ -472,9 +415,73 @@ function AddContent({
                                             />
                                         }
                                     </div>
-
+                                    </>
                                 ) : null}
                                 {touched.contents && <span className="message__error">{errors.contents}</span>}
+                            </div>
+                            {values.contentType !== 'Artikel' ? <div className="form-group">
+                                <label>Isi Artikel</label>
+                                <Editor
+                                    editorState={description}
+                                    toolbarClassName="toolbarClassName"
+                                    wrapperClassName="wrapperClassName"
+                                    editorClassName="editorClassName"
+                                    onEditorStateChange={onEditorStateChange}
+                                    // onEditorStateChange={updateTextDescription}
+                                    // value={description.values}
+                                    value={draftToHtml(convertToRaw(description.getCurrentContent()))}
+                                    // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                    name="contentDescription"
+                                    handlePastedText={() => false}
+                                    onChange={(editorState) => {
+                                        setTextDeskripsi(editorState);
+                                        // setFieldValue("contentDescription", description);
+                                        setFieldValue("contentDescription", draftToHtml(convertToRaw(description.getCurrentContent())));
+                                        console.log(textDeskripsi);
+                                        console.log(values.contentDescription)
+                                        // console.log(dangerouslySetInnerHTML={{ __html: item.description}} )
+                                    }}
+
+                                />
+                                {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
+                            </div> : null}
+                            <div className="form-group">
+                                <label>Sumber</label>
+                                <InputComponent
+                                    type="text"
+                                    name="contentSource"
+                                    className="form-group__input form-group__input--fullwidth"
+                                    placeholder="Example"
+                                    value={values.contentSource}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+
+                                />
+                                {touched.contentSource && <span className="message__error">{errors.contentSource}</span>}
+                            </div>
+                            <div className="form-group-row">
+                                <div className="form-group">
+                                    <label>Thumbnail</label>
+                                    <InputComponent
+                                        type="file"
+                                        className="form-group__input"
+                                        name="contentThumbnail"
+                                        onBlur={handleBlur}
+                                        onChange={(e) => {
+                                            let file = e.currentTarget.files[0];
+                                            if (file) {
+                                                // console.log("File to upload: ", file);
+                                                setFieldValue("contentThumbnail", file);
+                                                setPreview(file);
+                                            }
+                                        }}
+                                    />
+                                    {touched.contentThumbnail && <span className="message__error">{errors.contentThumbnail}</span>}
+                                </div>
+                                <div className="form-group">
+                                    <label>Preview</label>
+                                    {preview64 ? <div className="form-group-preview"><img src={preview64}/></div> : null}
+                                </div>
                             </div>
                             {/* <div className="form-group-row">
                                 <div className="form-group">
