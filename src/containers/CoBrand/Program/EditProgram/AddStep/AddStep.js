@@ -91,6 +91,8 @@ function AddStep({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const programId = localStorage.getItem('programSelected');
+    const responseCount = parseInt(localStorage.getItem('responseCount'));
+    const [resCount, setResCount] = useState(responseCount);
 
     useEffect(() => {
     //     setPageLoading(true);
@@ -157,7 +159,6 @@ function AddStep({
     //             });
     //     }
 
-        var resCount = parseInt(localStorage.getItem('responseCount'));
         let a = [];
         for(var i = 0; i < resCount; i++) {
             a.push('');
@@ -353,6 +354,49 @@ function AddStep({
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                             </div> */}
                             <div>
+                            {responseCount === 0 ? 
+                            <div className="form-group">
+                                <label>{"Jumlah Respon/Jawaban di Setiap Tahap"}</label>
+                                <InputComponent 
+                                    type="number"
+                                    className="form-group__input"
+                                    value={resCount}
+                                    min={1}
+                                    max={100}
+                                    onChange={(e) => {
+                                        // console.log(e.currentTarget.value);
+                                        e.currentTarget.value = e.currentTarget.value.replace(/^0+/, '');
+                                        // console.log('After', e.currentTarget.value);
+                                        if(e.currentTarget.value) {
+                                            // console.log('Yes masuk');
+                                            if(resCount > e.currentTarget.value) {
+                                                var y = values.response;
+                                                if(values.response.length > 0 && values.answerKey === values.response[values.response.length-1] && localStorage.getItem('programCategory') === 'Ujian') setFieldValue('answerKey', values.response[0])
+                                                y.splice(e.currentTarget.value-resCount, resCount-e.currentTarget.value);
+                                                // // console.log('Panjang respon: ' + y.length)
+                                                setFieldValue('response', y);
+                                            }
+                                            else {
+                                                // // console.log("Nambah loh");
+                                                var y = values.response;
+                                                for(var j = 0; j < e.currentTarget.value-resCount; j++) {
+                                                    // console.log("Ini nambah?");
+                                                    y.push('');
+                                                }
+                                                // // console.log('Panjang respon: ' + y.length)
+                                                setFieldValue('response', y);
+                                            }
+                                            setResCount(e.currentTarget.value)
+                                        }
+                                        else {
+                                            setResCount(0);
+                                            setFieldValue('response', []);
+                                        }
+                                    }}
+                                    disabled={false}
+                                />
+                            </div> : null
+                            }
                             <div className="form-group">
                                 <label>Respon/Jawaban</label>
                                 {values.response.map((res, index) => {
@@ -391,7 +435,9 @@ function AddStep({
                                     </select>
                                 </div>
                             ) : null}
-                                <button className="btn btn-submit" type="submit">
+                                <button className="btn btn-submit" type="submit" onClick={() => {
+                                if(Object.keys(errors).length > 0) alert('Ada kolom yang belum diisi. Silakan cek kembali.');
+                            }}>
                                     Tambah Tahap
                                 </button>
                             </div>

@@ -598,7 +598,9 @@ function AddContent({
                                 </div>
                             </div>
                             <div>
-                                <button className="btn btn-submit" type="submit">
+                                <button className="btn btn-submit" type="submit" onClick={() => {
+                                if(Object.keys(errors).length > 0) alert('Ada kolom yang belum diisi. Silakan cek kembali.');
+                            }}>
                                     Buat Artikel
                                 </button>
                             </div>

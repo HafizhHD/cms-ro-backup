@@ -594,11 +594,9 @@ function EditContent({
                                 {touched.startDate && <span className="message__error">{errors.startDate}</span>}
                             </div> */}
                             <div>
-                                <button className="btn btn-submit" type="submit" onClick={() =>{
-                                    // console.log("Description", description);
-                                    // console.log("Touched:", touched);
-                                    // console.log("Error:", errors);
-                                }}>
+                                <button className="btn btn-submit" type="submit" onClick={() => {
+                                if(Object.keys(errors).length > 0) alert('Ada kolom yang belum diisi. Silakan cek kembali.');
+                            }}>
                                     Update Artikel
                                 </button>
                             </div>

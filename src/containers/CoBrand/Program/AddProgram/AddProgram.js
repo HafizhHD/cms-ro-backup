@@ -222,6 +222,9 @@ function AddProgram({
                                 min={1}
                                 onChange={(e) => {
                                     // console.log(e.currentTarget.value);
+                                    // console.log(e.currentTarget.value);
+                                    e.currentTarget.value = e.currentTarget.value.replace(/^0+/, '');
+                                    // console.log('After', e.currentTarget.value);
                                     if(e.currentTarget.value) {
                                         // console.log('Yes masuk');
                                         if(responseCount > e.currentTarget.value) {
@@ -593,9 +596,11 @@ function AddProgram({
                             <span>Tambah Tahap Program</span>  
                         </button>
                         <div>
+                            {/* {errors ? <p style={{'color' : 'red'}}>Ada kolom yang isinya belum sesuai. Silakan cek kembali.</p> : null} */}
                             <button className="btn btn-submit" type="submit" onClick={() => {
                                 // console.log("Touched", touched);
                                 // console.log("Error", errors)
+                                if(Object.keys(errors).length > 0) alert('Ada kolom yang belum diisi atau Anda belum menambah tahap. Silakan cek kembali.');
                             }}>
                                 Buat Program
                             </button>

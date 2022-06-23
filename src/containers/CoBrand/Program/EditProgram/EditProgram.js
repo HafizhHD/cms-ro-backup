@@ -56,7 +56,9 @@ function EditProgram({
                 },
                 orderKeyValues: {
                     nomerUrutTahapan: 1
-                }
+                },
+                includeContentData:false,
+                limit: Number.MAX_SAFE_INTEGER
             };
             const promiseTopic = getProgramCategoryList(paramTopic);
             const promiseAudience = getAudienceList(paramAudience);
@@ -295,7 +297,9 @@ function EditProgram({
                             <span>Tambah Tahap Program</span>  
                         </NavLink>
                         <div>
-                            <button className="btn btn-submit" type="submit">
+                            <button className="btn btn-submit" type="submit" onClick={() => {
+                                if(Object.keys(errors).length > 0) alert('Ada kolom yang belum diisi. Silakan cek kembali.');
+                            }}>
                                 Update Program
                             </button>
                         </div>

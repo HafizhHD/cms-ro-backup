@@ -56,7 +56,9 @@ function ViewProgram() {
                 },
                 orderKeyValues: {
                     nomerUrutTahapan: 1
-                }
+                },
+                includeContentData:false,
+                limit: Number.MAX_SAFE_INTEGER
             };
 
             const promiseProgram = axios({
