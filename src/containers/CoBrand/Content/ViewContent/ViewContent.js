@@ -17,6 +17,7 @@ function ViewContent() {
     const [content, setContent] = useState("");
     const [isLoading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
     const [isActive, setActive] = useState(true);
     const [komentar, setKomen] = useState();
     const [del, setDel] = useState(false);
@@ -66,6 +67,8 @@ function ViewContent() {
                     setLoading(false);
                     let date = new Date(response.data.contents[0].startDate).toLocaleDateString("en-UK", dateFormat);
                     setStartDate(date);
+                    date = new Date(response.data.contents[0].endDate).toLocaleDateString("en-UK", dateFormat);
+                    setEndDate(date);
                 })
                 .catch(error => {
                     // console.log(error);
@@ -214,16 +217,16 @@ function ViewContent() {
     return (
         <div className="container">
             {showWarning ? <Warning setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Artikel"}/> : null}
-            <Heading headingName="Content" routes={[
-                { path: '/cms/content', name: 'On Going Content' },
-                { path: '/cms/content/view', name: 'View Content Detail' }
+            <Heading headingName="Artikel" routes={[
+                { path: '/cms/content', name: 'Daftar Artikel' },
+                { path: '/cms/content/view', name: 'Lihat Detail Artikel' }
             ]} />
             <div className="action_btn">
                 <NavLink to="/cms/content" className="action_btn_nav">
-                    <h3><FiArrowLeftCircle /> Back to Content List</h3>
+                    <h3><FiArrowLeftCircle /> Kembali ke Daftar Artikel</h3>
                 </NavLink>
                 <NavLink to="/cms/content/edit" className="action_btn_nav">
-                    <h3><FiEdit /> Edit This Content</h3>
+                    <h3><FiEdit /> Ubah Artikel Ini</h3>
                 </NavLink>
                 <span
                     onClick={() => {
@@ -232,7 +235,7 @@ function ViewContent() {
                         setShowWarning(true);
                         document.body.style.overflow = 'hidden';
                     }}><NavLink to="/cms/content/view" className="action_btn_nav">
-                        <h3><FiTrash2 /> Delete This Content</h3>
+                        <h3><FiTrash2 /> Hapus Artikel Ini</h3>
                     </NavLink></span>
                 <div className="action_btn_switch">
                     <p className="action_btn_switch_status">Status:</p>
@@ -274,8 +277,8 @@ function ViewContent() {
                 </div>
             </div>
             <div className="section_title">
-                <h2>Content Detail</h2>
-                <h2>Content Preview pada Aplikasi Smartphone</h2>
+                <h2>Detail Artikel</h2>
+                <h2>Preview Artikel pada Aplikasi Smartphone</h2>
             </div>
             <div className="content">
                 <div className="content_detail">
@@ -289,24 +292,25 @@ function ViewContent() {
                     </div>
                     <div className="content_detail_bottom">
                         <div className="content_detail_bottom_detail">
-                            <p className="content_detail_group"><FiCalendar /> Start Date: <span>{startDate}</span></p>
-                            <p className="content_detail_group"><FiFileText /> Type: <span>{content.contentType}</span> </p>
-                            <p className="content_detail_group"><FiLink /> Source: <span>{content.contentSource}</span> </p>
+                            <p className="content_detail_group"><FiCalendar /> Tanggal Posting: <span>{startDate}</span></p>
+                            <p className="content_detail_group"><FiFileText /> Tipe: <span>{content.contentType}</span> </p>
                         </div>
                         <div className="content_detail_bottom_description">
-                            <p className="content_detail_group" >Description:</p>
+                            <p className="content_detail_group" >Deskripsi:</p>
                             {/* <p>{content.contentDescription}</p> */}
                             <p dangerouslySetInnerHTML={{ __html: content.contentDescription }}></p>
                         </div>
                         <div className="content_detail_bottom_contents">
-                            <p className="content_detail_group">Contents:</p>
+                            <p className="content_detail_group">Isi:</p>
 
                             {typeof content.contents === 'string' ? (
                                 <div dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                             ) : (
                                 <div className='pdf-style' dangerouslySetInnerHTML={{ __html: content.contents }}></div>
                             )}
-
+                        </div>
+                        <div className="content_detail_bottom_detail">
+                            <p className="content_detail_group"><FiLink /> Sumber: <span>{content.contentSource}</span> </p>
                         </div>
                     </div>
                 </div>
