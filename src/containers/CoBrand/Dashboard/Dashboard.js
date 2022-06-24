@@ -137,7 +137,7 @@ function Dashboard() {
 
         let paramUser = {
             whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
+                packageId: "com.roi.ruangortu",
                 dateCreated: {
                     "$gte": startDate.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]

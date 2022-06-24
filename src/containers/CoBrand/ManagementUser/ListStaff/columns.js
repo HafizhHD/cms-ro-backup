@@ -53,7 +53,7 @@ const Columns = (setStaffDeleting, setWarning) => {
                             </div>
                         </button>
                     </NavLink>
-                    {cell.row.values.emailUser !== 'admin@asia.ruangortu.id' ? <NavLink to="/tools/admin-staff"
+                    {cell.row.values.emailUser !== 'admin@roi.ruangortu.id' ? <NavLink to="/tools/admin-staff"
                         className="nav_btn"
                         title="Delete Staff"
                         onClick={() => {

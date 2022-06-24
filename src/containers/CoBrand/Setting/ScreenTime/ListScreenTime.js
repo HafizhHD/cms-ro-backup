@@ -34,6 +34,11 @@ class ListScreenTime extends React.Component {
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationFilter',
+            data: {
+                whereKeyValues: {
+                    cobrandEmail: JSON.parse(localStorage.getItem('userData')).cobrandEmail
+                }
+            }
         })
             .then(response => {
                 // console.log(response.data.Data);
