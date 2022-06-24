@@ -10,7 +10,7 @@ function Download() {
                   Selamat Anda sudah bergabung menjadi anggota Keluarga
               </h1>
               <h4>
-                  silahkan download aplikasi Ruang ORTU by ASIA
+                  silahkan download aplikasi Ruang Ortu Indonesia
               </h4>
           </div>
         )

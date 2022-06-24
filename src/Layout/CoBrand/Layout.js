@@ -3,7 +3,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 
 import './../Layout.scss';
 import Logo from './../../assets/img/Logo_1.png';
-import Logo2 from './../../assets/img/Logo_4.png'
+import Logo2 from './../../assets/img/Logo_5.png'
 import Navigations from '../../components/Navigations/Navigations';
 import { MenuCoBranding } from './../../components/Navigations/routes';
 import { useDetectOutsideClick } from './../../hook/useDetectOutsideClick';
