@@ -20,6 +20,9 @@ import draftToHtml from "draftjs-to-html";
 import {stateToHTML} from 'draft-js-export-html'
 import htmlToDraft from 'html-to-draftjs'
 
+import SunEditor, {buttonList} from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+
 
 function AddStep({
     onAddStep,
@@ -28,6 +31,22 @@ function AddStep({
 
 
     let editorState = EditorState.createEmpty()
+
+    const editorButtonList = [
+        ['undo', 'redo'],
+        ['font', 'fontSize', 'formatBlock'],
+        ['paragraphStyle', 'blockquote'],
+        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+        ['fontColor', 'hiliteColor', 'textStyle'],
+        ['removeFormat'],
+        ['outdent', 'indent'],
+        ['align', 'horizontalRule', 'list', 'lineHeight'],
+        ['table', 'link', 'image', 'video'], /** 'audio', 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.
+        /** 'imageGallery', */ // You must add the "imageGalleryUrl".
+        // ['fullScreen', 'showBlocks', 'codeView'],
+        ['preview', 'print'], // 'save', 'template'
+        /** 'dir', 'dir_ltr', 'dir_rtl' */ // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
+    ];
     
 
     const [artikel, setArtikel] = useState(editorState)
@@ -235,54 +254,62 @@ function AddStep({
                             </div>
                             <div className="form-group">
                                 <label>Isi Tahap</label>
-                                <p>*Untuk memasukkan video dengan URL, tekan tombol "Embedded" di sebelah kanan "Link".</p>
+                                {/* <p>*Untuk memasukkan video dengan URL, tekan tombol "Embedded" di sebelah kanan "Link".</p> */}
                                 {values.contentType === "Artikel" ? (
-                                    <Editor
-                                        editorState={artikel}
-                                        toolbarClassName="toolbarClassName"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="editorClassName"
-                                        onEditorStateChange={(editorState) => setArtikel(editorState)}
-                                        // onEditorStateChange={updateTextDescription}
-                                        // value={description.values}
-                                        value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
-                                        // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                                        name="contents"
-                                        toolbar={{
-                                            list: {
-                                                inDropdown: true,
-                                            },
-                                            textAlign: {
-                                                inDropdown: true,
-                                            },
-                                            image: {
-                                                uploadEnabled: true,
-                                                alignmentEnabled: true,
-                                                previewImage: true,
-                                                uploadCallback: uploadCallback,
-                                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
-                                                defaultSize: {
-                                                    height: 'auto',
-                                                    width: '360px',
-                                                },
-                                            },
-                                            embedded:{
-                                                embedCallback: embedVideoCallBack,
-                                                defaultSize: {
-                                                    height: 'auto',
-                                                    width: '360px',
-                                                },
-                                            }
-                                        }}
-                                        onChange={() => {
-                                            // setTextValue(editorState);
-                                            // setFieldValue("contentDescription", description);
-                                            setFieldValue('contents', draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                            // // console.log(textDeskripsi);
-                                            // // console.log(values.contents)
-                                        }}
+                                    <SunEditor 
+                                    setOptions={{
+                                        buttonList: editorButtonList
+                                    }}
+                                    onChange={(content) => {
+                                        setFieldValue('contents', content);
+                                    }}
+                                    height='500px'/>
+                                    // <Editor
+                                    //     editorState={artikel}
+                                    //     toolbarClassName="toolbarClassName"
+                                    //     wrapperClassName="wrapperClassName"
+                                    //     editorClassName="editorClassName"
+                                    //     onEditorStateChange={(editorState) => setArtikel(editorState)}
+                                    //     // onEditorStateChange={updateTextDescription}
+                                    //     // value={description.values}
+                                    //     value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                    //     // value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                    //     name="contents"
+                                    //     toolbar={{
+                                    //         list: {
+                                    //             inDropdown: true,
+                                    //         },
+                                    //         textAlign: {
+                                    //             inDropdown: true,
+                                    //         },
+                                    //         image: {
+                                    //             uploadEnabled: true,
+                                    //             alignmentEnabled: true,
+                                    //             previewImage: true,
+                                    //             uploadCallback: uploadCallback,
+                                    //             inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                    //             defaultSize: {
+                                    //                 height: 'auto',
+                                    //                 width: '360px',
+                                    //             },
+                                    //         },
+                                    //         embedded:{
+                                    //             embedCallback: embedVideoCallBack,
+                                    //             defaultSize: {
+                                    //                 height: 'auto',
+                                    //                 width: '360px',
+                                    //             },
+                                    //         }
+                                    //     }}
+                                    //     onChange={() => {
+                                    //         // setTextValue(editorState);
+                                    //         // setFieldValue("contentDescription", description);
+                                    //         setFieldValue('contents', draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                    //         // // console.log(textDeskripsi);
+                                    //         // // console.log(values.contents)
+                                    //     }}
 
-                                    />
+                                    // />
                                 ) : null}
                                 {values.contentType === "Image" ? (
                                     // <img src={conFromImgVid}></img>

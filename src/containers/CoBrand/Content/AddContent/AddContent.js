@@ -22,6 +22,9 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import { stateToHTML } from 'draft-js-export-html'
 
+import SunEditor, {buttonList} from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+
 import Select from 'react-select';
 
 function AddContent({
@@ -35,6 +38,22 @@ function AddContent({
     const onEditorStateChange = (editorState) => {
         setDescription(editorState)
     }
+
+    const editorButtonList = [
+        ['undo', 'redo'],
+        ['font', 'fontSize', 'formatBlock'],
+        ['paragraphStyle', 'blockquote'],
+        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+        ['fontColor', 'hiliteColor', 'textStyle'],
+        ['removeFormat'],
+        ['outdent', 'indent'],
+        ['align', 'horizontalRule', 'list', 'lineHeight'],
+        ['table', 'link', 'image', 'video'], /** 'audio', 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.
+        /** 'imageGallery', */ // You must add the "imageGalleryUrl".
+        // ['fullScreen', 'showBlocks', 'codeView'],
+        ['preview', 'print'], // 'save', 'template'
+        /** 'dir', 'dir_ltr', 'dir_rtl' */ // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
+    ];
 
     const [artikel, setArtikel] = useState(editorState)
     const onEditorStateChangeArtikel = (editorState) => {
@@ -260,7 +279,16 @@ function AddContent({
                             <div className="form-group">
                                 {values.contentType === "Artikel" ? (<>
                                     <label>Isi Artikel</label>
-                                    <Editor
+
+                                    <SunEditor 
+                                    setOptions={{
+                                        buttonList: editorButtonList
+                                    }}
+                                    onChange={(content) => {
+                                        setFieldValue('contents', content);
+                                    }}
+                                    height='500px'/>
+                                    {/* <Editor
                                         editorState={artikel}
                                         toolbarClassName="toolbarClassName"
                                         wrapperClassName="wrapperClassName"
@@ -305,7 +333,8 @@ function AddContent({
                                             // // console.log(values.contents)
                                         }}
 
-                                    /></>
+                                    /> */}
+                                    </>
                                 ) : null}
                                 {values.contentType === "Image" ? (<>
                                     <label>Isi Image</label>

@@ -20,6 +20,9 @@ import draftToHtml from "draftjs-to-html";
 import {stateToHTML} from 'draft-js-export-html'
 import htmlToDraft from 'html-to-draftjs'
 
+import SunEditor, {buttonList} from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+
 
 function EditStep({
     onEditStep,
@@ -39,6 +42,22 @@ function EditStep({
     const onEditorStateChangeArtikel = (editorState) => {
         setArtikel(editorState)
     }
+
+    const editorButtonList = [
+        ['undo', 'redo'],
+        ['font', 'fontSize', 'formatBlock'],
+        ['paragraphStyle', 'blockquote'],
+        ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+        ['fontColor', 'hiliteColor', 'textStyle'],
+        ['removeFormat'],
+        ['outdent', 'indent'],
+        ['align', 'horizontalRule', 'list', 'lineHeight'],
+        ['table', 'link', 'image', 'video'], /** 'audio', 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.
+        /** 'imageGallery', */ // You must add the "imageGalleryUrl".
+        // ['fullScreen', 'showBlocks', 'codeView'],
+        ['preview', 'print'], // 'save', 'template'
+        /** 'dir', 'dir_ltr', 'dir_rtl' */ // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
+    ];
 
     const embedVideoCallBack = (link) =>{
         
@@ -236,39 +255,48 @@ function EditStep({
                                         onChange={handleChange}
                                     />*/
 
-                                    <Editor
-                                        editorState={artikel}
-                                        toolbarClassName="toolbarClassName"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="editorClassName"
-                                        onEditorStateChange={onEditorStateChangeArtikel}
-                                        // value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
-                                        values={values.contents}
+                                    <SunEditor 
+                                    setOptions={{
+                                        buttonList: editorButtonList
+                                    }}
+                                    onChange={(content) => {
+                                        setFieldValue('contents', content);
+                                    }}
+                                    height='500px'/>
+
+                                    // <Editor
+                                    //     editorState={artikel}
+                                    //     toolbarClassName="toolbarClassName"
+                                    //     wrapperClassName="wrapperClassName"
+                                    //     editorClassName="editorClassName"
+                                    //     onEditorStateChange={onEditorStateChangeArtikel}
+                                    //     // value={draftToHtml(convertToRaw(artikel.getCurrentContent()))}
+                                    //     values={values.contents}
        
-                                        name="contents"
-                                        toolbar={{
-                                            image: {
-                                                uploadEnabled: true,
-                                                alignmentEnabled: true,
-                                                previewImage: true,
-                                                uploadCallback: uploadCallback,
-                                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
-                                            },
-                                            embedded:{
-                                                embedCallback: embedVideoCallBack
-                                            }
-                                        }}
-                                        onChange={(editorState) => {
-                                            setTextValue(values.contents);
-                                            // setFieldValue("contentDescription", description);
-                                            setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
-                                            // console.log(textValue); ///value yang lama
-                                            // console.log(values.contents) //get nilai yg terbaru
-                                            // console.log(artikel) //get nilai yg terbaru
+                                    //     name="contents"
+                                    //     toolbar={{
+                                    //         image: {
+                                    //             uploadEnabled: true,
+                                    //             alignmentEnabled: true,
+                                    //             previewImage: true,
+                                    //             uploadCallback: uploadCallback,
+                                    //             inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                    //         },
+                                    //         embedded:{
+                                    //             embedCallback: embedVideoCallBack
+                                    //         }
+                                    //     }}
+                                    //     onChange={(editorState) => {
+                                    //         setTextValue(values.contents);
+                                    //         // setFieldValue("contentDescription", description);
+                                    //         setFieldValue("contents", draftToHtml(convertToRaw(artikel.getCurrentContent())));
+                                    //         // console.log(textValue); ///value yang lama
+                                    //         // console.log(values.contents) //get nilai yg terbaru
+                                    //         // console.log(artikel) //get nilai yg terbaru
                                             
-                                        }}
+                                    //     }}
                                         
-                                    />
+                                    // />
 
 
                                     // <RichTextEditor
