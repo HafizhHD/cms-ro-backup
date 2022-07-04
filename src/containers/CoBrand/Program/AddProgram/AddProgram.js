@@ -341,7 +341,7 @@ function AddProgram({
                                                 buttonList: editorButtonList
                                             }}
                                             onChange={(content) => {
-                                                setFieldValue('contents', content);
+                                                setFieldValue(`contentPrograms.${i}.contents`, content);
                                             }}
                                             height='500px'/>
                                             // <Editor
