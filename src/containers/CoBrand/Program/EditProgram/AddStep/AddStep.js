@@ -258,7 +258,8 @@ function AddStep({
                                 {values.contentType === "Artikel" ? (
                                     <SunEditor 
                                     setOptions={{
-                                        buttonList: editorButtonList
+                                        buttonList: editorButtonList,
+                                        imageWidth: '360px'
                                     }}
                                     onChange={(content) => {
                                         setFieldValue('contents', content);

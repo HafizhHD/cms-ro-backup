@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
-import { contentAdd, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
+import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 
@@ -49,60 +49,12 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
         promise.then((result) => {
             // console.log(typeof result);
             const programthumnail = result;
-
-            let contentPrograms = [];
-            for(var i = 0; i < contentProg.length; i++) {
-                let x = contentProg[i];
-                let respons = {};
-                for(var j = 0; j < x.response.length; j++) {
-                    respons[x.response[j]] = 0;
-                }
-                let realContents = '<!DOCTYPE html>'
-                        + '<html lang="en">'
-                        + '<head>'
-                        + '<meta charset="utf-8">'
-                        + '<style>'
-                        + '#contents {'
-                        + 'overflow-y: scroll;'
-                        + 'text-align: justify;'
-                        + 'white-space: pre-line;'
-                        + 'font-family: Arial, Helvetica, sans-serif;'
-                        + 'padding: 1%;'
-                        + '}'
-                        + '#contents li {'
-                        + 'margin-left: 5%;'
-                        + '}'
-                        + '</style>'
-                        + '</head>'
-                        + '<body>'
-                        + '<div id="contents">'
-                        + x.contents
-                        + '</div>'
-                        + '</body>'
-                        + '</html>';
-                let dataRaw = {
-                    nomerUrutTahapan: x.nomerUrutTahapan,
-                    namaTahapan: x.namaTahapan,
-                    contentName: x.contentName,
-                    contentType: x.contentType,
-                    contentSource: x.contentSource,
-                    contents: realContents,
-                    startDate: x.startDate,
-                    endDate: x.endDate,
-                    topics: x.topics,
-                    targetAudiance: x.targetAudiance,
-                    respons: respons,
-                    answerKey: x.answerKey
-                }
-                contentPrograms.push(dataRaw);
-            }
-
             let targetAudiance = [];
             for(var j = 0; j < targetAudience.length; j++) {
                 targetAudiance.push(targetAudience[j].value);
             }
 
-            let data = {
+            let data1 = {
                 cobrandEmail,
                 programName,
                 ProgramDescription,
@@ -110,27 +62,160 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                 startDate,
                 endDate,
                 category,
-                targetAudiance,
-                contentPrograms
+                targetAudiance
             };
 
-            // console.log(data);
-            //Call API ....
+            programAdd(data1)
+            .then(response => {
+                console.log('response:', response.data);
+                let programId = response.data.resultData.progrram._id;
+                let contentPrograms1 = [];
+                for(var i = 0; i < contentProg.length; i++) {
+                    let x = contentProg[i];
+                    let respons = {};
+                    for(var j = 0; j < x.response.length; j++) {
+                        respons[x.response[j]] = 0;
+                    }
+                    let realContents = '<!DOCTYPE html>'
+                            + '<html lang="en">'
+                            + '<head>'
+                            + '<meta charset="utf-8">'
+                            + '<style>'
+                            + '#contents {'
+                            + 'overflow-y: scroll;'
+                            + 'text-align: justify;'
+                            + 'font-family: Arial, Helvetica, sans-serif;'
+                            + 'padding: 1%;'
+                            + '}'
+                            + '#contents li {'
+                            + 'margin-left: 5%;'
+                            + '}'
+                            + '</style>'
+                            + '</head>'
+                            + '<body>'
+                            + '<div id="contents">'
+                            + x.contents
+                            + '</div>'
+                            + '</body>'
+                            + '</html>';
+                    let dataRaw = {
+                        programId: programId,
+                        nomerUrutTahapan: x.nomerUrutTahapan,
+                        namaTahapan: x.namaTahapan,
+                        contentName: x.contentName,
+                        contentType: x.contentType,
+                        contentSource: x.contentSource,
+                        contents: realContents,
+                        startDate: x.startDate,
+                        endDate: x.endDate,
+                        topics: x.topics,
+                        targetAudiance: x.targetAudiance,
+                        status: 'active',
+                        respons: respons,
+                        answerKey: x.answerKey
+                    }
 
-            // programAdd(data)
-            programAddv2(data)
-                .then(response => {
-                    // console.log('Success:', response.data);
+                    contentPrograms1.push(contentAddAsync(dataRaw).then(response2 => {
+                        console.log('Respons ' + i, response2)
+                    }));
+                    console.log('content Program 1', contentPrograms1);
+                }
+                if(contentPrograms1.length === contentProg.length) {
                     history.push('/cms/program');
                     dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
                     dispatch(loadingStop());
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    dispatch(alertError('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                }
+                else {
+                    dispatch(alertError('Program "' + programName + '" berhasil ditambahkan, namun beberapa tahap gagal ditambahkan.'));
                     dispatch(loadingStop());
-                });
-            // console.log(data);
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                dispatch(alertError('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            })
+
+            // let contentPrograms = [];
+            // for(var i = 0; i < contentProg.length; i++) {
+            //     let x = contentProg[i];
+            //     let respons = {};
+            //     for(var j = 0; j < x.response.length; j++) {
+            //         respons[x.response[j]] = 0;
+            //     }
+            //     let realContents = '<!DOCTYPE html>'
+            //             + '<html lang="en">'
+            //             + '<head>'
+            //             + '<meta charset="utf-8">'
+            //             + '<style>'
+            //             + '#contents {'
+            //             + 'overflow-y: scroll;'
+            //             + 'text-align: justify;'
+            //             + 'font-family: Arial, Helvetica, sans-serif;'
+            //             + 'padding: 1%;'
+            //             + '}'
+            //             + '#contents li {'
+            //             + 'margin-left: 5%;'
+            //             + '}'
+            //             + '</style>'
+            //             + '</head>'
+            //             + '<body>'
+            //             + '<div id="contents">'
+            //             + x.contents
+            //             + '</div>'
+            //             + '</body>'
+            //             + '</html>';
+            //     let dataRaw = {
+            //         nomerUrutTahapan: x.nomerUrutTahapan,
+            //         namaTahapan: x.namaTahapan,
+            //         contentName: x.contentName,
+            //         contentType: x.contentType,
+            //         contentSource: x.contentSource,
+            //         contents: realContents,
+            //         startDate: x.startDate,
+            //         endDate: x.endDate,
+            //         topics: x.topics,
+            //         targetAudiance: x.targetAudiance,
+            //         respons: respons,
+            //         answerKey: x.answerKey
+            //     }
+            //     contentPrograms.push(dataRaw);
+            // }
+
+            // let targetAudiance = [];
+            // for(var j = 0; j < targetAudience.length; j++) {
+            //     targetAudiance.push(targetAudience[j].value);
+            // }
+
+            // let data = {
+            //     cobrandEmail,
+            //     programName,
+            //     ProgramDescription,
+            //     programthumnail,
+            //     startDate,
+            //     endDate,
+            //     category,
+            //     targetAudiance,
+            //     contentPrograms
+            // };
+
+            // // console.log(data);
+            // //Call API ....
+
+            // // programAdd(data)
+            // programAddv2(data)
+            //     .then(response => {
+            //         // console.log('Success:', response.data);
+            //         history.push('/cms/program');
+            //         dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
+            //         dispatch(loadingStop());
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //         dispatch(alertError('Program "' + programName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+            //         dispatch(loadingStop());
+            //     });
+            // // console.log(data);
         });
     }
 
@@ -477,7 +562,6 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                     + '#contents {'
                     + 'overflow-y: scroll;'
                     + 'text-align: justify;'
-                    + 'white-space: pre-line;'
                     + 'font-family: Arial, Helvetica, sans-serif;'
                     + 'padding: 1%;'
                     + '}'

@@ -43,7 +43,7 @@ const UserReport = () => {
         // console.log(params);
         getUserList(params)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data.users);
             // setUserData(response.data.users);
             var ud = response.data.users;
             for(var i = 0; i < ud.length; i++) {

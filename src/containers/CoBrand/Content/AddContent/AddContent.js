@@ -282,7 +282,8 @@ function AddContent({
 
                                     <SunEditor 
                                     setOptions={{
-                                        buttonList: editorButtonList
+                                        buttonList: editorButtonList,
+                                        imageWidth: '360px'
                                     }}
                                     onChange={(content) => {
                                         setFieldValue('contents', content);
@@ -495,7 +496,15 @@ function AddContent({
                             </div>
                             {values.contentType !== 'Artikel' ? <div className="form-group">
                                 <label>Isi Artikel</label>
-                                <Editor
+                                <SunEditor 
+                                setOptions={{
+                                    buttonList: editorButtonList
+                                }}
+                                onChange={(content) => {
+                                    setFieldValue('contentDescription', content);
+                                }}
+                                height='500px'/>
+                                {/* <Editor
                                     editorState={description}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
@@ -540,7 +549,7 @@ function AddContent({
                                         // // console.log(values.contents)
                                     }}
 
-                                />
+                                /> */}
                                 {touched.contentDescription && <span className="message__error">{errors.contentDescription}</span>}
                             </div> : null}
                             <div className="form-group">

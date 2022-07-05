@@ -255,9 +255,11 @@ function EditStep({
                                         onChange={handleChange}
                                     />*/
 
-                                    <SunEditor 
+                                    <SunEditor
+                                    defaultValue={values.contents}
                                     setOptions={{
-                                        buttonList: editorButtonList
+                                        buttonList: editorButtonList,
+                                        imageWidth: '360px'
                                     }}
                                     onChange={(content) => {
                                         setFieldValue('contents', content);

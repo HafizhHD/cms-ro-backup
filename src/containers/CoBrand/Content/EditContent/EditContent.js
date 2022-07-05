@@ -225,7 +225,7 @@ function EditContent({
                 initialValues={{ 
                     programId: content.programId ,
                     contentName: content.contentName,
-                    contentDescription: draftToHtml(convertToRaw(description.getCurrentContent())),
+                    contentDescription: content.contentDescription,
                     contentType: content.contentType,
                     contentSource: content.contentSource,
                     contents: conFromImgVid,
@@ -277,9 +277,11 @@ function EditContent({
                             <div className="form-group">
                                 {values.contentType === "Artikel" ? (<>
                                     <label>Isi Artikel</label>
-                                    <SunEditor 
+                                    <SunEditor
+                                    defaultValue={values.contents}
                                     setOptions={{
-                                        buttonList: editorButtonList
+                                        buttonList: editorButtonList,
+                                        imageWidth: '360px'
                                     }}
                                     onChange={(content) => {
                                         setFieldValue('contents', content);
@@ -492,7 +494,16 @@ function EditContent({
                             </div>
                             {values.contentType !== 'Artikel' ? <div className="form-group">
                             <label>Isi Artikel</label>
-                                <Editor
+                                <SunEditor 
+                                defaultValue={values.contentDescription}
+                                setOptions={{
+                                    buttonList: editorButtonList
+                                }}
+                                onChange={(content) => {
+                                    setFieldValue('contentDescription', content);
+                                }}
+                                height='500px'/>
+                                {/* <Editor
                                     editorState={description}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
@@ -537,7 +548,7 @@ function EditContent({
                                         // // console.log(values.contents)
                                     }}
 
-                                />
+                                /> */}
                                 {/* <RichTextEditor
                                         name="contentDescription"
                                         placeholder="Type your contents here..."
