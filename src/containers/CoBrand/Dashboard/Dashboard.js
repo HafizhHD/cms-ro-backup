@@ -151,7 +151,8 @@ function Dashboard() {
 
         let paramContent = {
             whereKeyValues: {
-                cobrandEmail: localData.email,
+                cobrandEmail: localData.cobrandEmail,
+                programId: '-1',
                 status: {"$in" : ["active", "inactive"]},
                 dateCreated: {
                     "$gte": startDate.toISOString().split('T')[0],
@@ -167,7 +168,7 @@ function Dashboard() {
 
         let paramProgram = {
             whereKeyValues: {
-                cobrandEmail: localData.email,
+                cobrandEmail: localData.cobrandEmail,
                 dateCreated: {
                     "$gte": startDate.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]
@@ -265,8 +266,8 @@ function Dashboard() {
             setUserDataLabel(['Orang tua: ' + countingUser[1], 'Anak: ' + countingUser[2]]);
 
             const contentLength = responseAll[1].data.contents.length;
-            // // console.log(responseAll[1].data.contents);
-            // // console.log(responseAll[2].data.programs);
+            console.log('Contents', responseAll[1].data.contents);
+            console.log('Program', responseAll[2].data.programs);
             const programLength = responseAll[2].data.programs.length;
 
             const dataConProg = [contentLength, programLength];
