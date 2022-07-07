@@ -423,11 +423,11 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             if (contentType === 'Video') {
                 // const video = toBase64(contents);
                 if (typeof contents === 'string') {
-                    contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
                     const video = toBase64(contents);
                     video.then((hasil) => {
-                        contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         let data = {
                             cobrandEmail,
@@ -641,12 +641,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             if (contentType === 'Video') {
                 // const video = toBase64(contents);
                 if (typeof contents === 'string') {
-                    contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
                     
                     const video = toBase64(contents);
                     video.then((hasil) => {
-                        contents = "<div style=\"position:relative;padding-bottom:56.25%;\"><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:100%;position:absolute;left:0px;top:0px;\" frameborder=\"0\" width=\"100%\" height=\"100%\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         // const contentThumbnail = result;
                         let datax = {
