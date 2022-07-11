@@ -55,7 +55,7 @@ const UserReport = () => {
                     if(user.subscriptions.length > 0) {
                         if(user.subscriptions[0].dateStart !== undefined) user['startSubscription'] = new Date(user.subscriptions[0].dateStart);
                         if(user.subscriptions[0].dateEnd !== undefined) user['endSubscription'] = new Date(user.subscriptions[0].dateEnd);
-                        if(user.endSubscription < today) user['subscriptionStats'] = 'Unsubscribed'
+                        if(user.endSubscription < today) user['subscriptionStatus'] = 'Unsubscribed'
                         else {
                             user['subscriptionStatus'] = 'Subscribed'
                             user['subscriptionPlan'] = user.subscriptions[0].subscriptionPackageId;
