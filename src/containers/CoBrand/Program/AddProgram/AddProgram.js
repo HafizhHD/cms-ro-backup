@@ -524,7 +524,7 @@ function AddProgram({
                                                     var x = '';
                                                     for(var p = 0; p < e.currentTarget.value.length; p++) {
                                                         if(e.currentTarget.value.charAt(p) !== '.') x += e.currentTarget.value.charAt(p);
-                                                        else x += '．';
+                                                        else x += '․';
                                                     }
                                                     console.log(x);
                                                     setFieldValue(`contentPrograms.${i}.response.${index}`, x);

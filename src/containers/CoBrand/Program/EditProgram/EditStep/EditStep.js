@@ -399,7 +399,7 @@ function EditStep({
                                             var x = '';
                                             for(var i = 0; i < e.currentTarget.value.length; i++) {
                                                 if(e.currentTarget.value.charAt(i) !== '.') x += e.currentTarget.value.charAt(i);
-                                                else x += '．';
+                                                else x += '․';
                                             }
                                             setFieldValue(`response.${index}`, x);
                                         }}
