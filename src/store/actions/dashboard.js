@@ -86,6 +86,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                             + 'text-align: justify;'
                             + 'font-family: Arial, Helvetica, sans-serif;'
                             + 'padding: 1%;'
+                            + 'width: 360px;'
                             + '}'
                             + '#contents li {'
                             + 'margin-left: 5%;'
@@ -271,6 +272,29 @@ export const addStep = (programId, cobrandEmail, nomerUrutTahapan, namaTahapan, 
         for(var j = 0; j < response.length; j++) {
             respons[response[j]] = 0;
         }
+        let realContents = '<!DOCTYPE html>'
+                            + '<html lang="en">'
+                            + '<head>'
+                            + '<meta charset="utf-8">'
+                            + '<style>'
+                            + '#contents {'
+                            + 'overflow-y: scroll;'
+                            + 'text-align: justify;'
+                            + 'font-family: Arial, Helvetica, sans-serif;'
+                            + 'padding: 1%;'
+                            + 'width: 360px;'
+                            + '}'
+                            + '#contents li {'
+                            + 'margin-left: 5%;'
+                            + '}'
+                            + '</style>'
+                            + '</head>'
+                            + '<body>'
+                            + '<div id="contents">'
+                            + contents
+                            + '</div>'
+                            + '</body>'
+                            + '</html>';
         let data = {
             programId,
             cobrandEmail,
@@ -279,7 +303,7 @@ export const addStep = (programId, cobrandEmail, nomerUrutTahapan, namaTahapan, 
             contentName,
             contentType,
             contentSource,
-            contents,
+            contents: realContents,
             startDate,
             endDate,
             topics,
@@ -289,7 +313,7 @@ export const addStep = (programId, cobrandEmail, nomerUrutTahapan, namaTahapan, 
             status: 'active'
         };
 
-        // console.log(data);
+        console.log(data);
         //Call API ....
 
         contentAdd(data)
@@ -318,6 +342,29 @@ export const editStep = (_id, cobrandEmail, namaTahapan, contentName, contents, 
         for(var j = 0; j < response.length; j++) {
             respons[response[j]] = 0;
         }
+        let realContents = '<!DOCTYPE html>'
+                            + '<html lang="en">'
+                            + '<head>'
+                            + '<meta charset="utf-8">'
+                            + '<style>'
+                            + '#contents {'
+                            + 'overflow-y: scroll;'
+                            + 'text-align: justify;'
+                            + 'font-family: Arial, Helvetica, sans-serif;'
+                            + 'padding: 1%;'
+                            + 'width: 360px;'
+                            + '}'
+                            + '#contents li {'
+                            + 'margin-left: 5%;'
+                            + '}'
+                            + '</style>'
+                            + '</head>'
+                            + '<body>'
+                            + '<div id="contents">'
+                            + contents
+                            + '</div>'
+                            + '</body>'
+                            + '</html>';
         let data = {
             whereValues: {
                 cobrandEmail,
@@ -326,7 +373,7 @@ export const editStep = (_id, cobrandEmail, namaTahapan, contentName, contents, 
             newValues: {
                 namaTahapan,
                 contentName,
-                contents,
+                contents: realContents,
                 response,
                 answerKey
             }
@@ -597,7 +644,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 targetAudiance: audi
             };
 
-            // console.log(data);
+            console.log(data);
             //Call API ....
 
             contentAdd(data)

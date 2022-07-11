@@ -396,7 +396,12 @@ function EditStep({
                                         placeholder="Example"
                                         value={res}
                                         onChange={(e) => {
-                                            setFieldValue(`response.${index}`, e.currentTarget.value);
+                                            var x = '';
+                                            for(var i = 0; i < e.currentTarget.value.length; i++) {
+                                                if(e.currentTarget.value.charAt(i) !== '.') x += e.currentTarget.value.charAt(i);
+                                                else x += '．';
+                                            }
+                                            setFieldValue(`response.${index}`, x);
                                         }}
                                         onBlur={handleBlur}
                                     />
