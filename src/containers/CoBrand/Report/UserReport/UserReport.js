@@ -18,6 +18,7 @@ const UserReport = () => {
         selectableRows: true,
         responsive: "scroll",
     };
+    const today = new Date();
 
     useEffect(() => {
         if(period === 'dummy') {
@@ -49,8 +50,18 @@ const UserReport = () => {
             for(var i = 0; i < ud.length; i++) {
                 let user = ud[i];
                 if(user.userType === 'child') {
-                    if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
-                    if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
+                    // if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
+                    // if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
+                    if(user.subscriptions.length > 0) {
+                        if(user.subscriptions[0].dateStart !== undefined) user['startSubscription'] = new Date(user.subscriptions[0].dateStart);
+                        if(user.subscriptions[0].dateEnd !== undefined) user['endSubscription'] = new Date(user.subscriptions[0].dateEnd);
+                        if(user.endSubscription < today) user['subscriptionStats'] = 'Unsubscribed'
+                        else {
+                            user['subscriptionStatus'] = 'Subscribed'
+                            user['subscriptionPlan'] = user.subscriptions[0].subscriptionPackageId;
+                        }
+                    }
+                    else user['subscriptionStatus'] = 'Not Subscribed'
                     // console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];
