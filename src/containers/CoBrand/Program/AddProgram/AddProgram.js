@@ -335,7 +335,8 @@ function AddProgram({
                                     <div className="form-group">
                                         <label>Isi Tahap</label>
                                         {/* <p>*Untuk memasukkan video dengan URL, tekan tombol "Embedded" di sebelah kanan "Link".</p> */}
-                                        {content.contentType === "Artikel" ? (
+                                        {content.contentType === "Artikel" || "Ujian" ? (
+                                            
                                             <SunEditor 
                                             setOptions={{
                                                 buttonList: editorButtonList,
@@ -344,6 +345,7 @@ function AddProgram({
                                             onChange={(content) => {
                                                 setFieldValue(`contentPrograms.${i}.contents`, content);
                                             }}
+                                            
                                             height='500px'/>
                                             // <Editor
                                             //     editorState={content.artikel}
@@ -391,6 +393,7 @@ function AddProgram({
                                             //     }}
 
                                             // />
+                                            
                                         ) : null}
                                         {content.contentType === "Image" ? (
                                             <div>
@@ -407,6 +410,7 @@ function AddProgram({
                                                     <label for="url" >Alamat URL</label>
                                                     <br></br>
                                                 </form>
+                                                
 
                                                 {content.contentMedia === 'internal' ?
                                                     <InputComponent
@@ -613,7 +617,7 @@ function AddProgram({
                                 nomerUrutTahapan: values.contentPrograms.length + 1,
                                 namaTahapan: '',
                                 contentName: '',
-                                contentType: 'Artikel',
+                                contentType: `${values.category} === 'Ujian' ? 'Ujian' : 'Artikel'`,
                                 contentSource: '',
                                 contents: '',
                                 startDate: values.startDate,

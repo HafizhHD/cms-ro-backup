@@ -246,7 +246,7 @@ function EditStep({
                             </div>
                             <div className="form-group">
                                 <label>Isi Tahap</label>
-                                {values.contentType === "Artikel" ? (
+                                {values.contentType === "Artikel" || "Ujian" ? (
                                     /*<InputComponent
                                         type="textarea"
                                         name="contents"
