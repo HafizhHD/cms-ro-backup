@@ -152,7 +152,7 @@ function Dashboard() {
         let paramContent = {
             whereKeyValues: {
                 cobrandEmail: localData.cobrandEmail,
-                programId: '-1',
+                programId: "",
                 status: {"$in" : ["active", "inactive"]},
                 dateCreated: {
                     "$gte": startDate.toISOString().split('T')[0],
