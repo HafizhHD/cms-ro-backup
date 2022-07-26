@@ -142,7 +142,7 @@ function EditStep({
                     setContent(response.data.contents[0]);
                     let con = new DOMParser().parseFromString(response.data.contents[0].contents, 'text/html');
                     // console.log(con);
-                    if (response.data.contents[0].contentType === 'Artikel') {
+                    if (response.data.contents[0].contentType === 'Artikel' || "Ujian" ) {
                         let con1 = con.getElementById('contents');
                         // console.log('Ini adalah con1 outer',  con1.outerHTML);
                         // console.log('Ini adalah con1 inner',  con1.innerHTML);
@@ -246,7 +246,7 @@ function EditStep({
                             </div>
                             <div className="form-group">
                                 <label>Isi Tahap</label>
-                                {values.contentType === "Artikel" ? (
+                                {values.contentType === "Artikel" || "Ujian" ? (
                                     /*<InputComponent
                                         type="textarea"
                                         name="contents"

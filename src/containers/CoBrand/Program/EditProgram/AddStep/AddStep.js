@@ -255,7 +255,7 @@ function AddStep({
                             <div className="form-group">
                                 <label>Isi Tahap</label>
                                 {/* <p>*Untuk memasukkan video dengan URL, tekan tombol "Embedded" di sebelah kanan "Link".</p> */}
-                                {values.contentType === "Artikel" ? (
+                                {values.contentType === "Artikel" || "Ujian" ? (
                                     <SunEditor 
                                     setOptions={{
                                         buttonList: editorButtonList,
