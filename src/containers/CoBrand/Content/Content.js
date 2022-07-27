@@ -30,7 +30,7 @@ function Content({
         whereKeyValues: {
             cobrandEmail: userData.cobrandEmail,
             status: {"$in" : ["active", "inactive"]},
-            programId: "-1"
+            programId: ""
         },
         includeContentData:false,
         limit: Number.MAX_SAFE_INTEGER
