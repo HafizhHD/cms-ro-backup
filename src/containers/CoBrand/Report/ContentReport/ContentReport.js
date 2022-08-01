@@ -52,7 +52,7 @@ const ContentReport = () => {
     }, [, period]);
 
     if(isLoading) {
-        return <RKLoader />;
+        return <RKLoader />;//
     }
     return (
         <div className="Artikel">
