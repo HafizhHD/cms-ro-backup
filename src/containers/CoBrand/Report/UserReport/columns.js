@@ -94,7 +94,7 @@ const Columns = [
         Filter: DateRangeColumnFilter,
         filter: 'dateBetween',
         Cell: ({value}) => {
-            if(value !== undefined) return value.toLocaleDateString("en-UK", dateFormat);
+            if(value !== undefined) return value.toLocaleDateString("id-ID", dateFormat);
             else return ''
         }
     },
@@ -104,7 +104,7 @@ const Columns = [
         Filter: DateRangeColumnFilter,
         filter: 'dateBetween',
         Cell: ({value}) => {
-            if(value !== undefined) return value.toLocaleDateString("en-UK", dateFormat);
+            if(value !== undefined) return value.toLocaleDateString("id-ID", dateFormat);
             else return ''
         }
     },

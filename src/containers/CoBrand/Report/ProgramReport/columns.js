@@ -1,6 +1,6 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter } from './../../../../components/UI/Table/TableFilter'
+import { SelectColumnFilter, SelectArrayColumnFilter } from './../../../../components/UI/Table/TableFilter'
 import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom'
 
@@ -23,24 +23,20 @@ const Columns = [
     {
         Header: 'Kategori Program',
         accessor: 'category',
-        Filter: SelectColumnFilter,
-        filter: 'equals',
-
+        Filter: SelectArrayColumnFilter,
+        filter: 'arrIncludes',
         Cell: ({value, row}) => {
-            if(value !== undefined) return value;
-            else {
-                if(row.index % 3 === 1) return <p>Pendidikan Agama</p>
-                else return <p>Pengetahuan Siswa Umum</p>
-            }
+            if(value !== undefined) return <p>{value.join(', ')}</p>
+            else return <p>Semua</p>
         }
     },
     {
         Header: 'Target Pembaca',
         accessor: 'targetAudiance',
-        Filter: SelectColumnFilter,
-        filter: 'equals',
+        Filter: SelectArrayColumnFilter,
+        filter: 'arrIncludes',
         Cell: ({value, row}) => {
-            if(value !== undefined) return value.join(', ');
+            if(value !== undefined) return <p>{value.join(', ')}</p>
             else return <p>Semua</p>
         }
     },

@@ -1,6 +1,6 @@
 //import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap'
-import { SelectColumnFilter } from './../../../../components/UI/Table/TableFilter'
+import { SelectColumnFilter, SelectArrayColumnFilter } from './../../../../components/UI/Table/TableFilter'
 
 
 const Columns = [
@@ -23,10 +23,10 @@ const Columns = [
     {
         Header: 'Topik Artikel',
         accessor: 'topics',
-        Filter: SelectColumnFilter,
-        filter: 'equals',
+        Filter: SelectArrayColumnFilter,
+        filter: 'arrIncludes',
         Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
+            if(value !== undefined) return <p>{value.join(', ')}</p>
             else {
                 if(row.index % 3 === 1) return <p>Pendidikan</p>
                 else return <p>Agama</p>
@@ -36,10 +36,10 @@ const Columns = [
     {
         Header: 'Target Pembaca',
         accessor: 'targetAudiance',
-        Filter: SelectColumnFilter,
-        filter: 'equals',
+        Filter: SelectArrayColumnFilter,
+        filter: 'arrIncludes',
         Cell: ({value, row}) => {
-            if(value !== undefined) return <p>{value}</p>
+            if(value !== undefined) return <p>{value.join(', ')}</p>
             else return <p>Semua</p>
         }
     },

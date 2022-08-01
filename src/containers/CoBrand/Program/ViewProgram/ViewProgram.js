@@ -52,7 +52,8 @@ function ViewProgram() {
             };
             const params2 = {
                 whereKeyValues: {
-                    programId: id
+                    programId: id,
+                    status: {"$in" : ["active", "inactive"]},
                 },
                 orderKeyValues: {
                     nomerUrutTahapan: 1

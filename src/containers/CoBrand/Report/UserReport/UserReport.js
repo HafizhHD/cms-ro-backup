@@ -18,6 +18,7 @@ const UserReport = () => {
         selectableRows: true,
         responsive: "scroll",
     };
+    const today = new Date();
 
     useEffect(() => {
         if(period === 'dummy') {
@@ -43,14 +44,24 @@ const UserReport = () => {
         // console.log(params);
         getUserList(params)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data.users);
             // setUserData(response.data.users);
             var ud = response.data.users;
             for(var i = 0; i < ud.length; i++) {
                 let user = ud[i];
                 if(user.userType === 'child') {
-                    if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
-                    if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
+                    // if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
+                    // if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
+                    if(user.subscriptions.length > 0) {
+                        if(user.subscriptions[0].dateStart !== undefined) user['startSubscription'] = new Date(user.subscriptions[0].dateStart);
+                        if(user.subscriptions[0].dateEnd !== undefined) user['endSubscription'] = new Date(user.subscriptions[0].dateEnd);
+                        if(user.endSubscription < today) user['subscriptionStatus'] = 'Unsubscribed'
+                        else {
+                            user['subscriptionStatus'] = 'Subscribed'
+                            user['subscriptionPlan'] = user.subscriptions[0].subscriptionPackageId;
+                        }
+                    }
+                    else user['subscriptionStatus'] = 'Not Subscribed'
                     // console.log("Anjay");
                     var parentNames = [];
                     var parentEmails = [user.parentEmail, ...user.otherParentEmail];

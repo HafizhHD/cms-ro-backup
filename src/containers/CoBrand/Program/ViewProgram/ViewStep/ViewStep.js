@@ -205,7 +205,7 @@ function ViewStep() {
                     onClick={() => {
                         localStorage.setItem('stepDeleting', content._id);
                         localStorage.setItem('stepDeletingName', content.contentName);
-                    }}><NavLink to="/cms/content" className="action_btn_nav">
+                    }}><NavLink to="/cms/program/view" className="action_btn_nav">
                         <h3><FiTrash2 /> Hapus Tahap Ini</h3>
                     </NavLink></span>
                 {/* <div className="action_btn_switch">

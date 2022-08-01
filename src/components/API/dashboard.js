@@ -47,6 +47,15 @@ export const contentAdd = (query) => axios({
     },
 });
 
+export const contentAddAsync = async (query) => await axios({
+    method: 'post',
+    url: url + '/cobrand/contentAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 export const contentEdit = (query) => axios({
     method: 'post',
     url: url + '/cobrand/contentUpdate',

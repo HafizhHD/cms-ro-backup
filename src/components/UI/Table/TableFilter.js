@@ -82,6 +82,47 @@ export function GlobalFilter({
       </select>
     )
   }
+
+  // This is a custom filter UI for selecting
+  // a unique option from a list
+  export function SelectArrayColumnFilter({
+    column: { filterValue, setFilter, preFilteredRows, id },
+  }) {
+    // Calculate the options for filtering
+    // using the preFilteredRows
+    const options = React.useMemo(() => {
+      const options = new Set()
+      preFilteredRows.forEach(row => {
+        console.log('ini row', row.values[id]);
+        console.log('ini tipe row', row.values[id] instanceof Array)
+        console.log('ini length row', row.values[id].length);
+        if(row.values[id] instanceof Array && row.values[id].length > 0) {
+          for(var i = 0; i< row.values[id].length; i++) {
+            var x = row.values[id][i]
+            if(x !== undefined && !options.has(x)) options.add(x)
+          }
+        }
+      })
+      return [...options.values()]
+    }, [id, preFilteredRows])
+  
+    // Render a multi-select box
+    return (
+      <select
+        value={filterValue}
+        onChange={e => {
+          setFilter(e.target.value || undefined)
+        }}
+      >
+        <option value="">All</option>
+        {options.map((option, i) => (
+          <option key={i} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    )
+  }
   
   // This is a custom filter UI that uses a
   // slider to set the filter value between a column's

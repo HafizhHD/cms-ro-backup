@@ -180,7 +180,7 @@
 
                 &_choice {
                     display: grid;
-                    grid-template-columns: repeat(3, 30%);
+                    grid-template-columns: repeat(1, 80%);
                 }
             }
         }
@@ -197,7 +197,7 @@
         /* The device with borders */
         &_smartphone {
             position: relative;
-            width: 38.88vh;
+            width: 410px;
             height: 69.12vh;
             margin: auto;
             border: 16px black solid;
