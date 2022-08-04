@@ -124,10 +124,29 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                 if(contentPrograms1.length === contentProg.length) {
                     history.push('/cms/program');
                     dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
+                    let data2 = {
+                        destination: targetAudiance.join(','),
+                        messageSubject: "Program Baru Untuk Anak",
+                        messageContent: "Hai pengguna Ruang Ortu by ASIA, program baru " + programName + " telah tersedia untuk anak. Cek sekarang.",
+                        scheduleTime: startDate,
+                        mediaType: "Device",
+                        category: "Informasi"
+                    }
+                    notificationAdd(data2);
                     dispatch(loadingStop());
                 }
                 else {
+                    history.push('/cms/program');
                     dispatch(alertError('Program "' + programName + '" berhasil ditambahkan, namun beberapa tahap gagal ditambahkan.'));
+                    let data2 = {
+                        destination: targetAudiance.join(','),
+                        messageSubject: "Program Baru Untuk Anak",
+                        messageContent: "Hai pengguna Ruang Ortu by ASIA, program baru " + programName + " telah tersedia untuk anak. Cek sekarang.",
+                        scheduleTime: startDate,
+                        mediaType: "Device",
+                        category: "Informasi"
+                    }
+                    notificationAdd(data2);
                     dispatch(loadingStop());
                 }
             })
@@ -500,6 +519,15 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                let data2 = {
+                                    destination: audi.join(','),
+                                    messageSubject: "Artikel Baru",
+                                    messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                                    scheduleTime: startDate,
+                                    mediaType: "Device",
+                                    category: "Informasi"
+                                }
+                                notificationAdd(data2);
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
@@ -546,6 +574,15 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                let data2 = {
+                                    destination: audi.join(','),
+                                    messageSubject: "Artikel Baru",
+                                    messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                                    scheduleTime: startDate,
+                                    mediaType: "Device",
+                                    category: "Informasi"
+                                }
+                                notificationAdd(data2);
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
@@ -589,6 +626,15 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 // console.log('Success:', response.data);
                                 history.push('/cms/content');
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                let data2 = {
+                                    destination: audi.join(','),
+                                    messageSubject: "Artikel Baru",
+                                    messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                                    scheduleTime: startDate,
+                                    mediaType: "Device",
+                                    category: "Informasi"
+                                }
+                                notificationAdd(data2);
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
@@ -652,6 +698,16 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                     // console.log('Success:', response.data);
                     history.push('/cms/content');
                     dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                    let data2 = {
+                        destination: audi.join(','),
+                        messageSubject: "Artikel Baru",
+                        messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                        scheduleTime: startDate,
+                        mediaType: "Device",
+                        category: "Informasi"
+                    }
+                    console.log(data2);
+                    notificationAdd(data2);
                     dispatch(loadingStop());
                 })
                 .catch((error) => {

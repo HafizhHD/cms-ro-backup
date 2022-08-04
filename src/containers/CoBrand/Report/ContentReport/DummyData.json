@@ -4,8 +4,8 @@
         "_id": "10",
         "contentName": "7 Alasan Anak Harus Main di Luar Bukan Main Gadget!        ",
         "contentType": "Artikel",
-        "topics": "Keluarga",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Keluarga"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -13,8 +13,8 @@
         "_id": "9",
         "contentName": "Solusi Ampuh Mendidik Anak Di Era Digital        ",
         "contentType": "PDF",
-        "topics": "Pendidikan",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Pendidikan"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -22,8 +22,8 @@
         "_id": "8",
         "contentName": "Parenting Dalam Islam        ",
         "contentType": "PDF",
-        "topics": "Agama",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Agama"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -31,8 +31,8 @@
         "_id": "7",
         "contentName": "Parenting di era digital",
         "contentType": "PDF",
-        "topics": "Informasi Teknologi",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Informasi Teknologi"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -40,8 +40,8 @@
         "_id": "6",
         "contentName": "Digital Parenting - Mendidik Anak di Era Digital        ",
         "contentType": "PDF",
-        "topics": "Berita Internal",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Berita Internal"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -49,8 +49,8 @@
         "_id": "5",
         "contentName": "DIGITAL PARENTING SEBAGAI WAHANA TERAPI UNTUK MENYEIMBANGKAN DUNIA DIGITAL DENGAN DUNIA NYATA BAGI ANAK",
         "contentType": "PDF",
-        "topics": "Berita Nasional",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Berita Nasional"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -58,8 +58,8 @@
         "_id": "4",
         "contentName": "Psikologi Anak Usia Dini        ",
         "contentType": "PDF",
-        "topics": "Kesehatan",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Kesehatan"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Active"
     },
     {
@@ -67,8 +67,8 @@
         "_id": "3",
         "contentName": "Tata cara sholat 5 waktu        ",
         "contentType": "Image",
-        "topics": "Umum",
-        "targetAudiance": "Anak",
+        "topics": ["Umum"],
+        "targetAudiance": ["Anak"],
         "status": "Inactive"
     },
     {
@@ -76,8 +76,8 @@
         "_id": "2",
         "contentName": "Bacaan Doa, Niat, dan Tata Cara Sholat 5 Waktu yang Benar        ",
         "contentType": "Artikel",
-        "topics": "Olah Raga",
-        "targetAudiance": "Anak",
+        "topics": ["Olah Raga"],
+        "targetAudiance": ["Anak"],
         "status": "Active"
     },
     {
@@ -85,8 +85,8 @@
         "_id": "1",
         "contentName": "Introduction Aplikasi Ruang Ortu        ",
         "contentType": "Video",
-        "topics": "Berita Dunia",
-        "targetAudiance": "Orang Tua",
+        "topics": ["Berita Dunia"],
+        "targetAudiance": ["Orang Tua"],
         "status": "Inactive"
     }
 ]

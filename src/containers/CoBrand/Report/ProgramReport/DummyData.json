@@ -4,8 +4,8 @@
             "_id": "JSOFHOSOE",
             "programName": "Membaca Jilid 1 - 3",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SD",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SD"],
             "status": "Active"
         },
         {
@@ -13,8 +13,8 @@
             "_id": "SHAISJFKCH",
             "programName": "Membaca Jilid 4-6",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SD",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SD"],
             "status": "Active"
         },
         {
@@ -22,8 +22,8 @@
             "_id": "ISOWPEORLD",
             "programName": "Membaca Ghorib",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMP",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMP"],
             "status": "Active"
         },
         {
@@ -31,8 +31,8 @@
             "_id": "JSKDJCNVBY",
             "programName": "Membaca Tajwid",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMP",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMP"],
             "status": "Active"
         },
         {
@@ -40,8 +40,8 @@
             "_id": "UEIEKKLNMY",
             "programName": "Membaca Juz 30",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SD, SMP, SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SD, SMP, SMA"],
             "status": "Active"
         },
         {
@@ -49,8 +49,8 @@
             "_id": "SHDJFUCHCB",
             "programName": "Menghafal Ghorib",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMP",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMP"],
             "status": "Active"
         },
         {
@@ -58,8 +58,8 @@
             "_id": "QPWOKMJSSB",
             "programName": "Menghadal Tajwid",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMP, SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMP, SMA"],
             "status": "Active"
         },
         {
@@ -67,8 +67,8 @@
             "_id": "AZHYUJISDH",
             "programName": "Menghafal Juz 30",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMP, SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMP, SMA"],
             "status": "Active"
         },
         {
@@ -76,8 +76,8 @@
             "_id": "AKIJUDOLKP",
             "programName": "Menghafal Al-Baqarah",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMA"],
             "status": "Active"
         },
         {
@@ -85,8 +85,8 @@
             "_id": "SJEHUYHJBN",
             "programName": "Membaca juz 27",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SD, SMP, SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SD, SMP, SMA"],
             "status": "Active"
         },
         {
@@ -94,8 +94,8 @@
             "_id": "JSMDJKNLKJ",
             "programName": "Menghafal Surat Al Waqiah",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMA"],
             "status": "Active"
         },
         {
@@ -103,8 +103,8 @@
             "_id": "OIOLKJMYHU",
             "programName": "Menghafal Arti Al Fatihah dan Juz 30 ",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMA"],
             "status": "Active"
         },
         {
@@ -112,8 +112,8 @@
             "_id": "WEYSHDGFJR",
             "programName": "Menghafal arti Al- Baqarah Juz 1",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "SMA",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["SMA"],
             "status": "Active"
         },
         {
@@ -121,8 +121,8 @@
             "_id": "ASHDBCGFNY",
             "programName": "Hidup Sehat ala Rasulullah",
             "programType": "Kesehatan, Agama",
-            "category": "Pendidikan Agama",
-            "target": "Semua",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["Semua"],
             "status": "Active"
         },
         {
@@ -130,8 +130,8 @@
             "_id": "IELZMSJDHH",
             "programName": "Spesial Ramadhan",
             "programType": "Agama",
-            "category": "Pendidikan Agama",
-            "target": "Semua Anak",
+            "category": ["Pendidikan Agama"],
+            "targetAudiance": ["Semua Anak"],
             "status": "Active"
         },
         {
@@ -139,8 +139,8 @@
             "_id": "YAYAHSHSJK",
             "programName": "HUT Indonesia Raya ",
             "programType": "Pendidikan, Berita Nasional",
-            "category": "Pendidikan Siswa Umum",
-            "target": "Semua Anak",
+            "category": ["Pendidikan Siswa Umum"],
+            "targetAudiance": ["Semua Anak"],
             "status": "Active"
         },
         {
@@ -148,8 +148,8 @@
             "_id": "USJKMNHJJJ",
             "programName": "Ajak anak berolahraga pagi bersama ASIA",
             "programType": "Kesehatan, Keluarga, Olahraga",
-            "category": "Program Pilihan",
-            "target": "Orang tua",
+            "category": ["Program Pilihan"],
+            "targetAudiance": ["Orang tua"],
             "status": "Active"
         },
         {
@@ -157,8 +157,8 @@
             "_id": "YEHUDYFHRG",
             "programName": "Belajar Bahasa Inggris mulai dari 0 bersama pakarnya",
             "programType": "Pendidikan",
-            "category": "Program Pilihan",
-            "target": "SMA",
+            "category": ["Program Pilihan"],
+            "targetAudiance": ["SMA"],
             "status": "Active"
         },
         {
@@ -166,8 +166,8 @@
             "_id": "BVBGGVDJSH",
             "programName": "Belajar Coding dari 0 bersama pakarnya",
             "programType": "Pendidikan, Informasi Teknologi",
-            "category": "Informasi & Teknologi",
-            "target": "SMP, SMA",
+            "category": ["Informasi & Teknologi"],
+            "targetAudiance": ["SMP, SMA"],
             "status": "Inactive"
         },
         {
@@ -175,8 +175,8 @@
             "_id": "YYYYSSHDJN",
             "programName": "Cara mendidik anak ala dra. Riansyah Ponzi",
             "programType": "Pendidikan, Keluarga",
-            "category": "Program Pilihan",
-            "target": "Orang Tua",
+            "category": ["Program Pilihan"],
+            "targetAudiance": ["Orang Tua"],
             "status": "Inactive"
         }
     ]
