@@ -34,9 +34,17 @@ class ListRedzone extends React.Component {
     }
 
     daftarMessage = () => {
+        let params =
+        {
+            whereKeyValues: {
+                cobrandEmail: 'admin@roi.ruangortu.id',
+            }
+            // "admin@asia.ruangortu.id",
+        }
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/redZoneFilter',
+            data: params,
         })
             .then(response => {
                 // console.log(response.data.Data);
@@ -100,7 +108,7 @@ class ListRedzone extends React.Component {
                         return (
                             <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td><input type="text" placeholder={item.cobrandEmail} ref="status"></input></td>
+                                <td><input type="text" placeholder={item.cobrandEmail} value='admin@roi.ruangortu.id' ref="status"></input></td>
                                 <td><input placeholder={item.location} ref="alamat"></input></td>
                                 <td><input placeholder={item.redZoneStatus} ref="email"></input></td>
                                 <td><input placeholder={item.address} ref="tempat"></input></td>

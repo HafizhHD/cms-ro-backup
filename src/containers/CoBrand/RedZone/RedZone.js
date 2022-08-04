@@ -22,7 +22,7 @@ function RedZone() {
         let params =
         {
             whereKeyValues: {
-                cobrandEmail: userData.cobrandEmail,
+                cobrandEmail: 'admin@roi.ruangortu.id',
             }
             // "admin@asia.ruangortu.id",
         }

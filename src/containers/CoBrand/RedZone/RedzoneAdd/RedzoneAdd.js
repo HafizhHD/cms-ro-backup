@@ -56,7 +56,7 @@ class RedzoneAdd extends React.Component {
                 <h1>Add Redzone</h1>
                 <form className='form'>
                     <label>Email</label> <br></br>
-                    <input className='input' placeholder=''
+                    <input className='input' placeholder='' value={'admin@roi.ruangortu.id'}
                        ref="email"
                     ></input>
                     <br></br>
