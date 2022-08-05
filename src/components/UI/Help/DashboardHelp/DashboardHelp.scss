@@ -1,4 +1,4 @@
-.HelpOverlayDashboard {
+.HelpOverlay {
     position: fixed;
     z-index: 49;
     background-color: rgba(0,0,0, 0.7);
@@ -6,10 +6,10 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-
+  
     &-content {
-        margin: 10% 15%;
-        padding: 2.5rem;
+        margin: 10% 16%;
+        padding: 3rem 5rem;
         height: 70%;
         width: 70%;
         background-color: white;
@@ -34,4 +34,5 @@
             font-weight: 1000;
         }
     }
-}
+ }
+ 
