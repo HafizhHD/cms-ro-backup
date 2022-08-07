@@ -138,7 +138,7 @@ function EditStep({
                 },
             })
                 .then(response => {
-                    // console.log("Response data: ", response.data);
+                    console.log("Response data: ", response.data.contents[0]);
                     setContent(response.data.contents[0]);
                     let con = new DOMParser().parseFromString(response.data.contents[0].contents, 'text/html');
                     // console.log(con);
@@ -178,7 +178,7 @@ function EditStep({
                     setPageLoading(false);
                 })
                 .catch(error => {
-                    // console.log(error);
+                    console.log(error);
                     setPageLoading(false);
                 });
         }

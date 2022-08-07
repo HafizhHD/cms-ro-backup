@@ -49,7 +49,7 @@ function Program({
         getProgramList(params)
         .then(response => {
             setProgramList(response.data);
-            // console.log(response.data);
+            console.log(response.data);
             setLoading(false);
         })
         .catch(error => {

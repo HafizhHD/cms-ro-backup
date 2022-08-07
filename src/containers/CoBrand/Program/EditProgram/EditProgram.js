@@ -95,7 +95,7 @@ function EditProgram({
 
                 getProgramList(params)
                 .then(response => {
-                    // console.log("Response data: ", response.data);
+                    console.log("Response data: ", response.data);
                     setProgram(response.data.programs[0]);
                     localStorage.setItem('programCategory', response.data.programs[0].category);
                     localStorage.setItem('startDateProgram', response.data.programs[0].startDate);
