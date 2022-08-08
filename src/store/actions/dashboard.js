@@ -101,6 +101,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                             + '</html>';
                     let dataRaw = {
                         programId: programId,
+                        cobrandEmail: cobrandEmail,
                         nomerUrutTahapan: x.nomerUrutTahapan,
                         namaTahapan: x.namaTahapan,
                         contentName: x.contentName,
