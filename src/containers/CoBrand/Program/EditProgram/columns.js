@@ -81,6 +81,7 @@ const Columns = (setStepDeleting, setWarning) => {
                     className="nav_btn"
                     title="Edit Tahap"
                     onClick={() => {
+                        console.log('id: ', cell.row.values._id);
                         localStorage.setItem('stepSelected', cell.row.values._id)
                     }}
                 >
