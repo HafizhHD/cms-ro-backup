@@ -394,7 +394,7 @@ export const editStep = (_id, cobrandEmail, namaTahapan, contentName, contents, 
                 namaTahapan,
                 contentName,
                 contents: realContents,
-                response,
+                respons,
                 answerKey
             }
         };
