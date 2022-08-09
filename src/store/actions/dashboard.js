@@ -126,9 +126,9 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     history.push('/cms/program');
                     dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
                     let data2 = {
-                        destination: targetAudiance.join(','),
+                        destination: "Orang Tua",
                         messageSubject: "Program Baru Untuk Anak",
-                        messageContent: "Hai pengguna Ruang Ortu by ASIA, program baru " + programName + " telah tersedia untuk anak. Cek sekarang.",
+                        messageContent: "Hi Papa mama Ada Program Baru Lho! Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
                         scheduleTime: startDate,
                         mediaType: "Device",
                         category: "Informasi"
@@ -140,14 +140,18 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     history.push('/cms/program');
                     dispatch(alertError('Program "' + programName + '" berhasil ditambahkan, namun beberapa tahap gagal ditambahkan.'));
                     let data2 = {
-                        destination: targetAudiance.join(','),
-                        messageSubject: "Program Baru Untuk Anak",
-                        messageContent: "Hai pengguna Ruang Ortu by ASIA, program baru " + programName + " telah tersedia untuk anak. Cek sekarang.",
+                        destination: "Orang Tua",
+                        messageSubject: "Hai Papa Mama Ada Program Baru Lho! ",
+                        messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
                         scheduleTime: startDate,
                         mediaType: "Device",
                         category: "Informasi"
                     }
-                    notificationAdd(data2);
+                    notificationAdd(data2).then(() => {
+                        data2.destination = targetAudiance.join(", ");
+                        data2.messageSubject = "Hi Adik-Adik Ada Program Baru Lho!"
+                        data2.messageContent = "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, yuk adik-adik kita ikuti program baru nya, Seru Lho!"
+                    });
                     dispatch(loadingStop());
                 }
             })
@@ -522,8 +526,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 let data2 = {
                                     destination: audi.join(','),
-                                    messageSubject: "Artikel Baru",
-                                    messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                                    messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                    messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
                                     scheduleTime: startDate,
                                     mediaType: "Device",
                                     category: "Informasi"
@@ -577,8 +581,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
                                 let data2 = {
                                     destination: audi.join(','),
-                                    messageSubject: "Artikel Baru",
-                                    messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                                    messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                    messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
                                     scheduleTime: startDate,
                                     mediaType: "Device",
                                     category: "Informasi"
@@ -626,11 +630,11 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             .then(response => {
                                 // console.log('Success:', response.data);
                                 history.push('/cms/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
                                 let data2 = {
                                     destination: audi.join(','),
-                                    messageSubject: "Artikel Baru",
-                                    messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                                    messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                    messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
                                     scheduleTime: startDate,
                                     mediaType: "Device",
                                     category: "Informasi"
@@ -640,7 +644,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(alertError('Artikel "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
                         // console.log(data);
@@ -698,11 +702,11 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 .then(response => {
                     // console.log('Success:', response.data);
                     history.push('/cms/content');
-                    dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                    dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
                     let data2 = {
                         destination: audi.join(','),
-                        messageSubject: "Artikel Baru",
-                        messageContent: "Hai pengguna Ruang Ortu by ASIA, artikel baru " + contentName + " telah tersedia. Cek sekarang.",
+                        messageSubject: "Hai, Ada Artikel Baru Lho!",
+                        messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
                         scheduleTime: startDate,
                         mediaType: "Device",
                         category: "Informasi"
@@ -713,7 +717,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Artikel "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
             // console.log(data);
@@ -780,12 +784,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             .then(response => {
                                 // console.log('Success:', response.data);
                                 history.push('/cms/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil diubah.'));
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                                dispatch(alertError('Artikel "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
                         // console.log(data);
@@ -877,12 +881,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             .then(response => {
                                 // console.log('Success:', response.data);
                                 history.push('/cms/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
                                 dispatch(loadingStop());
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                dispatch(alertError('Content "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                                dispatch(alertError('Artikel "' + contentName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
                                 dispatch(loadingStop());
                             });
                         // console.log(data);
@@ -944,12 +948,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 .then(response => {
                     // console.log('Success:', response.data);
                     history.push('/cms/content');
-                    dispatch(alertSuccess('Content "' + contentName + '" berhasil diubah.'));
+                    dispatch(alertSuccess('Artikel "' + contentName + '" berhasil diubah.'));
                     dispatch(loadingStop());
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    dispatch(alertError('Content "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
+                    dispatch(alertError('Artikel "' + contentName + '" gagal diubah. Coba beberapa saat lagi.'));
                     dispatch(loadingStop());
                 });
             // console.log(data);
@@ -974,13 +978,13 @@ export const deleteContent = (cobrandEmail, contentId, retrieveList) => {
         contentDelete(deleting)
             .then(response => {
                 // console.log(response.data);
-                dispatch(alertSuccess('Content "' + contentId[1] + '" berhasil dihapus.'));
+                dispatch(alertSuccess('Artikel "' + contentId[1] + '" berhasil dihapus.'));
                 dispatch(loadingStop());
                 retrieveList();
             })
             .catch(error => {
                 // console.log(error);
-                dispatch(alertError('Content "' + contentId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(alertError('Artikel "' + contentId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
                 retrieveList();
             });
