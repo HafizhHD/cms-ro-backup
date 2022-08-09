@@ -65,7 +65,29 @@ const CommercialReport = () => {
                     userDataChild.push(user);
                 }
             }
-            setUserData(userDataChild);
+            var userDataPayment = [];
+            for(var i = 0; i < userDataChild.length; i++) {
+                for( var j = 0; j < userDataChild[i].subscriptions.length; j++) {
+                    let user = userDataChild[i].subscriptions[j];
+                    let adminFee = 0;
+                    if(user.price > 0) {
+                        user['nameUser'] = userDataChild[i].nameUser;
+                        user['emailUser'] = userDataChild[i].emailUser;
+                        user['parentName'] = userDataChild[i].parentName;
+                        user['parentEmail'] = userDataChild[i].parentEmail;
+                        user['childInfo'] = {schoolName: userDataChild[i].childInfo.schoolName}
+                        user['paymentAmount'] = user.price;
+                        user['paymentDate'] = new Date(Date.parse(user.dateCreated));
+                        user['adminFee'] = adminFee;
+                        user['taxAmount'] = user.price * 0.1;
+                        user['cleanAmount'] = user.price * 0.9 - adminFee;
+                        user['myAmount'] = (user.price * 0.9 - adminFee)/2;
+                        user['theirAmount'] = (user.price * 0.9 - adminFee)/2;
+                        userDataPayment.push(user);
+                    }
+                }
+            }
+            setUserData(userDataPayment);
             setLoading(false);
         })
         .catch(error => {
