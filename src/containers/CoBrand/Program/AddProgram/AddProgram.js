@@ -344,6 +344,7 @@ function AddProgram({
                                             }}
                                             onChange={(content) => {
                                                 setFieldValue(`contentPrograms.${i}.contents`, content);
+                                                console.log(content)
                                             }}
                                             
                                             height='500px'/>
