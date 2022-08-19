@@ -33,7 +33,7 @@ const ContentReport = () => {
                 status: {"$in" : ["active", "inactive"]}
             },
             orderKeyValues: {
-                contentName: 1
+                dateCreated: -1
             },
             includeContentData: false,
             limit: Number.MAX_SAFE_INTEGER

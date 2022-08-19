@@ -32,7 +32,7 @@ const ProgramReport = () => {
                 cobrandEmail: userData.cobrandEmail
             },
             orderKeyValues: {
-                programName: 1
+                dateCreated: -1
             },
             includeThumbnailData: false,
             limit: Number.MAX_SAFE_INTEGER

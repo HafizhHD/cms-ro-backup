@@ -25,6 +25,7 @@ function Dashboard() {
 
     const absStart = new Date("2021-01-01");
     const today = new Date();
+    today.setDate(today.getDate() + 1);
 
     const [period, setPeriod] = useState('today');
     const [startDate, setStartDate] = useState(new Date());
@@ -372,30 +373,30 @@ function Dashboard() {
 
     useEffect(() => {
         var changedStartDate = new Date();
-        var changedEndDate = new Date();
+        var changedEndDate = today;
         switch(period) {
             case 'today':
                 setStartDate(changedStartDate);
                 setEndDate(changedEndDate);
                 break;
             case 'yesterday': 
-                changedStartDate.setDate(today.getDate() - 1);
+                changedStartDate.setDate(changedStartDate.getDate() - 1);
                 changedEndDate.setDate(today.getDate() - 1);
                 setStartDate(changedStartDate);
                 setEndDate(changedEndDate);
                 break;
             case 'week': 
-                changedStartDate.setDate(today.getDate() - 7);
+                changedStartDate.setDate(changedStartDate.getDate() - 7);
                 setEndDate(today);
                 setStartDate(changedStartDate);
                 break;
             case 'month': 
-                changedStartDate.setDate(today.getDate() - 30);
+                changedStartDate.setDate(changedStartDate.getDate() - 30);
                 setEndDate(today);
                 setStartDate(changedStartDate);
                 break;
             case 'year': 
-                changedStartDate.setDate(today.getDate() - 365);
+                changedStartDate.setDate(changedStartDate.getDate() - 365);
                 setEndDate(today);
                 setStartDate(changedStartDate);
                 break;
