@@ -52,9 +52,9 @@ const AddAudience = lazy(() => import('../../containers/CoBrand/Setting/Audience
 
 const Topik = lazy(() => import('../../containers/CoBrand/Setting/TopikKonten/topik'));
 const TopikAdd = lazy(() => import('../../containers/CoBrand/Setting/TopikKonten/AddTopik'));
-const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/AddKateProg')); //ini
+const KategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/addKateProg')); //ini
 const ListKategoriProgram = lazy(() => import('../../containers/CoBrand/Setting/KategoriProgram/KategoriProgram'));
-const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/AddKateNotif'));
+const AddKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/addKateNotif'));
 const ListKategoriNotifikasi = lazy(() => import('../../containers/CoBrand/Setting/KategoriNotifikasi/KategoriNotifikasi'));
 const ListScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/ListScreenTime'));
 const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/ScreenTime/AddScreenTime'));
