@@ -2,6 +2,10 @@
 import { FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 
+const dateFormat = {
+    year: 'numeric', month: 'long', day: 'numeric'
+}
+
 const Columns = [
     {
         Header: 'ID',
@@ -60,6 +64,17 @@ const Columns = [
         Header: 'Alamat',
         accessor:'address',
         // disableFilters: true
+    },
+    {
+        Header: 'Tanggal Registrasi',
+        accessor: 'dateCreated',
+        sortType: (a, b) => {
+            return new Date(b.values.dateCreated) - new Date(a.values.dateCreated);
+        },
+        Cell: ({value}) => {
+            if(value !== undefined) return new Date(value).toLocaleDateString("id-ID", dateFormat);
+            else return ''
+        }
     },
     {
         Header: 'Mulai Berlanggan',
