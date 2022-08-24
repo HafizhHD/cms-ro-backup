@@ -78,6 +78,7 @@ const UserReport = () => {
                     user['parentEmail'] = parentEmails;
                     // console.log(user.parentEmail);
                 }
+                user['registerDate'] = new Date(user.dateCreated);
             }
             setUserData(ud);
             setLoading(false);

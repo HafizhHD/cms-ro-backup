@@ -89,10 +89,28 @@ const Columns = [
         disableFilters: true
     },
     {
+        Header: 'Tanggal Registrasi',
+        accessor: 'registerDate',
+        Filter: DateRangeColumnFilter,
+        filter: 'dateBetween',
+        sortType: (a, b) => {
+            return b.values.registerDate - a.values.registerDate;
+        },
+        Cell: ({value}) => {
+            if(value !== undefined) return value.toLocaleDateString("id-ID", dateFormat);
+            else return ''
+        }
+    },
+    {
         Header: 'Mulai Berlanggan',
         accessor: 'startSubscription',
         Filter: DateRangeColumnFilter,
         filter: 'dateBetween',
+        sortType: (a, b) => {
+            let x = isNaN(a.values.startSubscription) ? new Date('2099-12-31') : a.values.startSubscription;
+            let y = isNaN(b.values.startSubscription) ? new Date('2099-12-31') : b.values.startSubscription;
+            return y-x;
+        },
         Cell: ({value}) => {
             if(value !== undefined) return value.toLocaleDateString("id-ID", dateFormat);
             else return ''
@@ -103,6 +121,11 @@ const Columns = [
         accessor: 'endSubscription',
         Filter: DateRangeColumnFilter,
         filter: 'dateBetween',
+        sortType: (a, b) => {
+            let x = isNaN(a.values.startSubscription) ? new Date('2099-12-31') : a.values.startSubscription;
+            let y = isNaN(b.values.startSubscription) ? new Date('2099-12-31') : b.values.startSubscription;
+            return y-x;
+        },
         Cell: ({value}) => {
             if(value !== undefined) return value.toLocaleDateString("id-ID", dateFormat);
             else return ''
