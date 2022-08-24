@@ -12,7 +12,8 @@
   flex-direction: column;
 
   & > p {
-    color: var(--color-primary);
+    // color: var(--color-primary);
+    color: #ed1c24;
     font-weight: 300;
     font-size: 1.2rem;
   }
@@ -26,5 +27,6 @@
 }
 
 .LoadingFullRk__heading > span {
-  color: var(--color-primary);
+  // color: var(--color-primary);
+  color: #ed1c24;
 }

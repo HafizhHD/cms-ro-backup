@@ -73,7 +73,8 @@ table th {
   }
 
   &:hover {
-    background-color: var(--color-primary);
+    // background-color: var(--color-primary);
+    background-color:#ed1c24;
   }
 
   &-icon {
@@ -96,7 +97,7 @@ table th {
     & > button {
       border-radius: 50%;
       border: none;
-      background-color: var(--color-primary);
+      background-color: #ed1c24;
       color: white;
       font-weight: bold;
       width: 1.5rem;
@@ -126,7 +127,7 @@ table th {
       }
     
       &:focus {
-        border: 1px solid var(--color-primary);
+        border: 1px solid #ed1c24;
       }
     }
     & > * {
@@ -160,7 +161,7 @@ table th {
     }
   
     &:focus {
-      border: 1px solid var(--color-primary);
+      border: 1px solid #ed1c24;
     }
   }
 }

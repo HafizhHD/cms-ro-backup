@@ -29,11 +29,18 @@ class UploadPembayaran extends React.Component {
     }
     submit = (e) => {
         let file = e.target.files
+        console.log(typeof file)
+        let params = {
+            dataUser : file, 
+            cobrandId : 'com.roi.ruangortu.id'
+
+        }
            
         axios({
+           
                 method: 'post',
                 url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/uploadUserBatchPayment',
-                data: file,
+                data: params,
             })
             .then(response => {
                 // console.log(response.data.resultData);
