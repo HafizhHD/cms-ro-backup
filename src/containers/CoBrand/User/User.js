@@ -44,7 +44,7 @@ const User = () => {
         return <RKLoader />;
     }
     return (
-        <div className="Pengguna">
+        <div className="Pengguna"> 
             <Heading
                 headingName="Manajemen Pengguna"
                 routes={[
