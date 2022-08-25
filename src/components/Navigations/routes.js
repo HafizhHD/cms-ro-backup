@@ -104,11 +104,11 @@ export const MenuCoBranding = () => {
                         pathName: 'Forum Moderator',
                         icon: <FiLayers className="Aside__Nav_item-icon" />
                     },
-                    {
-                        path: '/upload-pembayaran', //tadinya content, nanti tolong routenya diganti
-                        pathName: 'Upload Pembayaran',
-                        icon: <FiLayers className="Aside__Nav_item-icon" />
-                    },
+                    // {
+                    //     path: '/upload-pembayaran', //tadinya content, nanti tolong routenya diganti
+                    //     pathName: 'Upload Pembayaran',
+                    //     icon: <FiLayers className="Aside__Nav_item-icon" />
+                    // },
                 ]
             })
     }
