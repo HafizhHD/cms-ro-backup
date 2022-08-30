@@ -12,6 +12,7 @@ import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
+import { getUserList } from '../../components/API/filter';
 
 ///pdf
 // import { Viewer } from '@react-pdf-viewer/core' //library, plugin
@@ -121,38 +122,60 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     }));
                     console.log('content Program 1', contentPrograms1);
                 }
-                if(contentPrograms1.length === contentProg.length) {
-                    history.push('/cms/program');
-                    dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
-                    let data2 = {
-                        destination: "Orang Tua",
-                        messageSubject: "Program Baru Untuk Anak",
-                        messageContent: "Hi Papa mama Ada Program Baru Lho! Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
-                        scheduleTime: startDate,
-                        mediaType: "Device",
-                        category: "Informasi"
-                    }
-                    notificationAdd(data2);
-                    dispatch(loadingStop());
+                let paramUser = {
+                    whereKeyValues: {
+                        userType: "parent",
+                        packageId: "com.lindungianak.ruangortu"
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
                 }
-                else {
-                    history.push('/cms/program');
-                    dispatch(alertError('Program "' + programName + '" berhasil ditambahkan, namun beberapa tahap gagal ditambahkan.'));
-                    let data2 = {
-                        destination: "Orang Tua",
-                        messageSubject: "Hai Papa Mama Ada Program Baru Lho! ",
-                        messageContent: "Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
-                        scheduleTime: startDate,
-                        mediaType: "Device",
-                        category: "Informasi"
+                getUserList(paramUser)
+                .then(responseUser => {
+                    console.log(responseUser);
+                    var x = responseUser.data.users;
+                    var userEmails = [];
+                    x.forEach(y => {
+                        userEmails.push(y.emailUser);
+                    })
+                    var z = userEmails.join(',');
+                    if(contentPrograms1.length === contentProg.length) {
+                        history.push('/cms/program');
+                        dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
+                        let data2 = {
+                            destination: z,
+                            messageSubject: "Program Baru Untuk Anak",
+                            messageContent: "Hi Papa mama Ada Program Baru Lho! Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
+                            scheduleTime: startDate,
+                            mediaType: "Device",
+                            category: "Informasi"
+                        }
+                        notificationAdd(data2).then(() => {
+                            data2.destination = targetAudiance.join(", ");
+                            data2.messageSubject = "Hi Adik-Adik Ada Program Baru Lho!"
+                            data2.messageContent = "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa program baru, yuk adik-adik kita ikuti program baru nya, Seru Lho!"
+                            history.push('/cms/program');
+                            dispatch(alertError('Program "' + programName + '" berhasil ditambahkan.'));
+                            dispatch(loadingStop());
+                        });;
                     }
-                    notificationAdd(data2).then(() => {
-                        data2.destination = targetAudiance.join(", ");
-                        data2.messageSubject = "Hi Adik-Adik Ada Program Baru Lho!"
-                        data2.messageContent = "Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa program baru, yuk adik-adik kita ikuti program baru nya, Seru Lho!"
-                    });
-                    dispatch(loadingStop());
-                }
+                    else {
+                        let data2 = {
+                            destination: z,
+                            messageSubject: "Hai Papa Mama Ada Program Baru Lho! ",
+                            messageContent: "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
+                            scheduleTime: startDate,
+                            mediaType: "Device",
+                            category: "Informasi"
+                        }
+                        notificationAdd(data2).then(() => {
+                            data2.destination = targetAudiance.join(", ");
+                            data2.messageSubject = "Hi Adik-Adik Ada Program Baru Lho!"
+                            data2.messageContent = "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa program baru, yuk adik-adik kita ikuti program baru nya, Seru Lho!"
+                            history.push('/cms/program');
+                            dispatch(alertError('Program "' + programName + '" berhasil ditambahkan, namun beberapa tahap gagal ditambahkan.'));
+                            dispatch(loadingStop());
+                        });
+                    }})
             })
             .catch(error => {
                 console.log('Error:', error);
@@ -519,18 +542,35 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         contentAdd(data)
                             .then(response => {
                                 // console.log('Success:', response.data);
-                                history.push('/cms/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
-                                let data2 = {
-                                    destination: audi.join(','),
-                                    messageSubject: "Hai, Ada Artikel Baru Lho!",
-                                    messageContent: "Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
-                                    scheduleTime: startDate,
-                                    mediaType: "Device",
-                                    category: "Informasi"
+                                let paramUser = {
+                                    whereKeyValues: {
+                                        packageId: "com.lindungianak.ruangortu"
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
                                 }
-                                notificationAdd(data2);
-                                dispatch(loadingStop());
+                                getUserList(paramUser)
+                                .then(responseUser => {
+                                    console.log(responseUser);
+                                    var x = responseUser.data.users;
+                                    var userEmails = [];
+                                    x.forEach(y => {
+                                        userEmails.push(y.emailUser);
+                                    })
+                                    var z = userEmails.join(',');
+                                    let data2 = {
+                                        destination: z,
+                                        messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                        messageContent: "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
+                                        scheduleTime: startDate,
+                                        mediaType: "Device",
+                                        category: "Informasi"
+                                    }
+                                    notificationAdd(data2).then(r => {
+                                        history.push('/cms/content');
+                                        dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
+                                        dispatch(loadingStop());
+                                    });
+                                });
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
@@ -574,18 +614,35 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         contentAdd(data)
                             .then(response => {
                                 // console.log('Success:', response.data);
-                                history.push('/cms/content');
-                                dispatch(alertSuccess('Content "' + contentName + '" berhasil ditambahkan.'));
-                                let data2 = {
-                                    destination: audi.join(','),
-                                    messageSubject: "Hai, Ada Artikel Baru Lho!",
-                                    messageContent: "Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
-                                    scheduleTime: startDate,
-                                    mediaType: "Device",
-                                    category: "Informasi"
+                                let paramUser = {
+                                    whereKeyValues: {
+                                        packageId: "com.lindungianak.ruangortu"
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
                                 }
-                                notificationAdd(data2);
-                                dispatch(loadingStop());
+                                getUserList(paramUser)
+                                .then(responseUser => {
+                                    console.log(responseUser);
+                                    var x = responseUser.data.users;
+                                    var userEmails = [];
+                                    x.forEach(y => {
+                                        userEmails.push(y.emailUser);
+                                    })
+                                    var z = userEmails.join(',');
+                                    let data2 = {
+                                        destination: z,
+                                        messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                        messageContent: "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
+                                        scheduleTime: startDate,
+                                        mediaType: "Device",
+                                        category: "Informasi"
+                                    }
+                                    notificationAdd(data2).then(r => {
+                                        history.push('/cms/content');
+                                        dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
+                                        dispatch(loadingStop());
+                                    });
+                                });
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
@@ -626,18 +683,35 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         contentAdd(data)
                             .then(response => {
                                 // console.log('Success:', response.data);
-                                history.push('/cms/content');
-                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
-                                let data2 = {
-                                    destination: audi.join(','),
-                                    messageSubject: "Hai, Ada Artikel Baru Lho!",
-                                    messageContent: "Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
-                                    scheduleTime: startDate,
-                                    mediaType: "Device",
-                                    category: "Informasi"
+                                let paramUser = {
+                                    whereKeyValues: {
+                                        packageId: "com.lindungianak.ruangortu"
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
                                 }
-                                notificationAdd(data2);
-                                dispatch(loadingStop());
+                                getUserList(paramUser)
+                                .then(responseUser => {
+                                    console.log(responseUser);
+                                    var x = responseUser.data.users;
+                                    var userEmails = [];
+                                    x.forEach(y => {
+                                        userEmails.push(y.emailUser);
+                                    })
+                                    var z = userEmails.join(',');
+                                    let data2 = {
+                                        destination: z,
+                                        messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                        messageContent: "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
+                                        scheduleTime: startDate,
+                                        mediaType: "Device",
+                                        category: "Informasi"
+                                    }
+                                    notificationAdd(data2).then(r => {
+                                        history.push('/cms/content');
+                                        dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
+                                        dispatch(loadingStop());
+                                    });
+                                });
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
@@ -698,19 +772,35 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             contentAdd(data)
                 .then(response => {
                     // console.log('Success:', response.data);
-                    history.push('/cms/content');
-                    dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
-                    let data2 = {
-                        destination: audi.join(','),
-                        messageSubject: "Hai, Ada Artikel Baru Lho!",
-                        messageContent: "Saat ini aplikasi Ruang Ortu Indonesia sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
-                        scheduleTime: startDate,
-                        mediaType: "Device",
-                        category: "Informasi"
+                    let paramUser = {
+                        whereKeyValues: {
+                            packageId: "com.lindungianak.ruangortu"
+                        },
+                        limit: Number.MAX_SAFE_INTEGER
                     }
-                    console.log(data2);
-                    notificationAdd(data2);
-                    dispatch(loadingStop());
+                    getUserList(paramUser)
+                    .then(responseUser => {
+                        console.log(responseUser);
+                        var x = responseUser.data.users;
+                        var userEmails = [];
+                        x.forEach(y => {
+                            userEmails.push(y.emailUser);
+                        })
+                        var z = userEmails.join(',');
+                        let data2 = {
+                            destination: z,
+                            messageSubject: "Hai, Ada Artikel Baru Lho!",
+                            messageContent: "Saat ini aplikasi Lindungi Anak sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
+                            scheduleTime: startDate,
+                            mediaType: "Device",
+                            category: "Informasi"
+                        }
+                        notificationAdd(data2).then(r => {
+                            history.push('/cms/content');
+                            dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
+                            dispatch(loadingStop());
+                        });
+                    });
                 })
                 .catch((error) => {
                     console.error('Error:', error);
