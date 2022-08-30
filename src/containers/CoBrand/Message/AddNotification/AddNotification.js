@@ -80,7 +80,7 @@ function AddNotification({
                 validationSchema = {validationNotification}
                 validateOnChange = {true}
                 onSubmit = { values => {
-                    onAddNotification(values.destination, values.messageSubject, values.messageContent, values.useSchedule, values.scheduleTime, values.mediaType, values.category, history)
+                    onAddNotification(cobrandEmail, values.destination, values.messageSubject, values.messageContent, values.useSchedule, values.scheduleTime, values.mediaType, values.category, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -257,8 +257,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddNotification: ( destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history ) =>
-            dispatch(addNotification( destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history ))
+        onAddNotification: ( cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history ) =>
+            dispatch(addNotification( cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history ))
     }
 }
 
