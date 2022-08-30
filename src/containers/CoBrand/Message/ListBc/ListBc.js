@@ -34,6 +34,7 @@ class ListBc extends React.Component {
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+            data: {limit: Number.MAX_SAFE_INTEGER}
         })
             .then(response => {
                 // console.log(response.data.resultData);
@@ -77,6 +78,7 @@ class ListBc extends React.Component {
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+                    data: {limit: Number.MAX_SAFE_INTEGER}
                 })
                     .then(response => {
                         // console.log(response.data.resultData);
@@ -175,6 +177,7 @@ class ListBc extends React.Component {
                 axios({
                     method: 'post',
                     url: 'https://as01.prod.ruangortu.id:8080/api/user/broadcastFilter',
+                    data: {limit: Number.MAX_SAFE_INTEGER}
                 })
                     .then(response => {
                         // console.log(response.data.resultData);

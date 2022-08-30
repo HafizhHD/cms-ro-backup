@@ -1,5 +1,5 @@
 import  { useState, useEffect } from 'react';
-import './listStaff.scss'; //ini
+import './ListStaff.scss'; //ini
 import TableProgram from '../../../../components/UI/Table/Table';
 import columns from './columns';
 import { deleteStaff } from '../../../../store/actions/dashboard';
