@@ -142,6 +142,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                         history.push('/cms/program');
                         dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
                         let data2 = {
+                            cobrandEmail,
                             destination: z,
                             messageSubject: "Program Baru Untuk Anak",
                             messageContent: "Hi Papa mama Ada Program Baru Lho! Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
@@ -160,6 +161,7 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     }
                     else {
                         let data2 = {
+                            cobrandEmail,
                             destination: z,
                             messageSubject: "Hai Papa Mama Ada Program Baru Lho! ",
                             messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
@@ -514,11 +516,11 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             if (contentType === 'Video') {
                 // const video = toBase64(contents);
                 if (typeof contents === 'string') {
-                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
                     const video = toBase64(contents);
                     video.then((hasil) => {
-                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         let data = {
                             cobrandEmail,
@@ -558,6 +560,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                     })
                                     var z = userEmails.join(',');
                                     let data2 = {
+                                        cobrandEmail,
                                         destination: z,
                                         messageSubject: "Hai, Ada Artikel Baru Lho!",
                                         messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -630,6 +633,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                     })
                                     var z = userEmails.join(',');
                                     let data2 = {
+                                        cobrandEmail,
                                         destination: z,
                                         messageSubject: "Hai, Ada Artikel Baru Lho!",
                                         messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -699,6 +703,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                     })
                                     var z = userEmails.join(',');
                                     let data2 = {
+                                        cobrandEmail,
                                         destination: z,
                                         messageSubject: "Hai, Ada Artikel Baru Lho!",
                                         messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -788,6 +793,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         })
                         var z = userEmails.join(',');
                         let data2 = {
+                            cobrandEmail,
                             destination: z,
                             messageSubject: "Hai, Ada Artikel Baru Lho!",
                             messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -836,12 +842,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             if (contentType === 'Video') {
                 // const video = toBase64(contents);
                 if (typeof contents === 'string') {
-                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
                     
                     const video = toBase64(contents);
                     video.then((hasil) => {
-                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:360px;height:202.5px;\" frameborder=\"0\" width=\"360px\" height=\"202.5px\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         // const contentThumbnail = result;
                         let datax = {
@@ -1164,7 +1170,7 @@ export const editProfile = (oldEmail, oldPassword, cobrandName, photo, phoneNumb
 
 }
 
-export const addNotification = (destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history) => {
+export const addNotification = (cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -1172,7 +1178,7 @@ export const addNotification = (destination, messageSubject, messageContent, use
         });
         let schedule = useSchedule ? scheduleTime : '';
         let data = {
-            destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category
+            cobrandEmail, destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category
         };
 
         // console.log(data);
