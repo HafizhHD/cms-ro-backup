@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './Status.scss';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import Logo from './../../../assets/img/Logo_4.png'
+// import {app} from 'google-play-scraper';
 import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList } from '../../../components/API/filter';
 
 function Status() {
@@ -12,6 +13,7 @@ function Status() {
 
     const absStart = new Date("2022-08-13");
     const today = new Date();
+    const realToday = new Date();
     today.setDate(today.getDate() + 1);
 
     const [period, setPeriod] = useState('today');
@@ -134,12 +136,25 @@ function Status() {
             setCountUser(countingUser);
             setUserData(userDataObj);
 
+
             if(isLoading) setLoading(false);
             else if(isLoadingSpinner) {
                 setLoadingSpinner(false);
                 setLoading(true);
                 setLoading(false);
             }
+
+            // var gplay = app({appId: 'com.byasia.ruangortu'});
+            // gplay.then(res => {
+            //     console.log(res);
+            //     if(isLoading) setLoading(false);
+            //     else if(isLoadingSpinner) {
+            //         setLoadingSpinner(false);
+            //         setLoading(true);
+            //         setLoading(false);
+            //     }
+            // })
+
         });
     }
 
@@ -157,9 +172,16 @@ function Status() {
 
             <div className="status-top">
                 <img src={Logo} className="status-top-img" alt="logo top" />
+                <h4>Diakses pada {realToday.toLocaleString("id-ID",{
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'
+                })}</h4>
             </div>
             <div className="status-1">
-                <h3>Jumlah User:</h3>
+                <h3>Jumlah Download di Play Store:</h3>
+                <h3>UNDER CONSTRUCTION</h3>
+            </div>
+            <div className="status-1">
+                <h3>Total User:</h3>
                 <h1>{countUser[0]}</h1>
             </div>
             <div className="status-1">
