@@ -64,6 +64,8 @@ const EditUser = lazy(() => import('../../containers/CoBrand/User/EditUser/EditU
 const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
 const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
+const StatusAsync = lazy(() => import('../../containers/CoBrand/Status/Status'));
+
 
 function Cobrand({
     isLogin,
@@ -127,6 +129,17 @@ function Cobrand({
                         )
                     }}
                 />
+                <Route
+                    exact
+                    path="/status"
+                    render={(props) => {
+                        return (
+                            <Suspense fallback={<RKLoader />}>
+                                <StatusAsync {...props} />
+                            </Suspense>
+                        )
+                    }}
+                />
             </Switch>
         )
     }
@@ -138,6 +151,11 @@ function Cobrand({
                     exact
                     path="/"
                     component={DashboardAsync}
+                />
+                <PrivateRoute
+                    exact
+                    path="/status"
+                    component={StatusAsync}
                 />
                 {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
                 <PrivateRoute
