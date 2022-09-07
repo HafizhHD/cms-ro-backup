@@ -10,7 +10,7 @@ function Status() {
 
     const localData = JSON.parse(localStorage.getItem('userData'));
 
-    const absStart = new Date("2021-01-01");
+    const absStart = new Date("2022-08-13");
     const today = new Date();
     today.setDate(today.getDate() + 1);
 
@@ -59,7 +59,7 @@ function Status() {
         parent = [0,0],
         coparent = [0,0];
 
-        var countingUser = [0,0,0,0];
+        var countingUser = [0,0,0,0,0];
 
         let paramUser = {
             whereKeyValues: {
@@ -86,13 +86,17 @@ function Status() {
                 let x = dataUser[i];
                 if(x.userType === 'parent') {
                     countingUser[1]++;
-                    // // console.log("Parent email: " + x.parentEmail);
-                    if(x.parentEmail === undefined) parent[0]++;
-                    else coparent[0]++;
                 }
                 else if(x.userType === 'child') {
-                    countingUser[2]++;
-                    if(x.subscriptions.length > 0) countingUser[3]++;
+                    if(x.status === "active") countingUser[2]++;
+                    else countingUser[3]++;
+                    for(var j = 0; j < x.subscriptions.length; j++) {
+                        let y = x.subscriptions[j];
+                        if(y.price > 0) {
+                            countingUser[4]++;
+                            break;
+                        }
+                    }
                     if(x.childInfo.StudyLevel === 'TK') tk[1]++;
                     else if(x.childInfo.StudyLevel === 'SD') sd[1]++;
                     else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
@@ -152,19 +156,27 @@ function Status() {
         <div className="status">
 
             <div className="status-top">
-                    <img src={Logo} className="status-top-img" alt="logo top" />
-                </div>
+                <img src={Logo} className="status-top-img" alt="logo top" />
+            </div>
             <div className="status-1">
-                <h3>Jumlah Orang Tua:</h3>
+                <h3>Jumlah User:</h3>
+                <h1>{countUser[0]}</h1>
+            </div>
+            <div className="status-1">
+                <h3>Jumlah User Orang Tua:</h3>
                 <h1>{countUser[1]}</h1>
             </div>
             <div className="status-1">
-                <h3>Jumlah Anak:</h3>
+                <h3>Jumlah User Anak Diundang:</h3>
+                <h1>{countUser[3]}</h1>
+            </div>
+            <div className="status-1">
+                <h3>Jumlah User Anak Aktif:</h3>
                 <h1>{countUser[2]}</h1>
             </div>
             <div className="status-1">
-                <h3>Jumlah Anak Berlangganan:</h3>
-                <h1>{countUser[3]}</h1>
+                <h3>Jumlah User Anak Berbayar:</h3>
+                <h1>{countUser[4]}</h1>
             </div>
         </div>
     );
