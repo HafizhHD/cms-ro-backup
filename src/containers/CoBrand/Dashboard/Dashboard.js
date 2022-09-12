@@ -10,7 +10,8 @@ import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
 import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList } from '../../../components/API/filter';
-import {FaWhatsapp} from 'react-icons/fa'
+import {FaWhatsapp} from 'react-icons/fa';
+import {emailTester, absStart} from '../GlobalParam';
 
 import StackedChart from './component/StackedChart'
 import BarChart from './component/BarChart'
@@ -23,7 +24,6 @@ function Dashboard() {
 
     const localData = JSON.parse(localStorage.getItem('userData'));
 
-    const absStart = new Date("2021-01-01");
     const today = new Date();
     today.setDate(today.getDate()+1);
 
@@ -142,7 +142,11 @@ function Dashboard() {
                 dateCreated: {
                     "$gte": startDate.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
                 }
+
             },
             orderKeyValues: {
                 nameUser: 1
@@ -187,6 +191,9 @@ function Dashboard() {
                 dateCreate: {
                     "$gte": startDate.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
                 }
             },
             limit: Number.MAX_SAFE_INTEGER
@@ -281,7 +288,7 @@ function Dashboard() {
             // // console.log(responseAll[3].data);
 
             const usageData = responseAll[3].data.appUsages;
-            // // console.log(usageData);
+            // console.log(usageData);
             var usageLabel = [], usageFreq = [];
             for(var i = 0; i < usageData.length; i++) {
                 let x = usageData[i].appUsages;

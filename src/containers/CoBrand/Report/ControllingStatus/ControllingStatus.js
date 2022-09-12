@@ -4,7 +4,8 @@ import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './ControllingStatus.scss';
-import dummyData from './DummyData.json'
+import dummyData from './DummyData.json';
+import {emailTester, absStart} from '../../GlobalParam'
 import { getUserList, getModeAsuhList, getDeviceScheduleList, getAppLimitList, getAppDetailList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
 
@@ -28,6 +29,12 @@ const ControllingStatus = () => {
         else {let params={
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
+                dateCreated: {
+                    "$gte": absStart.toISOString().split("T")[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
             },
             orderKeyValues: {
                 nameUser: 1

@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './Status.scss';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
-import Logo from './../../../assets/img/Logo_4.png'
-// import {app} from 'google-play-scraper';
+import Logo from './../../../assets/img/Logo_4.png';
+import {emailTester, absStart} from '../GlobalParam'
 import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList } from '../../../components/API/filter';
 
 function Status() {
@@ -11,7 +11,6 @@ function Status() {
 
     const localData = JSON.parse(localStorage.getItem('userData'));
 
-    const absStart = new Date("2022-08-13");
     const today = new Date();
     const realToday = new Date();
     today.setDate(today.getDate() + 1);
@@ -69,6 +68,9 @@ function Status() {
                 dateCreated: {
                     "$gte": absStart.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
                 }
             },
             orderKeyValues: {
@@ -144,7 +146,7 @@ function Status() {
                 setLoading(false);
             }
 
-            // var gplay = app({appId: 'com.byasia.ruangortu'});
+            // var gplay = gplayapp({appId: 'com.byasia.ruangortu'});
             // gplay.then(res => {
             //     console.log(res);
             //     if(isLoading) setLoading(false);

@@ -6,6 +6,7 @@ import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader';
 import './User.scss';
 import { getUserList } from './../../../components/API/filter'
 import Detail from './Detail/Detail';
+import {emailTester, absStart} from '../GlobalParam'
 import { Redirect } from 'react-router-dom';
 
 const User = () => {
@@ -15,7 +16,13 @@ const User = () => {
 
     useEffect(() => {
         let params={
-            whereKeyValues: {packageId: "com.byasia.ruangortu"},
+            whereKeyValues: {packageId: "com.byasia.ruangortu", 
+            dateCreated: {
+                "$gte": absStart.toISOString().split("T")[0]
+            },
+            emailUser: {
+                "$nin": emailTester
+            }},
             orderKeyValues: {nameUser: 1},
             limit: Number.MAX_SAFE_INTEGER
         };

@@ -6,7 +6,8 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import RKLoaderSpinner from '../../../../components/UI/RKLoaderSpinner/RKLoader.js';
 import './MonitoringStatus.scss';
 import { getUserList, getAppUsageList } from '../../../../components/API/filter.js'
-import dummyData from './DummyData.json'
+import dummyData from './DummyData.json';
+import {emailTester, absStart} from '../../GlobalParam'
 import MUIDataTable from "mui-datatables";
 import DatePicker from "react-datepicker";
 
@@ -38,7 +39,13 @@ const MonitoringStatus = () => {
         }
         else {let params={
             whereKeyValues: {
-                packageId: "com.byasia.ruangortu"
+                packageId: "com.byasia.ruangortu",
+                dateCreated: {
+                    "$gte": absStart.toISOString().split("T")[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
             },
             orderKeyValues: {
                 nameUser: 1

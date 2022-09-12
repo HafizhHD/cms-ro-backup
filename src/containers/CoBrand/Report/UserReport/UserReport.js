@@ -5,7 +5,8 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from './../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './UserReport.scss';
 import { getUserList } from './../../../../components/API/filter.js'
-import dummyData from './DummyData.json'
+import dummyData from './DummyData.json';
+import {emailTester, absStart} from '../../GlobalParam'
 import MUIDataTable from "mui-datatables";
 
 const UserReport = () => {
@@ -34,7 +35,13 @@ const UserReport = () => {
         }
         else {let params={
             whereKeyValues: {
-                packageId: "com.byasia.ruangortu"
+                packageId: "com.byasia.ruangortu",
+                dateCreated: {
+                    "$gte": absStart.toISOString().split("T")[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
             },
             orderKeyValues: {
                 nameUser: 1
