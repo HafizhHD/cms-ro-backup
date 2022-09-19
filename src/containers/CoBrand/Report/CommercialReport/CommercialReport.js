@@ -77,7 +77,7 @@ const CommercialReport = () => {
                 for( var j = 0; j < userDataChild[i].subscriptions.length; j++) {
                     let user = userDataChild[i].subscriptions[j];
                     let adminFee = 0;
-                    if(user.price > 0) {
+                    if(user.price > 0  && new Date(user.dateStart) >= new Date("2022-08-13")) {
                         user['nameUser'] = userDataChild[i].nameUser;
                         user['emailUser'] = userDataChild[i].emailUser;
                         user['parentName'] = userDataChild[i].parentName;

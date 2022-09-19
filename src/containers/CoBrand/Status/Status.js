@@ -96,7 +96,7 @@ function Status() {
                     else countingUser[3]++;
                     for(var j = 0; j < x.subscriptions.length; j++) {
                         let y = x.subscriptions[j];
-                        if(y.price > 0) {
+                        if(y.price > 0 && new Date(y.dateStart) >= new Date("2022-08-13")) {
                             countingUser[4]++;
                             break;
                         }
