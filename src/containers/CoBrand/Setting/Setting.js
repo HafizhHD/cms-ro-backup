@@ -119,7 +119,7 @@ function Setting({
                                         disabled={true}
                                     />
                                 </div>
-                                <div>
+                                {/* <div>
                                     <label>New Password</label>
                                     <InputComponent
                                         name="password"
@@ -145,7 +145,7 @@ function Setting({
                                         isError={touched.confirmPassword && Boolean(errors.confirmPassword) }
                                         message={touched.confirmPassword && errors.confirmPassword}
                                     />
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="Setting_card_inputs-upload mt-large">
@@ -210,7 +210,7 @@ function Setting({
                             </div>
 
                             <div className="Setting_card_inputs-item mt-large">
-                                <div>
+                                {/* <div>
                                     <label>Co-Brand Name</label>
                                     <InputComponent
                                         name="cobrandName"
@@ -248,7 +248,7 @@ function Setting({
                                         isError={touched.address && Boolean(errors.address) }
                                         message={touched.address && errors.address}
                                     />
-                                </div>
+                                </div> */}
                                 <button
                                     className="btn btn-submit"
                                     type="submit"
