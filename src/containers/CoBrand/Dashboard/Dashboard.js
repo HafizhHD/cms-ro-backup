@@ -402,6 +402,28 @@ function Dashboard() {
                     }
                 }
             });
+            responseAll[2].data.programs.map(e => {
+                if(e.category.length <= 0) {
+                    if(topicCountName.includes("Tanpa Topik")) {
+                        topicCountNum[topicCountName.indexOf("Tanpa Topik")]++;
+                    }
+                    else {
+                        topicCountName.push("Tanpa Topik");
+                        topicCountNum.push(1);
+                    }
+                }
+                else {
+                    for(var i = 0; i < e.category.length; i++) {
+                        if(topicCountName.includes(e.category[i])) {
+                            topicCountNum[topicCountName.indexOf(e.category[i])]++;
+                        }
+                        else {
+                            topicCountName.push(e.category[i]);
+                            topicCountNum.push(1);
+                        }
+                    }
+                }
+            });
             setTopicCountLabel(topicCountName);
             topicCountNum.length > 0 ? setTopicCountData([{data: topicCountNum}]) : setTopicCountData([]);
             setTopicViewLabel(topicViewName);
