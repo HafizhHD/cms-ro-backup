@@ -7,7 +7,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
 
     const data = useMemo( () => DATA , [DATA])
 
-    const initialState = { hiddenColumns: ['_id'] };
+    const initialState = { hiddenColumns: ['_id'], pageSize: 20 };
     
     const {
         getTableProps,
@@ -79,7 +79,7 @@ function Table({ DATA, COLUMNS, renderRowSubComponent }) {
                     setPageSize(Number(e.target.value))
                 }}
                 >
-                {[10, 15, 20].map(pageSize => (
+                {[20, 50, 100].map(pageSize => (
                     <option key={pageSize} value={pageSize}>
                         Show {pageSize}
                     </option>

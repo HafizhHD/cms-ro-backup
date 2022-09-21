@@ -218,8 +218,9 @@ export function GlobalFilter({
     column: { filterValue = [], preFilteredRows, setFilter, id }}) 
   {
     const [min, max] = React.useMemo(() => {
-        let min = new Date('2020-01-01')
-        let max = new Date('2099-12-31')
+        let min = new Date('2022-08-13')
+        let max = new Date()
+        max.setFullYear(max.getFullYear() + 1)
         preFilteredRows.forEach(row => {
             min = row.values[id] ? new Date(row.values[id]) <= min ? new Date(row.values[id]) : min : min
             max = row.values[id] ? new Date(row.values[id]) >= max ? new Date(row.values[id]) : max : max

@@ -29,6 +29,7 @@ function Dashboard() {
 
     const [period, setPeriod] = useState('today');
     const [startDate, setStartDate] = useState(new Date());
+    const [startDateCon, setStartDateCon] = useState(new Date());
     const [endDate, setEndDate] = useState(today);
     const [userData, setUserData] = useState([]);
     const [countUser, setCountUser] = useState([0,0,0]);
@@ -131,6 +132,7 @@ function Dashboard() {
         sd = [0, 0],
         smp = [0,0],
         sma = [0,0],
+        other = [0,0],
         parent = [0,0],
         coparent = [0,0];
 
@@ -160,7 +162,7 @@ function Dashboard() {
                 programId: "",
                 status: {"$in" : ["active", "inactive"]},
                 dateCreated: {
-                    "$gte": startDate.toISOString().split('T')[0],
+                    "$gte": startDateCon.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]
                 }
             },
@@ -175,7 +177,7 @@ function Dashboard() {
             whereKeyValues: {
                 cobrandEmail: localData.cobrandEmail,
                 dateCreated: {
-                    "$gte": startDate.toISOString().split('T')[0],
+                    "$gte": startDateCon.toISOString().split('T')[0],
                     "$lte": endDate.toISOString().split('T')[0]
                 }
             },
@@ -224,7 +226,7 @@ function Dashboard() {
             // console.log(responseAll[0]);
             const dataUser = responseAll[0].data.users;
             countingUser[0] = dataUser.length;
-            // // console.log(dataUser);
+            // console.log(dataUser);
             for(var i = 0; i < dataUser.length; i++) {
                 let x = dataUser[i];
                 if(x.userType === 'parent') {
@@ -235,13 +237,23 @@ function Dashboard() {
                 }
                 else if(x.userType === 'child') {
                     countingUser[2]++;
-                    if(x.childInfo.StudyLevel === 'TK') tk[1]++;
-                    else if(x.childInfo.StudyLevel === 'SD') sd[1]++;
-                    else if(x.childInfo.StudyLevel === 'SMP') smp[1]++;
-                    else if(x.childInfo.StudyLevel === 'SMA') sma[1]++;
+                    if(x.childInfo.StudyLevel.includes('TK')) tk[1]++;
+                    else if(x.childInfo.StudyLevel.includes('SD')) sd[1]++;
+                    else if(x.childInfo.StudyLevel.includes('SMP')) smp[1]++;
+                    else if(x.childInfo.StudyLevel.includes('SMA')) sma[1]++;
+                    else other[1]++;
                 }
             }
             const userDataObj = [
+
+                {
+                    name: "Parent",
+                    data: parent
+                },
+                {
+                    name: "Co-Parent",
+                    data: coparent
+                },
                 {
                     name: "TK",
                     data: tk
@@ -259,12 +271,8 @@ function Dashboard() {
                     data: sma
                 },
                 {
-                    name: "Parent",
-                    data: parent
-                },
-                {
-                    name: "Co-Parent",
-                    data: coparent
+                    name: "Lainnya",
+                    data: other
                 }
             ]
             
@@ -274,8 +282,8 @@ function Dashboard() {
             setUserDataLabel(['Orang tua: ' + countingUser[1], 'Anak: ' + countingUser[2]]);
 
             const contentLength = responseAll[1].data.contents.length;
-            console.log('Contents', responseAll[1].data.contents);
-            console.log('Program', responseAll[2].data.programs);
+            // console.log('Contents', responseAll[1].data.contents);
+            // console.log('Program', responseAll[2].data.programs);
             const programLength = responseAll[2].data.programs.length;
 
             const dataConProg = [contentLength, programLength];
@@ -348,10 +356,56 @@ function Dashboard() {
             });
             setNotifData([{data: notifDat}]);
             setNotifLabel(notifCat);
-            setTopicCountLabel([]);
-            setTopicCountData([]);
-            setTopicViewLabel([]);
-            setTopicViewData([]);
+
+            let topicCountName = [];
+            let topicCountNum = [];
+            let topicViewName = [];
+            let topicViewNum = [];
+
+            responseAll[1].data.contents.map(e => {
+                if(e.topics.length <= 0) {
+                    if(topicCountName.includes("Tanpa Topik")) {
+                        topicCountNum[topicCountName.indexOf("Tanpa Topik")]++;
+                    }
+                    else {
+                        topicCountName.push("Tanpa Topik");
+                        topicCountNum.push(1);
+                    }
+                    // if(e.totalView > 0) {
+                        if(topicViewName.includes("Tanpa Topik")) {
+                            topicViewNum[topicCountName.indexOf("Tanpa Topik")] += e.totalView;
+                        }
+                        else {
+                            topicViewName.push("Tanpa Topik");
+                            topicViewNum.push(e.totalView);
+                        }
+                    // }
+                }
+                else {
+                    for(var i = 0; i < e.topics.length; i++) {
+                        if(topicCountName.includes(e.topics[i])) {
+                            topicCountNum[topicCountName.indexOf(e.topics[i])]++;
+                        }
+                        else {
+                            topicCountName.push(e.topics[i]);
+                            topicCountNum.push(1);
+                        }
+                        // if(e.totalView > 0) {
+                            if(topicViewName.includes(e.topics[i])) {
+                                topicViewNum[topicCountName.indexOf(e.topics[i])] += e.totalView;
+                            }
+                            else {
+                                topicViewName.push(e.topics[i]);
+                                topicViewNum.push(e.totalView);
+                            }
+                        // }
+                    }
+                }
+            });
+            setTopicCountLabel(topicCountName);
+            topicCountNum.length > 0 ? setTopicCountData([{data: topicCountNum}]) : setTopicCountData([]);
+            setTopicViewLabel(topicViewName);
+            topicViewNum.length > 0 ? setTopicViewData([{data: topicViewNum}]) : setTopicViewData([]);
             setUsageStudyLevelData([]);
 
             if(isLoading) setLoading(false);
@@ -384,32 +438,38 @@ function Dashboard() {
         switch(period) {
             case 'today':
                 setStartDate(changedStartDate);
+                setStartDateCon(changedStartDate);
                 setEndDate(changedEndDate);
                 break;
             case 'yesterday': 
                 changedStartDate.setDate(changedStartDate.getDate() - 1);
                 changedEndDate.setDate(today.getDate() - 1);
                 setStartDate(changedStartDate);
+                setStartDateCon(changedStartDate);
                 setEndDate(changedEndDate);
                 break;
             case 'week': 
                 changedStartDate.setDate(changedStartDate.getDate() - 7);
                 setEndDate(today);
                 setStartDate(changedStartDate);
+                setStartDateCon(changedStartDate);
                 break;
             case 'month': 
                 changedStartDate.setDate(changedStartDate.getDate() - 30);
                 setEndDate(today);
                 setStartDate(changedStartDate);
+                setStartDateCon(changedStartDate);
                 break;
             case 'year': 
                 changedStartDate.setDate(changedStartDate.getDate() - 365);
                 setEndDate(today);
                 setStartDate(changedStartDate);
+                setStartDateCon(changedStartDate);
                 break;
             case 'all': 
                 setEndDate(today);
                 setStartDate(absStart);
+                setStartDateCon(new Date("2020-01-01"));
                 break;
             case 'dummy':
                 retrieveDummy();

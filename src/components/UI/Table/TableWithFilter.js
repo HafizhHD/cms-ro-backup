@@ -59,7 +59,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
 
     const data = useMemo( () => DATA , [DATA]);
 
-    const initialState = { hiddenColumns: ['emailUser', 'parentEmail', '_id'] };
+    const initialState = { hiddenColumns: ['emailUser', 'parentEmail', '_id'], pageSize: 20 };
     
     const {
         getTableProps,
@@ -293,7 +293,7 @@ function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = 
                     setPageSize(Number(e.target.value))
                 }}
                 >
-                {[10, 15, 20].map(pageSize => (
+                {[20, 50, 100].map(pageSize => (
                     <option key={pageSize} value={pageSize}>
                         Show {pageSize}
                     </option>
