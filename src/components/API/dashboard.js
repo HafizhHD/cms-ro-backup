@@ -146,6 +146,42 @@ export const adminDelete = (query) => axios({
     },
 });
 
+export const communityAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/cobrandComunityAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const communityDelete = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/cobrandComunityRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const communityMemberAddAsync = async (query) => await axios({
+    method: 'post',
+    url: url + '/cobrand/cobrandComunityMemberAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const communityMemberDelete = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/cobrandComunityMemberRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 export const screenTimeAdd = (query) => axios({
     method: 'post',
     url: url + '/cobrand/configurationAdd',

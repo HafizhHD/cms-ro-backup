@@ -61,6 +61,9 @@ const AddScreenTime = lazy(() => import('../../containers/CoBrand/Setting/Screen
 const ListKoment = lazy(() => import('../../containers/CoBrand/Content/ViewContent/comment/ListKomen'));
 const EditRedzone = lazy(() => import('../../containers/CoBrand/RedZone/ListRedzone/ListRedzone'));
 const EditUser = lazy(() => import('../../containers/CoBrand/User/EditUser/EditUser'));
+
+const Komunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunitas/Komunitas'));
+const AddKomunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunitas/AddKomunitas/AddKomunitas'));
 const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
 const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
@@ -428,6 +431,18 @@ function Cobrand({
                     path="/tools/setting/topic/add"
                     exact
                     component={TopikAdd}
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                <PrivateRoute
+                    path="/tools/setting/komunitas"
+                    exact
+                    component={Komunitas}
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                <PrivateRoute
+                    path="/tools/setting/komunitas/add"
+                    exact
+                    component={AddKomunitas}
                 /> : null}
                 {userLevel === 'Super Admin' ?
                 <PrivateRoute

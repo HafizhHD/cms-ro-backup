@@ -289,6 +289,7 @@ function Dashboard() {
             const dataConProg = [contentLength, programLength];
             // // console.log(dataConProg);
             const conProgObj = [{
+                name: "Jumlah",
                 data: dataConProg
             }];
             setConProgData(conProgObj);
@@ -354,7 +355,7 @@ function Dashboard() {
                     }
                 }
             });
-            setNotifData([{data: notifDat}]);
+            setNotifData([{name: "Jumlah", data: notifDat}]);
             setNotifLabel(notifCat);
 
             let topicCountName = [];
@@ -425,9 +426,9 @@ function Dashboard() {
                 }
             });
             setTopicCountLabel(topicCountName);
-            topicCountNum.length > 0 ? setTopicCountData([{data: topicCountNum}]) : setTopicCountData([]);
+            topicCountNum.length > 0 ? setTopicCountData([{name: "Jumlah", data: topicCountNum}]) : setTopicCountData([]);
             setTopicViewLabel(topicViewName);
-            topicViewNum.length > 0 ? setTopicViewData([{data: topicViewNum}]) : setTopicViewData([]);
+            topicViewNum.length > 0 ? setTopicViewData([{name: "Jumlah", data: topicViewNum}]) : setTopicViewData([]);
             setUsageStudyLevelData([]);
 
             if(isLoading) setLoading(false);

@@ -12,7 +12,7 @@ import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
 import TextEditor from '../../../../components/Texteditor/TextEditor';
-import { getContentTopicList, getAudienceList } from '../../../../components/API/filter';
+import { getContentTopicList, getAudienceList, getCommunityList } from '../../../../components/API/filter';
 import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
 
 //texteditor
@@ -65,6 +65,7 @@ function AddContent({
 
     const [topic, setTopic] = useState([]);
     const [audience, setAudience] = useState([]);
+    const [community, setCommunity] = useState([]);
 
     const embedVideoCallBack = (link) =>{
         
@@ -122,21 +123,32 @@ function AddContent({
     useEffect(() => {
         let paramTopic = {};
         let paramAudience = {};
+        let paramCommunity = {
+            whereKeyValues: {
+                cobrandEmail: cobrandEmail
+            }
+        };
         const promiseTopic = getContentTopicList(paramTopic);
         const promiseAudience = getAudienceList(paramAudience);
+        const promiseCommunity = getCommunityList(paramCommunity);
 
-        Promise.all([promiseTopic, promiseAudience]).then(responseAll => {
+        Promise.all([promiseTopic, promiseAudience, promiseCommunity]).then(responseAll => {
             // // console.log(responseAll[0]);
             // // console.log(responseAll[1]);
-            var topicRaw = [], audienceRaw = [];
+            console.log(responseAll[2]);
+            var topicRaw = [], audienceRaw = [], communityRaw = [];
             responseAll[0].data.Data.map(e => {
                 topicRaw.push({value: e.topicName, label: e.topicName});
             })
             responseAll[1].data.Data.map(e => {
                 audienceRaw.push({value: e.audianceName, label: e.audianceName});
-            })
+            });
+            responseAll[2].data.Data.map(e => {
+                communityRaw.push({value: e.cobrandComunityId, label: e.cobrandComunityName});
+            });
             setTopic(topicRaw);
             setAudience(audienceRaw);
+            setCommunity(communityRaw);
             setPageLoading(false);
         })
     }, []);
@@ -175,7 +187,8 @@ function AddContent({
                     endDate: new Date().toISOString().split('T')[0],
                     isActive: true,
                     topics: [],
-                    targetAudience: []
+                    targetAudience: [],
+                    community: ''
                 }}
                 validationSchema={validationContent}
                 validateOnChange={true}
@@ -183,7 +196,7 @@ function AddContent({
                     window.scrollTo(0, 0);
                     onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription,
                         values.contentType, values.contentSource, values.contentThumbnail, values.contents,
-                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, history)
+                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, values.community, history)
                 }}
             >
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
@@ -227,7 +240,8 @@ function AddContent({
                                     value={values.topics}
                                     onChange={(e) => {   
                                         setFieldValue("topics", e)
-                                       localStorage.setItem('Topik', e[0].value)
+                                       if(e.length > 0) localStorage.setItem('Topik', e[0].value)
+                                       else localStorage.removeItem('Topik')
                                     }}
                                     name="topics"
                                     options={topic}
@@ -256,7 +270,8 @@ function AddContent({
                                     value={values.targetAudience}
                                     onChange={(e) => {
                                         setFieldValue("targetAudience", e)
-                                        localStorage.setItem('Target Pembaca', e[0].value)
+                                        if(e.length > 0) localStorage.setItem('Target Pembaca', e[0].value)
+                                        else localStorage.removeItem('Target Pembaca')
                                     }}
                                     name="targetAudience"
                                     options={audience}
@@ -266,7 +281,21 @@ function AddContent({
                                 />
                                 {touched.targetAudience && <span className="message__error">{errors.targetAudience}</span>}
                             </div>
-                            
+                            <div className="form-group">
+                                <label>Target Komunitas</label>
+                                <select
+                                    name="community"
+                                    value={values.community}
+                                    onChange={(e) => {
+                                        setFieldValue("community", e.currentTarget.value);
+                                    }}
+                                >
+                                    <option value="">-</option>
+                                    {community.map(e => {
+                                        return <option value={e.value}>{e.label}</option>
+                                    })}
+                                </select>
+                            </div>
                             
                             <div className="form-group">
                                 <label>Judul</label>
@@ -680,8 +709,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, history) =>
-            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, history))
+        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, history) =>
+            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, history))
     }
 }
 

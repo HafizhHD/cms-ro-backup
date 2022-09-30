@@ -200,6 +200,11 @@ export const validationStaff = yup.object({
     password: yup.string('Enter your password').required('Password is required').min(8, 'Password should be 8 characters or more')
 })
 
+export const validationCommunity = yup.object({
+    cobrandComunityName: yup.string('Enter your community name').required('Community name is required'),
+    partComunityName: yup.string('Enter your community name')
+})
+
 export const validationContentTopic = yup.object({
     topicName: yup.string('Enter topic name').required('Topic Name is required')
 })

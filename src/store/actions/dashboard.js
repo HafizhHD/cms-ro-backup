@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
-    adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit } from '../../components/API/dashboard';
+    adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete } from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getUserList } from '../../components/API/filter';
 
@@ -487,7 +487,7 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
     }
 }
 
-export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, history) => {
+export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, community, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -535,7 +535,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             startDate,
                             endDate,
                             topics: topic,
-                            targetAudiance: audi
+                            targetAudiance: audi,
+                            cobrandComunityId: community
                         };
 
                         // console.log(data);
@@ -608,7 +609,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             startDate,
                             endDate,
                             topics: topic,
-                            targetAudiance: audi
+                            targetAudiance: audi,
+                            cobrandComunityId: community
                         };
 
                         // console.log(data);
@@ -678,7 +680,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             startDate,
                             endDate,
                             topics: topic,
-                            targetAudiance: audi
+                            targetAudiance: audi,
+                            cobrandComunityId: community
                         };
 
                         // console.log(data);
@@ -768,7 +771,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 startDate,
                 endDate,
                 topics: topic,
-                targetAudiance: audi
+                targetAudiance: audi,
+                cobrandComunityId: community
             };
 
             console.log(data);
@@ -1386,6 +1390,67 @@ export const deleteStaff = (cobrandEmail, staffId, retrieveList) => {
     }
 }
 
+export const addCommunity = (cobrandComunityName, cobrandEmail, partComunityId, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let partCom = cobrandComunityName + "-" + partComunityId
+        let data = {
+            cobrandComunityId: cobrandComunityName,
+            cobrandComunityName,
+            cobrandEmail,
+            partComunityId: partCom
+        };
+
+        // console.log(data);
+        //Call API ....
+
+        communityAdd(data)
+            .then(response => {
+                // console.log('Success:', response.data);
+                history.push('/tools/setting/komunitas');
+                dispatch(alertSuccess('Komunitas "' + cobrandComunityName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Komunitas "' + cobrandComunityName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        // console.log(data);
+    }
+
+}
+
+export const deleteCommunity = (cobrandEmail, communityId, retrieveList) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        const deleting = {
+            whereValues: {
+                cobrandComunityId: communityId[0]
+            }
+        }
+        communityDelete(deleting)
+            .then(response => {
+                // console.log(response.data);
+                dispatch(alertSuccess('Komunitas "' + communityId[1] + '" berhasil dihapus.'));
+                dispatch(loadingStop());
+                retrieveList();
+            })
+            .catch(error => {
+                // console.log(error);
+                dispatch(alertError('Komunitas "' + communityId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                retrieveList();
+            });
+    }
+}
+
 export const addContentTopic = (topicName, history) => {
     return dispatch => {
         dispatch(loadingStart());
@@ -1446,7 +1511,7 @@ export const addScreenTime = (cobrandEmail, controlParameterName, controlParamet
 
 }
 
-export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber,  history) => {
+export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, community, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -1463,6 +1528,21 @@ export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, add
         appUserEdit(data)
             .then(response => {
                 // console.log('Success:', response.data);
+                let userCommunity = [];
+                communityMemberDelete({whereValues: {emailUser: oldEmail}})
+                .then(response2 => {
+                    console.log(response2.data);
+                    community.map(e => {
+                        let param = {
+                            cobrandComunityId: e.value,
+                            emailUser: emailUser
+                        }
+                        userCommunity.push(communityMemberAddAsync(param));
+                    })
+                    history.push('/cms/user');
+                        dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
+                    dispatch(loadingStop());
+                });
                 history.push('/cms/user');
                 dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
                 dispatch(loadingStop());

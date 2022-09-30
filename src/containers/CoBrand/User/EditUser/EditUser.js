@@ -4,12 +4,13 @@ import './EditUser.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { editAppUser } from '../../../../store/actions/dashboard';
-import { getUserList } from '../../../../components/API/filter'
+import { getUserList, getCommunityList, getCommunityMemberList } from '../../../../components/API/filter'
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationUserEdit } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
+import Select from 'react-select';
 
 function EditUser({
     onEditUser,
@@ -23,6 +24,8 @@ function EditUser({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const _emailUser = localStorage.getItem('userSelected');
+    const [community, setCommunity] = useState([]);
+    const [curComm, setCurComm] = useState([]);
 
     useEffect(() => {
         setPageLoading(true);
@@ -33,12 +36,38 @@ function EditUser({
                     emailUser: _emailUser
                 }
             };
-
+            
             getUserList(params)
             .then(response => {
                 // console.log("Response data: ", response.data);
                 setUser(response.data.users[0]);
-                setPageLoading(false);
+                let paramCommunity = {
+                    whereKeyValues: {
+                        cobrandEmail: cobrandEmail
+                    }
+                };
+                getCommunityList(paramCommunity)
+                .then(response2 => {
+                    var communityRaw = [];
+                    response2.data.Data.map(e => {
+                        communityRaw.push({value: e.cobrandComunityId, label: e.cobrandComunityName});
+                    });
+                    setCommunity(communityRaw)
+                    getCommunityMemberList(params)
+                    .then(response3 => {
+                        let dv = [];
+                        response3.data.Data.map(z => {
+                            for(var i = 0; i < communityRaw.length; i++) {
+                                if(communityRaw[i].value === z.cobrandComunityId){
+                                    dv.push(communityRaw[i]);
+                                    break;
+                                }
+                            }
+                        })
+                        setCurComm(dv);
+                        setPageLoading(false);
+                    })
+                });
             })
             .catch(error => {
                 // console.log(error);
@@ -65,14 +94,15 @@ function EditUser({
                     birdDate: user.birdDate.split('T')[0] ?? new Date().toISOString.split('T')[0],
                     address: user.address ?? '',
                     imagePhoto: '',
-                    phoneNumber: user.phoneNumber ?? ''
+                    phoneNumber: user.phoneNumber ?? '',
+                    community: curComm
                 }}
                 validationSchema = {validationUserEdit}
                 validateOnChange = {true}
                 onSubmit = { values => {
                     let finalPhoto = user.imagePhoto;
                     if(values.imagePhoto !== '') finalPhoto = values.imagePhoto
-                    onEditUser( _emailUser, values.nameUser, values.emailUser, values.gender, values.birdDate, values.address, values.imagePhoto, values.phoneNumber, history)
+                    onEditUser( _emailUser, values.nameUser, values.emailUser, values.gender, values.birdDate, values.address, values.imagePhoto, values.phoneNumber, values.community, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -118,6 +148,23 @@ function EditUser({
                                 <option value="wanita">Wanita</option>
                             </select>
                         </div>
+                        {user.userType === 'parent' ? <div className="form-group">
+                            <label>Komunitas</label>
+                            <Select
+                                isMulti
+                                value={values.community}
+                                onChange={(e) => {
+                                    setFieldValue("community", e)
+                                }}
+                                name="community"
+                                options={community}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                defaultValue={community.find(op => {
+                                    return curComm.includes(op.value)
+                                })}
+                            />
+                        </div> : null}
                         <div className="form-group">
                             <label>Tanggal Lahir</label>
                             <InputComponent
@@ -202,8 +249,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEditUser: ( _emailUser, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, history ) =>
-            dispatch(editAppUser( _emailUser, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, history ))
+        onEditUser: ( _emailUser, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, community, history ) =>
+            dispatch(editAppUser( _emailUser, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, community, history ))
     }
 }
 

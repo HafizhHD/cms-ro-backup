@@ -145,6 +145,11 @@ export const MenuCoBranding = () => {
                             icon: <FiImage className="Aside__Nav_item-icon" />
                         },
                         {
+                            path: '/komunitas',
+                            pathName: 'Daftar Komunitas',
+                            icon: <FiImage className="Aside__Nav_item-icon" />
+                        },
+                        {
                             path: '/program-category',
                             pathName: 'Kategori Program',
                             icon: <FiActivity className="Aside__Nav_item-icon" />
@@ -184,6 +189,11 @@ export const MenuCoBranding = () => {
                         {
                             path: '/topic',
                             pathName: 'Topik Artikel',
+                            icon: <FiImage className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/komunitas',
+                            pathName: 'Daftar Komunitas',
                             icon: <FiImage className="Aside__Nav_item-icon" />
                         },
                         {

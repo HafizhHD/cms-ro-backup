@@ -136,6 +136,24 @@ export const getAdminList = (query) => axios({
     }
 })
 
+export const getCommunityList = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/cobrandComunityFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
+export const getCommunityMemberList = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/cobrandComunityMemberFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 
 
 export const getHKBPList = (query) => axios({
