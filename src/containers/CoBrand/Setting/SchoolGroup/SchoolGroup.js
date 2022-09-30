@@ -81,15 +81,15 @@ function SchoolGroup({
 
     return (
         <div className="SchoolGroup">            
-            {showWarning ? <Warning setDeleting={setSchoolGroupDeleting} setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"SchoolGroup"}/> : null}
-            <h1>KOMUNITAS PENGGUNA</h1>
+            {showWarning ? <Warning setDeleting={setSchoolGroupDeleting} setConfirmDeleting={setConfirmDelete} setWarning={setShowWarning} message={"Kelompok"}/> : null}
+            <h1>KELOMPOK MITRA ASUH</h1>
             {/* <NavLink to="/cms/program/revisilist" id="add_program">
                 <FiPlus className="IconAdd" />
                <span>revisilist</span>  
             </NavLink> */}
             <NavLink to="/tools/setting/school-group/add" id="add_schoolgroup">
                 <FiPlus className="IconAdd" />
-               <span>Tambah SchoolGroup Baru</span>  
+               <span>Tambah Kelompok Mitra Asuh Baru</span>  
             </NavLink>
             <div className="SchoolGroup__table">
                 <TableProgram 

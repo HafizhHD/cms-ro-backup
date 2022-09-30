@@ -148,7 +148,7 @@ function EditUser({
                                 <option value="wanita">Wanita</option>
                             </select>
                         </div>
-                        {user.userType === 'parent' ? <div className="form-group">
+                        <div className="form-group">
                             <label>Komunitas</label>
                             <Select
                                 isMulti
@@ -164,7 +164,7 @@ function EditUser({
                                     return curComm.includes(op.value)
                                 })}
                             />
-                        </div> : null}
+                        </div>
                         <div className="form-group">
                             <label>Tanggal Lahir</label>
                             <InputComponent

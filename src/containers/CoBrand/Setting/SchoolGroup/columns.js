@@ -5,20 +5,20 @@ const dateFormat = {
     year: 'numeric', month: 'long', day: 'numeric'
 }
 
-const Columns = (setCommuntiyDeleting, setWarning) => {
+const Columns = (setSchoolGroupDeleting, setWarning) => {
     return ([
         {
-            Header: 'ID Komunitas',
-            accessor: 'cobrandComunityId'
+            Header: 'ID Kelompok',
+            accessor: 'groupMitraAsuhId'
         },
         {
-            Header: 'Nama Komunitas',
-            accessor: 'cobrandComunityName',
+            Header: 'Nama Kelompok',
+            accessor: 'groupMitraAsuhName',
             disableFilters: true
         },
         {
-            Header: 'Sub-Komunitas dari',
-            accessor: 'partComunityId',
+            Header: 'Anggota Sekolah',
+            accessor: 'memberSekolah',
             disableFilters: true
         },
         {
@@ -41,11 +41,11 @@ const Columns = (setCommuntiyDeleting, setWarning) => {
                             </div>
                         </button>
                     </NavLink> */}
-                    <NavLink to="/tools/setting/komunitas"
+                    <NavLink to="/tools/setting/school-group"
                         className="nav_btn"
                         title="Delete Komunitas"
                         onClick={() => {
-                            setCommuntiyDeleting([cell.row.values.cobrandComunityId, cell.row.values.cobrandComunityName]);
+                            setSchoolGroupDeleting([cell.row.values.groupMitraAsuhId, cell.row.values.groupMitraAsuhName]);
                             setWarning(true);
                             document.body.style.overflow = 'hidden';
                         }}

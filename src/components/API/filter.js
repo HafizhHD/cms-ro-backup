@@ -154,6 +154,24 @@ export const getCommunityMemberList = (query) => axios({
     }
 })
 
+export const getSchoolList = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/AlAzharSchoolFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
+export const getSchoolGroupList = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/groupMitraAsuhList',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 
 
 export const getHKBPList = (query) => axios({

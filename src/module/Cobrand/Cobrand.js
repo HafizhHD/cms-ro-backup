@@ -64,6 +64,8 @@ const EditUser = lazy(() => import('../../containers/CoBrand/User/EditUser/EditU
 
 const Komunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunitas/Komunitas'));
 const AddKomunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunitas/AddKomunitas/AddKomunitas'));
+const SchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/SchoolGroup'));
+const AddSchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/AddSchoolGroup/AddSchoolGroup'));
 const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
 const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
@@ -443,6 +445,18 @@ function Cobrand({
                     path="/tools/setting/komunitas/add"
                     exact
                     component={AddKomunitas}
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                <PrivateRoute
+                    path="/tools/setting/school-group"
+                    exact
+                    component={SchoolGroup}
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                <PrivateRoute
+                    path="/tools/setting/school-group/add"
+                    exact
+                    component={AddSchoolGroup}
                 /> : null}
                 {userLevel === 'Super Admin' ?
                 <PrivateRoute

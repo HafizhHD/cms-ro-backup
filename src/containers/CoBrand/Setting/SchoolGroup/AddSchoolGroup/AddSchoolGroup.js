@@ -1,23 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import Heading from '../../../../../components/UI/Heading/Heading';
-import './AddKomunitas.scss';
+import './AddSchoolGroup.scss';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { addCommunity } from '../../../../../store/actions/dashboard';
+import { addSchoolGroup } from '../../../../../store/actions/dashboard';
 import RKLoader from '../../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
-import { validationCommunity } from '../../../../../helpers/validation/validation';
+import { validationGroupMitraAsuh } from '../../../../../helpers/validation/validation';
 import InputComponent from '../../../../../components/UI/Input/Input';
-import {getCommunityList} from '../../../../../components/API/filter';
+import {getSchoolList} from '../../../../../components/API/filter';
 
-function AddCommunity({
-    onAddCommunity,
+import Select from 'react-select';
+
+function AddSchoolGroup({
+    onAddSchoolGroup,
     isLoading
 }) {
 
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
-    const [komunitas, setKomunitas] = useState([]);
+    const [school, setSchool] = useState([]);
     const [isPasswordVisible, showPassword] = useState(false);
     const [isCurrentlyLoading, setLoading] = useState(true);
 
@@ -26,9 +28,12 @@ function AddCommunity({
         let params = {
             cobrandEmail: cobrandEmail
         }
-        getCommunityList(params)
+        getSchoolList(params)
         .then(response => {
-            setKomunitas(response.data.Data);
+            let schoolRaw = [];
+            response.data.Data.map(e => {
+                schoolRaw.push({value: e.nama, label: e.nama});
+            })
             setLoading(false);
         })
     },[]);
@@ -39,20 +44,20 @@ function AddCommunity({
 
     return (
         <>
-            <Heading headingName="Tambah Komunitas" routes={[
-                { path: '/tools/setting/komunitas', name: 'Komunitas' },
-                { path: '/tools/setting/komunitas/add', name: 'Tambah' }
+            <Heading headingName="Tambah Kelompok" routes={[
+                { path: '/tools/setting/school-group', name: 'Kelompok Mitra Asuh' },
+                { path: '/tools/setting/school-group/add', name: 'Tambah' }
             ]} />
             <Formik
                 initialValues= {{
-                    cobrandComunityName: "",
-                    partComunityId: ""
+                    groupMitraAsuhName: "",
+                    memberSekolah: [],
                 }}
-                validationSchema = {validationCommunity}
+                validationSchema = {validationGroupMitraAsuh}
                 validateOnChange = {true}
                 onSubmit = { values => {
                     // console.log(values);
-                    onAddCommunity( values.cobrandComunityName, cobrandEmail, values.partComunityId, history)
+                    onAddSchoolGroup( values.groupMitraAsuhName, cobrandEmail, values.memberSekolah, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -60,32 +65,31 @@ function AddCommunity({
                     <div className="AddCommunity">
                         <h1>Tambah</h1>
                         <div className="form-group">
-                            <label>Nama Komunitas</label>
+                            <label>Nama Kelompok</label>
                             <InputComponent 
                                 type="text"
-                                name="cobrandComunityName"
+                                name="groupMitraAsuhName"
                                 className="form-group__input form-group__input--fullwidth" 
                                 placeholder="Example"
-                                value={values.cobrandComunityName}
+                                value={values.groupMitraAsuhName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
                             {touched.userName && <span className="message__error">{errors.userName}</span>}
                         </div>
                         <div className="form-group">
-                            <label>Sub-Komunitas dari</label>
-                            <select
-                                name="partComunityId"
-                                value={values.partComunityId}
+                            <label>Anggota Sekolah</label>
+                            <Select
+                                isMulti
+                                value={values.memberSekolah}
                                 onChange={(e) => {
-                                    setFieldValue("partComunityId", e.currentTarget.value);
+                                    setFieldValue("memberSekolah", e)
                                 }}
-                            >
-                                <option value="">--Bukan Sub-Komunitas--</option>
-                                {komunitas.map(e => {
-                                    return <option value={e.cobrandComunityId}>{e.cobrandComunityName}</option>
-                                })}
-                            </select>
+                                name="community"
+                                options={school}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                            />
                         </div>
                         <div>
                             <button className="btn btn-submit" type="submit" onClick={() => {
@@ -113,9 +117,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddCommunity: ( cobrandComunityName, cobrandEmail, partComunityId, history ) =>
-            dispatch(addCommunity(  cobrandComunityName, cobrandEmail, partComunityId, history ))
+        onAddSchoolGroup: ( groupMitraAsuhName, cobrandEmail, memberSekolah, history ) =>
+            dispatch(addSchoolGroup(  groupMitraAsuhName, cobrandEmail, memberSekolah, history ))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (AddCommunity)
+export default connect(mapStateToProps, mapDispatchToProps) (AddSchoolGroup)

@@ -182,6 +182,24 @@ export const communityMemberDelete = (query) => axios({
     },
 });
 
+export const schoolGroupAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/groupMitraAsuhAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const schoolGroupDelete = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/groupMitraAsuhRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 export const screenTimeAdd = (query) => axios({
     method: 'post',
     url: url + '/cobrand/configurationAdd',

@@ -10,7 +10,8 @@ import {
 import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
-    adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete } from '../../components/API/dashboard';
+    adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
+ schoolGroupAdd, schoolGroupDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getUserList } from '../../components/API/filter';
 
@@ -1424,6 +1425,39 @@ export const addCommunity = (cobrandComunityName, cobrandEmail, partComunityId, 
 
 }
 
+export const addSchoolGroup = (groupMitraAsuhName, cobrandEmail, memberSekolah, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            groupMitraAsuhId: groupMitraAsuhName,
+            groupMitraAsuhName,
+            cobrandEmail,
+            memberSekolah
+        };
+
+        // console.log(data);
+        //Call API ....
+
+        schoolGroupAdd(data)
+            .then(response => {
+                // console.log('Success:', response.data);
+                history.push('/tools/setting/school-group');
+                dispatch(alertSuccess('Kelompok mitra asuh "' + groupMitraAsuhName + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Kelompok mitra asuh "' + groupMitraAsuhName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        // console.log(data);
+    }
+
+}
+
 export const deleteCommunity = (cobrandEmail, communityId, retrieveList) => {
     return dispatch => {
         dispatch(loadingStart());
@@ -1445,6 +1479,33 @@ export const deleteCommunity = (cobrandEmail, communityId, retrieveList) => {
             .catch(error => {
                 // console.log(error);
                 dispatch(alertError('Komunitas "' + communityId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                retrieveList();
+            });
+    }
+}
+
+export const deleteSchoolGroup = (cobrandEmail, schoolGroupId, retrieveList) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        const deleting = {
+            whereValues: {
+                groupMitraAsuhId: schoolGroupId[0]
+            }
+        }
+        schoolGroupDelete(deleting)
+            .then(response => {
+                // console.log(response.data);
+                dispatch(alertSuccess('Kelompok mitra asuh "' + schoolGroupId[1] + '" berhasil dihapus.'));
+                dispatch(loadingStop());
+                retrieveList();
+            })
+            .catch(error => {
+                // console.log(error);
+                dispatch(alertError('Kelompok mitra asuh "' + schoolGroupId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
                 retrieveList();
             });

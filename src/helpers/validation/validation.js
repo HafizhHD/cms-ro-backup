@@ -205,6 +205,10 @@ export const validationCommunity = yup.object({
     partComunityName: yup.string('Enter your community name')
 })
 
+export const validationGroupMitraAsuh = yup.object({
+    groupMitraAsuhName: yup.string('Enter your group name').required('Group name is required'),
+})
+
 export const validationContentTopic = yup.object({
     topicName: yup.string('Enter topic name').required('Topic Name is required')
 })
