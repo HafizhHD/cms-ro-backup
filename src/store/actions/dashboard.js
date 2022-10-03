@@ -488,7 +488,7 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
     }
 }
 
-export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, community, history) => {
+export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, community, groupMitraAsuhId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -537,7 +537,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             endDate,
                             topics: topic,
                             targetAudiance: audi,
-                            cobrandComunityId: community
+                            cobrandComunityId: community,
+                            groupMitraAsuhId
                         };
 
                         // console.log(data);
@@ -611,7 +612,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             endDate,
                             topics: topic,
                             targetAudiance: audi,
-                            cobrandComunityId: community
+                            cobrandComunityId: community,
+                            groupMitraAsuhId
                         };
 
                         // console.log(data);
@@ -682,7 +684,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             endDate,
                             topics: topic,
                             targetAudiance: audi,
-                            cobrandComunityId: community
+                            cobrandComunityId: community,
+                            groupMitraAsuhId
                         };
 
                         // console.log(data);
@@ -773,7 +776,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 endDate,
                 topics: topic,
                 targetAudiance: audi,
-                cobrandComunityId: community
+                cobrandComunityId: community,
+                groupMitraAsuhId
             };
 
             console.log(data);

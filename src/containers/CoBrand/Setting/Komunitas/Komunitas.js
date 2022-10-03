@@ -20,7 +20,7 @@ function Komunitas({
     const [showModal, setShowModal] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
-    const [communityList, setCommunityList] = useState();
+    const [communityList, setCommunityList] = useState([]);
     const [communityDeleting, setCommunityDeleting] = useState(null);
     const [showWarning, setShowWarning] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);

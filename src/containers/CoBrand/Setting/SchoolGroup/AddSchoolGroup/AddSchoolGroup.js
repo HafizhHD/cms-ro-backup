@@ -34,6 +34,7 @@ function AddSchoolGroup({
             response.data.Data.map(e => {
                 schoolRaw.push({value: e.nama, label: e.nama});
             })
+            setSchool(schoolRaw);
             setLoading(false);
         })
     },[]);

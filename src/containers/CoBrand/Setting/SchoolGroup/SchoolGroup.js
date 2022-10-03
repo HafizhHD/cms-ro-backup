@@ -20,7 +20,7 @@ function SchoolGroup({
     const [showModal, setShowModal] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
-    const [schoolGroupList, setSchoolGroupList] = useState();
+    const [schoolGroupList, setSchoolGroupList] = useState([]);
     const [schoolGroupDeleting, setSchoolGroupDeleting] = useState(null);
     const [showWarning, setShowWarning] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);

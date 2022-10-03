@@ -12,7 +12,7 @@ import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { toBase64 } from '../../../../helpers/fileHelper/fileHelper'
 import TextEditor from '../../../../components/Texteditor/TextEditor';
-import { getContentTopicList, getAudienceList, getCommunityList } from '../../../../components/API/filter';
+import { getContentTopicList, getAudienceList, getCommunityList, getSchoolGroupList } from '../../../../components/API/filter';
 import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
 
 //texteditor
@@ -66,6 +66,7 @@ function AddContent({
     const [topic, setTopic] = useState([]);
     const [audience, setAudience] = useState([]);
     const [community, setCommunity] = useState([]);
+    const [schoolGroup, setSchoolGroup] = useState([]);
 
     const embedVideoCallBack = (link) =>{
         
@@ -131,12 +132,13 @@ function AddContent({
         const promiseTopic = getContentTopicList(paramTopic);
         const promiseAudience = getAudienceList(paramAudience);
         const promiseCommunity = getCommunityList(paramCommunity);
+        const promiseSchoolGroup = getSchoolGroupList(paramCommunity);
 
         Promise.all([promiseTopic, promiseAudience, promiseCommunity]).then(responseAll => {
             // // console.log(responseAll[0]);
             // // console.log(responseAll[1]);
             console.log(responseAll[2]);
-            var topicRaw = [], audienceRaw = [], communityRaw = [];
+            var topicRaw = [], audienceRaw = [], communityRaw = [], schoolGroupRaw = [];
             responseAll[0].data.Data.map(e => {
                 topicRaw.push({value: e.topicName, label: e.topicName});
             })
@@ -146,9 +148,14 @@ function AddContent({
             responseAll[2].data.Data.map(e => {
                 communityRaw.push({value: e.cobrandComunityId, label: e.cobrandComunityName});
             });
+            // if(responseAll[3].resultCode === 200) 
+            //     responseAll[3].data.Data.map(e => {
+            //         communityRaw.push({value: e.cobrandComunityId, label: e.cobrandComunityName});
+            //     });
             setTopic(topicRaw);
             setAudience(audienceRaw);
             setCommunity(communityRaw);
+            // setSchoolGroup(schoolGroupRaw);
             setPageLoading(false);
         })
     }, []);
@@ -188,7 +195,8 @@ function AddContent({
                     isActive: true,
                     topics: [],
                     targetAudience: [],
-                    community: ''
+                    community: '',
+                    groupMitraAsuhId: ''
                 }}
                 validationSchema={validationContent}
                 validateOnChange={true}
@@ -196,7 +204,7 @@ function AddContent({
                     window.scrollTo(0, 0);
                     onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription,
                         values.contentType, values.contentSource, values.contentThumbnail, values.contents,
-                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, values.community, history)
+                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, values.community, values.groupMitraAsuhId, history)
                 }}
             >
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
@@ -292,6 +300,22 @@ function AddContent({
                                 >
                                     <option value="">-</option>
                                     {community.map(e => {
+                                        return <option value={e.value}>{e.label}</option>
+                                    })}
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Kelompok Mitra Asuh</label>
+                                <select
+                                    name="groupMitraAsuhId"
+                                    value={values.groupMitraAsuhId}
+                                    onChange={(e) => {
+                                        setFieldValue("groupMitraAsuhId", e.currentTarget.value);
+                                    }}
+                                >
+                                    <option value="">-</option>
+                                    {schoolGroup.map(e => {
                                         return <option value={e.value}>{e.label}</option>
                                     })}
                                 </select>
@@ -709,8 +733,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, history) =>
-            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, history))
+        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, groupMitraAsuhId, history) =>
+            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, groupMitraAsuhId, history))
     }
 }
 
