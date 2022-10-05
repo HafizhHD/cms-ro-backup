@@ -13,6 +13,7 @@ const UserReport = () => {
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState();
     const [period, setPeriod] = useState('real');
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId
 
     const options = {
         filterType: "dropdown",
@@ -33,7 +34,22 @@ const UserReport = () => {
             setUserData(dumDat);
             setLoading(false);
         }
-        else {let params={
+        else {let params= cobrandComId !== '' ? {
+            whereKeyValues: {
+                packageId: "com.byasia.ruangortu",
+                cobrandComunityId: cobrandComId,
+                dateCreated: {
+                    "$gte": absStart.toISOString().split("T")[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
+            },
+            orderKeyValues: {
+                nameUser: 1
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : {
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
                 dateCreated: {

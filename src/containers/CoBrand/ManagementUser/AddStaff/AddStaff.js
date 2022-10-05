@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
 import './AddStaff.scss';
 import { Formik } from 'formik';
@@ -7,6 +7,7 @@ import { addStaff } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationStaff } from '../../../../helpers/validation/validation';
+import { getCommunityList } from '../../../../components/API/filter'
 import InputComponent from '../../../../components/UI/Input/Input';
 
 function AddStaff({
@@ -17,6 +18,30 @@ function AddStaff({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const [isPasswordVisible, showPassword] = useState(false);
+    const [comList, setComList] = useState([]);
+    const [isCurrentlyLoading, setCurrentlyLoading] = useState(true);
+
+    useEffect(() => {
+        let param = {
+            whereKeyValues: {
+                cobrandEmail: cobrandEmail
+            },
+            orderKeyValues: {
+                cobrandComunityName: -1
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        }
+
+        getCommunityList(param)
+        .then(response => {
+            setComList(response.data.Data);
+            setCurrentlyLoading(false);
+        })
+    }, []);
+
+    if(isLoading || isCurrentlyLoading) {
+        return <RKLoader/>
+    }
 
     return (
         <>
@@ -32,13 +57,14 @@ function AddStaff({
                     cobrandEmail: cobrandEmail,
                     userLevel: 'Reporter',
                     emailUser: '',
-                    phone: ''
+                    phone: '',
+                    cobrandComunityId: ''
                 }}
                 validationSchema = {validationStaff}
                 validateOnChange = {true}
                 onSubmit = { values => {
                     // console.log(values);
-                    onAddStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, history)
+                    onAddStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, values.cobrandComunityId, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -111,6 +137,7 @@ function AddStaff({
                                 <option value="Admin">Admin</option>
                                 <option value="Editor">Editor</option>
                                 <option value="Reporter">Reporter</option>
+                                <option value="user">User</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -125,6 +152,21 @@ function AddStaff({
                                 onBlur={handleBlur}
                             />
                             {touched.emailUser && <span className="message__error">{errors.emailUser}</span>}
+                        </div>
+                        <div className="form-group">
+                            <label>Komunitas</label>
+                            <select
+                                name="cobrandComunityId"
+                                value={values.cobrandComunityId}
+                                onChange={(e) => {
+                                    setFieldValue("cobrandComunityId", e.currentTarget.value);
+                                }}
+                            >
+                                <option value="">-</option>
+                                {comList.map(e => {
+                                    return <option value={e.cobrandComunityId}>{e.cobrandComunityName}</option>
+                                })}
+                            </select>
                         </div>
                         <div className="form-group">
                             <label>Nomor Telepon</label>
@@ -168,8 +210,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddStaff: ( userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history ) =>
-            dispatch(addStaff(  userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history ))
+        onAddStaff: ( userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history ) =>
+            dispatch(addStaff(  userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history ))
     }
 }
 

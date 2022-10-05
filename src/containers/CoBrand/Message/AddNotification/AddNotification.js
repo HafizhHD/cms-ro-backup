@@ -21,6 +21,7 @@ function AddNotification({
     const history = useHistory();
     const [sche, setSche] = useState(new Date());
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId;
     const [emailList, setEmailList] = useState([]);
     const [notifContext, setNotifContext] = useState('');
     const [isTargetChecked, setTargetChecked] = useState(false);
@@ -80,7 +81,7 @@ function AddNotification({
                 validationSchema = {validationNotification}
                 validateOnChange = {true}
                 onSubmit = { values => {
-                    onAddNotification(cobrandEmail, values.destination, values.messageSubject, values.messageContent, values.useSchedule, values.scheduleTime, values.mediaType, values.category, history)
+                    onAddNotification(cobrandEmail, values.destination, values.messageSubject, values.messageContent, values.useSchedule, values.scheduleTime, values.mediaType, values.category, cobrandComId, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -257,8 +258,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddNotification: ( cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history ) =>
-            dispatch(addNotification( cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history ))
+        onAddNotification: ( cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, cobrandComunityId, history ) =>
+            dispatch(addNotification( cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, cobrandComunityId, history ))
     }
 }
 

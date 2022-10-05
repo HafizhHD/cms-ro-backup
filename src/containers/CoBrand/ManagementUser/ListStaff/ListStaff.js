@@ -20,7 +20,7 @@ function ListStaff({
     const [showModal, setShowModal] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
-    const [staffList, setStaffList] = useState();
+    const [staffList, setStaffList] = useState([]);
     const [staffDeleting, setStaffDeleting] = useState(null);
     const [showWarning, setShowWarning] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
@@ -41,13 +41,12 @@ function ListStaff({
         },
         limit: Number.MAX_SAFE_INTEGER
     };
-
     
     function retrieveList() {
         getAdminList(params)
         .then(response => {
             setStaffList(response.data.Data);
-            // console.log(response.data);
+            console.log(response.data);
             setLoading(false);
         })
         .catch(error => {

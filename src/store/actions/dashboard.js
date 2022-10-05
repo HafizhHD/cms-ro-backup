@@ -13,7 +13,7 @@ import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, pr
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
  schoolGroupAdd, schoolGroupDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
-import { getUserList } from '../../components/API/filter';
+import { getCommunityMemberList, getUserList } from '../../components/API/filter';
 
 ///pdf
 // import { Viewer } from '@react-pdf-viewer/core' //library, plugin
@@ -498,6 +498,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
         // const [numPages, setNumPages] = useState(null);
         // const [pageNumber, setPageNumber] = useState(1);
 
+        console.log('Comunity: ' + community);
+
 
         const promise = toBase64(photo);
         promise.then((result) => {
@@ -786,36 +788,72 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             contentAdd(data)
                 .then(response => {
                     // console.log('Success:', response.data);
-                    let paramUser = {
-                        whereKeyValues: {
-                            packageId: "com.byasia.ruangortu"
-                        },
-                        limit: Number.MAX_SAFE_INTEGER
-                    }
-                    getUserList(paramUser)
-                    .then(responseUser => {
-                        console.log(responseUser);
-                        var x = responseUser.data.users;
-                        var userEmails = [];
-                        x.forEach(y => {
-                            userEmails.push(y.emailUser);
-                        })
-                        var z = userEmails.join(',');
-                        let data2 = {
-                            cobrandEmail,
-                            destination: z,
-                            messageSubject: "Hai, Ada Artikel Baru Lho!",
-                            messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
-                            scheduleTime: startDate,
-                            mediaType: "Device",
-                            category: "Informasi"
+                    // getUserList(paramUser)
+                    if(community !== '') {
+                        let paramUser = {
+                            whereKeyValues: {
+                                cobrandComunityId: community
+                            },
+                            limit: Number.MAX_SAFE_INTEGER
                         }
-                        notificationAdd(data2).then(r => {
-                            history.push('/cms/content');
-                            dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
-                            dispatch(loadingStop());
+                        getCommunityMemberList(paramUser)
+                        .then(responseUser => {
+                            console.log(responseUser);
+                            // var x = responseUser.data.users;
+                            var x = responseUser.data.Data;
+                            var userEmails = [];
+                            x.forEach(y => {
+                                userEmails.push(y.emailUser);
+                            })
+                            var z = userEmails.join(',');
+                            let data2 = {
+                                cobrandEmail,
+                                destination: z,
+                                messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
+                                scheduleTime: startDate,
+                                mediaType: "Device",
+                                category: "Informasi"
+                            }
+                            notificationAdd(data2).then(r => {
+                                history.push('/cms/content');
+                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(loadingStop());
+                            });
                         });
-                    });
+                    }
+                    else {
+                        let paramUser = {
+                            whereKeyValues: {
+                                packageId: 'com.byasia.ruangortu'
+                            },
+                            limit: Number.MAX_SAFE_INTEGER
+                        }
+                        getUserList(paramUser)
+                        .then(responseUser => {
+                            console.log(responseUser);
+                            var x = responseUser.data.users;
+                            var userEmails = [];
+                            x.forEach(y => {
+                                userEmails.push(y.emailUser);
+                            })
+                            var z = userEmails.join(',');
+                            let data2 = {
+                                cobrandEmail,
+                                destination: z,
+                                messageSubject: "Hai, Ada Artikel Baru Lho!",
+                                messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
+                                scheduleTime: startDate,
+                                mediaType: "Device",
+                                category: "Informasi"
+                            }
+                            notificationAdd(data2).then(r => {
+                                history.push('/cms/content');
+                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
+                                dispatch(loadingStop());
+                            });
+                        });
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -1179,7 +1217,7 @@ export const editProfile = (oldEmail, oldPassword, cobrandName, photo, phoneNumb
 
 }
 
-export const addNotification = (cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, history) => {
+export const addNotification = (cobrandEmail, destination, messageSubject, messageContent, useSchedule, scheduleTime, mediaType, category, cobrandComunityId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -1187,7 +1225,7 @@ export const addNotification = (cobrandEmail, destination, messageSubject, messa
         });
         let schedule = useSchedule ? scheduleTime : '';
         let data = {
-            cobrandEmail, destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category
+            cobrandEmail, destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category, cobrandComunityId
         };
 
         // console.log(data);
@@ -1302,14 +1340,14 @@ export const addProgCategory = (category, description, history) => {
 
 }
 
-export const addStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history) => {
+export const addStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
         let data = {
-            userName, password, userType, cobrandEmail, userLevel, emailUser, phone
+            userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId
         };
 
         // console.log(data);
@@ -1332,7 +1370,7 @@ export const addStaff= (userName, password, userType, cobrandEmail, userLevel, e
 
 }
 
-export const editStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history) => {
+export const editStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -1343,7 +1381,7 @@ export const editStaff= (userName, password, userType, cobrandEmail, userLevel, 
                 _id: localStorage.getItem('staffSelected')
             },
             newKeyValues: {
-                userName, password, userType, cobrandEmail, userLevel, emailUser, phone
+                userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId
             }
         };
 

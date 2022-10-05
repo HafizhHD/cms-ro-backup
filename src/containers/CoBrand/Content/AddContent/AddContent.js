@@ -120,6 +120,7 @@ function AddContent({
 
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId;
 
     useEffect(() => {
         let paramTopic = {};
@@ -183,7 +184,7 @@ function AddContent({
             ]} />
             <Formik
                 initialValues={{
-                    programId: '-1',
+                    programId: '',
                     contentName: '',
                     contentDescription: '',
                     contentType: 'Artikel',
@@ -195,7 +196,7 @@ function AddContent({
                     isActive: true,
                     topics: [],
                     targetAudience: [],
-                    community: '',
+                    community: cobrandComId ?? '',
                     groupMitraAsuhId: ''
                 }}
                 validationSchema={validationContent}
@@ -289,7 +290,7 @@ function AddContent({
                                 />
                                 {touched.targetAudience && <span className="message__error">{errors.targetAudience}</span>}
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>Target Komunitas</label>
                                 <select
                                     name="community"
@@ -319,7 +320,7 @@ function AddContent({
                                         return <option value={e.value}>{e.label}</option>
                                     })}
                                 </select>
-                            </div>
+                            </div> */}
                             
                             <div className="form-group">
                                 <label>Judul</label>

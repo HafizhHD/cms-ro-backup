@@ -37,7 +37,7 @@ class ListBc extends React.Component {
             data: {limit: Number.MAX_SAFE_INTEGER}
         })
             .then(response => {
-                // console.log(response.data.resultData);
+                console.log(response.data.resultData);
                 // console.log(response.data);
                 this.setState({ message: response.data.resultData })
             })
@@ -209,7 +209,7 @@ class ListBc extends React.Component {
             <div className='div'>
                 <NavLink to="/cms/notifications/add" id="add_content">
                     <FiPlus className="IconAdd" />
-                    <span>Create New Notification</span>
+                    <span>Buat Notifikasi Baru</span>
                 </NavLink>
                 <h1>List Notification</h1>
                 <div className='komentar'>

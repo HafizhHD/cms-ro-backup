@@ -26,18 +26,24 @@ const ContentReport = () => {
             setContentData(dummyData);
             setLoading(false);
         }
-        else {let params={
+        else {let params = userData.cobrandComunityId !== '' ? {
             whereKeyValues: {
                 cobrandEmail: userData.cobrandEmail,
+                status: {"$in" : ["active", "inactive"]},
                 programId: "",
-                status: {"$in" : ["active", "inactive"]}
+                cobrandComunityId: userData.cobrandComunityId
             },
-            orderKeyValues: {
-                dateCreated: -1
-            },
-            includeContentData: false,
+            includeContentData:false,
             limit: Number.MAX_SAFE_INTEGER
-        };
+        } : {
+            whereKeyValues: {
+                cobrandEmail: userData.cobrandEmail,
+                status: {"$in" : ["active", "inactive"]},
+                programId: ""
+            },
+            includeContentData:false,
+            limit: Number.MAX_SAFE_INTEGER
+        };;
         // console.log(params);
         getContentList(params)
         .then(response => {

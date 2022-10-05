@@ -8,7 +8,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationStaff } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
-import { getAdminList } from '../../../../components/API/filter';
+import { getAdminList, getCommunityList } from '../../../../components/API/filter';
 
 function EditStaff({
     onEditStaff,
@@ -20,6 +20,7 @@ function EditStaff({
     const id = localStorage.getItem('staffSelected');
 
     const [staff, setStaff] = useState([]);
+    const [comList, setComList] = useState([]);
     const [isPageLoading, setPageLoading] = useState(true);
     const [isPasswordVisible, showPassword] = useState(false);
 
@@ -34,7 +35,21 @@ function EditStaff({
         .then(response => {
             // console.log(response.data);
             setStaff(response.data.Data[0]);
-            setPageLoading(false);
+            let param = {
+                whereKeyValues: {
+                    cobrandEmail: cobrandEmail
+                },
+                orderKeyValues: {
+                    cobrandComunityName: -1
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            }
+    
+            getCommunityList(param)
+            .then(response => {
+                setComList(response.data.Data);
+                setPageLoading(false);
+            })
         })
     }, []);
 
@@ -56,13 +71,14 @@ function EditStaff({
                     cobrandEmail: staff.cobrandEmail ?? cobrandEmail,
                     userLevel: staff.userLevel ?? 'Reporter',
                     emailUser: staff.emailUser ?? '',
-                    phone: staff.phone ?? ''
+                    phone: staff.phone ?? '',
+                    cobrandComunityId: staff.cobrandComunityId ?? ''
                 }}
                 validationSchema = {validationStaff}
                 validateOnChange = {true}
                 onSubmit = { values => {
                     // console.log(values);
-                    onEditStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, history)
+                    onEditStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, values.cobrandComuintyId, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -151,6 +167,21 @@ function EditStaff({
                             {touched.emailUser && <span className="message__error">{errors.emailUser}</span>}
                         </div>
                         <div className="form-group">
+                            <label>Komunitas</label>
+                            <select
+                                name="cobrandComunityId"
+                                value={values.cobrandComunityId}
+                                onChange={(e) => {
+                                    setFieldValue("cobrandComunityId", e.currentTarget.value);
+                                }}
+                            >
+                                <option value="">-</option>
+                                {comList.map(e => {
+                                    return <option value={e.cobrandComunityId}>{e.cobrandComunityName}</option>
+                                })}
+                            </select>
+                        </div>
+                        <div className="form-group">
                             <label>Nomor Telepon</label>
                             <InputComponent 
                                 type="text"
@@ -192,8 +223,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEditStaff: ( userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history ) =>
-            dispatch(editStaff(  userName, password, userType, cobrandEmail, userLevel, emailUser, phone, history ))
+        onEditStaff: ( userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history ) =>
+            dispatch(editStaff(  userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history ))
     }
 }
 

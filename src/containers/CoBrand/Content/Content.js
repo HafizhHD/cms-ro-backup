@@ -26,7 +26,16 @@ function Content({
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     const userData = JSON.parse(localStorage.getItem('userData'));
-    const params = {
+    const params = userData.cobrandComunityId !== '' ? {
+        whereKeyValues: {
+            cobrandEmail: userData.cobrandEmail,
+            status: {"$in" : ["active", "inactive"]},
+            programId: "",
+            cobrandComunityId: userData.cobrandComunityId
+        },
+        includeContentData:false,
+        limit: Number.MAX_SAFE_INTEGER
+    } : {
         whereKeyValues: {
             cobrandEmail: userData.cobrandEmail,
             status: {"$in" : ["active", "inactive"]},

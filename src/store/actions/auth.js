@@ -27,7 +27,7 @@ export const auth = ( userName, password ) => {
         //Call API ....
         cobrandLogin(data)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             let loginData = response.data;
             if (loginData.resultCode === "OK" && loginData.resultData) {
                 localStorage.setItem('accessToken', loginData.resultData.token);

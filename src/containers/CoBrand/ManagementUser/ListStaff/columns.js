@@ -30,6 +30,10 @@ const Columns = (setStaffDeleting, setWarning) => {
             accessor: 'userLevel',
         },
         {
+            Header: 'Komunitas',
+            accessor: 'cobrandComunityId'
+        },
+        {
             Header: 'No. Telepon',
             accessor: 'phone',
         },

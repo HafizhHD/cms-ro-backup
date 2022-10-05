@@ -23,6 +23,7 @@ function Dashboard() {
     const [isLoadingSpinner, setLoadingSpinner] = useState(false);
 
     const localData = JSON.parse(localStorage.getItem('userData'));
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId
 
     const today = new Date();
     today.setDate(today.getDate()+1);
@@ -138,7 +139,24 @@ function Dashboard() {
 
         var countingUser = [0,0,0];
 
-        let paramUser = {
+        let paramUser = cobrandComId !== '' ? {
+            whereKeyValues: {
+                packageId: "com.byasia.ruangortu",
+                cobrandComunityId: cobrandComId,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
+
+            },
+            orderKeyValues: {
+                nameUser: 1
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : {
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
                 dateCreated: {
@@ -156,7 +174,23 @@ function Dashboard() {
             limit: Number.MAX_SAFE_INTEGER
         }
 
-        let paramContent = {
+        let paramContent = cobrandComId !== '' ? {
+            whereKeyValues: {
+                cobrandEmail: localData.cobrandEmail,
+                cobrandComunityId: cobrandComId,
+                programId: "",
+                status: {"$in" : ["active", "inactive"]},
+                dateCreated: {
+                    "$gte": startDateCon.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                contentName: 1
+            },
+            includeContentData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        } : {
             whereKeyValues: {
                 cobrandEmail: localData.cobrandEmail,
                 programId: "",
@@ -201,7 +235,16 @@ function Dashboard() {
             limit: Number.MAX_SAFE_INTEGER
         }
 
-        let paramNotification = {
+        let paramNotification = cobrandComId !== '' ? {
+            whereKeyValues: {
+                cobrandComunityId: cobrandComId,
+                scheduleTime: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : {
             whereKeyValues: {
                 scheduleTime: {
                     "$gte": startDate.toISOString().split('T')[0],

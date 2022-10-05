@@ -23,6 +23,7 @@ const MonitoringStatus = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [isSubmit, setSubmit] = useState(false);
     const [period, setPeriod] = useState('real');
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId
     
     const oneDay = 24 * 60 * 60 * 1000; 
 
@@ -37,7 +38,22 @@ const MonitoringStatus = () => {
             setUserData(dummyData);
             setLoading(false);
         }
-        else {let params={
+        else {let params= cobrandComId !== '' ? {
+            whereKeyValues: {
+                packageId: "com.byasia.ruangortu",
+                cobrandComunityId: cobrandComId,
+                dateCreated: {
+                    "$gte": absStart.toISOString().split("T")[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
+            },
+            orderKeyValues: {
+                nameUser: 1
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : {
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
                 dateCreated: {
