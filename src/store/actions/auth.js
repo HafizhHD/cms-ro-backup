@@ -33,6 +33,7 @@ export const auth = ( userName, password ) => {
                 localStorage.setItem('accessToken', loginData.resultData.token);
                 localStorage.setItem('userData', JSON.stringify(loginData.resultData.user));
                 localStorage.setItem('userLevel', loginData.resultData.user.userLevel);
+                localStorage.setItem('cobrandComId', loginData.resultData.user.cobrandComunityId ?? '');
                 localStorage.removeItem('loginMessage');
                 dispatch( authSuccess() );
             }

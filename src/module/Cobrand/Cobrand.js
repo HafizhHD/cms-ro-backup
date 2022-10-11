@@ -84,6 +84,7 @@ function Cobrand({
     const history = useHistory();
 
     const [userLevel, setUserLevel] = useState('');
+    const [cobrandComId, setCobrandComId] = useState('');
 
     const checkIsLogin = useCallback(() => {
 
@@ -92,6 +93,7 @@ function Cobrand({
         if (check) {
             // console.log('Yes masuk');
             setUserLevel(JSON.parse(localStorage.getItem('userData')).userLevel);
+            setCobrandComId(JSON.parse(localStorage.getItem('userData')).cobrandComunityId);
             // console.log('User level', JSON.parse(localStorage.getItem('userData')).userLevel)
             onAuthSuccess()
         } else {
@@ -168,13 +170,13 @@ function Cobrand({
                     path="/report/user"
                     component={UserReportAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/program"
                     component={ProgramReportAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/program/step"
@@ -186,7 +188,7 @@ function Cobrand({
                     path="/report/content"
                     component={ContentReportAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/redzone"
@@ -199,31 +201,25 @@ function Cobrand({
                     path="/report/monitoring-content"
                     component={MonitoringContentAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-program"
                     component={MonitoringProgramAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-status"
                     component={MonitoringStatusAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/controlling-status"
                     component={ControllingStatusAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
-                <PrivateRoute
-                    exact
-                    path="/report/controlling-status"
-                    component={ControllingStatusAsync}
-                /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/report/commercial"
@@ -258,26 +254,26 @@ function Cobrand({
                     exact
                     component={MessageListAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/forum-add"
                     exact
                     component={Forum}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/forum-moderator"
                     exact
                     component={ForumList}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program"
                     exact
                     component={ProgramAsync}
                     // component={ListProgram}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program/add"
                     exact
@@ -285,31 +281,31 @@ function Cobrand({
                         return (<AddProgramAsync {...props} />)
                     }}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program/edit"
                     exact
                     component={EditProgramAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program/edit/add-step"
                     exact
                     component={AddProgramStepAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program/edit/step"
                     exact
                     component={EditProgramStepAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program/view"
                     exact
                     component={ViewProgramAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/program/view/step"
                     exact
@@ -347,19 +343,19 @@ function Cobrand({
                     exact
                     component={ListKoment}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/redzone"
                     exact
                     component={RedZoneAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === '' ?
                 <PrivateRoute
                     exact
                     path="/cms/redzone/edit"
@@ -367,7 +363,7 @@ function Cobrand({
                 /> : null}
 
 
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/tools/setting/program-category/add"
                     exact
@@ -391,13 +387,13 @@ function Cobrand({
                     exact
                     component={ListKategoriProgram}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/tools/setting/screentime/add"
                     exact
                     component={AddScreenTime}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/tools/setting/screentime"
                     exact
@@ -446,13 +442,13 @@ function Cobrand({
                     exact
                     component={AddKomunitas}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/tools/setting/school-group"
                     exact
                     component={SchoolGroup}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && cobrandComId === '' ?
                 <PrivateRoute
                     path="/tools/setting/school-group/add"
                     exact
