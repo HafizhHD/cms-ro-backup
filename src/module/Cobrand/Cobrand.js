@@ -93,7 +93,8 @@ function Cobrand({
         if (check) {
             // console.log('Yes masuk');
             setUserLevel(JSON.parse(localStorage.getItem('userData')).userLevel);
-            setCobrandComId(JSON.parse(localStorage.getItem('userData')).cobrandComunityId);
+            let cbr = JSON.parse(localStorage.getItem('userData')).cobrandComunityId ?? ''
+            setCobrandComId(cbr);
             // console.log('User level', JSON.parse(localStorage.getItem('userData')).userLevel)
             onAuthSuccess()
         } else {
