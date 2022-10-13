@@ -118,6 +118,15 @@ export const getContentTopicList = (query) => axios({
     }
 })
 
+export const getContentResponseList = (query) => axios({
+    method: 'post',
+    url: url + '/user/userContentResponFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 export const getProgramCategoryList = (query) => axios({
     method: 'post',
     url: url + '/cms/programCategoryFilter',

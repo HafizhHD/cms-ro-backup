@@ -49,7 +49,7 @@ const Columns = [
     },
     {
         Header: 'Jumlah Like',
-        accessor: 'respons.like',
+        accessor: 'totalLikes',
     },
     {
         Header: 'Status',
