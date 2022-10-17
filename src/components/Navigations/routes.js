@@ -67,6 +67,21 @@ export const MenuCoBranding = () => {
                     ]
                 })
         }
+        else if(userLevel === 'user') {
+            routeArray.push(
+                {
+                    path: '/report',
+                    pathName: 'Report',
+                    icon: <FiEdit className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/user',
+                            pathName: 'Report Pengguna',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        }
+                    ]
+                })
+        }
 
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') {
             routeArray.push(
@@ -258,6 +273,21 @@ export const MenuCoBranding = () => {
                             pathName: 'Monitoring Artikel',
                             icon: <FiMonitor className="Aside__Nav_item-icon" />
                         },
+                    ]
+                })
+        }
+        else if(userLevel === 'user') {
+            routeArray.push(
+                {
+                    path: '/report',
+                    pathName: 'Report',
+                    icon: <FiEdit className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/user',
+                            pathName: 'Report Pengguna',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        }
                     ]
                 })
         }

@@ -165,7 +165,7 @@ function Cobrand({
                     path="/status"
                     component={StatusAsync}
                 />
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' || userLevel === 'user' ?
                 <PrivateRoute
                     exact
                     path="/report/user"
