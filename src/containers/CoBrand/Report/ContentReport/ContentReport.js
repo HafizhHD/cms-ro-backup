@@ -50,7 +50,11 @@ const ContentReport = () => {
             // console.log(response.data);
             var p = response.data.contents;
             // setContentData(response.data.contents);
-            getContentResponseList({})
+            getContentResponseList({
+                "whereKeyValues": {
+                    "programId": ""
+                }
+            })
             .then(res => {
                 var r = res.data.resultData;
                 for(var i = 0; i < p.length; i++) {
