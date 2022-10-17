@@ -45,7 +45,7 @@ const Columns = [
     },
     {
         Header: 'Jumlah View',
-        accessor: 'totalView',
+        accessor: 'totalViews',
     },
     {
         Header: 'Jumlah Like',

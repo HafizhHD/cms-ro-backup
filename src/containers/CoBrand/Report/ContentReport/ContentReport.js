@@ -5,7 +5,7 @@ import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './ContentReport.scss';
 import dummyData from './DummyData.json'
-import { getContentList, getContentResponseList } from '../../../../components/API/filter.js'
+import { getContentList, getContentResponseList, getContentViewList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
 
 const ContentReport = () => {
@@ -65,8 +65,28 @@ const ContentReport = () => {
                     p[i]['totalLikes'] = likes;
                     console.log('Likes: ' + p[i].totalLikes);
                 }
-                setContentData(p);
-                setLoading(false);
+                getContentViewList({
+                    "whereKeyValues": {
+                        "programId": ""
+                    }
+                })
+                .then(res2 => {
+                    var r = res2.data.resultData;
+                    for(var i = 0; i < p.length; i++) {
+                        var views = 0;
+                        for(var j = 0; j < r.length; j++) {
+                            if(p[i]._id === r[j].contentId) views += 1;
+                        }
+                        p[i]['totalViews'] = views;
+                        console.log('Views: ' + p[i].totalViews);
+                    }
+                    setContentData(p);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    // console.log(error);
+                    setLoading(false);
+                })
             })
             .catch(error => {
                 // console.log(error);
