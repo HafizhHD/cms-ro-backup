@@ -66,6 +66,8 @@ const Komunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunita
 const AddKomunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunitas/AddKomunitas/AddKomunitas'));
 const SchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/SchoolGroup'));
 const AddSchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/AddSchoolGroup/AddSchoolGroup'));
+const PraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/PraytimeMessage'));
+const AddPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/AddPraytimeMessage/AddPraytimeMessage'));
 const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
 const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
@@ -361,6 +363,19 @@ function Cobrand({
                     exact
                     path="/cms/redzone/edit"
                     component={EditRedzone}
+                /> : null}
+
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === ''?
+                <PrivateRoute
+                    path="/cms/praytime-message"
+                    exact
+                    component={PraytimeMessage}
+                /> : null}
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === ''?
+                <PrivateRoute
+                    path="/cms/praytime-message/add"
+                    exact
+                    component={AddPraytimeMessage}
                 /> : null}
 
 

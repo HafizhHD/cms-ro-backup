@@ -11,7 +11,7 @@ import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
- schoolGroupAdd, schoolGroupDelete} from '../../components/API/dashboard';
+ schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getCommunityMemberList, getUserList } from '../../components/API/filter';
 
@@ -1500,6 +1500,36 @@ export const addSchoolGroup = (groupMitraAsuhName, cobrandEmail, memberSekolah, 
 
 }
 
+export const addPraytimeMessage = (prayDate, shubuh, dzuhur, ashr, maghrib, isya, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            prayDate, shubuh, dzuhur, ashr, maghrib, isya
+        };
+
+        // console.log(data);
+        //Call API ....
+
+        praytimeMessageAdd(data)
+            .then(response => {
+                // console.log('Success:', response.data);
+                history.push('/cms/praytime-message');
+                dispatch(alertSuccess('Hadits/Pesan untuk tanggal "' + prayDate + '" berhasil ditambahkan.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Hadits/Pesan untuk tanggal "' + prayDate + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        // console.log(data);
+    }
+
+}
+
 export const deleteCommunity = (cobrandEmail, communityId, retrieveList) => {
     return dispatch => {
         dispatch(loadingStart());
@@ -1548,6 +1578,33 @@ export const deleteSchoolGroup = (cobrandEmail, schoolGroupId, retrieveList) => 
             .catch(error => {
                 // console.log(error);
                 dispatch(alertError('Kelompok mitra asuh "' + schoolGroupId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                retrieveList();
+            });
+    }
+}
+
+export const deletePraytimeMessage = (cobrandEmail, praytimeMessageId, retrieveList) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        const deleting = {
+            whereValues: {
+                _id: praytimeMessageId[0]
+            }
+        }
+        praytimeMessageDelete(deleting)
+            .then(response => {
+                // console.log(response.data);
+                dispatch(alertSuccess('Hadits/Pesan tanggal "' + praytimeMessageId[1] + '" berhasil dihapus.'));
+                dispatch(loadingStop());
+                retrieveList();
+            })
+            .catch(error => {
+                // console.log(error);
+                dispatch(alertError('Hadits/Pesan tanggal "' + praytimeMessageId[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
                 retrieveList();
             });

@@ -1,4 +1,4 @@
-import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser, FiLayers, FiMonitor, FiSliders, FiDollarSign  } from 'react-icons/fi';
+import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser, FiLayers, FiMonitor, FiSliders, FiDollarSign, FiSunrise  } from 'react-icons/fi';
 
 export const MenuCoBranding = () => { 
     const userLevel = localStorage.getItem('userLevel');
@@ -120,6 +120,11 @@ export const MenuCoBranding = () => {
                             path: '/forum-moderator', //tadinya content, nanti tolong routenya diganti
                             pathName: 'Forum Moderator',
                             icon: <FiLayers className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/praytime-message', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Hadits/Pesan Waktu Sholat',
+                            icon: <FiSunrise className="Aside__Nav_item-icon" />
                         },
                     ]
                 })
@@ -309,7 +314,6 @@ export const MenuCoBranding = () => {
                             pathName: 'Artikel',
                             icon: <FiImage className="Aside__Nav_item-icon" />
                         },
-            
                         {
                             path: '/notifications', //tadinya content, nanti tolong routenya diganti
                             pathName: 'Notifikasi',

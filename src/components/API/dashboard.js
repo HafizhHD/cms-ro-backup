@@ -209,6 +209,33 @@ export const screenTimeAdd = (query) => axios({
     },
 });
 
+export const praytimeMessageAdd = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/prayAlertMessageAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const praytimeMessageEdit = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/prayAlertMessageUpdate',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const praytimeMessageDelete = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/prayAlertMessageRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 export const appUserEdit = (query) => axios({
     method: 'post',
     url: url + '/user/edit',

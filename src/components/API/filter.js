@@ -190,6 +190,15 @@ export const getSchoolGroupList = (query) => axios({
     }
 })
 
+export const getPraytimeMessageList = (query) => axios({
+    method: 'post',
+    url: url + '/cobrand/prayAlertMessageFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 
 
 export const getHKBPList = (query) => axios({
