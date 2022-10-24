@@ -11,7 +11,7 @@ import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
- schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageDelete} from '../../components/API/dashboard';
+ schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getCommunityMemberList, getUserList } from '../../components/API/filter';
 
@@ -1513,7 +1513,7 @@ export const addPraytimeMessage = (prayDate, shubuh, dzuhur, ashr, maghrib, isya
         // console.log(data);
         //Call API ....
 
-        praytimeMessageAdd(data)
+        praytimeMessageEdit(data)
             .then(response => {
                 // console.log('Success:', response.data);
                 history.push('/cms/praytime-message');
@@ -1523,6 +1523,41 @@ export const addPraytimeMessage = (prayDate, shubuh, dzuhur, ashr, maghrib, isya
             .catch((error) => {
                 console.error('Error:', error);
                 dispatch(alertError('Hadits/Pesan untuk tanggal "' + prayDate + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        // console.log(data);
+    }
+
+}
+
+export const editPraytimeMessage = (_id, prayDate, shubuh, dzuhur, ashr, maghrib, isya, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            whereValues: {
+                _id
+            },
+            newValues: {
+                prayDate, shubuh, dzuhur, ashr, maghrib, isya
+            }
+        };
+
+        // console.log(data);
+        //Call API ....
+
+        praytimeMessageAdd(data)
+            .then(response => {
+                // console.log('Success:', response.data);
+                history.push('/cms/praytime-message');
+                dispatch(alertSuccess('Hadits/Pesan untuk tanggal "' + prayDate + '" berhasil diubah.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Hadits/Pesan untuk tanggal "' + prayDate + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
         // console.log(data);

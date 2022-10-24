@@ -8,6 +8,10 @@ const dateFormat = {
 const Columns = (setPraytimeMessageDeleting, setWarning) => {
     return ([
         {
+            Header: 'ID',
+            accessor: '_id'
+        },
+        {
             Header: 'Tanggal',
             accessor: 'prayDate',
             Cell: ({value}) => (
@@ -47,11 +51,11 @@ const Columns = (setPraytimeMessageDeleting, setWarning) => {
             disableGlobalFilter: true,
             Cell: ({cell}) => (
                 <>
-                    {/* <NavLink to="/tools/setting/komunitas/edit"
+                    <NavLink to="/cms/praytime-message/edit"
                         className="nav_btn"
-                        title="Edit Komunitas"
+                        title="Edit Hadits/Pesan"
                         onClick={() => {
-                            localStorage.setItem('communitySelected', cell.row.values.cobrandComunityId)
+                            localStorage.setItem('praytimeSelected', cell.row.values._id)
                         }}>
                         <button
                             className="btn_action"
@@ -60,8 +64,8 @@ const Columns = (setPraytimeMessageDeleting, setWarning) => {
                                 <FiEdit2 className="btn_action-icon" />
                             </div>
                         </button>
-                    </NavLink> */}
-                    <NavLink to="/tools/setting/school-group"
+                    </NavLink>
+                    <NavLink to="/cms/praytime-message"
                         className="nav_btn"
                         title="Delete Hadits/Pesan"
                         onClick={() => {

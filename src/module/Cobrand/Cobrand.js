@@ -68,6 +68,7 @@ const SchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/School
 const AddSchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/AddSchoolGroup/AddSchoolGroup'));
 const PraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/PraytimeMessage'));
 const AddPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/AddPraytimeMessage/AddPraytimeMessage'));
+const EditPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/EditPraytimeMessage/EditPraytimeMessage'));
 const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
 const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
@@ -376,6 +377,12 @@ function Cobrand({
                     path="/cms/praytime-message/add"
                     exact
                     component={AddPraytimeMessage}
+                /> : null}
+                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && cobrandComId === ''?
+                <PrivateRoute
+                    path="/cms/praytime-message/edit"
+                    exact
+                    component={EditPraytimeMessage}
                 /> : null}
 
 

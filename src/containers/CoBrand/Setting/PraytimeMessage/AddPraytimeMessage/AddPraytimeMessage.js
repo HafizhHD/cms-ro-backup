@@ -53,7 +53,7 @@ function AddPraytimeMessage({
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="AddCommunity">
-                        <h1>Tambah</h1>
+                        {/* <h1>Tambah</h1> */}
                         <div className="form-group">
                             <label>Tanggal</label>
                             <InputComponent
