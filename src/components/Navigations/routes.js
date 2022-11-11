@@ -2,7 +2,7 @@ import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser,
 
 export const MenuCoBranding = () => { 
     const userLevel = localStorage.getItem('userLevel');
-    const cobrandComId = localStorage.getItem('cobrandComId')
+    const cobrandComId = localStorage.getItem('cobrandComId') ?? ''
     let gma = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? ''
     let sch = JSON.parse(localStorage.getItem('userData')).sekolah ?? ''
     // console.log('User level', userLevel);
