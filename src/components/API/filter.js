@@ -199,7 +199,14 @@ export const getPraytimeMessageList = (query) => axios({
     }
 })
 
-
+export const getUserInstalledApps = (query) => axios({
+    method: 'post',
+    url: url + '/user/appDeviceFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
 
 export const getHKBPList = (query) => axios({
     method: 'post',

@@ -26,7 +26,28 @@ function Content({
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     const userData = JSON.parse(localStorage.getItem('userData'));
-    const params = userData.cobrandComunityId !== '' ? {
+    const params =
+    userData.sekolah !== '' ? {
+        whereKeyValues: {
+            cobrandEmail: userData.cobrandEmail,
+            status: {"$in" : ["active", "inactive"]},
+            programId: "",
+            sekolah: userData.sekolah
+        },
+        includeContentData:false,
+        limit: Number.MAX_SAFE_INTEGER
+    } : 
+    userData.groupMitraAsuhId !== '' ? {
+        whereKeyValues: {
+            cobrandEmail: userData.cobrandEmail,
+            status: {"$in" : ["active", "inactive"]},
+            programId: "",
+            groupMitraAsuhId: userData.groupMitraAsuhId
+        },
+        includeContentData:false,
+        limit: Number.MAX_SAFE_INTEGER
+    } : 
+    userData.cobrandComunityId !== '' ? {
         whereKeyValues: {
             cobrandEmail: userData.cobrandEmail,
             status: {"$in" : ["active", "inactive"]},

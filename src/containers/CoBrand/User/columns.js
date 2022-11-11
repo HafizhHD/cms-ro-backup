@@ -90,7 +90,7 @@ const Columns = [
         // filter: 'dateBetween'
     },
     {
-        Header: 'Edit',
+        Header: 'Action',
         disableSortBy: true,
         disableGlobalFilter: true,
         Cell: ({cell}) => (
@@ -109,6 +109,21 @@ const Columns = [
                         </div>
                     </button>
                 </NavLink>
+                {cell.row.values.userType === 'child' ? <NavLink to="/cms/user/child-control"
+                    className="nav_btn"
+                    title="Kontrol User"
+                    onClick={() => {
+                        localStorage.setItem('userSelected', cell.row.values.emailUser)
+                        localStorage.setItem('userNameSelected', cell.row.values.nameUser)
+                    }}>
+                    <button
+                        className="btn_action"
+                    >
+                        <div>
+                            <FiEye className="btn_action-icon" />
+                        </div>
+                    </button>
+                </NavLink> : null}
             </>
         )
     }

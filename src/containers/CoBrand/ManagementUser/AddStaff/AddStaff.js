@@ -122,6 +122,7 @@ function AddStaff({
                             >
                                 <option value="CS">CS</option>
                                 <option value="Co-Brand">Co-Brand</option>
+                                <option value="Operator-Sekolah">Operator Sekolah</option>
                             </select>
                         </div>
                         <div className="form-group">

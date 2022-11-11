@@ -488,7 +488,7 @@ export const deleteProgram = (cobrandEmail, programId, retrieveList) => {
     }
 }
 
-export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, community, groupMitraAsuhId, history) => {
+export const addContent = (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, endDate, isActive, topics, targetAudience, community, groupMitraAsuhId, schoolId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -499,6 +499,7 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
         // const [pageNumber, setPageNumber] = useState(1);
 
         console.log('Comunity: ' + community);
+        let cobrandComId = community;
 
 
         const promise = toBase64(photo);
@@ -540,7 +541,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             topics: topic,
                             targetAudiance: audi,
                             cobrandComunityId: community,
-                            groupMitraAsuhId
+                            groupMitraAsuhId,
+                            sekolah: schoolId
                         };
 
                         // console.log(data);
@@ -549,12 +551,45 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         contentAdd(data)
                             .then(response => {
                                 // console.log('Success:', response.data);
-                                let paramUser = {
+                                let paramUser = 
+                                schoolId !== '' ? {
                                     whereKeyValues: {
-                                        packageId: "com.byasia.ruangortu"
+                                        packageId: "com.byasia.ruangortu",
+                                        sekolah: schoolId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
                                     },
                                     limit: Number.MAX_SAFE_INTEGER
-                                }
+                                } :
+                                groupMitraAsuhId !== '' ? {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                        groupMitraAsuhId: groupMitraAsuhId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                } : 
+                                cobrandComId !== '' ? {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                        cobrandComunityId: cobrandComId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                } : {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                };
                                 getUserList(paramUser)
                                 .then(responseUser => {
                                     console.log(responseUser);
@@ -615,7 +650,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             topics: topic,
                             targetAudiance: audi,
                             cobrandComunityId: community,
-                            groupMitraAsuhId
+                            groupMitraAsuhId,
+                            sekolah: schoolId
                         };
 
                         // console.log(data);
@@ -624,12 +660,45 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         contentAdd(data)
                             .then(response => {
                                 // console.log('Success:', response.data);
-                                let paramUser = {
+                                let paramUser =
+                                schoolId !== '' ? {
                                     whereKeyValues: {
-                                        packageId: "com.byasia.ruangortu"
+                                        packageId: "com.byasia.ruangortu",
+                                        sekolah: schoolId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
                                     },
                                     limit: Number.MAX_SAFE_INTEGER
-                                }
+                                } :
+                                groupMitraAsuhId !== '' ? {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                        groupMitraAsuhId: groupMitraAsuhId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                } : 
+                                cobrandComId !== '' ? {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                        cobrandComunityId: cobrandComId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                } : {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                };
                                 getUserList(paramUser)
                                 .then(responseUser => {
                                     console.log(responseUser);
@@ -687,7 +756,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             topics: topic,
                             targetAudiance: audi,
                             cobrandComunityId: community,
-                            groupMitraAsuhId
+                            groupMitraAsuhId,
+                            sekolah: schoolId
                         };
 
                         // console.log(data);
@@ -696,12 +766,45 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                         contentAdd(data)
                             .then(response => {
                                 // console.log('Success:', response.data);
-                                let paramUser = {
+                                let paramUser = 
+                                schoolId !== '' ? {
                                     whereKeyValues: {
-                                        packageId: "com.byasia.ruangortu"
+                                        packageId: "com.byasia.ruangortu",
+                                        sekolah: schoolId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
                                     },
                                     limit: Number.MAX_SAFE_INTEGER
-                                }
+                                } :
+                                groupMitraAsuhId !== '' ? {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                        groupMitraAsuhId: groupMitraAsuhId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                } : 
+                                cobrandComId !== '' ? {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                        cobrandComunityId: cobrandComId,
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                } : {
+                                    whereKeyValues: {
+                                        packageId: "com.byasia.ruangortu",
+                                    },
+                                    orderKeyValues: {
+                                        nameUser: 1
+                                    },
+                                    limit: Number.MAX_SAFE_INTEGER
+                                };
                                 getUserList(paramUser)
                                 .then(responseUser => {
                                     console.log(responseUser);
@@ -779,7 +882,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 topics: topic,
                 targetAudiance: audi,
                 cobrandComunityId: community,
-                groupMitraAsuhId
+                groupMitraAsuhId,
+                sekolah: schoolId
             };
 
             console.log(data);
@@ -789,46 +893,45 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                 .then(response => {
                     // console.log('Success:', response.data);
                     // getUserList(paramUser)
-                    if(community !== '') {
-                        let paramUser = {
+                        let paramUser = 
+                        schoolId !== '' ? {
                             whereKeyValues: {
-                                cobrandComunityId: community
+                                packageId: "com.byasia.ruangortu",
+                                sekolah: schoolId,
+                            },
+                            orderKeyValues: {
+                                nameUser: 1
                             },
                             limit: Number.MAX_SAFE_INTEGER
-                        }
-                        getCommunityMemberList(paramUser)
-                        .then(responseUser => {
-                            console.log(responseUser);
-                            // var x = responseUser.data.users;
-                            var x = responseUser.data.Data;
-                            var userEmails = [];
-                            x.forEach(y => {
-                                userEmails.push(y.emailUser);
-                            })
-                            var z = userEmails.join(',');
-                            let data2 = {
-                                cobrandEmail,
-                                destination: z,
-                                messageSubject: "Hai, Ada Artikel Baru Lho!",
-                                messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
-                                scheduleTime: startDate,
-                                mediaType: "Device",
-                                category: "Informasi"
-                            }
-                            notificationAdd(data2).then(r => {
-                                history.push('/cms/content');
-                                dispatch(alertSuccess('Artikel "' + contentName + '" berhasil ditambahkan.'));
-                                dispatch(loadingStop());
-                            });
-                        });
-                    }
-                    else {
-                        let paramUser = {
+                        } :
+                        groupMitraAsuhId !== '' ? {
                             whereKeyValues: {
-                                packageId: 'com.byasia.ruangortu'
+                                packageId: "com.byasia.ruangortu",
+                                groupMitraAsuhId: groupMitraAsuhId,
+                            },
+                            orderKeyValues: {
+                                nameUser: 1
                             },
                             limit: Number.MAX_SAFE_INTEGER
-                        }
+                        } : 
+                        cobrandComId !== '' ? {
+                            whereKeyValues: {
+                                packageId: "com.byasia.ruangortu",
+                                cobrandComunityId: cobrandComId,
+                            },
+                            orderKeyValues: {
+                                nameUser: 1
+                            },
+                            limit: Number.MAX_SAFE_INTEGER
+                        } : {
+                            whereKeyValues: {
+                                packageId: "com.byasia.ruangortu",
+                            },
+                            orderKeyValues: {
+                                nameUser: 1
+                            },
+                            limit: Number.MAX_SAFE_INTEGER
+                        };
                         getUserList(paramUser)
                         .then(responseUser => {
                             console.log(responseUser);
@@ -853,7 +956,6 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                 dispatch(loadingStop());
                             });
                         });
-                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -1751,3 +1853,50 @@ export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, add
     }
 
 }
+
+export const childControl = (oldEmail, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, community, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let data = {
+            whereValues: {emailUser: oldEmail},
+            newValues: {nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber}
+        };
+
+        // console.log(data);
+        //Call API ....
+
+        appUserEdit(data)
+            .then(response => {
+                // console.log('Success:', response.data);
+                let userCommunity = [];
+                communityMemberDelete({whereValues: {emailUser: oldEmail}})
+                .then(response2 => {
+                    console.log(response2.data);
+                    community.map(e => {
+                        let param = {
+                            cobrandComunityId: e.value,
+                            emailUser: emailUser
+                        }
+                        userCommunity.push(communityMemberAddAsync(param));
+                    })
+                    history.push('/cms/user');
+                        dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
+                    dispatch(loadingStop());
+                });
+                history.push('/cms/user');
+                dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Informasi pengguna "' + oldEmail + '" gagal diubah. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        // console.log(data);
+    }
+
+}
+

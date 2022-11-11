@@ -15,6 +15,8 @@ const MonitoringProgram = () => {
     const [usageData, setUsageData] = useState();
     const [period, setPeriod] = useState('real');
     const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId
+    const groupMitraAsuhId =  JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? '';
+    const schoolId =  JSON.parse(localStorage.getItem('userData')).sekolah ?? '';
     
 
     const options = {
@@ -31,36 +33,69 @@ const MonitoringProgram = () => {
             setLoading(false);
             setLoading(false);
         }
-        else {let params= cobrandComId !== '' ? {
-            whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
-                cobrandComunityId: cobrandComId,
-                dateCreated: {
-                    "$gte": absStart.toISOString().split("T")[0]
+        else {let params=
+            schoolId !== '' ? {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    sekolah: schoolId,
+                    dateCreated: {
+                        "$gte": absStart.toISOString().split("T")[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
                 },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            orderKeyValues: {
-                nameUser: 1
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } : {
-            whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
-                dateCreated: {
-                    "$gte": absStart.toISOString().split("T")[0]
+                orderKeyValues: {
+                    nameUser: 1
                 },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            orderKeyValues: {
-                nameUser: 1
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        };
+                limit: Number.MAX_SAFE_INTEGER
+            } :
+            groupMitraAsuhId !== '' ? {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    groupMitraAsuhId: groupMitraAsuhId,
+                    dateCreated: {
+                        "$gte": absStart.toISOString().split("T")[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
+                },
+                orderKeyValues: {
+                    nameUser: 1
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            cobrandComId !== '' ? {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    cobrandComunityId: cobrandComId,
+                    dateCreated: {
+                        "$gte": absStart.toISOString().split("T")[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
+                },
+                orderKeyValues: {
+                    nameUser: 1
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            } : {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    dateCreated: {
+                        "$gte": absStart.toISOString().split("T")[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
+                },
+                orderKeyValues: {
+                    nameUser: 1
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            };
         // console.log(params);
         getUserList(params)
         .then(response => {

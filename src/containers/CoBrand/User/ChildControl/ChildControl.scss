@@ -1,0 +1,144 @@
+.ChildControl {
+    background-color: #fff;
+    box-shadow: 1px 1px 2px rgba(#ddd, 0.8s);
+    margin: auto;
+  
+    display: grid;
+    grid-template-rows: repeat(auto-fit, max-content);
+    grid-row-gap: 2rem;
+    padding: 1rem;
+  
+    h1 {
+      color: var(--color-primary);
+    }
+  
+    #add_program {
+      padding: 0;
+      border: none;
+      background: none;
+      color: #111;
+      font-weight: 800;
+      text-decoration: none;
+      background-color: #fff;
+      box-shadow: 1px 1px 5px rgba(#ddd, 0.9);
+      cursor: pointer;
+    
+      justify-self: start;
+      border-radius: 2rem;
+    
+      display: grid;
+      grid-template-columns: 2rem max-content 0.4rem;
+      grid-column-gap: 0.4rem;
+      align-items: center;
+    }
+    
+    .IconAdd {
+      color: #fff;
+      background-color: var(--color-primary);
+      width: 2rem;
+      height: 2rem;
+      border-radius: 2rem;
+    }
+  
+    .IconDelete {
+      color: #fff;
+      background-color: red;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 2rem;
+    }
+  
+    .form-group {
+      label {
+        font-size: 1rem;
+        font-weight: 800;
+    
+        display: block;
+      }
+    
+      select {
+        background-color: rgba(#ccc, 0.4);
+        border: none;
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+      }
+    
+      &-row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: max-content max-content;
+        grid-column-gap: 1rem;
+    
+      }
+    
+      & .editorClassName {
+        border: 1px solid #F1F1F1;
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+        min-height: 15rem;
+        max-height: 15rem;
+        overflow-y: scroll;
+        cursor: text;
+      }
+    
+      &__input {
+        background-color: rgba(#ccc, 0.4);
+        border: none;
+        padding: 0.8rem;
+        border-radius: 0.4rem;
+    
+        &--fullwidth {
+          width: 100%;
+        }
+    
+        &--halfwidth {
+          width: 60%;
+        }
+      }
+    
+      textarea {
+        width: 100%;
+        height: 150px;
+        background-color: rgba(#ccc, 0.4);
+        border: 1px solid #ccc;
+        resize: none;
+        padding: 1rem 1rem;
+        font-family: inherit;
+      }
+    }
+    
+    .btn {
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    .btn-submit {
+      padding: 0.7rem;
+      border-radius: 8px;
+      background-color: #fff;
+      border: 1px solid black;
+      font-weight: 800;
+      color: var(--color-primary);
+      transition: all ease-in 0.3s;
+    
+      &:hover {
+        background-color: var(--color-primary);
+        color: #fff;
+      }
+    
+      &:focus {
+        transform: scale(0.9);
+        -webkit-transform: scale(0.9);
+      }
+    }
+    
+    .steps {
+      padding: 2rem;
+      border: 1px solid grey;
+      display: grid;
+      grid-template-rows: repeat(auto-fit, max-content);
+      grid-row-gap: 2rem;
+      padding: 1rem;
+    }
+    
+  }

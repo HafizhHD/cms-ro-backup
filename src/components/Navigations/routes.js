@@ -3,6 +3,8 @@ import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser,
 export const MenuCoBranding = () => { 
     const userLevel = localStorage.getItem('userLevel');
     const cobrandComId = localStorage.getItem('cobrandComId')
+    let gma = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? ''
+    let sch = JSON.parse(localStorage.getItem('userData')).sekolah ?? ''
     // console.log('User level', userLevel);
     var routeArray = [
         {
@@ -11,7 +13,7 @@ export const MenuCoBranding = () => {
             icon: <FiHome className="Aside__Nav_item-icon" />
         }
     ]
-    if(cobrandComId === '') { 
+    if(cobrandComId === '' && gma === '' && sch === '') { 
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') {
             routeArray.push(
                 {
@@ -257,7 +259,42 @@ export const MenuCoBranding = () => {
     }
     else {
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') {
-            routeArray.push(
+            if(sch !== '') {
+                routeArray.push(
+                    {
+                        path: '/report',
+                        pathName: 'Report',
+                        icon: <FiEdit className="Aside__Nav_item-icon" />,
+                        children: [
+                            {
+                                path: '/user',
+                                pathName: 'Report Pengguna',
+                                icon: <FiUser className="Aside__Nav_item-icon" />
+                            },
+                            {
+                                path: '/content',
+                                pathName: 'Report Artikel',
+                                icon: <FiImage className="Aside__Nav_item-icon" />
+                            },
+                            {
+                                path: '/program',
+                                pathName: 'Report Program',
+                                icon: <FiActivity className="Aside__Nav_item-icon" />
+                            },
+                            {
+                                path: '/monitoring-content', //tadinya content, nanti tolong routenya diganti
+                                pathName: 'Monitoring Artikel',
+                                icon: <FiMonitor className="Aside__Nav_item-icon" />
+                            },
+                            {
+                                path: '/monitoring-program', //tadinya content, nanti tolong routenya diganti
+                                pathName: 'Monitoring Program',
+                                icon: <FiMonitor className="Aside__Nav_item-icon" />
+                            },
+                        ]
+                    })
+            }
+            else routeArray.push(
                 {
                     path: '/report',
                     pathName: 'Report',
@@ -296,8 +333,9 @@ export const MenuCoBranding = () => {
                     ]
                 })
         }
-
+        
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') {
+            if(gma === '')
             routeArray.push(
                 {
                     path: '/cms',
@@ -308,6 +346,35 @@ export const MenuCoBranding = () => {
                             path: '/user',
                             pathName: 'Pengguna',
                             icon: <FiUser className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/content', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Artikel',
+                            icon: <FiImage className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/notifications', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Notifikasi',
+                            icon: <FiInbox className="Aside__Nav_item-icon" />
+                        },
+                    ]
+                })
+            else
+            routeArray.push(
+                {
+                    path: '/cms',
+                    pathName: 'Manajemen Data',
+                    icon: <FiImage className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/user',
+                            pathName: 'Pengguna',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/program', //tadinya program, nanti tolong routenya diganti
+                            pathName: 'Program',
+                            icon: <FiActivity className="Aside__Nav_item-icon" />
                         },
                         {
                             path: '/content', //tadinya content, nanti tolong routenya diganti

@@ -26,24 +26,45 @@ const ContentReport = () => {
             setContentData(dummyData);
             setLoading(false);
         }
-        else {let params = userData.cobrandComunityId !== '' ? {
-            whereKeyValues: {
-                cobrandEmail: userData.cobrandEmail,
-                status: {"$in" : ["active", "inactive"]},
-                programId: "",
-                cobrandComunityId: userData.cobrandComunityId
-            },
-            includeContentData:false,
-            limit: Number.MAX_SAFE_INTEGER
-        } : {
-            whereKeyValues: {
-                cobrandEmail: userData.cobrandEmail,
-                status: {"$in" : ["active", "inactive"]},
-                programId: ""
-            },
-            includeContentData:false,
-            limit: Number.MAX_SAFE_INTEGER
-        };;
+        else {let params = 
+            userData.sekolah !== '' ? {
+                whereKeyValues: {
+                    cobrandEmail: userData.cobrandEmail,
+                    status: {"$in" : ["active", "inactive"]},
+                    programId: "",
+                    sekolah: userData.sekolah
+                },
+                includeContentData:false,
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            userData.groupMitraAsuhId !== '' ? {
+                whereKeyValues: {
+                    cobrandEmail: userData.cobrandEmail,
+                    status: {"$in" : ["active", "inactive"]},
+                    programId: "",
+                    groupMitraAsuhId: userData.groupMitraAsuhId
+                },
+                includeContentData:false,
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            userData.cobrandComunityId !== '' ? {
+                whereKeyValues: {
+                    cobrandEmail: userData.cobrandEmail,
+                    status: {"$in" : ["active", "inactive"]},
+                    programId: "",
+                    cobrandComunityId: userData.cobrandComunityId
+                },
+                includeContentData:false,
+                limit: Number.MAX_SAFE_INTEGER
+            } : {
+                whereKeyValues: {
+                    cobrandEmail: userData.cobrandEmail,
+                    status: {"$in" : ["active", "inactive"]},
+                    programId: ""
+                },
+                includeContentData:false,
+                limit: Number.MAX_SAFE_INTEGER
+            };;
         // console.log(params);
         getContentList(params)
         .then(response => {

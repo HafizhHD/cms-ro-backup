@@ -23,7 +23,9 @@ function Dashboard() {
     const [isLoadingSpinner, setLoadingSpinner] = useState(false);
 
     const localData = JSON.parse(localStorage.getItem('userData'));
-    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId ?? ''
+    const groupMitraAsuhId = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? ''
+    const schoolId = JSON.parse(localStorage.getItem('userData')).sekolah ?? ''
 
     const today = new Date();
     today.setDate(today.getDate()+1);
@@ -139,7 +141,42 @@ function Dashboard() {
 
         var countingUser = [0,0,0];
 
-        let paramUser = cobrandComId !== '' ? {
+        let paramUser =
+        schoolId !== '' ? {
+            whereKeyValues: {
+                packageId: "com.byasia.ruangortu",
+                sekolah: schoolId,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
+            },
+            orderKeyValues: {
+                nameUser: 1
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } :
+        groupMitraAsuhId !== '' ? {
+            whereKeyValues: {
+                packageId: "com.byasia.ruangortu",
+                groupMitraAsuhId: groupMitraAsuhId,
+                dateCreated: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                },
+                emailUser: {
+                    "$nin": emailTester
+                }
+            },
+            orderKeyValues: {
+                nameUser: 1
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : 
+        cobrandComId !== '' ? {
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
                 cobrandComunityId: cobrandComId,
@@ -150,7 +187,6 @@ function Dashboard() {
                 emailUser: {
                     "$nin": emailTester
                 }
-
             },
             orderKeyValues: {
                 nameUser: 1
@@ -166,15 +202,49 @@ function Dashboard() {
                 emailUser: {
                     "$nin": emailTester
                 }
-
             },
             orderKeyValues: {
                 nameUser: 1
             },
             limit: Number.MAX_SAFE_INTEGER
-        }
+        };
 
-        let paramContent = cobrandComId !== '' ? {
+        let paramContent = 
+        schoolId !== '' ? {
+            whereKeyValues: {
+                cobrandEmail: localData.cobrandEmail,
+                sekolah: schoolId,
+                programId: "",
+                status: {"$in" : ["active", "inactive"]},
+                dateCreated: {
+                    "$gte": startDateCon.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                contentName: 1
+            },
+            includeContentData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        } : 
+        groupMitraAsuhId !== '' ? {
+            whereKeyValues: {
+                cobrandEmail: localData.cobrandEmail,
+                groupMitraAsuhId: groupMitraAsuhId,
+                programId: "",
+                status: {"$in" : ["active", "inactive"]},
+                dateCreated: {
+                    "$gte": startDateCon.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            orderKeyValues: {
+                contentName: 1
+            },
+            includeContentData: false,
+            limit: Number.MAX_SAFE_INTEGER
+        } : 
+        cobrandComId !== '' ? {
             whereKeyValues: {
                 cobrandEmail: localData.cobrandEmail,
                 cobrandComunityId: cobrandComId,
@@ -235,7 +305,28 @@ function Dashboard() {
             limit: Number.MAX_SAFE_INTEGER
         }
 
-        let paramNotification = cobrandComId !== '' ? {
+        let paramNotification = 
+        schoolId !== '' ? {
+            whereKeyValues: {
+                sekolah: schoolId,
+                scheduleTime: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : 
+        groupMitraAsuhId !== '' ? {
+            whereKeyValues: {
+                groupMitraAsuhId: groupMitraAsuhId,
+                scheduleTime: {
+                    "$gte": startDate.toISOString().split('T')[0],
+                    "$lte": endDate.toISOString().split('T')[0]
+                }
+            },
+            limit: Number.MAX_SAFE_INTEGER
+        } : 
+        cobrandComId !== '' ? {
             whereKeyValues: {
                 cobrandComunityId: cobrandComId,
                 scheduleTime: {

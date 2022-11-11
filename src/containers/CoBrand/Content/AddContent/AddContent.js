@@ -121,6 +121,8 @@ function AddContent({
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
     const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId;
+    const groupMA = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId;
+    const schoolId = JSON.parse(localStorage.getItem('userData')).sekolah;
 
     useEffect(() => {
         let paramTopic = {};
@@ -197,7 +199,8 @@ function AddContent({
                     topics: [],
                     targetAudience: [],
                     community: cobrandComId ?? '',
-                    groupMitraAsuhId: ''
+                    groupMitraAsuhId: groupMA ?? '',
+                    sekolah: schoolId
                 }}
                 validationSchema={validationContent}
                 validateOnChange={true}
@@ -205,7 +208,8 @@ function AddContent({
                     window.scrollTo(0, 0);
                     onAddContent(cobrandEmail, values.programId, values.contentName, values.contentDescription,
                         values.contentType, values.contentSource, values.contentThumbnail, values.contents,
-                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, values.community, values.groupMitraAsuhId, history)
+                        values.startDate, values.endDate, values.isActive, values.topics, values.targetAudience, values.community, values.groupMitraAsuhId,
+                        values.sekolah, history)
                 }}
             >
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
@@ -734,8 +738,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, groupMitraAsuhId, history) =>
-            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, groupMitraAsuhId, history))
+        onAddContent: (cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, groupMitraAsuhId, sekolah, history) =>
+            dispatch(addContent(cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, endDate, isActive, topics, audience, community, groupMitraAsuhId, sekolah, history))
     }
 }
 
