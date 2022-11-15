@@ -244,3 +244,57 @@ export const appUserEdit = (query) => axios({
         'Content-Type': 'application/json',
     },
 });
+
+export const appBlockLimitAdd = (query) => axios({
+    method: 'post',
+    url: url + '/user/appUsageLimitAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const appBlockLimitEdit = (query) => axios({
+    method: 'post',
+    url: url + '/user/appUsageLimitUpdate',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const appBlockLimitDelete = (query) => axios({
+    method: 'post',
+    url: url + '/user/appUsageLimitRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const modeAsuhAdd = (query) => axios({
+    method: 'post',
+    url: url + '/user/childModeAsuhAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const modeAsuhEdit = (query) => axios({
+    method: 'post',
+    url: url + '/user/childModeAsuhUpdate',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const modeAsuhDelete = (query) => axios({
+    method: 'post',
+    url: url + '/user/childModeAsuhRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})

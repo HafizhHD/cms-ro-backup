@@ -40,6 +40,7 @@ function ChildControl({
 
     const [appLimit, setAppLimit] = useState([]); // mode 0 for no block, 1 for block, 2 for limit
     const [modeAsuh, setModeAsuh] = useState('normal')
+    const [isModeAsuh, setIsModeAsuh] = useState(false);
 
     const [isScheduleAdded, setScheduleAdded] = useState([]);
     const [scheduleCount, setScheduleCount] = useState(0);
@@ -105,18 +106,23 @@ function ChildControl({
             for(var i = 0; i < appL.length; i++) {
                 var appM = 0;
                 var appLim = 0;
+                var id = '';
                 for(var j = 0; j < lim.length && appM === 0; j++) {
                     if(lim[j].appId === appL[i].packageId) {
                         if(lim[j].limit === 0) appM = 1;
                         else appM = 2;
                         appLim = lim[j].limit;
+                        id = lim[j]._id;
                     }
                 }
                 let p = {
+                    _id: id,
                     appName: appL[i].appName,
+                    appCategory: appL[i].appCategory,
                     packageId: appL[i].packageId,
                     mode: appM.toString(),
-                    limit: appLim
+                    limit: appLim,
+                    isChanged: false
                 }
                 res.push(p);
             }
@@ -127,6 +133,7 @@ function ChildControl({
             let modeA = responseAll[2].data.childModeAsuhs;
             if(modeA.length > 0) {
                 setModeAsuh(modeA[0].modeAsuhName);
+                setIsModeAsuh(true);
             }
             
             //Device Schedule
@@ -144,7 +151,7 @@ function ChildControl({
 
     return (
         <>
-            <Heading headingName="Kontrol Anak" routes={[
+            <Heading headingName={'Kontrol Anak: ' + userName} routes={[
                 { path: '/cms/user', name: 'Pengguna' },
                 { path: '/cms/user/child-control', name: 'Kontrol Anak' }
             ]} />
@@ -157,39 +164,13 @@ function ChildControl({
                 // validationSchema={validationStepEdit}
                 // validateOnChange={true}
                 onSubmit={values => {
-                    onChildControl(values.nomerUrutTahapan, values.namaTahapan, values.contentName, values.contentType, values.contentSource, values.contents, values.startDate, values.endDate, values.topics, values.targetAudiance, values.response, values.answerKey, history)
+                    onChildControl(userEmail, isModeAsuh, values.appLimitBlock, values.modeAsuhSelected, values.deviceSchedule, history)
                 }}
             >
 
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
                     <form onSubmit={handleSubmit}>
                         <div className="ChildControl">
-                            <div className="form-group">
-                                <label>Blokir dan Batasi Penggunaan Aplikasi</label>
-                                <table>
-                                    <tr>
-                                        <th>Nama Aplikasi</th>
-                                        <th>Status Blokir</th>
-                                        <th>Status Pembatasan</th>
-                                    </tr>
-                                    {values.appLimitBlock.map((x, index) => {
-                                        return (<tr>
-                                            <td>{x.appName}</td>
-                                            <td onChange={(e) => {
-                                                console.log(e);
-                                                console.log(values.appLimitBlock[index].mode);
-                                                setFieldValue(`appLimitBlock.${index}.mode`, e.target.value);
-                                                console.log(values.appLimitBlock[index].mode);
-                                            }}>
-                                                <label><input type="radio" value={'1'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode == '1'} />Ya</label>
-                                                <label><input type="radio" value={'0'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode == '0'} />Tidak</label>
-                                                <label><input type="radio" value={'2'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode == '2'} />Pakai Limit Penggunaan</label>
-                                            </td>
-                                            <td>{x.limit}</td>
-                                        </tr>)
-                                    })}
-                                </table>
-                            </div>
                             <div className="form-group">
                                 <label>Mode Asuh</label>
                                 <select value={values.modeAsuhSelected} onChange={(e) => {
@@ -199,6 +180,87 @@ function ChildControl({
                                     <option value='diawasi'>Diawasi</option>
                                     <option value='dihukum'>Dihukum</option>
                                 </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Blokir dan Batasi Penggunaan Aplikasi</label>
+                                <table>
+                                    <tr>
+                                        <th>Nama Aplikasi</th>
+                                        <th>Status Blokir</th>
+                                        <th>Limit Penggunaan (Menit)</th>
+                                    </tr>
+                                    {values.appLimitBlock.map((x, index) => {
+                                        return (<tr>
+                                            <td>{x.appName}</td>
+                                            <td onChange={(e) => {
+                                                console.log(e);
+                                                console.log(values.appLimitBlock[index].mode);
+                                                setFieldValue(`appLimitBlock.${index}.mode`, e.target.value);
+                                                setFieldValue(`appLimitBlock.${index}.isChanged`, true);
+                                                if(e.target.value === '2') setFieldValue(`appLimitBlock.${index}.limit`, 1);
+                                                console.log(values.appLimitBlock[index].mode);
+                                            }}>
+                                                <label><input type="radio" value={'1'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '1'} />Ya</label>
+                                                <label><input type="radio" value={'0'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '0'} />Tidak</label>
+                                                <label><input type="radio" value={'2'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '2'} />Pakai Limit Penggunaan</label>
+                                            </td>
+                                            <td>
+                                                <InputComponent
+                                                    name="limit"
+                                                    className="form-group__input"
+                                                    type="number"
+                                                    value={values.appLimitBlock[index].limit}
+                                                    min={1}
+                                                    max={1440}
+                                                    disabled={values.appLimitBlock[index].mode !== '2'}
+                                                    onChange={(e) => {
+                                                        setFieldValue(`appLimitBlock.${index}.limit`, e.target.value);
+                                                    }}
+                                                />
+                                            </td>
+                                        </tr>)
+                                    })}
+                                </table>
+                            </div>
+                            <div className="form-group">
+                                <label>Jadwal Penguncian</label>
+                                {/* <table>
+                                    <tr>
+                                        <th>Nama Aplikasi</th>
+                                        <th>Status Blokir</th>
+                                        <th>Durasi Pembatasan</th>
+                                    </tr>
+                                    {values.appLimitBlock.map((x, index) => {
+                                        return (<tr>
+                                            <td>{x.appName}</td>
+                                            <td onChange={(e) => {
+                                                console.log(e);
+                                                console.log(values.appLimitBlock[index].mode);
+                                                setFieldValue(`appLimitBlock.${index}.mode`, e.target.value);
+                                                setFieldValue(`appLimitBlock.${index}.isChanged`, true);
+                                                if(e.target.value === 2) setFieldValue(`appLimitBlock.${index}.limit`, 1);
+                                                console.log(values.appLimitBlock[index].mode);
+                                            }}>
+                                                <label><input type="radio" value={1} na me={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === 1} />Ya</label>
+                                                <label><input type="radio" value={0} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === 0} />Tidak</label>
+                                                <label><input type="radio" value={2} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === 2} />Pakai Limit Penggunaan</label>
+                                            </td>
+                                            <td>
+                                                <InputComponent
+                                                    name="limit"
+                                                    className="form-group__input"
+                                                    type="number"
+                                                    value={values.appLimitBlock[index].limit}
+                                                    min={1}
+                                                    disabled={values.appLimitBlock[index].mode !== 2}
+                                                    onChange={(e) => {
+                                                        setFieldValue(`appLimitBlock.${index}.limit`, e.target.value);
+                                                    }}
+                                                />
+                                            </td>
+                                        </tr>)
+                                    })}
+                                </table> */}
                             </div>
                             {/* <div className="form-group">
                                 <label>Isi Tahap</label>
@@ -424,8 +486,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onChildControl: ( cobrandEmail, programName, programDescription, programThumbnail, startDate, endDate, category, targetAudiance, contentPrograms, history ) =>
-            dispatch(childControl( cobrandEmail, programName, programDescription, programThumbnail, startDate, endDate, category, targetAudiance, contentPrograms, history ))
+        onChildControl: ( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history ) =>
+            dispatch(childControl( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history ))
     }
 }
 

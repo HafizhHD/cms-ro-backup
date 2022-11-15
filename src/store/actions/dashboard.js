@@ -11,7 +11,8 @@ import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
- schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete} from '../../components/API/dashboard';
+ schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete,
+ appBlockLimitAdd, appBlockLimitDelete, appBlockLimitEdit, modeAsuhAdd, modeAsuhEdit, modeAsuhDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getCommunityMemberList, getUserList } from '../../components/API/filter';
 
@@ -1854,49 +1855,112 @@ export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, add
 
 }
 
-export const childControl = (oldEmail, nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber, community, history) => {
+export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
-        let data = {
-            whereValues: {emailUser: oldEmail},
-            newValues: {nameUser, emailUser, gender, birdDate, address, imagePhoto, phoneNumber}
-        };
+        var promises = [];
 
-        // console.log(data);
-        //Call API ....
-
-        appUserEdit(data)
-            .then(response => {
-                // console.log('Success:', response.data);
-                let userCommunity = [];
-                communityMemberDelete({whereValues: {emailUser: oldEmail}})
-                .then(response2 => {
-                    console.log(response2.data);
-                    community.map(e => {
-                        let param = {
-                            cobrandComunityId: e.value,
-                            emailUser: emailUser
+        //block limit app
+        for(var i = 0; i < appLimitBlock.length; i++) {
+            let x = appLimitBlock[i];
+            if(x.isChanged) {
+                if(x._id === '') {
+                    if(x.mode === '1') {
+                        let prm = {
+                            emailUser: userEmail,
+                            appId: x.packageId,
+                            limit: 0,
+                            appCategory: x.appCategory,
+                            status: ''
                         }
-                        userCommunity.push(communityMemberAddAsync(param));
-                    })
-                    history.push('/cms/user');
-                        dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
-                    dispatch(loadingStop());
-                });
-                history.push('/cms/user');
-                dispatch(alertSuccess('Informasi pengguna "' + oldEmail + '" berhasil diubah.'));
-                dispatch(loadingStop());
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                dispatch(alertError('Informasi pengguna "' + oldEmail + '" gagal diubah. Coba beberapa saat lagi.'));
-                dispatch(loadingStop());
-            });
-        // console.log(data);
+                        const pro = appBlockLimitAdd(prm);
+                        promises.push(pro);
+                    }
+                    else if(x.mode === '2') {
+                        let prm = {
+                            emailUser: userEmail,
+                            appId: x.packageId,
+                            limit: x.limit,
+                            appCategory: x.appCategory,
+                            status: ''
+                        }
+                        const pro = appBlockLimitAdd(prm);
+                        promises.push(pro);
+                    }
+                }
+                else {
+                    if(x.mode === '0') {
+                        let prm = {
+                            whereValues: {
+                                emailUser: userEmail,
+                                appId: x.packageId
+                            }
+                        }
+                        const pro = appBlockLimitDelete(prm);
+                        promises.push(pro);
+                    }
+                    else if(x.mode === '1') {
+                        let prm = {
+                            whereValues: {
+                                emailUser: userEmail,
+                                appId: x.packageId
+                            },
+                            newValues: {
+                                limit: 0
+                            }
+                        }
+                        const pro = appBlockLimitEdit(prm);
+                        promises.push(pro);
+                    }
+                    else if(x.mode === '2') {
+                        let prm = {
+                            whereValues: {
+                                emailUser: userEmail,
+                                appId: x.packageId
+                            },
+                            newValues: {
+                                limit: x.limit
+                            }
+                        }
+                        const pro = appBlockLimitEdit(prm);
+                        promises.push(pro);
+                    }
+                }
+            }
+        }
+
+        //mode asuh
+        // if(isModeAsuh) {
+        //     let prm = {
+        //         whereValues: {
+        //             emailUser: userEmail
+        //         }
+        //     }
+        //     const pro = modeAsuhDelete(prm);
+        //     promises.push(pro);
+        // }
+        let prm = {
+            emailUser: userEmail,
+            modeAsuhName: modeAsuh
+        }
+        const pro = modeAsuhAdd(prm);
+        promises.push(pro);
+
+        //jadwal penguncian
+        //TBA
+
+        Promise.all(promises)
+        .then((response) => {
+            history.push('/cms/user');
+            dispatch(alertSuccess('Pengguna Anak "' + userEmail + '" berhasil dikontrol.'));
+            dispatch(loadingStop());
+        })
+        
     }
 
 }
+
 

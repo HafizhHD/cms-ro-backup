@@ -254,12 +254,12 @@ function Cobrand({
                     exact
                     component={EditUser}
                 /> : null}
-                {/* {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/user/child-control"
                     exact
                     component={ControlUser}
-                /> : null} */}
+                /> : null}
                 {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' || userLevel === 'Reporter' ?
                 <PrivateRoute
                     path="/cms/notifications/add"
