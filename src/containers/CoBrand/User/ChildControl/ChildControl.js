@@ -224,16 +224,26 @@ function ChildControl({
                             </div>
                             <div className="form-group">
                                 <label>Jadwal Penguncian</label>
-                                {/* <table>
+                                <table>
                                     <tr>
-                                        <th>Nama Aplikasi</th>
-                                        <th>Status Blokir</th>
-                                        <th>Durasi Pembatasan</th>
+                                        <th>Nama Jadwal</th>
+                                        <th>Deskripsi</th>
+                                        <th>Harian/Terjadwal</th>
+                                        <th>Hari</th>
+                                        <th>Waktu Mulai</th>
+                                        <th>Waktu Selesai</th>
+                                        <th>Status</th>
                                     </tr>
-                                    {values.appLimitBlock.map((x, index) => {
+                                    {values.deviceSchedule.map((x, index) => {
                                         return (<tr>
-                                            <td>{x.appName}</td>
-                                            <td onChange={(e) => {
+                                            <td>{x.scheduleName}</td>
+                                            <td>{x.scheduleDescription}</td>
+                                            <td>{x.scheduleType}</td>
+                                            <td>{x.deviceUsageDays}</td>
+                                            <td>{x.deviceUsageStartTime}</td>
+                                            <td>{x.deviceUsageEndTime}</td>
+                                            <td>{x.status}</td>
+                                            {/* <td onChange={(e) => {
                                                 console.log(e);
                                                 console.log(values.appLimitBlock[index].mode);
                                                 setFieldValue(`appLimitBlock.${index}.mode`, e.target.value);
@@ -257,10 +267,10 @@ function ChildControl({
                                                         setFieldValue(`appLimitBlock.${index}.limit`, e.target.value);
                                                     }}
                                                 />
-                                            </td>
+                                            </td> */}
                                         </tr>)
                                     })}
-                                </table> */}
+                                </table>
                             </div>
                             {/* <div className="form-group">
                                 <label>Isi Tahap</label>
