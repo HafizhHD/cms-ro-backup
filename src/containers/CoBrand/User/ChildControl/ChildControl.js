@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
 import './ChildControl.scss';
 import './../../../../components/UI/Table/Table.scss'
+import { DatePicker } from 'react-datepicker'
 import axios from 'axios';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
@@ -232,17 +233,134 @@ function ChildControl({
                                         <th>Hari</th>
                                         <th>Waktu Mulai</th>
                                         <th>Waktu Selesai</th>
-                                        <th>Status</th>
                                     </tr>
                                     {values.deviceSchedule.map((x, index) => {
                                         return (<tr>
-                                            <td>{x.scheduleName}</td>
-                                            <td>{x.scheduleDescription}</td>
-                                            <td>{x.scheduleType}</td>
-                                            <td>{x.deviceUsageDays}</td>
-                                            <td>{x.deviceUsageStartTime}</td>
-                                            <td>{x.deviceUsageEndTime}</td>
-                                            <td>{x.status}</td>
+                                            <td>
+                                                <InputComponent
+                                                    name="scheduleName"
+                                                    className="form-group__input"
+                                                    value={x.scheduleName}
+                                                    type="text"
+                                                    onChange={(e) => {
+                                                        setFieldValue(`deviceSchedule.${index}.scheduleName`, e.target.value);
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <InputComponent
+                                                    name="scheduleDescription"
+                                                    className="form-group__input"
+                                                    value={x.scheduleDescription}
+                                                    type="text"
+                                                    onChange={(e) => {
+                                                        setFieldValue(`deviceSchedule.${index}.scheduleDescription`, e.target.value);
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <select onChange={(e) => {
+                                                    if(e.target.value === 'harian') {
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, '0:00');
+                                                    }
+                                                    setFieldValue(`deviceSchedule.${index}.scheduleType`, e.target.value);
+                                                }}>
+                                                    <option value="harian">Harian</option>
+                                                    <option value="terjadwal">Terjadwal</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                {['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'].map((y) => {
+                                                    return <label><input type="checkbox" name={y} value={y}
+                                                        checked={x.deviceUsageDays.includes(y)}
+                                                        onChange={(e) => {
+                                                            var p = x.deviceUsageDays;
+                                                            let indexArr = p.indexOf(e.target.value);
+                                                            if(indexArr >= 0) {
+                                                                p.splice(indexArr, 1);
+                                                            }
+                                                            else {
+                                                                p.push(e.target.value);
+                                                            }
+                                                            setFieldValue(`deviceSchedule.${index}.deviceUsageDays`, p);
+                                                        }}
+                                                    />{y}</label>
+                                                })}
+                                            </td>
+                                            <td>
+                                                {/* {x.scheduleType === 'harian' ? <span>
+                                                <InputComponent
+                                                    name="startHour"
+                                                    className="form-group__input"
+                                                    type="number"
+                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
+                                                    min={0}
+                                                    max={23}
+                                                    onChange={(e) => {
+                                                        var h = e.target.value.toString();
+                                                        var m = x.deviceUsageStartTime.split(':')[1]
+                                                        if(h.length < 2) m = '0' + h;
+                                                        var str = h + ":" + m;
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                    }}
+                                                /> : <InputComponent
+                                                    name="startMinute"
+                                                    className="form-group__input"
+                                                    type="number"
+                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
+                                                    min={0}
+                                                    max={59}
+                                                    onChange={(e) => {
+                                                        var h = x.deviceUsageStartTime.split(':')[0];
+                                                        var m = e.target.value.toString();
+                                                        if(m.length < 2) m = '0' + m;
+                                                        var str = h + ":" + m;
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                    }}
+                                                />
+                                                </span>
+                                                :
+                                                <DatePicker
+                                                    selected={x.deviceUsageStartTime}
+                                                    onChange={(date) => setEndDate(date)}
+                                                    selectsEnd
+                                                    startDate={startDate}
+                                                    endDate={endDate}
+                                                    minDate={startDate}
+                                                />
+                                                } */}
+                                            </td>
+                                            <td>
+                                                {/* <span>
+                                                <InputComponent
+                                                    name="startHour"
+                                                    className="form-group__input"
+                                                    type="number"
+                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
+                                                    min={0}
+                                                    max={23}
+                                                    onChange={(e) => {
+                                                        var h = e.target.value.toString();
+                                                        var m = x.deviceUsageStartTime.split(':')[1]
+                                                        var str = h + ":" + m;
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                    }}
+                                                /> : <InputComponent
+                                                    name="startMinute"
+                                                    className="form-group__input"
+                                                    type="number"
+                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
+                                                    min={0}
+                                                    max={59}
+                                                    onChange={(e) => {
+                                                        var h = x.deviceUsageStartTime.split(':')[0];
+                                                        var m = e.target.value.toString();
+                                                        var str = h + ":" + m;
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                    }}
+                                                />
+                                                </span> */}
+                                            </td>
                                             {/* <td onChange={(e) => {
                                                 console.log(e);
                                                 console.log(values.appLimitBlock[index].mode);
