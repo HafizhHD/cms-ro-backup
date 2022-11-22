@@ -10,7 +10,7 @@ import "jspdf-autotable";
 
 import { FaFilePdf, FaTable, FaBell } from "react-icons/fa";
 
-function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = false, notifContext = '' }) {
+function TableWithFilter({ DATA, COLUMNS, renderRowSubComponent, showCheckbox = false, showTools = true, notifContext = '' }) {
     const filterTypes = React.useMemo(
         () => ({
           // Add a new fuzzyTextFilterFn filter type.

@@ -12,7 +12,8 @@ import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
  schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete,
- appBlockLimitAdd, appBlockLimitDelete, appBlockLimitEdit, modeAsuhAdd, modeAsuhEdit, modeAsuhDelete} from '../../components/API/dashboard';
+ appBlockLimitAdd, appBlockLimitDelete, appBlockLimitEdit, modeAsuhAdd, modeAsuhEdit, modeAsuhDelete,
+deviceScheduleAdd, deviceScheduleEdit, deviceScheduleDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getCommunityMemberList, getUserList } from '../../components/API/filter';
 
@@ -1950,11 +1951,47 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
         promises.push(pro);
 
         //jadwal penguncian
-        //TBA
+        for(var j = 0; j < deviceSchedule.length; j++) {
+            let x = deviceSchedule[j];
+            if(x.willBeRemoved) {
+                let prm = {
+                    whereValues: {
+                        _id: x._id
+                    }
+                }
+                const pro = deviceScheduleDelete(prm);
+                promises.push(pro);
+            }
+            else {
+                if(x._id !== '') {
+                    let prm = {
+                        whereValues: {
+                            _id: x._id
+                        },
+                        newValues: {
+                            scheduleName: x.scheduleName,
+                            scheduleDescription: x.scheduleDescription,
+                            scheduleType: x.schedule,
+                            deviceUsageDays: x.deviceUsageDays,
+                            deviceUsageStartTime: x.deviceUsageStartTime,
+                            deviceUsageEndTime: x.deviceUsageEndTime,
+                            status: x.status
+                        }
+                    }
+                    const pro = deviceScheduleEdit(prm);
+                    promises.push(pro);
+                }
+                else {
+                    let prm = x;
+                    const pro = deviceScheduleAdd(prm);
+                    promises.push(pro);
+                }
+            }
+        }
 
         Promise.all(promises)
         .then((response) => {
-            history.push('/cms/user');
+            history.push('/cms/user/child-control');
             dispatch(alertSuccess('Pengguna Anak "' + userEmail + '" berhasil dikontrol.'));
             dispatch(loadingStop());
         })
@@ -1962,5 +1999,33 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
     }
 
 }
+
+export const childrenControl = (stringEmail, modeAsuh, setLoading) => {
+        var promises = [];
+
+        for(var i = 0; i < stringEmail.length; i++) {
+            let prm = {
+                emailUser: stringEmail[i],
+                modeAsuhName: modeAsuh
+            }
+            const pro = modeAsuhAdd(prm);
+            promises.push(pro);
+        }
+
+       
+
+        Promise.all(promises)
+        .then((response) => {
+            setLoading(false);
+            // dispatch(alertSuccess('Pengguna Anak yang dipilih berhasil dikontrol.'));
+            // dispatch(loadingStop());
+        })
+        .catch(error => {
+            console.log('error: ', error);
+            setLoading(false);
+        })
+
+}
+
 
 

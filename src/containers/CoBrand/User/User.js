@@ -1,21 +1,33 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import TablePengguna from './../../../components/UI/Table/Table';
+import TablePenggunaCheck from './../../../components/UI/Table/TableUserControl';
 import columns from './columns';
 import Heading from './../../../components/UI/Heading/Heading'
 import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader';
 import './User.scss';
+import {childrenControl} from './../../../store/actions/dashboard'
 import { getUserList, getCommunityMemberList, getSchoolGroupList } from './../../../components/API/filter'
 import Detail from './Detail/Detail';
 import {emailTester, absStart} from '../GlobalParam'
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
+import { connect } from 'formik';
 
-const User = () => {
+const User = (
+    // isCurLoading,
+    // onChildrenControl
+) => {
+    const history = useHistory();
     const [isLoading, setLoading] = useState(true);
     const [userData, setUserData] = useState([]);
     const [time, setTime] = useState(false);
-    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId
-    const groupMitraAsuhId = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId
-    const sekolah = JSON.parse(localStorage.getItem('userData')).sekolah
+    const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId ?? ''
+    const groupMitraAsuhId = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? ''
+    const sekolah = JSON.parse(localStorage.getItem('userData')).sekolah ?? ''
+
+    const controlUsers = (stringEmail, modeAsuh) => {
+        setLoading(true);
+        childrenControl(stringEmail, modeAsuh, setLoading);
+    }
 
     useEffect(() => {
         let params=cobrandComId ? {
@@ -57,7 +69,7 @@ const User = () => {
                 let users = [];
                 for(var i = 0; i < response.data.users.length; i++){
                     console.log('EmailUser user: ' + response.data.users[i].emailUser)
-                    if(sekolah === response.data.users[i].sekolah){
+                    if(response.data.users[i].childInfo && sekolah === response.data.users[i].childInfo.schoolName){
                         users.push(response.data.users[i]);
                     }
                 }
@@ -80,7 +92,7 @@ const User = () => {
                         console.log('EmailUser user: ' + response.data.users[i].emailUser)
                         for(var j = 0; j < x.length; j++) {
                             console.log('Sekolaa ' + x[j]);
-                            if(x[j] === response.data.users[i].sekolah){
+                            if(response.data.users[i].childInfo && x[j] === response.data.users[i].childInfo.schoolName){
                                 users.push(response.data.users[i]);
                                 break;
                             }
@@ -150,14 +162,31 @@ const User = () => {
             />
             {/* <button onClick={() => setTime(true)} className='btn3'>Edit User</button> */}
             <div className="Pengguna_table">
-                <TablePengguna
+                <TablePenggunaCheck
                     COLUMNS={columns}
                     DATA={userData}
                     renderRowSubComponent={renderRowSubComponent}
+                    showCheckbox={sekolah === '' && cobrandComId === '' && groupMitraAsuhId === '' ? false : true}
+                    controlUsers={controlUsers}
                 />
             </div>
         </div>
     )
 }
 
+// const mapStateToProps = state => {
+//     // console.log(state.auth.isLoading);
+//     return {
+//         isCurLoading: state.auth.isLoading
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         onChildrenControl: ( stringEmail, modeAsuh, history ) =>
+//             dispatch(childrenControl( stringEmail, modeAsuh, history ))
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps) (User);
 export default User;

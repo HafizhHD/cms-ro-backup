@@ -138,7 +138,11 @@ function ChildControl({
             }
             
             //Device Schedule
-            setScheduleAdded(responseAll[3].data.deviceUsageSchedules);
+            let x = responseAll[3].data.deviceUsageSchedules;
+            // for(var i = 0; i < x.length; i++) {
+            //     x[i]['willBeRemoved'] = false;
+            // }
+            setScheduleAdded(x);
             setTimeout(() => {
                 console.log(appLimit);
                 setPageLoading(false);
@@ -224,7 +228,22 @@ function ChildControl({
                                 </table>
                             </div>
                             <div className="form-group">
-                                <label>Jadwal Penguncian</label>
+                                <label>Jadwal Penguncian <span><button type="button" onClick={() => {
+                                    let p = {
+                                        _id: '',
+                                        scheduleName: '',
+                                        scheduleDescription: '',
+                                        scheduleType: 'harian',
+                                        deviceUsageDays: [],
+                                        deviceUsageStartTime: '00:00',
+                                        deviceUsageEndTime: '00:01',
+                                        status: 'aktif',
+                                        willBeRemoved: false
+                                    }
+                                    let q = values.deviceSchedule;
+                                    q.push(p);
+                                    setFieldValue('deviceSchedule', q);
+                                }}>Tambah Jadwal</button></span></label>
                                 <table>
                                     <tr>
                                         <th>Nama Jadwal</th>
@@ -233,9 +252,10 @@ function ChildControl({
                                         <th>Hari</th>
                                         <th>Waktu Mulai</th>
                                         <th>Waktu Selesai</th>
+                                        <th>Action</th>
                                     </tr>
                                     {values.deviceSchedule.map((x, index) => {
-                                        return (<tr>
+                                        if(!x.willBeRemoved) return (<tr>
                                             <td>
                                                 <InputComponent
                                                     name="scheduleName"
@@ -261,7 +281,13 @@ function ChildControl({
                                             <td>
                                                 <select onChange={(e) => {
                                                     if(e.target.value === 'harian') {
-                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, '0:00');
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, '00:00');
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageEndTime`, '00:01');
+                                                    }
+                                                    else {
+                                                        console.log(new Date().toLocaleDateString('id-ID'));
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, new Date().toLocaleDateString('id-ID'));
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageEndTime`, new Date().toLocaleDateString('id-ID'));
                                                     }
                                                     setFieldValue(`deviceSchedule.${index}.scheduleType`, e.target.value);
                                                 }}>
@@ -288,7 +314,7 @@ function ChildControl({
                                                 })}
                                             </td>
                                             <td>
-                                                {/* {x.scheduleType === 'harian' ? <span>
+                                                {x.scheduleType === 'harian' ? <span>
                                                 <InputComponent
                                                     name="startHour"
                                                     className="form-group__input"
@@ -320,46 +346,62 @@ function ChildControl({
                                                 />
                                                 </span>
                                                 :
-                                                <DatePicker
-                                                    selected={x.deviceUsageStartTime}
-                                                    onChange={(date) => setEndDate(date)}
-                                                    selectsEnd
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    minDate={startDate}
-                                                />
-                                                } */}
+                                                // <DatePicker
+                                                //     selected={new Date(x.deviceUsageStartTime)}
+                                                //     onChange={(date) => {
+                                                //         setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, date.toLocaleDateString("id-ID"));
+                                                //     }}
+                                                // />
+                                                <div/>
+                                                }
                                             </td>
                                             <td>
-                                                {/* <span>
+                                            {/* {x.scheduleType === 'harian' ? <span>
                                                 <InputComponent
-                                                    name="startHour"
+                                                    name="endHour"
                                                     className="form-group__input"
                                                     type="number"
-                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
+                                                    value={parseInt(x.deviceUsageEndTime.split(':')[0])}
                                                     min={0}
                                                     max={23}
                                                     onChange={(e) => {
                                                         var h = e.target.value.toString();
-                                                        var m = x.deviceUsageStartTime.split(':')[1]
+                                                        var m = x.deviceUsageEndTime.split(':')[1]
+                                                        if(h.length < 2) m = '0' + h;
                                                         var str = h + ":" + m;
-                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageEndTime`, str);
                                                     }}
                                                 /> : <InputComponent
-                                                    name="startMinute"
+                                                    name="endMinute"
                                                     className="form-group__input"
                                                     type="number"
-                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
+                                                    value={parseInt(x.deviceUsageEndTime.split(':')[0])}
                                                     min={0}
                                                     max={59}
                                                     onChange={(e) => {
-                                                        var h = x.deviceUsageStartTime.split(':')[0];
+                                                        var h = x.deviceUsageEndTime.split(':')[0];
                                                         var m = e.target.value.toString();
+                                                        if(m.length < 2) m = '0' + m;
                                                         var str = h + ":" + m;
-                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageEndTime`, str);
                                                     }}
                                                 />
-                                                </span> */}
+                                                </span>
+                                                :
+                                                <DatePicker
+                                                    selected={new Date(x.deviceUsageEndTime)}
+                                                    onChange={(date) => {
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageEndTime`, date.toLocaleDateString("id-ID"));
+                                                    }}
+                                                />
+                                                } */}
+                                            </td>
+                                            <td>
+                                                <button type="submit" onClick={() => {
+                                                    setFieldValue(`deviceSchedule.${index}.willBeRemoved`, true);
+                                                }}>
+                                                    Hapus
+                                                </button>
                                             </td>
                                             {/* <td onChange={(e) => {
                                                 console.log(e);

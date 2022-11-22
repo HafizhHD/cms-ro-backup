@@ -298,3 +298,30 @@ export const modeAsuhDelete = (query) => axios({
         'Content-Type': 'application/json',
     },
 })
+
+export const deviceScheduleAdd = (query) => axios({
+    method: 'post',
+    url: url + '/user/deviceUsageScheduleAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const deviceScheduleEdit = (query) => axios({
+    method: 'post',
+    url: url + '/user/deviceUsageScheduleUpdate',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+export const deviceScheduleDelete = (query) => axios({
+    method: 'post',
+    url: url + '/user/deviceUsageScheduleRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
