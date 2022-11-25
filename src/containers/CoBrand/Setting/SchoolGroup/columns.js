@@ -19,7 +19,10 @@ const Columns = (setSchoolGroupDeleting, setWarning) => {
         {
             Header: 'Anggota Sekolah',
             accessor: 'memberSekolah',
-            disableFilters: true
+            disableFilters: true,
+            Cell: ({value}) => {
+                return value.join(', ');
+            }
         },
         {
             Header: 'Action',

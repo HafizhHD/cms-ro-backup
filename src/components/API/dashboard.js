@@ -184,7 +184,7 @@ export const communityMemberDelete = (query) => axios({
 
 export const schoolGroupAdd = (query) => axios({
     method: 'post',
-    url: url + '/cobrand/groupMitraAsuhAdd',
+    url: url + '/cobrand/cobrandGroupMitraAsuhAdd',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ export const schoolGroupAdd = (query) => axios({
 
 export const schoolGroupDelete = (query) => axios({
     method: 'post',
-    url: url + '/cobrand/groupMitraAsuhRemove',
+    url: url + '/cobrand/cobrandGroupMitraAsuhRemove',
     data: query,
     headers: {
         'Content-Type': 'application/json',

@@ -1444,14 +1444,14 @@ export const addProgCategory = (category, description, history) => {
 
 }
 
-export const addStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history) => {
+export const addStaff= (userName, password, userType, cobrandEmail, userLevel, sekolah, emailUser, phone, cobrandComunityId, groupMitraAsuhId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
         let data = {
-            userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId
+            userName, password, userType, cobrandEmail, userLevel, sekolah, emailUser, phone, cobrandComunityId, groupMitraAsuhId
         };
 
         // console.log(data);
@@ -1474,7 +1474,7 @@ export const addStaff= (userName, password, userType, cobrandEmail, userLevel, e
 
 }
 
-export const editStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history) => {
+export const editStaff= (userName, password, userType, cobrandEmail, userLevel, emailUser, sekolah, phone, cobrandComunityId, groupMitraAsuhId, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
@@ -1485,7 +1485,7 @@ export const editStaff= (userName, password, userType, cobrandEmail, userLevel, 
                 _id: localStorage.getItem('staffSelected')
             },
             newKeyValues: {
-                userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId
+                userName, password, userType, cobrandEmail, userLevel, emailUser, sekolah, phone, cobrandComunityId, groupMitraAsuhId
             }
         };
 

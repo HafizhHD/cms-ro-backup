@@ -34,6 +34,14 @@ const Columns = (setStaffDeleting, setWarning) => {
             accessor: 'cobrandComunityId'
         },
         {
+            Header: 'Grup Mitra Asuh',
+            accessor: 'groupMitraAsuhId'
+        },
+        {
+            Header: 'Sekolah',
+            accessor: 'sekolah'
+        },
+        {
             Header: 'No. Telepon',
             accessor: 'phone',
         },

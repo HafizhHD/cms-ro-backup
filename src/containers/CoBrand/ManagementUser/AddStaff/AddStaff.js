@@ -7,8 +7,9 @@ import { addStaff } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationStaff } from '../../../../helpers/validation/validation';
-import { getCommunityList } from '../../../../components/API/filter'
+import { getCommunityList, getSchoolList, getSchoolGroupList } from '../../../../components/API/filter'
 import InputComponent from '../../../../components/UI/Input/Input';
+import AsyncSelect from 'react-select/async';
 
 function AddStaff({
     onAddStaff,
@@ -20,6 +21,72 @@ function AddStaff({
     const [isPasswordVisible, showPassword] = useState(false);
     const [comList, setComList] = useState([]);
     const [isCurrentlyLoading, setCurrentlyLoading] = useState(true);
+
+    const colourStyles = {
+        control: styles => ({ ...styles, backgroundColor: '#cccccc66', width: '40%', border: 'none' }),
+    };
+
+    const loadOptions = (inputValue, callback) => {
+        setTimeout(() => {
+          getSchoolList({
+            whereKeyValues: {
+              nama: {
+                "$regex": inputValue,
+                "$options": "i"
+              }
+            },
+            orderKeyValues: {
+              nama: 1
+            },
+            limit: 20
+          })
+          .then(response => {
+            console.log(response.data);
+            const options = [];
+            response.data.Data.forEach(e => {
+                options.push({
+                    label: e.nama,
+                    value: e.nama
+                })
+            });
+            callback(options);
+        })
+          .catch(error => {
+              callback([]);
+          });
+        }, 500);
+      };
+
+      const loadOptionsGroup = (inputValue, callback) => {
+        setTimeout(() => {
+          getSchoolGroupList({
+            whereKeyValues: {
+              groupMitraAsuhName: {
+                "$regex": inputValue,
+                "$options": "i"
+              }
+            },
+            orderKeyValues: {
+                groupMitraAsuhName: 1
+            },
+            limit: 20
+          })
+          .then(response => {
+            console.log(response.data);
+            const options = [];
+            response.data.Data.forEach(e => {
+                options.push({
+                    label: e.groupMitraAsuhId,
+                    value: e.groupMitraAsuhName
+                })
+            });
+            callback(options);
+        })
+          .catch(error => {
+              callback([]);
+          });
+        }, 300);
+      };
 
     useEffect(() => {
         let param = {
@@ -56,15 +123,17 @@ function AddStaff({
                     userType: 'Co-Brand',
                     cobrandEmail: cobrandEmail,
                     userLevel: 'Reporter',
+                    sekolah: '',
                     emailUser: '',
                     phone: '',
-                    cobrandComunityId: ''
+                    cobrandComunityId: '',
+                    groupMitraAsuhId: '',
                 }}
                 validationSchema = {validationStaff}
                 validateOnChange = {true}
                 onSubmit = { values => {
                     // console.log(values);
-                    onAddStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.emailUser, values.phone, values.cobrandComunityId, history)
+                    onAddStaff( values.userName, values.password, values.userType, values.cobrandEmail, values.userLevel, values.sekolah, values.emailUser, values.phone, values.cobrandComunityId, values.groupMitraAsuhId, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (
@@ -122,6 +191,7 @@ function AddStaff({
                             >
                                 <option value="CS">CS</option>
                                 <option value="Co-Brand">Co-Brand</option>
+                                <option value="Co-Brand-Group">Grup Mitra Asuh</option>
                                 <option value="Operator-Sekolah">Operator Sekolah</option>
                             </select>
                         </div>
@@ -154,6 +224,39 @@ function AddStaff({
                             />
                             {touched.emailUser && <span className="message__error">{errors.emailUser}</span>}
                         </div>
+                        {
+                            values.userType === 'Operator-Sekolah' ? (
+                                <div className="form-group">
+                                    <label>Sekolah</label>
+                                    <AsyncSelect cacheOptions defaultOptions 
+                                        styles={colourStyles}
+                                        placeholder={"Pilih sekolah..."} loadOptions={loadOptions} onChange={(e) => {
+                                        console.log(e);
+                                        setFieldValue('sekolah', e.value);
+                                    }}/>
+                                    {/* <InputComponent 
+                                        type="text"
+                                        name="sekolah"
+                                        className="form-group__input form-group__input--fullwidth" 
+                                        placeholder="Example"
+                                        value={values.sekolah}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    /> */}
+                                </div>
+                            ) :
+                            values.userType === 'Co-Brand-Group' ? (
+                                <div className="form-group">
+                                <label>Grup Mitra Asuh</label>
+                                <AsyncSelect cacheOptions defaultOptions 
+                                    styles={colourStyles}
+                                    placeholder={"Pilih grup mitra asuh..."} loadOptions={loadOptionsGroup} onChange={(e) => {
+                                        console.log(e);
+                                        setFieldValue('groupMitraAsuhId', e.value);
+                                }}/>
+                            </div>
+                            ) : null
+                        }
                         <div className="form-group">
                             <label>Komunitas</label>
                             <select
@@ -211,8 +314,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddStaff: ( userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history ) =>
-            dispatch(addStaff(  userName, password, userType, cobrandEmail, userLevel, emailUser, phone, cobrandComunityId, history ))
+        onAddStaff: ( userName, password, userType, cobrandEmail, userLevel, sekolah, emailUser, phone, cobrandComunityId, groupMitraAsuhId, history ) =>
+            dispatch(addStaff(  userName, password, userType, cobrandEmail, userLevel, sekolah, emailUser, phone, cobrandComunityId, groupMitraAsuhId, history ))
     }
 }
 

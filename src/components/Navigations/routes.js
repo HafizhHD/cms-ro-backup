@@ -404,84 +404,84 @@ export const MenuCoBranding = () => {
                     ]
                 })
         }
-        if(userLevel === 'Super Admin') {
-            routeArray.push({
-                path: '/tools',
-                pathName: 'Tools',
-                icon: <FiTool className="Aside__Nav_item-icon" />,
-                children: [
-                    {
-                        path: '/admin-staff',
-                        pathName: 'Manajemen Admin & Staff',
-                        icon: <FiUser className="Aside__Nav_item-icon" />
-                    },
+        // if(userLevel === 'Super Admin') {
+        //     routeArray.push({
+        //         path: '/tools',
+        //         pathName: 'Tools',
+        //         icon: <FiTool className="Aside__Nav_item-icon" />,
+        //         children: [
+        //             {
+        //                 path: '/admin-staff',
+        //                 pathName: 'Manajemen Admin & Staff',
+        //                 icon: <FiUser className="Aside__Nav_item-icon" />
+        //             },
         
-                    {
-                        path: '/setting',
-                        pathName: 'Pengaturan',
-                        icon: <FiTool className="Aside__Nav_item-icon" />,
-                        children: [
-                            {
-                                path: '/topic',
-                                pathName: 'Topik Artikel',
-                                icon: <FiImage className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/komunitas',
-                                pathName: 'Daftar Komunitas',
-                                icon: <FiImage className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/target-audience',
-                                pathName: 'Target Pembaca',
-                                icon: <FiLayers className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/notification-category',
-                                pathName: 'Kategori Notifikasi',
-                                icon: <FiInbox className="Aside__Nav_item-icon" />
-                            },
-                        ]
-                    },
-                ]
-            })
-        }
-        else if(userLevel === 'Admin') {
-            routeArray.push({
-                path: '/tools',
-                pathName: 'Tools',
-                icon: <FiTool className="Aside__Nav_item-icon" />,
-                children: [
-                    {
-                        path: '/setting',
-                        pathName: 'Pengaturan',
-                        icon: <FiTool className="Aside__Nav_item-icon" />,
-                        children: [
-                            {
-                                path: '/topic',
-                                pathName: 'Topik Artikel',
-                                icon: <FiImage className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/komunitas',
-                                pathName: 'Daftar Komunitas',
-                                icon: <FiImage className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/target-audience',
-                                pathName: 'Target Pembaca',
-                                icon: <FiLayers className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/notification-category',
-                                pathName: 'Kategori Notifikasi',
-                                icon: <FiInbox className="Aside__Nav_item-icon" />
-                            },
-                        ]
-                    },
-                ]
-            })
-        }
+        //             {
+        //                 path: '/setting',
+        //                 pathName: 'Pengaturan',
+        //                 icon: <FiTool className="Aside__Nav_item-icon" />,
+        //                 children: [
+        //                     {
+        //                         path: '/topic',
+        //                         pathName: 'Topik Artikel',
+        //                         icon: <FiImage className="Aside__Nav_item-icon" />
+        //                     },
+        //                     {
+        //                         path: '/komunitas',
+        //                         pathName: 'Daftar Komunitas',
+        //                         icon: <FiImage className="Aside__Nav_item-icon" />
+        //                     },
+        //                     {
+        //                         path: '/target-audience',
+        //                         pathName: 'Target Pembaca',
+        //                         icon: <FiLayers className="Aside__Nav_item-icon" />
+        //                     },
+        //                     {
+        //                         path: '/notification-category',
+        //                         pathName: 'Kategori Notifikasi',
+        //                         icon: <FiInbox className="Aside__Nav_item-icon" />
+        //                     },
+        //                 ]
+        //             },
+        //         ]
+        //     })
+        // }
+        // else if(userLevel === 'Admin') {
+        //     routeArray.push({
+        //         path: '/tools',
+        //         pathName: 'Tools',
+        //         icon: <FiTool className="Aside__Nav_item-icon" />,
+        //         children: [
+        //             {
+        //                 path: '/setting',
+        //                 pathName: 'Pengaturan',
+        //                 icon: <FiTool className="Aside__Nav_item-icon" />,
+        //                 children: [
+        //                     {
+        //                         path: '/topic',
+        //                         pathName: 'Topik Artikel',
+        //                         icon: <FiImage className="Aside__Nav_item-icon" />
+        //                     },
+        //                     {
+        //                         path: '/komunitas',
+        //                         pathName: 'Daftar Komunitas',
+        //                         icon: <FiImage className="Aside__Nav_item-icon" />
+        //                     },
+        //                     {
+        //                         path: '/target-audience',
+        //                         pathName: 'Target Pembaca',
+        //                         icon: <FiLayers className="Aside__Nav_item-icon" />
+        //                     },
+        //                     {
+        //                         path: '/notification-category',
+        //                         pathName: 'Kategori Notifikasi',
+        //                         icon: <FiInbox className="Aside__Nav_item-icon" />
+        //                     },
+        //                 ]
+        //             },
+        //         ]
+        //     })
+        // }
     }
     // console.log('Route Array', routeArray);
     return routeArray;

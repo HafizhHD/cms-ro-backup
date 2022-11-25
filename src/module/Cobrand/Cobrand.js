@@ -408,19 +408,19 @@ function Cobrand({
                     exact
                     component={KategoriProgram}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/notification-category"
                     exact
                     component={ListKategoriNotifikasi}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/notification-category/add"
                     exact
                     component={AddKategoriNotifikasi}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/program-category"
                     exact
@@ -445,37 +445,37 @@ function Cobrand({
                     exact
                     component={SettingAsync}
                 /> */}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/target-audience"
                     exact
                     component={Audience}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/target-audience/add"
                     exact
                     component={AddAudience}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/topic"
                     exact
                     component={Topik}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/topic/add"
                     exact
                     component={TopikAdd}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/komunitas"
                     exact
                     component={Komunitas}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/komunitas/add"
                     exact

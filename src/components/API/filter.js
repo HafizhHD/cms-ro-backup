@@ -183,7 +183,7 @@ export const getSchoolList = (query) => axios({
 
 export const getSchoolGroupList = (query) => axios({
     method: 'post',
-    url: url + '/cobrand/groupMitraAsuhList',
+    url: url + '/cobrand/cobrandGroupMitraAsuhFilter',
     data: query,
     headers: {
         'Content-Type': 'application/json',
@@ -216,4 +216,3 @@ export const getHKBPList = (query) => axios({
         'Content-Type': 'application/json',
     }
 });
-
