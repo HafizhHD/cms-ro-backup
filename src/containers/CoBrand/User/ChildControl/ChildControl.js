@@ -2,29 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Heading from '../../../../components/UI/Heading/Heading';
 import './ChildControl.scss';
 import './../../../../components/UI/Table/Table.scss'
-import { DatePicker } from 'react-datepicker'
-import axios from 'axios';
+import TimePicker from 'react-time-picker';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { getUserInstalledApps, getDeviceScheduleList, getAppLimitList, getModeAsuhList } from './../../../../components/API/filter'
 import { childControl } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
-import { validationProgram } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
-import { FiPlus, FiMinus } from 'react-icons/fi';
 import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
-
-import { ContentState, Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, convertFromRaw, current } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftToHtml from "draftjs-to-html";
-import { stateToHTML } from 'draft-js-export-html'
-
-import SunEditor, {buttonList} from 'suneditor-react';
-import 'suneditor/dist/css/suneditor.min.css';
-
-import Select from 'react-select';
 
 function ChildControl({
     onChildControl,
@@ -139,10 +125,12 @@ function ChildControl({
             
             //Device Schedule
             let x = responseAll[3].data.deviceUsageSchedules;
-            // for(var i = 0; i < x.length; i++) {
-            //     x[i]['willBeRemoved'] = false;
-            // }
-            setScheduleAdded(x);
+            let p = [];
+            for(var i = 0; i < x.length; i++) {
+                if(x[i].scheduleType === 'harian') p.push(x[i]);
+            }
+            console.log(p);
+            setScheduleAdded(p);
             setTimeout(() => {
                 console.log(appLimit);
                 setPageLoading(false);
@@ -255,6 +243,7 @@ function ChildControl({
                                         <th>Action</th>
                                     </tr>
                                     {values.deviceSchedule.map((x, index) => {
+                                        console.log(x)
                                         if(!x.willBeRemoved) return (<tr>
                                             <td>
                                                 <InputComponent
@@ -292,7 +281,6 @@ function ChildControl({
                                                     setFieldValue(`deviceSchedule.${index}.scheduleType`, e.target.value);
                                                 }}>
                                                     <option value="harian">Harian</option>
-                                                    <option value="terjadwal">Terjadwal</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -314,48 +302,26 @@ function ChildControl({
                                                 })}
                                             </td>
                                             <td>
-                                                {x.scheduleType === 'harian' ? <span>
-                                                <InputComponent
-                                                    name="startHour"
-                                                    className="form-group__input"
-                                                    type="number"
-                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
-                                                    min={0}
-                                                    max={23}
-                                                    onChange={(e) => {
-                                                        var h = e.target.value.toString();
-                                                        var m = x.deviceUsageStartTime.split(':')[1]
-                                                        if(h.length < 2) m = '0' + h;
-                                                        var str = h + ":" + m;
-                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
-                                                    }}
-                                                /> : <InputComponent
-                                                    name="startMinute"
-                                                    className="form-group__input"
-                                                    type="number"
-                                                    value={parseInt(x.deviceUsageStartTime.split(':')[0])}
-                                                    min={0}
-                                                    max={59}
-                                                    onChange={(e) => {
-                                                        var h = x.deviceUsageStartTime.split(':')[0];
-                                                        var m = e.target.value.toString();
-                                                        if(m.length < 2) m = '0' + m;
-                                                        var str = h + ":" + m;
-                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, str);
+                                                <TimePicker
+                                                    locale="id-ID"
+                                                    format="hh:mm"
+                                                    disableClock={true}
+                                                    value={x.deviceUsageStartTime}
+                                                    onChange={(value) => {
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, value);
                                                     }}
                                                 />
-                                                </span>
-                                                :
-                                                // <DatePicker
-                                                //     selected={new Date(x.deviceUsageStartTime)}
-                                                //     onChange={(date) => {
-                                                //         setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, date.toLocaleDateString("id-ID"));
-                                                //     }}
-                                                // />
-                                                <div/>
-                                                }
                                             </td>
                                             <td>
+                                                <TimePicker
+                                                    locale="id-ID"
+                                                    format="hh:mm"
+                                                    disableClock={true}
+                                                    value={x.deviceUsageEndTime}
+                                                    onChange={(value) => {
+                                                        setFieldValue(`deviceSchedule.${index}.deviceUsageEndTime`, value);
+                                                    }}
+                                                />
                                             {/* {x.scheduleType === 'harian' ? <span>
                                                 <InputComponent
                                                     name="endHour"

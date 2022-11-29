@@ -64,7 +64,7 @@ const User = (
         getUserList(params)
         .then(response => {
             console.log(response.data);
-            if(sekolah) {
+            if(sekolah !== '') {
                 console.log('Ini sekolah: ' + sekolah);
                 let users = [];
                 for(var i = 0; i < response.data.users.length; i++){
@@ -76,7 +76,7 @@ const User = (
                 setUserData(users);
                 setLoading(false);
             }
-            else if(groupMitraAsuhId) {
+            else if(groupMitraAsuhId !== '') {
                 console.log('Ini grupMA ' + groupMitraAsuhId);
                 let param = {
                     whereKeyValues: {
@@ -102,7 +102,7 @@ const User = (
                     setLoading(false);
                 })
             }
-            else if(cobrandComId) {
+            else if(cobrandComId !== '') {
                 console.log('Ini comunityId: ' + cobrandComId);
                 let param = {
                     whereKeyValues: {
@@ -162,12 +162,12 @@ const User = (
             />
             {/* <button onClick={() => setTime(true)} className='btn3'>Edit User</button> */}
             <div className="Pengguna_table">
-                <TablePenggunaCheck
+                <TablePengguna
                     COLUMNS={columns}
                     DATA={userData}
                     renderRowSubComponent={renderRowSubComponent}
-                    showCheckbox={sekolah === '' && cobrandComId === '' && groupMitraAsuhId === '' ? false : true}
-                    controlUsers={controlUsers}
+                    // showCheckbox={sekolah === '' && cobrandComId === '' && groupMitraAsuhId === '' ? false : true}
+                    // controlUsers={controlUsers}
                 />
             </div>
         </div>

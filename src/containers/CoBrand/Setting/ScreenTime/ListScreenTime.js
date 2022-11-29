@@ -5,10 +5,12 @@ import './addset.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap'
+import '../../../../components/UI/Table/Table.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
+import { ThreeSixty } from '@mui/icons-material';
 
 class ListScreenTime extends React.Component {
     constructor(props) {
@@ -21,7 +23,8 @@ class ListScreenTime extends React.Component {
             edit: false,
             new: null,
             dataUpdate: [],
-            send: false
+            send: false,
+            cobrandEmail: JSON.parse(localStorage.getItem('userData')).cobrandEmail
 
         }
     }
@@ -34,6 +37,11 @@ class ListScreenTime extends React.Component {
         axios({
             method: 'post',
             url: 'https://as01.prod.ruangortu.id:8080/api/cobrand/configurationFilter',
+            data: {
+                whereKeyValues: {
+                    cobrandEmail: this.state.cobrandEmail
+                }
+            }
         })
             .then(response => {
                 // console.log(response.data.Data);

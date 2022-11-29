@@ -5,6 +5,7 @@ import './listBc.scss'
 // import { Formik } from 'formik';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap'
+import '../../../../components/UI/Table/Table.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
@@ -137,7 +138,7 @@ class ListBc extends React.Component {
                         <tr key={index}>
                             <td>{item.mediaType}</td>
                             <td>{item.scheduleTime}</td>
-                            <td>{item.destination}</td>
+                            <td>{item.destination.slice(0, 30) + (item.destination.length > 30 ? "..." : "")}</td>
                             <td>{item.messageSubject}</td>
                             <td>{item.category}</td>
                             <td>{item.messageContent}</td>
