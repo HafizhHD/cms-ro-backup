@@ -33,15 +33,15 @@ const Columns = [
         // disableFilters: true,
         // disableGlobalFilter: true
     },
-    {
-        Header: 'Nama Orang tua',
-        accessor: 'parentName',
-        // disableFilters: true,
-        Cell: ({value}) => {
-            if(value !== undefined) return value.join(', ');
-            else return '';
-        }
-    },
+    // {
+    //     Header: 'Nama Orang tua',
+    //     accessor: 'parentName',
+    //     // disableFilters: true,
+    //     Cell: ({value}) => {
+    //         if(value !== undefined) return value.join(', ');
+    //         else return '';
+    //     }
+    // },
     {
         Header: 'Sekolah',
         accessor: 'childInfo.schoolName',
@@ -109,7 +109,7 @@ const Columns = [
                         </div>
                     </button>
                 </NavLink>
-                {cell.row.values.userType === 'child' ? <NavLink to="/cms/user/child-control"
+                {cell.row.values.userType === 'child' && (JSON.parse(localStorage.getItem('userData')).sekolah !== '' ||  JSON.parse(localStorage.getItem('userData')).userLevel === 'Super Admin') ? <NavLink to="/cms/user/child-control"
                     className="nav_btn"
                     title="Kontrol User"
                     onClick={() => {

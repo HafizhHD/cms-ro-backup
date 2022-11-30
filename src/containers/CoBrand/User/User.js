@@ -5,7 +5,6 @@ import columns from './columns';
 import Heading from './../../../components/UI/Heading/Heading'
 import RKLoader from './../../../components/UI/RKLoaderInner/RKLoader';
 import './User.scss';
-import {childrenControl} from './../../../store/actions/dashboard'
 import { getUserList, getCommunityMemberList, getSchoolGroupList } from './../../../components/API/filter'
 import Detail from './Detail/Detail';
 import {emailTester, absStart} from '../GlobalParam'
@@ -26,7 +25,6 @@ const User = (
 
     const controlUsers = (stringEmail, modeAsuh) => {
         setLoading(true);
-        childrenControl(stringEmail, modeAsuh, setLoading);
     }
 
     useEffect(() => {

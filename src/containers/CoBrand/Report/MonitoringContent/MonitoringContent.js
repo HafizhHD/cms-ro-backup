@@ -33,13 +33,13 @@ const MonitoringContent = () => {
             schoolId !== '' ? {
                 whereKeyValues: {
                     packageId: "com.byasia.ruangortu",
-                    sekolah: schoolId,
+                    "childInfo.schoolName": schoolId,
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1
@@ -53,9 +53,9 @@ const MonitoringContent = () => {
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1
@@ -69,9 +69,9 @@ const MonitoringContent = () => {
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1
@@ -83,9 +83,9 @@ const MonitoringContent = () => {
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1

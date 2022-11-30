@@ -24,6 +24,7 @@ function ChildControl({
     const userEmail = localStorage.getItem('userSelected');
 
     const [isPageLoading, setPageLoading] = useState(true);
+    const [isReload, setReload] = useState(false);
 
     const [appLimit, setAppLimit] = useState([]); // mode 0 for no block, 1 for block, 2 for limit
     const [modeAsuh, setModeAsuh] = useState('normal')
@@ -134,9 +135,11 @@ function ChildControl({
             setTimeout(() => {
                 console.log(appLimit);
                 setPageLoading(false);
+                setPageLoading(true);
+                setPageLoading(false);
             }, 2000);
         })
-    }, [])
+    }, [isReload])
 
     if(isLoading || isPageLoading) {
         return <RKLoader />
@@ -157,7 +160,7 @@ function ChildControl({
                 // validationSchema={validationStepEdit}
                 // validateOnChange={true}
                 onSubmit={values => {
-                    onChildControl(userEmail, isModeAsuh, values.appLimitBlock, values.modeAsuhSelected, values.deviceSchedule, history)
+                    onChildControl(userEmail, isModeAsuh, values.appLimitBlock, values.modeAsuhSelected, values.deviceSchedule, setReload, setPageLoading, history)
                 }}
             >
 
@@ -216,7 +219,7 @@ function ChildControl({
                                 </table>
                             </div>
                             <div className="form-group">
-                                <label>Jadwal Penguncian <span><button type="button" onClick={() => {
+                                <label>Jadwal Pemblokiran <span><button type="button" onClick={() => {
                                     let p = {
                                         _id: '',
                                         scheduleName: '',
@@ -304,7 +307,7 @@ function ChildControl({
                                             <td>
                                                 <TimePicker
                                                     locale="id-ID"
-                                                    format="hh:mm"
+                                                    format="HH:mm"
                                                     disableClock={true}
                                                     value={x.deviceUsageStartTime}
                                                     onChange={(value) => {
@@ -315,7 +318,7 @@ function ChildControl({
                                             <td>
                                                 <TimePicker
                                                     locale="id-ID"
-                                                    format="hh:mm"
+                                                    format="HH:mm"
                                                     disableClock={true}
                                                     value={x.deviceUsageEndTime}
                                                     onChange={(value) => {
@@ -622,8 +625,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onChildControl: ( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history ) =>
-            dispatch(childControl( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history ))
+        onChildControl: ( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, setReload, setPageLoading, history ) =>
+            dispatch(childControl( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, setReload, setPageLoading, history ))
     }
 }
 

@@ -325,3 +325,30 @@ export const deviceScheduleDelete = (query) => axios({
         'Content-Type': 'application/json',
     },
 })
+
+export const alwaysOnAppsAdd = (query) => axios({
+    method: 'post',
+    url: url + '/user/appAlwaysOnBySekolahAdd',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+
+// export const alwaysOnAppsEdit = (query) => axios({
+//     method: 'post',
+//     url: url + '/user/appAlwaysOnBySekolahUpdate',
+//     data: query,
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+// })
+
+export const alwaysOnAppsDelete = (query) => axios({
+    method: 'post',
+    url: url + '/user/appAlwaysOnBySekolahRemove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})

@@ -13,7 +13,7 @@ import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, pr
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
  schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete,
  appBlockLimitAdd, appBlockLimitDelete, appBlockLimitEdit, modeAsuhAdd, modeAsuhEdit, modeAsuhDelete,
-deviceScheduleAdd, deviceScheduleEdit, deviceScheduleDelete} from '../../components/API/dashboard';
+deviceScheduleAdd, deviceScheduleEdit, deviceScheduleDelete, alwaysOnAppsAdd, alwaysOnAppsDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getCommunityMemberList, getUserList } from '../../components/API/filter';
 
@@ -1856,12 +1856,13 @@ export const editAppUser = (oldEmail, nameUser, emailUser, gender, birdDate, add
 
 }
 
-export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history) => {
+export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, setReload, setPageLoading, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
+        setPageLoading(true);
         var promises = [];
 
         //block limit app
@@ -1991,41 +1992,120 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
 
         Promise.all(promises)
         .then((response) => {
-            history.push('/cms/user/child-control');
-            dispatch(alertSuccess('Pengguna Anak "' + userEmail + '" berhasil dikontrol.'));
-            dispatch(loadingStop());
+            setTimeout(() => {
+                setReload(true);
+            }, 1000);
+            setTimeout(() => {
+                setReload(false);
+                setPageLoading(false);
+                
+                dispatch(alertSuccess('Pengguna Anak "' + userEmail + '" berhasil dikontrol.'));
+                dispatch(loadingStop());
+            }, 1000);
         })
         
     }
 
 }
 
-export const childrenControl = (stringEmail, modeAsuh, setLoading) => {
-        var promises = [];
+export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekolah, setReload, setLoading) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        setLoading(true);
 
-        for(var i = 0; i < stringEmail.length; i++) {
-            let prm = {
-                emailUser: stringEmail[i],
-                modeAsuhName: modeAsuh
+        alwaysOnAppsDelete({
+            sekolah: sekolah
+        })
+        .then(() => {
+            var promises = [];
+            for(var j = 0; j < deviceSchedule.length; j++) {
+                let x = deviceSchedule[j];
+                if(x.willBeRemoved) {
+                    if(x._id !== ''){
+                        let prm = {
+                            whereValues: {
+                                scheduleName: {
+                                    "$regex": sekolah
+                                }
+                            }
+                        }
+                        const pro = deviceScheduleDelete(prm);
+                        promises.push(pro);
+                    }
+                }
+                else {
+                    if(x._id !== '') {
+                        let prm = {
+                            whereValues: {
+                                scheduleName: {
+                                    "$regex": sekolah
+                                }
+                            },
+                            newValues: {
+                                scheduleName: x.scheduleName,
+                                scheduleDescription: x.scheduleDescription,
+                                scheduleType: x.schedule,
+                                deviceUsageDays: x.deviceUsageDays,
+                                deviceUsageStartTime: x.deviceUsageStartTime,
+                                deviceUsageEndTime: x.deviceUsageEndTime,
+                                status: x.status
+                            }
+                        }
+                        const pro = deviceScheduleEdit(prm);
+                        promises.push(pro);
+                    }
+                    else {
+                        let prm = x;
+                        for(var k = 0; k < userEmails.length; k++) {
+                            prm["emailUser"] = userEmails[k];
+                            let pro = deviceScheduleAdd(prm);
+                            promises.push(pro);
+                        }
+                    }
+                }
             }
-            const pro = modeAsuhAdd(prm);
-            promises.push(pro);
-        }
+            let apid = [];
+            for(var t = 0; t < appWhiteListId.length; t++) {
+                apid.push(appWhiteListId[t].value);
+            }
+            let params = {
+                sekolah: sekolah,
+                applications: apid
+            }
+            let prox = alwaysOnAppsAdd(params);
+            promises.push(prox);
+
+
+            Promise.all(promises)
+            .then((response) => {
+                setTimeout(() => {
+                    setReload(true);
+                }, 1000);
+                setTimeout(() => {
+                    setReload(false);
+                    setLoading(false);
+                    dispatch(alertSuccess('Seluruh murid sekolah berhasil dikontrol.'));
+                    dispatch(loadingStop());
+                }, 1000);
+            })
+            .catch(error => {
+                console.log('error: ', error);
+                setLoading(false);
+            })
+        })
+
+        
 
        
 
-        Promise.all(promises)
-        .then((response) => {
-            setLoading(false);
-            // dispatch(alertSuccess('Pengguna Anak yang dipilih berhasil dikontrol.'));
-            // dispatch(loadingStop());
-        })
-        .catch(error => {
-            console.log('error: ', error);
-            setLoading(false);
-        })
+    }
 
 }
+
+
 
 
 

@@ -335,7 +335,7 @@ export const MenuCoBranding = () => {
         }
         
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') {
-            if(gma === '')
+            if(sch === '')
             routeArray.push(
                 {
                     path: '/cms',
@@ -403,6 +403,20 @@ export const MenuCoBranding = () => {
                         }
                     ]
                 })
+        }
+        if(sch !== '') {
+            routeArray.push({
+                path: '/tools',
+                pathName: 'Tools',
+                icon: <FiTool className="Aside__Nav_item-icon" />,
+                children: [
+                    {
+                        path: '/school-control',
+                        pathName: 'Pengaturan Jadwal Sekolah',
+                        icon: <FiUser className="Aside__Nav_item-icon" />
+                    }
+                ]
+            })
         }
         // if(userLevel === 'Super Admin') {
         //     routeArray.push({

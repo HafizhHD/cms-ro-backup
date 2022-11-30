@@ -70,6 +70,7 @@ const AddSchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/Sch
 const PraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/PraytimeMessage'));
 const AddPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/AddPraytimeMessage/AddPraytimeMessage'));
 const EditPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/EditPraytimeMessage/EditPraytimeMessage'));
+const SchoolControlAsync = lazy(() => import('./../../containers/CoBrand/SchoolControl/SchoolControl'));
 const ListProgram = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/ListProgram'));
 const AddProgramRev = lazy(() => import('../../containers/CoBrand/Program/REVISI/ListBc/addProgram'));
 
@@ -510,6 +511,12 @@ function Cobrand({
                     path="/tools/admin-staff"
                     exact
                     component={listStaff}
+                /> : null}
+                {schoolId !== '' ?
+                <PrivateRoute
+                    path="/tools/school-control"
+                    exact
+                    component={SchoolControlAsync}
                 /> : null}
             </Switch>
         </Layout>

@@ -5,16 +5,18 @@ import './../../../components/UI/Table/Table.scss'
 import TimePicker from 'react-time-picker';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { getUserList, getAppDetailList } from './../../../components/API/filter'
-import { childControl } from '../../../store/actions/dashboard';
+import { getUserList, getAppDetailList, getDeviceScheduleList, getAlwaysOnApps } from './../../../components/API/filter'
+import { schoolControl } from '../../../store/actions/dashboard';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import InputComponent from '../../../components/UI/Input/Input';
+import {absStart} from '../GlobalParam';
 import { getEmbedUrl } from '../../../helpers/fileHelper/fileHelper'
 import AsyncSelect from 'react-select/async';
+import { FiPlus } from 'react-icons/fi'
 
 function SchoolControl({
-    onChildControl,
+    onSchoolControl,
     isLoading
 }) {
 
@@ -27,7 +29,12 @@ function SchoolControl({
     const [modeAsuh, setModeAsuh] = useState('normal')
     const [isModeAsuh, setIsModeAsuh] = useState(false);
 
+    const [isReload, setReload] = useState(false);
+
+    const [whitelist, setWhitelist] = useState([]);
+
     const [userEmails, setUserEmails] = useState([]);
+    const [isDeleted, setDeleted] = useState(false);
 
     const [isScheduleAdded, setScheduleAdded] = useState([]);
     const [scheduleCount, setScheduleCount] = useState(0);
@@ -36,11 +43,15 @@ function SchoolControl({
     // const [audience, setAudience] = useState([]);
     // const [responseCount, setResponseCount] = useState(1);
 
+    const colourStyles = {
+        control: styles => ({ ...styles, backgroundColor: '#cccccc66', width: '40%', border: 'none' }),
+    };
+
     const loadOptions = (inputValue, callback) => {
         setTimeout(() => {
           getAppDetailList({
             whereKeyValues: {
-              nama: {
+              appName: {
                 "$regex": inputValue,
                 "$options": "i"
               }
@@ -53,10 +64,10 @@ function SchoolControl({
           .then(response => {
             console.log(response.data);
             const options = [];
-            response.data.Data.forEach(e => {
+            response.data.appIcons.forEach(e => {
                 options.push({
-                    label: e.appId,
-                    value: e.appName
+                    label: e.appName + " (" + e.appId + ")",
+                    value: e.appId
                 })
             });
             callback(options);
@@ -71,7 +82,7 @@ function SchoolControl({
         let param = {
             whereKeyValues: {
                 packageId: "com.byasia.ruangortu",
-                "childInfo.schoolName": schoolId,
+                "childInfo.schoolName": sekolah,
                 dateCreated: {
                     "$gte": absStart.toISOString().split("T")[0]
                 },
@@ -83,17 +94,69 @@ function SchoolControl({
                 nameUser: 1
             },
             limit: Number.MAX_SAFE_INTEGER
+        }  
+
+        let paramSchedule = {
+            whereKeyValues: {
+                scheduleName: {
+                    "$regex": sekolah
+                }
+            }
         }
 
-        getUserList(param)
-        .then(response => {
+        let paramAlwaysOn = {
+            whereKeyValues: {
+                sekolah: sekolah
+            }
+        }
+
+        const userList = getUserList(param);
+        const deviceUsageList = getDeviceScheduleList(paramSchedule);
+        const alwaysOnList = getAlwaysOnApps(paramAlwaysOn);
+
+        Promise.all([userList, deviceUsageList, alwaysOnList]).then(response => {
             let p = [];
-            response.data.users.forEach(x => {
+            response[0].data.users.forEach(x => {
                 p.push(x.emailUser);
             })
             setUserEmails(p);
+            console.log("Bjir lu net")
+            setScheduleAdded(response[1].data.deviceUsageSchedules.slice(0,1));
+            console.log("Bjir lu net2")
+
+            let z = response[2].data.resultData;
+            console.log(z);
+            if(z.length > 0) {
+                let y = z[0].applications;
+                console.log(z);
+                getAppDetailList({
+                    whereKeyValues: {
+                        appId: {
+                            "$in": y
+                        }
+                    }
+                })
+                .then(res => {
+                    console.log(res);
+                    let options = [];
+                    res.data.appIcons.forEach(e => {
+                        options.push({
+                            label: e.appName + " (" + e.appId + ")",
+                            value: e.appId
+                        })
+                    });
+                    setWhitelist(options);
+                    setPageLoading(false);
+                    setPageLoading(true);
+                    setPageLoading(false);
+                })
+            }
+            else {
+                setPageLoading(false);
+            }
+            // setPageLoading(false);
         })
-    }, [])
+    }, [isReload])
 
     if(isLoading || isPageLoading) {
         return <RKLoader />
@@ -101,26 +164,23 @@ function SchoolControl({
 
     return (
         <>
-            <Heading headingName={'Kontrol Anak: ' + userName} routes={[
-                { path: '/cms/user', name: 'Pengguna' },
-                { path: '/cms/user/child-control', name: 'Kontrol Anak' }
-            ]} />
+            <Heading headingName={'Kontrol Murid Sekolah'} />
             <Formik
                 initialValues={{
-                    modeAsuhSelected: modeAsuh,
-                    appWhiteListId: []
+                    appWhiteListId: whitelist,
+                    deviceSchedule: isScheduleAdded[0] ? [isScheduleAdded[0]] : []
                 }}
                 // validationSchema={validationStepEdit}
                 // validateOnChange={true}
                 onSubmit={values => {
-                    onChildControl(userEmail, isModeAsuh, values.appLimitBlock, values.modeAsuhSelected, values.deviceSchedule, history)
+                    onSchoolControl(userEmails, values.appWhiteListId, values.deviceSchedule, sekolah, setReload, setPageLoading)
                 }}
             >
 
                 {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
                     <form onSubmit={handleSubmit}>
-                        <div className="ChildControl">
-                            <div className="form-group">
+                        <div className="SchoolControl">
+                            {/* <div className="form-group">
                                 <label>Mode Asuh</label>
                                 <select value={values.modeAsuhSelected} onChange={(e) => {
                                     setFieldValue('modeAsuhSelected', e.currentTarget.value);
@@ -129,33 +189,38 @@ function SchoolControl({
                                     <option value='diawasi'>Diawasi</option>
                                     <option value='dihukum'>Dihukum</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="form-group">
-                                <label>Aplikasi yang Diperbolehkan</label>
-                                
-                            </div>
-                            <div className="form-group">
-                                <label>Jadwal Pemakaian <span><button type="button" onClick={() => {
-                                    let p = {
-                                        _id: '',
-                                        scheduleName: '',
-                                        scheduleDescription: '',
-                                        scheduleType: 'harian',
-                                        deviceUsageDays: [],
-                                        deviceUsageStartTime: '00:00',
-                                        deviceUsageEndTime: '00:01',
-                                        status: 'aktif',
-                                        willBeRemoved: false
+                                <label>Jadwal Belajar Sekolah </label>
+                                {values.deviceSchedule.length <= 0 || isDeleted ? <button type="button" onClick={() => {
+                                    if(isDeleted) {
+                                        setFieldValue(`deviceSchedule.${0}.willBeRemoved`, false);
                                     }
-                                    let q = values.deviceSchedule;
-                                    q.push(p);
-                                    setFieldValue('deviceSchedule', q);
-                                }}>Tambah Jadwal</button></span></label>
+                                    else {
+                                        let p = {
+                                            _id: '',
+                                            scheduleName: 'Jadwal Belajar ' + sekolah,
+                                            scheduleDescription: '',
+                                            scheduleType: 'harian',
+                                            deviceUsageDays: [],
+                                            deviceUsageStartTime: '07:00',
+                                            deviceUsageEndTime: '15:00',
+                                            status: 'aktif',
+                                            willBeRemoved: false
+                                        }
+                                        let q = values.deviceSchedule;
+                                        q.push(p);
+                                        setFieldValue('deviceSchedule', q);
+                                    }
+                                    setDeleted(false);
+                                }} id="add_schedule">
+                                    <FiPlus className="IconAdd"/>
+                                    <span>Tambah Jadwal</span></button> : null}
                                 <table>
                                     <tr>
                                         <th>Nama Jadwal</th>
                                         <th>Deskripsi</th>
-                                        <th>Harian/Terjadwal</th>
+                                        {/* <th>Harian/Terjadwal</th> */}
                                         <th>Hari</th>
                                         <th>Waktu Mulai</th>
                                         <th>Waktu Selesai</th>
@@ -165,7 +230,7 @@ function SchoolControl({
                                         console.log(x)
                                         if(!x.willBeRemoved) return (<tr>
                                             <td>
-                                                <InputComponent
+                                                {/* <InputComponent
                                                     name="scheduleName"
                                                     className="form-group__input"
                                                     value={x.scheduleName}
@@ -173,7 +238,8 @@ function SchoolControl({
                                                     onChange={(e) => {
                                                         setFieldValue(`deviceSchedule.${index}.scheduleName`, e.target.value);
                                                     }}
-                                                />
+                                                /> */}
+                                                <p>{x.scheduleName}</p>
                                             </td>
                                             <td>
                                                 <InputComponent
@@ -186,7 +252,7 @@ function SchoolControl({
                                                     }}
                                                 />
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 <select onChange={(e) => {
                                                     if(e.target.value === 'harian') {
                                                         setFieldValue(`deviceSchedule.${index}.deviceUsageStartTime`, '00:00');
@@ -201,7 +267,7 @@ function SchoolControl({
                                                 }}>
                                                     <option value="harian">Harian</option>
                                                 </select>
-                                            </td>
+                                            </td> */}
                                             <td>
                                                 {['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'].map((y) => {
                                                     return <label><input type="checkbox" name={y} value={y}
@@ -223,7 +289,7 @@ function SchoolControl({
                                             <td>
                                                 <TimePicker
                                                     locale="id-ID"
-                                                    format="hh:mm"
+                                                    format="HH:mm"
                                                     disableClock={true}
                                                     value={x.deviceUsageStartTime}
                                                     onChange={(value) => {
@@ -234,7 +300,7 @@ function SchoolControl({
                                             <td>
                                                 <TimePicker
                                                     locale="id-ID"
-                                                    format="hh:mm"
+                                                    format="HH:mm"
                                                     disableClock={true}
                                                     value={x.deviceUsageEndTime}
                                                     onChange={(value) => {
@@ -284,6 +350,7 @@ function SchoolControl({
                                             <td>
                                                 <button type="submit" onClick={() => {
                                                     setFieldValue(`deviceSchedule.${index}.willBeRemoved`, true);
+                                                    setDeleted(true);
                                                 }}>
                                                     Hapus
                                                 </button>
@@ -316,6 +383,18 @@ function SchoolControl({
                                         </tr>)
                                     })}
                                 </table>
+                            </div>
+                            <div className="form-group">
+                                <label>Aplikasi yang Diperbolehkan</label>
+                                <AsyncSelect
+                                    cacheOptions defaultOptions isMulti
+                                    defaultValue={values.appWhiteListId}
+                                    styles={colourStyles}
+                                    placeholder={"Pilih aplikasi..."} loadOptions={loadOptions} onChange={(value) => {
+                                        console.log(value);
+                                        setFieldValue('appWhiteListId', value);
+                                    }}
+                                />
                             </div>
                             {/* <div className="form-group">
                                 <label>Isi Tahap</label>
@@ -541,8 +620,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onChildControl: ( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history ) =>
-            dispatch(childControl( userEmail, isModeAsuh, appLimitBlock, modeAsuh, deviceSchedule, history ))
+        onSchoolControl: ( userEmails, appWhiteListId, deviceSchedule, sekolah, setReload, setLoading ) =>
+            dispatch(schoolControl( userEmails, appWhiteListId, deviceSchedule, sekolah, setReload, setLoading ))
     }
 }
 
