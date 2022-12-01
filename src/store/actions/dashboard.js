@@ -2038,12 +2038,10 @@ export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekola
                         console.log('eksoldfalu = ' + x.oldValue);
                         let prm = {
                             whereValues: {
-                                scheduleName: {
-                                    scheduleName: x.oldValue
-                                }
+                                scheduleName: x.oldValue
                             },
                             newValues: {
-                                scheduleName: x.scheduleName + ' ' + sekolah,
+                                scheduleName: sN + ' ' + sekolah,
                                 scheduleDescription: x.scheduleDescription,
                                 scheduleType: x.schedule,
                                 deviceUsageDays: x.deviceUsageDays,

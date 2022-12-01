@@ -251,21 +251,21 @@ function SchoolControl({
                                         console.log(x)
                                         if(!x.willBeRemoved) return (<tr>
                                             <td>
-                                                <InputComponent
+                                                <div><InputComponent
                                                     name="scheduleName"
-                                                    className="form-group__input"
+                                                    className="form-group__input form-group__input--fullwidth"
                                                     value={x.scheduleName.replace(' ' + sekolah, '')}
                                                     type="text"
                                                     onChange={(e) => {
                                                         setFieldValue(`deviceSchedule.${index}.scheduleName`, e.target.value);
                                                     }}
                                                 />
-                                                <span>{sekolah}</span>
+                                                <p>{sekolah}</p></div>
                                             </td>
                                             <td>
                                                 <InputComponent
                                                     name="scheduleDescription"
-                                                    className="form-group__input"
+                                                    className="form-group__input form-group__input--fullwidth"
                                                     value={x.scheduleDescription}
                                                     type="text"
                                                     onChange={(e) => {
