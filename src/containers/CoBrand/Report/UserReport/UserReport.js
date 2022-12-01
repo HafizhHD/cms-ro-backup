@@ -61,9 +61,9 @@ const UserReport = () => {
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1
@@ -77,9 +77,9 @@ const UserReport = () => {
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1
@@ -91,9 +91,9 @@ const UserReport = () => {
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
-                    emailUser: {
-                        "$nin": emailTester
-                    }
+                    // emailUser: {
+                    //     "$nin": emailTester
+                    // }
                 },
                 orderKeyValues: {
                     nameUser: 1
