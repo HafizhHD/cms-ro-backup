@@ -120,8 +120,12 @@ function SchoolControl({
                 p.push(x.emailUser);
             })
             setUserEmails(p);
-            console.log("Bjir lu net")
-            setScheduleAdded(response[1].data.deviceUsageSchedules.slice(0,1));
+            console.log("Bjir lu net");
+            let net = response[1].data.deviceUsageSchedules.slice(0,1);
+            if(net.length > 0) {
+                net[0]["oldValue"] = net[0].scheduleName
+            }
+            setScheduleAdded(net);
             console.log("Bjir lu net2")
 
             let z = response[2].data.resultData;
@@ -192,14 +196,31 @@ function SchoolControl({
                             </div> */}
                             <div className="form-group">
                                 <label>Jadwal Belajar Sekolah </label>
-                                {values.deviceSchedule.length <= 0 || isDeleted ? <button type="button" onClick={() => {
+                                {<button type="button" onClick={() => {
+                                    var once = true;
+                                    var twice = false;
                                     if(isDeleted) {
-                                        setFieldValue(`deviceSchedule.${0}.willBeRemoved`, false);
+                                        for(var i = 0; i < values.deviceSchedule.length; i++) {
+                                            if(values.deviceSchedule[i].willBeRemoved) {
+                                                if(once) {
+                                                    setFieldValue(`deviceSchedule.${i}.willBeRemoved`, false);
+                                                    once = false;
+                                                }
+                                                else {
+                                                    twice = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if(!twice) {
+                                            setDeleted(false);
+                                        }
                                     }
                                     else {
                                         let p = {
                                             _id: '',
-                                            scheduleName: 'Jadwal Belajar ' + sekolah,
+                                            scheduleName: 'Jadwal Belajar',
+                                            oldValue: 'Jadwal Belajar ' + sekolah,
                                             scheduleDescription: '',
                                             scheduleType: 'harian',
                                             deviceUsageDays: [],
@@ -215,7 +236,7 @@ function SchoolControl({
                                     setDeleted(false);
                                 }} id="add_schedule">
                                     <FiPlus className="IconAdd"/>
-                                    <span>Tambah Jadwal</span></button> : null}
+                                    <span>Tambah Jadwal</span></button>}
                                 <table>
                                     <tr>
                                         <th>Nama Jadwal</th>
@@ -230,16 +251,16 @@ function SchoolControl({
                                         console.log(x)
                                         if(!x.willBeRemoved) return (<tr>
                                             <td>
-                                                {/* <InputComponent
+                                                <InputComponent
                                                     name="scheduleName"
                                                     className="form-group__input"
-                                                    value={x.scheduleName}
+                                                    value={x.scheduleName.replace(' ' + sekolah, '')}
                                                     type="text"
                                                     onChange={(e) => {
                                                         setFieldValue(`deviceSchedule.${index}.scheduleName`, e.target.value);
                                                     }}
-                                                /> */}
-                                                <p>{x.scheduleName}</p>
+                                                />
+                                                <span>{sekolah}</span>
                                             </td>
                                             <td>
                                                 <InputComponent

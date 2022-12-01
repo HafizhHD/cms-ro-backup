@@ -179,62 +179,62 @@ function Cobrand({
                     path="/status"
                     component={StatusAsync}
                 />
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' || userLevel === 'user' ?
+                {userLevel === 'Super Admin' || userLevel === 'Admin'  || userLevel === 'Reporter' || userLevel === 'user' ?
                 <PrivateRoute
                     exact
                     path="/report/user"
                     component={UserReportAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/program"
                     component={ProgramReportAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/program/step"
                     component={StepReportAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/content"
                     component={ContentReportAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/redzone"
                     component={RedzoneReportAsync}
                 /> : null}
 
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Reporter' ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-content"
                     component={MonitoringContentAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-program"
                     component={MonitoringProgramAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/monitoring-status"
                     component={MonitoringStatusAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/controlling-status"
                     component={ControllingStatusAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Reporter') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/report/commercial"
@@ -243,19 +243,19 @@ function Cobrand({
                 : null}
 
                 
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/user"
                     exact
                     component={UserManagement}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/user/edit"
                     exact
                     component={EditUser}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/user/child-control"
                     exact
@@ -275,26 +275,26 @@ function Cobrand({
                     exact
                     component={MessageListAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/forum-add"
                     exact
                     component={Forum}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/forum-moderator"
                     exact
                     component={ForumList}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program"
                     exact
                     component={ProgramAsync}
                     // component={ListProgram}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program/add"
                     exact
@@ -302,43 +302,43 @@ function Cobrand({
                         return (<AddProgramAsync {...props} />)
                     }}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program/edit"
                     exact
                     component={EditProgramAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program/edit/add-step"
                     exact
                     component={AddProgramStepAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin'  || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program/edit/step"
                     exact
                     component={EditProgramStepAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program/view"
                     exact
                     component={ViewProgramAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/program/view/step"
                     exact
                     component={ViewProgramStepAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content"
                     exact
                     component={ContentAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/add"
                     exact
@@ -346,56 +346,56 @@ function Cobrand({
                         return (<AddContentAsync {...props} />)
                     }}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/edit"
                     exact
                     component={EditContentAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/view"
                     exact
                     component={ViewContentAsync}
                 /> : null}
-                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                {userLevel === 'Super Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
                     path="/cms/content/view-komen"
                     exact
                     component={ListKoment}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/redzone"
                     exact
                     component={RedZoneAsync}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/cms/redzone/add"
                     exact
                     component={RedZoneAdd}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     exact
                     path="/cms/redzone/edit"
                     component={EditRedzone}
                 /> : null}
 
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '')?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '')?
                 <PrivateRoute
                     path="/cms/praytime-message"
                     exact
                     component={PraytimeMessage}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '')?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '')?
                 <PrivateRoute
                     path="/cms/praytime-message/add"
                     exact
                     component={AddPraytimeMessage}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '')?
+                {(userLevel === 'Super Admin' || userLevel === 'Editor') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '')?
                 <PrivateRoute
                     path="/cms/praytime-message/edit"
                     exact
@@ -403,37 +403,37 @@ function Cobrand({
                 /> : null}
 
 
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/program-category/add"
                     exact
                     component={KategoriProgram}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/notification-category"
                     exact
                     component={ListKategoriNotifikasi}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/notification-category/add"
                     exact
                     component={AddKategoriNotifikasi}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/program-category"
                     exact
                     component={ListKategoriProgram}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/screentime/add"
                     exact
                     component={AddScreenTime}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/screentime"
                     exact
@@ -446,67 +446,67 @@ function Cobrand({
                     exact
                     component={SettingAsync}
                 /> */}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/target-audience"
                     exact
                     component={Audience}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/target-audience/add"
                     exact
                     component={AddAudience}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/topic"
                     exact
                     component={Topik}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/topic/add"
                     exact
                     component={TopikAdd}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/komunitas"
                     exact
                     component={Komunitas}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/komunitas/add"
                     exact
                     component={AddKomunitas}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/school-group"
                     exact
                     component={SchoolGroup}
                 /> : null}
-                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                {(userLevel === 'Super Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
                 <PrivateRoute
                     path="/tools/setting/school-group/add"
                     exact
                     component={AddSchoolGroup}
                 /> : null}
-                {userLevel === 'Super Admin' ?
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/admin-staff/add"
                     exact
                     component={Management}
                 /> : null}
-                {userLevel === 'Super Admin' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/admin-staff/edit"
                     exact
                     component={EditStaffAsync}
                 /> : null}
-                {userLevel === 'Super Admin' ?
+                {userLevel === 'Super Admin'  || userLevel === 'Admin' ?
                 <PrivateRoute
                     path="/tools/admin-staff"
                     exact

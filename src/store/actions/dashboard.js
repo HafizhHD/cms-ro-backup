@@ -2027,9 +2027,7 @@ export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekola
                     if(x._id !== ''){
                         let prm = {
                             whereValues: {
-                                scheduleName: {
-                                    "$regex": sekolah
-                                }
+                                scheduleName: x.oldValue
                             }
                         }
                         const pro = deviceScheduleDelete(prm);
@@ -2038,14 +2036,17 @@ export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekola
                 }
                 else {
                     if(x._id !== '') {
+                        let sN = x.scheduleName;
+                        sN = sN.replace(' ' + sekolah, '');
+                        console.log('eksoldfalu = ' + x.oldValue);
                         let prm = {
                             whereValues: {
                                 scheduleName: {
-                                    "$regex": sekolah
+                                    scheduleName: x.oldValue
                                 }
                             },
                             newValues: {
-                                scheduleName: x.scheduleName,
+                                scheduleName: x.scheduleName + ' ' + sekolah,
                                 scheduleDescription: x.scheduleDescription,
                                 scheduleType: x.schedule,
                                 deviceUsageDays: x.deviceUsageDays,
@@ -2059,6 +2060,7 @@ export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekola
                     }
                     else {
                         let prm = x;
+                        prm.scheduleName = prm.scheduleName + ' ' + sekolah;
                         for(var k = 0; k < userEmails.length; k++) {
                             prm["emailUser"] = userEmails[k];
                             let pro = deviceScheduleAdd(prm);

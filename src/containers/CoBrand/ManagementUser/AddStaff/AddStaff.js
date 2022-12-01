@@ -17,7 +17,9 @@ function AddStaff({
 }) {
 
     const history = useHistory();
-    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail ?? '';
+    const userType = JSON.parse(localStorage.getItem('userData')).userType ?? '';
+    const userLevel = JSON.parse(localStorage.getItem('userData')).userLevel ?? '';
     const [isPasswordVisible, showPassword] = useState(false);
     const [comList, setComList] = useState([]);
     const [isCurrentlyLoading, setCurrentlyLoading] = useState(true);
@@ -189,9 +191,9 @@ function AddStaff({
                                     setFieldValue("userType", e.currentTarget.value);
                                 }}
                             >
-                                <option value="CS">CS</option>
-                                <option value="Co-Brand">Co-Brand</option>
-                                <option value="Co-Brand-Group">Grup Mitra Asuh</option>
+                                {/* <option value="CS">CS</option> */}
+                                <option value="Co-Brand" disabled={userType === 'Co-Brand-Group' || userType === 'Operator-Sekolah'}>Co-Brand</option>
+                                <option value="Co-Brand-Group" disabled={userType === 'Operator-Sekolah'}>Grup Mitra Asuh</option>
                                 <option value="Operator-Sekolah">Operator Sekolah</option>
                             </select>
                         </div>
@@ -204,11 +206,10 @@ function AddStaff({
                                     setFieldValue("userLevel", e.currentTarget.value);
                                 }}
                             >
-                                <option value="Super Admin">Super Admin</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Editor">Editor</option>
-                                <option value="Reporter">Reporter</option>
-                                <option value="user">User</option>
+                                <option value="Super Admin" disabled={userType === 'Co-Brand-Group' || userType === 'Operator-Sekolah' || userLevel === 'Admin' || userLevel === 'Editor' || userLevel === 'Reporter'}>Super Admin</option>
+                                <option value="Admin" disabled={userLevel === 'Editor' || userLevel === 'Reporter'}>Admin</option>
+                                <option value="Editor" disabled={userLevel === 'Editor' || userLevel === 'Reporter'}>Editor</option>
+                                <option value="Reporter" disabled={userLevel === 'Editor' || userLevel === 'Reporter'}>Reporter</option>
                             </select>
                         </div>
                         <div className="form-group">

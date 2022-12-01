@@ -14,7 +14,7 @@ export const MenuCoBranding = () => {
         }
     ]
     if(cobrandComId === '' && gma === '' && sch === '') { 
-        if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') {
+        if(userLevel === 'Super Admin' || userLevel === 'Reporter') {
             routeArray.push(
                 {
                     path: '/report',
@@ -69,7 +69,7 @@ export const MenuCoBranding = () => {
                     ]
                 })
         }
-        else if(userLevel === 'user') {
+        else if(userLevel === 'Admin' || userLevel === 'user') {
             routeArray.push(
                 {
                     path: '/report',
@@ -85,7 +85,7 @@ export const MenuCoBranding = () => {
                 })
         }
 
-        if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') {
+        if(userLevel === 'Super Admin' || userLevel === 'Editor') {
             routeArray.push(
                 {
                     path: '/cms',
@@ -127,6 +127,26 @@ export const MenuCoBranding = () => {
                             path: '/praytime-message', //tadinya content, nanti tolong routenya diganti
                             pathName: 'Hadits/Pesan Waktu Sholat',
                             icon: <FiSunrise className="Aside__Nav_item-icon" />
+                        },
+                    ]
+                })
+        }
+        else if(userLevel === 'Admin') {
+            routeArray.push(
+                {
+                    path: '/cms',
+                    pathName: 'Manajemen Data',
+                    icon: <FiImage className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/user',
+                            pathName: 'Pengguna',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/notifications', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Notifikasi',
+                            icon: <FiInbox className="Aside__Nav_item-icon" />
                         },
                     ]
                 })
@@ -210,55 +230,61 @@ export const MenuCoBranding = () => {
                 pathName: 'Tools',
                 icon: <FiTool className="Aside__Nav_item-icon" />,
                 children: [
+
                     {
-                        path: '/setting',
-                        pathName: 'Pengaturan',
-                        icon: <FiTool className="Aside__Nav_item-icon" />,
-                        children: [
-                            {
-                                path: '/topic',
-                                pathName: 'Topik Artikel',
-                                icon: <FiImage className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/komunitas',
-                                pathName: 'Daftar Komunitas',
-                                icon: <FiImage className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/school-group',
-                                pathName: 'Daftar Kelompok Mitra Asuh',
-                                icon: <FiUser className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/program-category',
-                                pathName: 'Kategori Program',
-                                icon: <FiActivity className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/target-audience',
-                                pathName: 'Target Pembaca',
-                                icon: <FiLayers className="Aside__Nav_item-icon" />
-                            },
-                            {
-                                path: '/notification-category',
-                                pathName: 'Kategori Notifikasi',
-                                icon: <FiInbox className="Aside__Nav_item-icon" />
-                            },
-                        
-                            {
-                                path: '/screentime',
-                                pathName: 'Standar Screen Time',
-                                icon: <FiMonitor className="Aside__Nav_item-icon" />
-                            }
-                        ]
+                        path: '/admin-staff',
+                        pathName: 'Manajemen Admin & Staff',
+                        icon: <FiUser className="Aside__Nav_item-icon" />
                     },
+                    // {
+                    //     path: '/setting',
+                    //     pathName: 'Pengaturan',
+                    //     icon: <FiTool className="Aside__Nav_item-icon" />,
+                    //     children: [
+                    //         {
+                    //             path: '/topic',
+                    //             pathName: 'Topik Artikel',
+                    //             icon: <FiImage className="Aside__Nav_item-icon" />
+                    //         },
+                    //         {
+                    //             path: '/komunitas',
+                    //             pathName: 'Daftar Komunitas',
+                    //             icon: <FiImage className="Aside__Nav_item-icon" />
+                    //         },
+                    //         {
+                    //             path: '/school-group',
+                    //             pathName: 'Daftar Kelompok Mitra Asuh',
+                    //             icon: <FiUser className="Aside__Nav_item-icon" />
+                    //         },
+                    //         {
+                    //             path: '/program-category',
+                    //             pathName: 'Kategori Program',
+                    //             icon: <FiActivity className="Aside__Nav_item-icon" />
+                    //         },
+                    //         {
+                    //             path: '/target-audience',
+                    //             pathName: 'Target Pembaca',
+                    //             icon: <FiLayers className="Aside__Nav_item-icon" />
+                    //         },
+                    //         {
+                    //             path: '/notification-category',
+                    //             pathName: 'Kategori Notifikasi',
+                    //             icon: <FiInbox className="Aside__Nav_item-icon" />
+                    //         },
+                        
+                    //         {
+                    //             path: '/screentime',
+                    //             pathName: 'Standar Screen Time',
+                    //             icon: <FiMonitor className="Aside__Nav_item-icon" />
+                    //         }
+                    //     ]
+                    // },
                 ]
             })
         }
     }
     else {
-        if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') {
+        if(userLevel === 'Super Admin' || userLevel === 'Reporter') {
             if(sch !== '') {
                 routeArray.push(
                     {
@@ -318,7 +344,7 @@ export const MenuCoBranding = () => {
                     ]
                 })
         }
-        else if(userLevel === 'user') {
+        else if(userLevel === 'user' || userLevel === 'Admin') {
             routeArray.push(
                 {
                     path: '/report',
@@ -334,7 +360,7 @@ export const MenuCoBranding = () => {
                 })
         }
         
-        if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') {
+        if(userLevel === 'Super Admin' || userLevel === 'Editor') {
             if(sch === '')
             routeArray.push(
                 {
@@ -386,6 +412,26 @@ export const MenuCoBranding = () => {
                             pathName: 'Notifikasi',
                             icon: <FiInbox className="Aside__Nav_item-icon" />
                         },
+                    ]
+                })
+        }
+        else if(userLevel === 'Admin') {
+            routeArray.push(
+                {
+                    path: '/cms',
+                    pathName: 'Manajemen Data',
+                    icon: <FiImage className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/user',
+                            pathName: 'Pengguna',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/notifications', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Notifikasi',
+                            icon: <FiInbox className="Aside__Nav_item-icon" />
+                        }
                     ]
                 })
         }
