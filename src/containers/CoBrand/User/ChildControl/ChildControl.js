@@ -171,6 +171,7 @@ function ChildControl({
                                 <label>Mode Asuh</label>
                                 <select value={values.modeAsuhSelected} onChange={(e) => {
                                     setFieldValue('modeAsuhSelected', e.currentTarget.value);
+                                    setModeAsuh(e.currentTarget.value);
                                 }}>
                                     <option value='normal'>Normal</option>
                                     <option value='diawasi'>Diawasi</option>
@@ -196,9 +197,13 @@ function ChildControl({
                                                 if(e.target.value === '2') setFieldValue(`appLimitBlock.${index}.limit`, 1);
                                                 console.log(values.appLimitBlock[index].mode);
                                             }}>
-                                                <label><input type="radio" value={'1'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '1'} />Ya</label>
-                                                <label><input type="radio" value={'0'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '0'} />Tidak</label>
-                                                <label><input type="radio" value={'2'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '2'} />Pakai Limit Penggunaan</label>
+                                                <label><input type="radio" value={'1'} name={'block_status_' + index.toString()}
+                                                    checked={values.appLimitBlock[index].mode === '1' || modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game'))}
+                                                    disabled={modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game'))} />Ya</label>
+                                                <label><input type="radio" value={'0'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '0' && !(modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game')))}
+                                                    disabled={modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game'))} />Tidak</label>
+                                                <label><input type="radio" value={'2'} name={'block_status_' + index.toString()} checked={values.appLimitBlock[index].mode === '2' && !(modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game')))}
+                                                    disabled={modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game'))} />Pakai Limit Penggunaan</label>
                                             </td>
                                             <td>
                                                 <InputComponent
