@@ -213,7 +213,7 @@ function ChildControl({
                                                     value={values.appLimitBlock[index].limit}
                                                     min={1}
                                                     max={1440}
-                                                    disabled={values.appLimitBlock[index].mode !== '2'}
+                                                    disabled={values.appLimitBlock[index].mode !== '2' || modeAsuh === 'dihukum' || (modeAsuh === 'diawasi' && (values.appLimitBlock[index].appCategory === 'social' || values.appLimitBlock[index].appCategory === 'game'))}
                                                     onChange={(e) => {
                                                         setFieldValue(`appLimitBlock.${index}.isChanged`, true);
                                                         setFieldValue(`appLimitBlock.${index}.limit`, e.target.value);
