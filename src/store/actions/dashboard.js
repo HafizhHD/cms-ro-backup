@@ -1876,7 +1876,7 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
                             appId: x.packageId,
                             limit: 0,
                             appCategory: x.appCategory,
-                            status: ''
+                            status: 'Aktif'
                         }
                         const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
@@ -1887,7 +1887,7 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
                             appId: x.packageId,
                             limit: x.limit,
                             appCategory: x.appCategory,
-                            status: ''
+                            status: 'Aktif'
                         }
                         const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
@@ -1906,28 +1906,25 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
                     }
                     else if(x.mode === '1') {
                         let prm = {
-                            whereValues: {
-                                emailUser: userEmail,
-                                appId: x.packageId
-                            },
-                            newValues: {
-                                limit: 0
-                            }
+                            emailUser: userEmail,
+                            appId: x.packageId,
+                            limit: 0,
+                            appCategory: x.appCategory,
+                            status: 'Aktif'
                         }
-                        const pro = appBlockLimitEdit(prm);
+                        const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
                     }
                     else if(x.mode === '2') {
                         let prm = {
-                            whereValues: {
-                                emailUser: userEmail,
-                                appId: x.packageId
-                            },
-                            newValues: {
-                                limit: x.limit
-                            }
+                            emailUser: userEmail,
+                            appId: x.packageId,
+                            limit: x.limit,
+                            appCategory: x.appCategory,
+                            status: 'Aktif'
                         }
-                        const pro = appBlockLimitEdit(prm);
+                        console.log(prm);
+                        const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
                     }
                 }
