@@ -143,7 +143,16 @@ export const getProgramCategoryList = (query) => axios({
     headers: {
         'Content-Type': 'application/json',
     }
-})
+});
+
+export const getProgramResponseList = (query) => axios({
+    method: 'post',
+    url: url + '/user/userProgramContentResponFilter',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
 
 export const getAdminList = (query) => axios({
     method: 'post',

@@ -1610,14 +1610,16 @@ export const addPraytimeMessage = (prayDate, shubuh, dzuhur, ashr, maghrib, isya
         dispatch({
             type: ALERT_CLOSE
         });
+        let prd = new Date(prayDate).toISOString();
+        console.log(prd);
         let data = {
-            prayDate, shubuh, dzuhur, ashr, maghrib, isya
+            prd, shubuh, dzuhur, ashr, maghrib, isya
         };
 
         // console.log(data);
         //Call API ....
 
-        praytimeMessageEdit(data)
+        praytimeMessageAdd(data)
             .then(response => {
                 // console.log('Success:', response.data);
                 history.push('/cms/praytime-message');
@@ -1730,7 +1732,7 @@ export const deletePraytimeMessage = (cobrandEmail, praytimeMessageId, retrieveL
             type: ALERT_CLOSE
         });
         const deleting = {
-            whereValues: {
+            whereKeyValues: {
                 _id: praytimeMessageId[0]
             }
         }

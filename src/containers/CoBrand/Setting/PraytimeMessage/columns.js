@@ -69,7 +69,7 @@ const Columns = (setPraytimeMessageDeleting, setWarning) => {
                         className="nav_btn"
                         title="Delete Hadits/Pesan"
                         onClick={() => {
-                            setPraytimeMessageDeleting([cell.row.values.groupMitraAsuhId, cell.row.values.groupMitraAsuhName]);
+                            setPraytimeMessageDeleting([cell.row.values._id, new Date(cell.row.values.prayDate).toLocaleDateString("id-ID", dateFormat)]);
                             setWarning(true);
                             document.body.style.overflow = 'hidden';
                         }}
