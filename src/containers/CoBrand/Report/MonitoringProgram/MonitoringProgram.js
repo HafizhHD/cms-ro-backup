@@ -100,7 +100,7 @@ const MonitoringProgram = () => {
         // console.log(params);
         getUserList(params)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             var userDataDummy = response.data.users;
             var userDataChild = [];
             for(var i = 0; i < userDataDummy.length; i++) {
@@ -158,7 +158,8 @@ const MonitoringProgram = () => {
                     orderKeyValues: {
                         dateCreated: -1
                     },
-                    limit: Number.MAX_SAFE_INTEGER
+                    limit: Number.MAX_SAFE_INTEGER,
+                    includeContentData: false
                 }
                 const prog = getProgramList(paramProgram);
                 const cont = getContentList(paramContent);

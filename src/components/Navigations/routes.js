@@ -500,19 +500,40 @@ export const MenuCoBranding = () => {
                     ]
                 })
         }
-        if(sch !== '') {
-            routeArray.push({
-                path: '/tools',
-                pathName: 'Tools',
-                icon: <FiTool className="Aside__Nav_item-icon" />,
-                children: [
-                    {
-                        path: '/school-control',
-                        pathName: 'Pengaturan Jadwal Sekolah',
-                        icon: <FiUser className="Aside__Nav_item-icon" />
-                    }
-                ]
-            })
+        if(userLevel === 'Super Admin' || userLevel === 'Admin') {
+            if(sch !== '') {
+                routeArray.push({
+                    path: '/tools',
+                    pathName: 'Tools',
+                    icon: <FiTool className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/admin-staff',
+                            pathName: 'Manajemen Admin & Staff',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/school-control',
+                            pathName: 'Pengaturan Jadwal Sekolah',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        }
+                    ]
+                })
+            }
+            else {
+                routeArray.push({
+                    path: '/tools',
+                    pathName: 'Tools',
+                    icon: <FiTool className="Aside__Nav_item-icon" />,
+                    children: [
+                        {
+                            path: '/admin-staff',
+                            pathName: 'Manajemen Admin & Staff',
+                            icon: <FiUser className="Aside__Nav_item-icon" />
+                        }
+                    ]
+                })
+            }
         }
         // if(userLevel === 'Super Admin') {
         //     routeArray.push({

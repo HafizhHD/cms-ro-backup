@@ -6,7 +6,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './MonitoringContent.scss';
 import dummyData from './DummyData.json'
 import {emailTester, absStart} from '../../GlobalParam'
-import { getUserList, getModeAsuhList, getDeviceScheduleList, getAppLimitList, getAppDetailList } from '../../../../components/API/filter.js'
+import { getUserList, getContentResponseList, getContentList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
 
 const MonitoringContent = () => {
@@ -14,6 +14,7 @@ const MonitoringContent = () => {
     const [userData, setUserData] = useState();
     const [usageData, setUsageData] = useState();
     const [period, setPeriod] = useState('real');
+    const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail ?? '';
     const cobrandComId = JSON.parse(localStorage.getItem('userData')).cobrandComunityId ?? '';
     const groupMitraAsuhId =  JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? '';
     const schoolId =  JSON.parse(localStorage.getItem('userData')).sekolah ?? '';
@@ -95,7 +96,7 @@ const MonitoringContent = () => {
         // console.log(params);
         getUserList(params)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             var userDataDummy = response.data.users;
             var userDataChild = [];
             for(var i = 0; i < userDataDummy.length; i++) {
@@ -120,97 +121,57 @@ const MonitoringContent = () => {
             }
             let userLength = userDataChild.length;
 
-            let paramsAll = {
+            let paramsContentRes = {
+                whereKeyValues: {
+                    programId: ""
+                },
+                orderKeyValues: {
+                    dateCreated: -1
+                },
                 limit: Number.MAX_SAFE_INTEGER
             }
 
-            const promiseAsuh = getModeAsuhList(paramsAll);
-            const promiseSchedule = getDeviceScheduleList(paramsAll);
-            const promiseLimit = getAppLimitList(paramsAll);
-            const promiseAppDetail = getAppDetailList(paramsAll);
-
-            Promise.all([promiseAsuh, promiseSchedule, promiseLimit, promiseAppDetail]).then(responseAll => {
-                // console.log(responseAll[0]);
-                // console.log(responseAll[1]);
-                // console.log(responseAll[2]);
-                // console.log(responseAll[3]);
-
-                const asuhList = responseAll[0].data.childModeAsuhs;
-                const scheduleList = responseAll[1].data.deviceUsageSchedules;
-                const limitList = responseAll[2].data.appUsageLimit;
-                const appDetailList = responseAll[3].data.appIcons;
-
-                for(var i = 0; i < userLength; i++) {
-                    let user = userDataChild[i];
-                    var found = false;
-                    for(var j = 0; j < asuhList.length && !found; j++) {
-                        if(user.emailUser === asuhList[j].emailUser) {
-                            user['modeAsuh'] = "On";
-                            found = true;
-                        }
-                    }
-                    if(!found) user['modeAsuh'] = "Off";
+            getContentResponseList(paramsContentRes)
+            .then(res2 => {
+                let paramContent = {
+                    whereKeyValues: {
+                        programId: "",
+                        cobrandEmail: cobrandEmail
+                    },
+                    orderKeyValues: {
+                        dateCreated: -1
+                    },
+                    limit: Number.MAX_SAFE_INTEGER,
+                    includeContentData: false
                 }
-
-                for(var i = 0; i < userLength; i++) {
-                    let user = userDataChild[i];
-                    var blockedApps = [];
-                    var limitedApps = [];
-                    for(var j = 0; j < limitList.length; j++) {
-                        if(user.emailUser === limitList[j].emailUser) {
-                            if(limitList[j].limit > 0) {
-                                // console.log('Mantap2');
-                                for(var k = 0; k < appDetailList.length; k++) {
-                                    if(limitList[j].appId === appDetailList[k].appId) {
-                                        // console.log('Mantap2-1');
-                                        limitedApps.push(appDetailList[k].appName);
+                const cont = getContentList(paramContent);
+                Promise.all([cont])
+                .then(res3 => {
+                    let x = res2.data.resultData;
+                    console.log('x', x);
+                    for(var j = 0; j < userLength; j++) {
+                        let y = userDataChild[j];
+                        console.log('y', y);
+                        for(var k = 0; k < x.length; k++) {
+                            if(x[k].emailUser === y.emailUser) {
+                                userDataChild[j]["contentId"] = x[k].contentId;
+                                userDataChild[j]["response"] = x[k].respon;
+                                let z = res3[0].data.contents;
+                                console.log('z', z);
+                                for(var l = 0; l < z.length; l++) {
+                                    if(z[l]._id === x[k].contentId) {
+                                        userDataChild[j]["contentName"] = z[l].contentName;
                                         break;
                                     }
                                 }
-                            }
-                            else if(limitList[j].limit === 0) {
-                                // console.log('Mantap21');
-                                for(var k = 0; k < appDetailList.length; k++) {
-                                    if(limitList[j].appId === appDetailList[k].appId){
-                                        // console.log('Mantap21-1');
-                                        blockedApps.push(appDetailList[k].appName);
-                                        break;
-                                    }
-                                }
+                                break;
                             }
                         }
                     }
-                    if(blockedApps.length > 0) user['blockedApps'] = blockedApps.join(', ');
-                    if(limitedApps.length > 0) user['limitedApps'] = limitedApps.join(', ');
-                    // if(!found) user['usageScheduleStatus'] = "Off";
-                }
+                    setUserData(userDataChild);
+                    setLoading(false);
 
-                for(var i = 0; i < userLength; i++) {
-                    let user = userDataChild[i];
-                    var lockFound = false, scheduleFound = false;
-                    for(var j = 0; j < scheduleList.length && (!lockFound || !scheduleFound); j++) {
-                        if(user.emailUser === scheduleList[j].emailUser) {
-                            if(scheduleList[j].scheduleType === 'terjadwal') {
-                                if(scheduleList[j].deviceUsageEndTime === scheduleList[j].deviceUsageStartTime) {
-                                    user['lockScreenStatus'] = 'On';
-                                    lockFound = true;
-                                }
-                                else {
-                                    user['usageScheduleStatus'] = "On";
-                                    scheduleFound = true;
-                                }
-                            }
-                            else {
-                                user['usageScheduleStatus'] = "On";
-                                scheduleFound = true;
-                            }
-                        }
-                    }
-                    if(!scheduleFound) user['usageScheduleStatus'] = "Off";
-                    if(!lockFound) user['lockScreenStatus'] = "Off";
-                }
-                setUserData(userDataChild);
-                setLoading(false);
+                })
             })
 
         })

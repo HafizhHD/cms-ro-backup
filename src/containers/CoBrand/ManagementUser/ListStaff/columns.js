@@ -65,7 +65,11 @@ const Columns = (setStaffDeleting, setWarning) => {
                             </div>
                         </button>
                     </NavLink>
-                    {cell.row.values.emailUser !== 'admin@asia.ruangortu.id' ? <NavLink to="/tools/admin-staff"
+                    {cell.row.values.emailUser !== 'admin@asia.ruangortu.id' && cell.row.values.emailUser !== JSON.parse(localStorage.getItem('userData')).emailUser &&
+                     (JSON.parse(localStorage.getItem('userData')).userLevel === 'Super Admin' ||
+                    (JSON.parse(localStorage.getItem('userData')).userLevel === 'Admin' && ((JSON.parse(localStorage.getItem('userData')).sekolah ?? '') === cell.row.values.sekolah ||
+                    (JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? '') === cell.row.values.groupMitraAsuhId) && cell.row.values.sekolah && cell.row.values.groupMitraAsuhId))
+                     ? <NavLink to="/tools/admin-staff"
                         className="nav_btn"
                         title="Delete Staff"
                         onClick={() => {
