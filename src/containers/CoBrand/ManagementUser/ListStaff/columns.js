@@ -24,6 +24,9 @@ const Columns = (setStaffDeleting, setWarning) => {
         {
             Header: 'Tipe User',
             accessor: 'userType',
+            Cell: ({value}) => (
+                value === 'Co-Brand-Group' ? 'Grup Mitra Asuh' : value
+            )
         },
         {
             Header: 'Level User',
