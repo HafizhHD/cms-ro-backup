@@ -2,6 +2,7 @@ import { FiActivity, FiEdit, FiHome, FiImage, FiMapPin, FiTool, FiInbox, FiUser,
 
 export const MenuCoBranding = () => { 
     const userLevel = localStorage.getItem('userLevel');
+    const userType = JSON.parse(localStorage.getItem('userData')).userType;
     const cobrandComId = localStorage.getItem('cobrandComId') ?? ''
     let gma = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? ''
     let sch = JSON.parse(localStorage.getItem('userData')).sekolah ?? ''
@@ -13,7 +14,7 @@ export const MenuCoBranding = () => {
             icon: <FiHome className="Aside__Nav_item-icon" />
         }
     ]
-    if(cobrandComId === '' && gma === '' && sch === '') { 
+    if(cobrandComId === '' && (gma === '' || userType !== 'Co-Brand-Group') && (sch === '' || userType !== 'Operator-Sekolah')) { 
         if(userLevel === 'Admin' || userLevel === 'Reporter') {
             routeArray.push(
                 {
@@ -335,7 +336,7 @@ export const MenuCoBranding = () => {
     }
     else {
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Reporter') {
-            if(sch !== '') {
+            if(sch !== '' || userType === 'Operator-Sekolah') {
                 routeArray.push(
                     {
                         path: '/report',
@@ -411,7 +412,7 @@ export const MenuCoBranding = () => {
         }
         
         if(userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor') {
-            if(sch === '')
+            if(sch === '' || userType !== 'Operator-Sekolah')
             routeArray.push(
                 {
                     path: '/cms',
@@ -501,7 +502,7 @@ export const MenuCoBranding = () => {
                 })
         }
         if(userLevel === 'Super Admin' || userLevel === 'Admin') {
-            if(sch !== '') {
+            if(sch !== '' || userType === 'Operator-Sekolah') {
                 routeArray.push({
                     path: '/tools',
                     pathName: 'Tools',

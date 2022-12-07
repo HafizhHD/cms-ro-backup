@@ -20,6 +20,8 @@ function AddStaff({
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail ?? '';
     const userType = JSON.parse(localStorage.getItem('userData')).userType ?? '';
     const userLevel = JSON.parse(localStorage.getItem('userData')).userLevel ?? '';
+    const sekolah = JSON.parse(localStorage.getItem('userData')).sekolah ?? '';
+    const groupMitraAsuhId = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? '';
     const [isPasswordVisible, showPassword] = useState(false);
     const [comList, setComList] = useState([]);
     const [isCurrentlyLoading, setCurrentlyLoading] = useState(true);
@@ -125,11 +127,11 @@ function AddStaff({
                     userType: 'Co-Brand',
                     cobrandEmail: cobrandEmail,
                     userLevel: 'Reporter',
-                    sekolah: '',
+                    sekolah: sekolah,
                     emailUser: '',
                     phone: '',
                     cobrandComunityId: '',
-                    groupMitraAsuhId: '',
+                    groupMitraAsuhId: groupMitraAsuhId,
                 }}
                 validationSchema = {validationStaff}
                 validateOnChange = {true}
@@ -230,6 +232,7 @@ function AddStaff({
                                 <div className="form-group">
                                     <label>Sekolah</label>
                                     <AsyncSelect cacheOptions defaultOptions 
+                                        isDisabled={sekolah !== ''}
                                         styles={colourStyles}
                                         placeholder={"Pilih sekolah..."} loadOptions={loadOptions} onChange={(e) => {
                                         console.log(e);
@@ -244,17 +247,20 @@ function AddStaff({
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                     /> */}
+                                    {touched.sekolah && <span className="message__error">{errors.sekolah}</span>}
                                 </div>
                             ) :
                             values.userType === 'Co-Brand-Group' ? (
                                 <div className="form-group">
                                 <label>Grup Mitra Asuh</label>
                                 <AsyncSelect cacheOptions defaultOptions 
+                                    isDisabled={groupMitraAsuhId !== ''}
                                     styles={colourStyles}
                                     placeholder={"Pilih grup mitra asuh..."} loadOptions={loadOptionsGroup} onChange={(e) => {
                                         console.log(e);
                                         setFieldValue('groupMitraAsuhId', e.value);
                                 }}/>
+                                {touched.groupMitraAsuhId && <span className="message__error">{errors.groupMitraAsuhId}</span>}
                             </div>
                             ) : null
                         }

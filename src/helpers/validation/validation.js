@@ -197,7 +197,19 @@ export const validationStaff = yup.object({
     emailUser: yup.string('Enter your email').required('Email is required').email('Email not valid'),
     userName: yup.string('Enter your name').required('Name is required').matches(UserRegex, 'Invalid username format'),
     phone: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
-    password: yup.string('Enter your password').required('Password is required').min(8, 'Password should be 8 characters or more')
+    password: yup.string('Enter your password').required('Password is required').min(8, 'Password should be 8 characters or more'),
+    userType: yup.string(),
+    userLevel: yup.string(),
+    groupMitraAsuhId: yup.string().when('userType', {
+        is: 'Co-Brand-Group',
+        then: yup.string().required('Grup Mitra Asuh harus diisi'),
+        otherwise: yup.string()
+    }),
+    sekolah: yup.string().when('userType', {
+        is: 'Operator-Sekolah',
+        then: yup.string().required('Sekolah harus diisi'),
+        otherwise: yup.string()
+    }),
 })
 
 export const validationCommunity = yup.object({

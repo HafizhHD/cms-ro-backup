@@ -4,7 +4,7 @@ import columns from './columns';
 import Heading from '../../../../components/UI/Heading/Heading';
 import RKLoader from './../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './UserReport.scss';
-import { getUserList } from './../../../../components/API/filter.js'
+import { getUserList, getSchoolGroupList } from './../../../../components/API/filter.js'
 import dummyData from './DummyData.json';
 import {emailTester, absStart} from '../../GlobalParam'
 import MUIDataTable from "mui-datatables";
@@ -37,115 +37,128 @@ const UserReport = () => {
             setLoading(false);
         }
         else {
-            let params = 
-            schoolId !== '' ? {
+            let gma = groupMitraAsuhId === '' ? '00000000' : groupMitraAsuhId; 
+            let prm = {
                 whereKeyValues: {
-                    packageId: "com.byasia.ruangortu",
-                    "childInfo.schoolName": schoolId,
-                    dateCreated: {
-                        "$gte": absStart.toISOString().split("T")[0]
-                    },
-                    // emailUser: {
-                    //     "$nin": emailTester
-                    // }
-                },
-                orderKeyValues: {
-                    nameUser: 1
-                },
-                limit: Number.MAX_SAFE_INTEGER
-            } :
-            groupMitraAsuhId !== '' ? {
-                whereKeyValues: {
-                    packageId: "com.byasia.ruangortu",
-                    groupMitraAsuhId: groupMitraAsuhId,
-                    dateCreated: {
-                        "$gte": absStart.toISOString().split("T")[0]
-                    },
-                    // emailUser: {
-                    //     "$nin": emailTester
-                    // }
-                },
-                orderKeyValues: {
-                    nameUser: 1
-                },
-                limit: Number.MAX_SAFE_INTEGER
-            } : 
-            cobrandComId !== '' ? {
-                whereKeyValues: {
-                    packageId: "com.byasia.ruangortu",
-                    cobrandComunityId: cobrandComId,
-                    dateCreated: {
-                        "$gte": absStart.toISOString().split("T")[0]
-                    },
-                    // emailUser: {
-                    //     "$nin": emailTester
-                    // }
-                },
-                orderKeyValues: {
-                    nameUser: 1
-                },
-                limit: Number.MAX_SAFE_INTEGER
-            } : {
-                whereKeyValues: {
-                    packageId: "com.byasia.ruangortu",
-                    dateCreated: {
-                        "$gte": absStart.toISOString().split("T")[0]
-                    },
-                    // emailUser: {
-                    //     "$nin": emailTester
-                    // }
-                },
-                orderKeyValues: {
-                    nameUser: 1
-                },
-                limit: Number.MAX_SAFE_INTEGER
-            };
-        // console.log(params);
-        getUserList(params)
-        .then(response => {
-            console.log(response.data.users);
-            // setUserData(response.data.users);
-            var ud = response.data.users;
-            for(var i = 0; i < ud.length; i++) {
-                let user = ud[i];
-                if(user.userType === 'child') {
-                    // if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
-                    // if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
-                    if(user.subscriptions.length > 0) {
-                        if(user.subscriptions[0].dateStart !== undefined) user['startSubscription'] = new Date(user.subscriptions[0].dateStart);
-                        if(user.subscriptions[0].dateEnd !== undefined) user['endSubscription'] = new Date(user.subscriptions[0].dateEnd);
-                        if(user.endSubscription < today) user['subscriptionStatus'] = 'Unsubscribed'
-                        else {
-                            user['subscriptionStatus'] = 'Subscribed'
-                            user['subscriptionPlan'] = user.subscriptions[0].subscriptionPackageId;
-                        }
-                    }
-                    else user['subscriptionStatus'] = 'Not Subscribed'
-                    // console.log("Anjay");
-                    var parentNames = [];
-                    var parentEmails = [user.parentEmail, ...user.otherParentEmail];
-                    for(var j = 0; j < ud.length; j++) {
-                        let user2 = ud[j];
-                        if(user.parentEmail === user2.emailUser){
-                            parentNames.push(user2.nameUser);
-                        }
-                        else if(user.otherParentEmail.includes(user2.emailUser)) {
-                            parentNames.push(user2.nameUser);
-                        }
-                    }
-                    user['parentName'] = parentNames;
-                    user['parentEmail'] = parentEmails;
-                    // console.log(user.parentEmail);
+                    groupMitraAsuhId: gma
                 }
-                user['registerDate'] = new Date(user.dateCreated);
             }
-            setUserData(ud);
-            setLoading(false);
-        })
-        .catch(error => {
-            // console.log(error);
-            setLoading(false);
-        })}
+            getSchoolGroupList(prm)
+            .then(rsp => {
+                let schoolList = rsp.data.Data[0] ? rsp.data.Data[0].memberSekolah : [];
+                let params = 
+                schoolId !== '' ? {
+                    whereKeyValues: {
+                        packageId: "com.byasia.ruangortu",
+                        "childInfo.schoolName": schoolId,
+                        dateCreated: {
+                            "$gte": absStart.toISOString().split("T")[0]
+                        },
+                        // emailUser: {
+                        //     "$nin": emailTester
+                        // }
+                    },
+                    orderKeyValues: {
+                        nameUser: 1
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
+                } :
+                groupMitraAsuhId !== '' ? {
+                    whereKeyValues: {
+                        packageId: "com.byasia.ruangortu",
+                        "childInfo.schoolName": {
+                            "$in": schoolList
+                        },
+                        dateCreated: {
+                            "$gte": absStart.toISOString().split("T")[0]
+                        },
+                        // emailUser: {
+                        //     "$nin": emailTester
+                        // }
+                    },
+                    orderKeyValues: {
+                        nameUser: 1
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
+                } : 
+                cobrandComId !== '' ? {
+                    whereKeyValues: {
+                        packageId: "com.byasia.ruangortu",
+                        cobrandComunityId: cobrandComId,
+                        dateCreated: {
+                            "$gte": absStart.toISOString().split("T")[0]
+                        },
+                        // emailUser: {
+                        //     "$nin": emailTester
+                        // }
+                    },
+                    orderKeyValues: {
+                        nameUser: 1
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
+                } : {
+                    whereKeyValues: {
+                        packageId: "com.byasia.ruangortu",
+                        dateCreated: {
+                            "$gte": absStart.toISOString().split("T")[0]
+                        },
+                        // emailUser: {
+                        //     "$nin": emailTester
+                        // }
+                    },
+                    orderKeyValues: {
+                        nameUser: 1
+                    },
+                    limit: Number.MAX_SAFE_INTEGER
+                };
+            // console.log(params);
+            getUserList(params)
+            .then(response => {
+                console.log(response.data.users);
+                // setUserData(response.data.users);
+                var ud = response.data.users;
+                for(var i = 0; i < ud.length; i++) {
+                    let user = ud[i];
+                    if(user.userType === 'child') {
+                        // if(user.startSub !== undefined) user['startSubscription'] = new Date(user.startSub);
+                        // if(user.endSub !== undefined) user['endSubscription'] = new Date(user.endSub);
+                        if(user.subscriptions.length > 0) {
+                            if(user.subscriptions[0].dateStart !== undefined) user['startSubscription'] = new Date(user.subscriptions[0].dateStart);
+                            if(user.subscriptions[0].dateEnd !== undefined) user['endSubscription'] = new Date(user.subscriptions[0].dateEnd);
+                            if(user.endSubscription < today) user['subscriptionStatus'] = 'Unsubscribed'
+                            else {
+                                user['subscriptionStatus'] = 'Subscribed'
+                                user['subscriptionPlan'] = user.subscriptions[0].subscriptionPackageId;
+                            }
+                        }
+                        else user['subscriptionStatus'] = 'Not Subscribed'
+                        // console.log("Anjay");
+                        var parentNames = [];
+                        var parentEmails = [user.parentEmail, ...user.otherParentEmail];
+                        for(var j = 0; j < ud.length; j++) {
+                            let user2 = ud[j];
+                            if(user.parentEmail === user2.emailUser){
+                                parentNames.push(user2.nameUser);
+                            }
+                            else if(user.otherParentEmail.includes(user2.emailUser)) {
+                                parentNames.push(user2.nameUser);
+                            }
+                        }
+                        user['parentName'] = parentNames;
+                        user['parentEmail'] = parentEmails;
+                        // console.log(user.parentEmail);
+                    }
+                    user['registerDate'] = new Date(user.dateCreated);
+                }
+                setUserData(ud);
+                setLoading(false);
+            })
+            .catch(error => {
+                // console.log(error);
+                setLoading(false);
+            })
+            })
+            }
     }, [, period]);
 
     if(isLoading) {

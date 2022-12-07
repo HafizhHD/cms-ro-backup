@@ -6,7 +6,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader.js';
 import './MonitoringProgram.scss';
 import dummyData from './DummyData.json';
 import {emailTester, absStart} from '../../GlobalParam'
-import { getUserList, getContentResponseList, getProgramList, getContentList } from '../../../../components/API/filter.js'
+import { getUserList, getContentResponseList, getProgramList, getContentList, getSchoolGroupList } from '../../../../components/API/filter.js'
 import MUIDataTable from "mui-datatables";
 
 const MonitoringProgram = () => {
@@ -34,7 +34,17 @@ const MonitoringProgram = () => {
             setLoading(false);
             setLoading(false);
         }
-        else {let params=
+        else {
+            let gma = groupMitraAsuhId === '' ? '00000000' : groupMitraAsuhId; 
+            let prm = {
+                whereKeyValues: {
+                    groupMitraAsuhId: gma
+                }
+            }
+            getSchoolGroupList(prm)
+            .then(rsp => {
+                let schoolList = rsp.data.Data[0] ? rsp.data.Data[0].memberSekolah : [];
+            let params=
             schoolId !== '' ? {
                 whereKeyValues: {
                     packageId: "com.byasia.ruangortu",
@@ -54,7 +64,9 @@ const MonitoringProgram = () => {
             groupMitraAsuhId !== '' ? {
                 whereKeyValues: {
                     packageId: "com.byasia.ruangortu",
-                    groupMitraAsuhId: groupMitraAsuhId,
+                    "childInfo.schoolName": {
+                        "$in": schoolList
+                    },
                     dateCreated: {
                         "$gte": absStart.toISOString().split("T")[0]
                     },
@@ -210,7 +222,7 @@ const MonitoringProgram = () => {
         .catch(error => {
             // console.log(error);
             setLoading(false);
-        })}
+        })})}
     }, [, period]);
 
     if(isLoading) {

@@ -258,6 +258,7 @@ function EditStaff({
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                     /> */}
+                                    {touched.sekolah && <span className="message__error">{errors.sekolah}</span>}
                                 </div>
                             ) :
                             values.userType === 'Co-Brand-Group' ? (
@@ -269,6 +270,7 @@ function EditStaff({
                                         console.log(e);
                                         setFieldValue('groupMitraAsuhId', e.value);
                                 }}/>
+                                {touched.groupMitraAsuhId && <span className="message__error">{errors.groupMitraAsuhId}</span>}
                             </div>
                             ) : null
                         }
