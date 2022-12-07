@@ -21,6 +21,8 @@ function EditStaff({
     const userType = JSON.parse(localStorage.getItem('userData')).userType ?? '';
     const userLevel = JSON.parse(localStorage.getItem('userData')).userLevel ?? '';
     const id = localStorage.getItem('staffSelected');
+    const sekolah = JSON.parse(localStorage.getItem('userData')).sekolah ?? '';
+    const groupMitraAsuhId = JSON.parse(localStorage.getItem('userData')).groupMitraAsuhId ?? '';
 
     const [staff, setStaff] = useState([]);
     const [comList, setComList] = useState([]);
@@ -243,12 +245,15 @@ function EditStaff({
                             values.userType === 'Operator-Sekolah' ? (
                                 <div className="form-group">
                                     <label>Sekolah</label>
-                                    <AsyncSelect cacheOptions defaultOptions 
+                                    {sekolah === '' ? <AsyncSelect cacheOptions defaultOptions 
+                                        isDisabled={sekolah !== ''}
                                         styles={colourStyles}
                                         placeholder={"Pilih sekolah..."} loadOptions={loadOptions} onChange={(e) => {
                                         console.log(e);
                                         setFieldValue('sekolah', e.value);
                                     }}/>
+                                    : <p>{values.sekolah}</p>
+                                    }
                                     {/* <InputComponent 
                                         type="text"
                                         name="sekolah"
@@ -264,12 +269,15 @@ function EditStaff({
                             values.userType === 'Co-Brand-Group' ? (
                                 <div className="form-group">
                                 <label>Grup Mitra Asuh</label>
-                                <AsyncSelect cacheOptions defaultOptions 
+                                {groupMitraAsuhId === '' ? <AsyncSelect cacheOptions defaultOptions 
+                                    isDisabled={groupMitraAsuhId !== ''}
                                     styles={colourStyles}
                                     placeholder={"Pilih grup mitra asuh..."} loadOptions={loadOptionsGroup} onChange={(e) => {
                                         console.log(e);
                                         setFieldValue('groupMitraAsuhId', e.value);
                                 }}/>
+                                : <p>{values.groupMitraAsuhId}</p>
+                                }
                                 {touched.groupMitraAsuhId && <span className="message__error">{errors.groupMitraAsuhId}</span>}
                             </div>
                             ) : null

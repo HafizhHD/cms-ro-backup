@@ -1577,11 +1577,15 @@ export const addSchoolGroup = (groupMitraAsuhName, cobrandEmail, memberSekolah, 
         dispatch({
             type: ALERT_CLOSE
         });
+        let p = [];
+        for(var i = 0; i < memberSekolah.length; i++) {
+            p.push(memberSekolah[i].value)
+        }
         let data = {
             groupMitraAsuhId: groupMitraAsuhName,
             groupMitraAsuhName,
             cobrandEmail,
-            memberSekolah
+            memberSekolah: p
         };
 
         // console.log(data);

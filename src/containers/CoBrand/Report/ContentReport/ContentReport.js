@@ -87,6 +87,9 @@ const ContentReport = () => {
                     console.log('Likes: ' + p[i].totalLikes);
                 }
                 getContentViewList({
+                    "whereKeyValues": {
+                        "programId": ""
+                    }
                 })
                 .then(res2 => {
                     var r = res2.data.resultData;
