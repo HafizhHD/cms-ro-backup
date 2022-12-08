@@ -121,11 +121,25 @@ function SchoolControl({
             })
             setUserEmails(p);
             console.log("Bjir lu net");
-            let net = response[1].data.deviceUsageSchedules.slice(0,1);
-            if(net.length > 0) {
-                net[0]["oldValue"] = net[0].scheduleName
+            let net = response[1].data.deviceUsageSchedules;
+            console.log(net);
+            var filteredNet = [];
+            for(var i = 0; i < net.length; i++) {
+                if(filteredNet.length <= 0) filteredNet.push(net[i]);
+                else {
+                    var found = false;
+                    for(var j = 0; j < filteredNet.length && !found; j++) {
+                        if(filteredNet[j].scheduleName === net[i].scheduleName && filteredNet[j].scheduleDescription === net[i].scheduleDescription) found = true;
+                    }
+                    if(!found) filteredNet.push(net[i]);
+                }
             }
-            setScheduleAdded(net);
+            for(var j = 0; j < filteredNet.length; j++) {
+                filteredNet[j]["oldValue"] = filteredNet[j].scheduleName;
+                filteredNet[j]["willBeRemoved"] = false;
+            }
+            console.log(filteredNet);
+            setScheduleAdded(filteredNet);
             console.log("Bjir lu net2")
 
             let z = response[2].data.resultData;
@@ -172,7 +186,7 @@ function SchoolControl({
             <Formik
                 initialValues={{
                     appWhiteListId: whitelist,
-                    deviceSchedule: isScheduleAdded[0] ? [isScheduleAdded[0]] : []
+                    deviceSchedule: isScheduleAdded ? isScheduleAdded : []
                 }}
                 // validationSchema={validationStepEdit}
                 // validateOnChange={true}
@@ -219,8 +233,8 @@ function SchoolControl({
                                     else {
                                         let p = {
                                             _id: '',
-                                            scheduleName: 'Jadwal Belajar',
-                                            oldValue: 'Jadwal Belajar ' + sekolah,
+                                            scheduleName: 'Jadwal Belajar ' + (values.deviceSchedule.length + 1),
+                                            oldValue: 'Jadwal Belajar ' + (values.deviceSchedule.length + 1) + sekolah,
                                             scheduleDescription: '',
                                             scheduleType: 'harian',
                                             deviceUsageDays: [],

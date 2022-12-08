@@ -1947,16 +1947,17 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
         //     const pro = modeAsuhDelete(prm);
         //     promises.push(pro);
         // }
-        let prm = {
+        let prmo = {
             emailUser: userEmail,
             modeAsuhName: modeAsuh
         }
-        const pro = modeAsuhAdd(prm);
+        const pro = modeAsuhAdd(prmo);
         promises.push(pro);
 
         //jadwal penguncian
         for(var j = 0; j < deviceSchedule.length; j++) {
             let x = deviceSchedule[j];
+            x["emailUser"] = userEmail;
             if(x.willBeRemoved) {
                 let prm = {
                     whereValues: {
@@ -2033,6 +2034,7 @@ export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekola
                                 scheduleName: x.oldValue
                             }
                         }
+                        console.log(prm);
                         const pro = deviceScheduleDelete(prm);
                         promises.push(pro);
                     }
