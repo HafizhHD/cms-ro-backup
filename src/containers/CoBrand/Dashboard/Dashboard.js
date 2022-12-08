@@ -9,7 +9,7 @@ import columns from'./columns';
 import RKLoader from '../../../components/UI/RKLoaderInner/RKLoader';
 import RKLoaderSpinner from '../../../components/UI/RKLoaderSpinner/RKLoader';
 import { useHistory } from 'react-router';
-import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList } from '../../../components/API/filter';
+import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList, getSchoolGroupList } from '../../../components/API/filter';
 import {FaWhatsapp} from 'react-icons/fa';
 import {emailTester, absStart} from '../GlobalParam';
 
@@ -141,436 +141,454 @@ function Dashboard() {
 
         var countingUser = [0,0,0];
 
-        let paramUser =
-        schoolId !== '' ? {
+        let gma = groupMitraAsuhId === '' ? '00000000' : groupMitraAsuhId; 
+        let prm = {
             whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
-                sekolah: schoolId,
-                dateCreated: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            orderKeyValues: {
-                nameUser: 1
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } :
-        groupMitraAsuhId !== '' ? {
-            whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
-                groupMitraAsuhId: groupMitraAsuhId,
-                dateCreated: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            orderKeyValues: {
-                nameUser: 1
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } : 
-        cobrandComId !== '' ? {
-            whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
-                cobrandComunityId: cobrandComId,
-                dateCreated: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            orderKeyValues: {
-                nameUser: 1
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } : {
-            whereKeyValues: {
-                packageId: "com.byasia.ruangortu",
-                dateCreated: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            orderKeyValues: {
-                nameUser: 1
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        };
-
-        let paramContent = 
-        schoolId !== '' ? {
-            whereKeyValues: {
-                cobrandEmail: localData.cobrandEmail,
-                sekolah: schoolId,
-                programId: "",
-                status: {"$in" : ["active", "inactive"]},
-                dateCreated: {
-                    "$gte": startDateCon.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            orderKeyValues: {
-                contentName: 1
-            },
-            includeContentData: false,
-            limit: Number.MAX_SAFE_INTEGER
-        } : 
-        groupMitraAsuhId !== '' ? {
-            whereKeyValues: {
-                cobrandEmail: localData.cobrandEmail,
-                groupMitraAsuhId: groupMitraAsuhId,
-                programId: "",
-                status: {"$in" : ["active", "inactive"]},
-                dateCreated: {
-                    "$gte": startDateCon.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            orderKeyValues: {
-                contentName: 1
-            },
-            includeContentData: false,
-            limit: Number.MAX_SAFE_INTEGER
-        } : 
-        cobrandComId !== '' ? {
-            whereKeyValues: {
-                cobrandEmail: localData.cobrandEmail,
-                cobrandComunityId: cobrandComId,
-                programId: "",
-                status: {"$in" : ["active", "inactive"]},
-                dateCreated: {
-                    "$gte": startDateCon.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            orderKeyValues: {
-                contentName: 1
-            },
-            includeContentData: false,
-            limit: Number.MAX_SAFE_INTEGER
-        } : {
-            whereKeyValues: {
-                cobrandEmail: localData.cobrandEmail,
-                programId: "",
-                status: {"$in" : ["active", "inactive"]},
-                dateCreated: {
-                    "$gte": startDateCon.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            orderKeyValues: {
-                contentName: 1
-            },
-            includeContentData: false,
-            limit: Number.MAX_SAFE_INTEGER
-        }
-
-        let paramProgram = {
-            whereKeyValues: {
-                cobrandEmail: localData.cobrandEmail,
-                dateCreated: {
-                    "$gte": startDateCon.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            orderKeyValues: {
-                programName: 1
-            },
-            includeThumbnailData: false,
-            limit: Number.MAX_SAFE_INTEGER
-        }
-
-        let paramUsage = {
-            whereKeyValues: {
-                dateCreate: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                },
-                emailUser: {
-                    "$nin": emailTester
-                }
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        }
-
-        let paramNotification = 
-        schoolId !== '' ? {
-            whereKeyValues: {
-                sekolah: schoolId,
-                scheduleTime: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } : 
-        groupMitraAsuhId !== '' ? {
-            whereKeyValues: {
-                groupMitraAsuhId: groupMitraAsuhId,
-                scheduleTime: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } : 
-        cobrandComId !== '' ? {
-            whereKeyValues: {
-                cobrandComunityId: cobrandComId,
-                scheduleTime: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        } : {
-            whereKeyValues: {
-                scheduleTime: {
-                    "$gte": startDate.toISOString().split('T')[0],
-                    "$lte": endDate.toISOString().split('T')[0]
-                }
-            },
-            limit: Number.MAX_SAFE_INTEGER
-        }
-
-        let paramNotificationCategory = {
-            limit: Number.MAX_SAFE_INTEGER
-        }
-
-        const promiseUser = getUserList(paramUser);
-        const promiseContent = getContentList(paramContent);
-        const promiseProgram = getProgramList(paramProgram);
-        const promiseUsage = getAppUsageList(paramUsage);
-        const promiseNotification = getNotificationList(paramNotification);
-        const promiseNotificationCategory = getNotificationCategoryList(paramNotificationCategory);
-
-        Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification, promiseNotificationCategory]).then(responseAll => {
-            // console.log(responseAll[0]);
-            const dataUser = responseAll[0].data.users;
-            countingUser[0] = dataUser.length;
-            // console.log(dataUser);
-            for(var i = 0; i < dataUser.length; i++) {
-                let x = dataUser[i];
-                if(x.userType === 'parent') {
-                    countingUser[1]++;
-                    // // console.log("Parent email: " + x.parentEmail);
-                    if(x.parentEmail === undefined) parent[0]++;
-                    else coparent[0]++;
-                }
-                else if(x.userType === 'child') {
-                    countingUser[2]++;
-                    if(x.childInfo.StudyLevel.includes('TK')) tk[1]++;
-                    else if(x.childInfo.StudyLevel.includes('SD')) sd[1]++;
-                    else if(x.childInfo.StudyLevel.includes('SMP')) smp[1]++;
-                    else if(x.childInfo.StudyLevel.includes('SMA')) sma[1]++;
-                    else other[1]++;
-                }
+                groupMitraAsuhId: gma
             }
-            const userDataObj = [
+        }
+        getSchoolGroupList(prm)
+        .then(rsp => {
+            let schoolList = rsp.data.Data[0] ? rsp.data.Data[0].memberSekolah : [];
+            console.log(schoolList);
 
-                {
-                    name: "Parent",
-                    data: parent
+            let paramUser =
+            schoolId !== '' ? {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    "childInfo.schoolName": schoolId,
+                    dateCreated: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
                 },
-                {
-                    name: "Co-Parent",
-                    data: coparent
+                orderKeyValues: {
+                    nameUser: 1
                 },
-                {
-                    name: "TK",
-                    data: tk
+                limit: Number.MAX_SAFE_INTEGER
+            } :
+            groupMitraAsuhId !== '' ? {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    "childInfo.schoolName": {
+                        "$in": schoolList
+                    },
+                    dateCreated: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
                 },
-                {
-                    name: "SD",
-                    data: sd
+                orderKeyValues: {
+                    nameUser: 1
                 },
-                {
-                    name: "SMP",
-                    data: smp
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            cobrandComId !== '' ? {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    cobrandComunityId: cobrandComId,
+                    dateCreated: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
                 },
-                {
-                    name: "SMA",
-                    data: sma
+                orderKeyValues: {
+                    nameUser: 1
                 },
-                {
-                    name: "Lainnya",
-                    data: other
+                limit: Number.MAX_SAFE_INTEGER
+            } : {
+                whereKeyValues: {
+                    packageId: "com.byasia.ruangortu",
+                    dateCreated: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
+                },
+                orderKeyValues: {
+                    nameUser: 1
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            };
+
+            let paramContent = 
+            schoolId !== '' ? {
+                whereKeyValues: {
+                    cobrandEmail: localData.cobrandEmail,
+                    sekolah: schoolId,
+                    programId: "",
+                    status: {"$in" : ["active", "inactive"]},
+                    dateCreated: {
+                        "$gte": startDateCon.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                orderKeyValues: {
+                    contentName: 1
+                },
+                includeContentData: false,
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            groupMitraAsuhId !== '' ? {
+                whereKeyValues: {
+                    cobrandEmail: localData.cobrandEmail,
+                    sekolah: {
+                        "$in": schoolList
+                    },
+                    programId: "",
+                    status: {"$in" : ["active", "inactive"]},
+                    dateCreated: {
+                        "$gte": startDateCon.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                orderKeyValues: {
+                    contentName: 1
+                },
+                includeContentData: false,
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            cobrandComId !== '' ? {
+                whereKeyValues: {
+                    cobrandEmail: localData.cobrandEmail,
+                    cobrandComunityId: cobrandComId,
+                    programId: "",
+                    status: {"$in" : ["active", "inactive"]},
+                    dateCreated: {
+                        "$gte": startDateCon.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                orderKeyValues: {
+                    contentName: 1
+                },
+                includeContentData: false,
+                limit: Number.MAX_SAFE_INTEGER
+            } : {
+                whereKeyValues: {
+                    cobrandEmail: localData.cobrandEmail,
+                    programId: "",
+                    status: {"$in" : ["active", "inactive"]},
+                    dateCreated: {
+                        "$gte": startDateCon.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                orderKeyValues: {
+                    contentName: 1
+                },
+                includeContentData: false,
+                limit: Number.MAX_SAFE_INTEGER
+            }
+
+            let paramProgram = {
+                whereKeyValues: {
+                    cobrandEmail: localData.cobrandEmail,
+                    dateCreated: {
+                        "$gte": startDateCon.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                orderKeyValues: {
+                    programName: 1
+                },
+                includeThumbnailData: false,
+                limit: Number.MAX_SAFE_INTEGER
+            }
+
+            let paramUsage = {
+                whereKeyValues: {
+                    dateCreate: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    },
+                    emailUser: {
+                        "$nin": emailTester
+                    }
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            }
+
+            let paramNotification = 
+            schoolId !== '' ? {
+                whereKeyValues: {
+                    sekolah: schoolId,
+                    scheduleTime: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            groupMitraAsuhId !== '' ? {
+                whereKeyValues: {
+                    sekolah: {
+                        "$in": schoolList
+                    },
+                    scheduleTime: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            } : 
+            cobrandComId !== '' ? {
+                whereKeyValues: {
+                    cobrandComunityId: cobrandComId,
+                    scheduleTime: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            } : {
+                whereKeyValues: {
+                    scheduleTime: {
+                        "$gte": startDate.toISOString().split('T')[0],
+                        "$lte": endDate.toISOString().split('T')[0]
+                    }
+                },
+                limit: Number.MAX_SAFE_INTEGER
+            }
+
+            let paramNotificationCategory = {
+                limit: Number.MAX_SAFE_INTEGER
+            }
+
+            const promiseUser = getUserList(paramUser);
+            const promiseContent = getContentList(paramContent);
+            const promiseProgram = getProgramList(paramProgram);
+            const promiseUsage = getAppUsageList(paramUsage);
+            const promiseNotification = getNotificationList(paramNotification);
+            const promiseNotificationCategory = getNotificationCategoryList(paramNotificationCategory);
+
+            Promise.all([promiseUser, promiseContent, promiseProgram, promiseUsage, promiseNotification, promiseNotificationCategory]).then(responseAll => {
+                // console.log(responseAll[0]);
+                const dataUser = responseAll[0].data.users;
+                countingUser[0] = dataUser.length;
+                // console.log(dataUser);
+                for(var i = 0; i < dataUser.length; i++) {
+                    let x = dataUser[i];
+                    if(x.userType === 'parent') {
+                        countingUser[1]++;
+                        // // console.log("Parent email: " + x.parentEmail);
+                        if(x.parentEmail === undefined) parent[0]++;
+                        else coparent[0]++;
+                    }
+                    else if(x.userType === 'child') {
+                        countingUser[2]++;
+                        if(x.childInfo.StudyLevel.includes('TK')) tk[1]++;
+                        else if(x.childInfo.StudyLevel.includes('SD')) sd[1]++;
+                        else if(x.childInfo.StudyLevel.includes('SMP')) smp[1]++;
+                        else if(x.childInfo.StudyLevel.includes('SMA')) sma[1]++;
+                        else other[1]++;
+                    }
                 }
-            ]
-            
-            // console.log("Colors length: " + colors.length);
-            setCountUser(countingUser);
-            setUserData(userDataObj);
-            setUserDataLabel(['Orang tua: ' + countingUser[1], 'Anak: ' + countingUser[2]]);
+                const userDataObj = [
 
-            const contentLength = responseAll[1].data.contents.length;
-            // console.log('Contents', responseAll[1].data.contents);
-            // console.log('Program', responseAll[2].data.programs);
-            const programLength = responseAll[2].data.programs.length;
+                    {
+                        name: "Parent",
+                        data: parent
+                    },
+                    {
+                        name: "Co-Parent",
+                        data: coparent
+                    },
+                    {
+                        name: "TK",
+                        data: tk
+                    },
+                    {
+                        name: "SD",
+                        data: sd
+                    },
+                    {
+                        name: "SMP",
+                        data: smp
+                    },
+                    {
+                        name: "SMA",
+                        data: sma
+                    },
+                    {
+                        name: "Lainnya",
+                        data: other
+                    }
+                ]
+                
+                // console.log("Colors length: " + colors.length);
+                setCountUser(countingUser);
+                setUserData(userDataObj);
+                setUserDataLabel(['Orang tua: ' + countingUser[1], 'Anak: ' + countingUser[2]]);
 
-            const dataConProg = [contentLength, programLength];
-            // // console.log(dataConProg);
-            const conProgObj = [{
-                name: "Jumlah",
-                data: dataConProg
-            }];
-            setConProgData(conProgObj);
+                const contentLength = responseAll[1].data.contents.length;
+                // console.log('Contents', responseAll[1].data.contents);
+                // console.log('Program', responseAll[2].data.programs);
+                const programLength = responseAll[2].data.programs.length;
 
-            // // console.log(responseAll[3].data);
+                const dataConProg = [contentLength, programLength];
+                // // console.log(dataConProg);
+                const conProgObj = [{
+                    name: "Jumlah",
+                    data: dataConProg
+                }];
+                setConProgData(conProgObj);
 
-            const usageData = responseAll[3].data.appUsages;
-            // console.log(usageData);
-            var usageLabel = [], usageFreq = [];
-            for(var i = 0; i < usageData.length; i++) {
-                let x = usageData[i].appUsages;
-                // // console.log(x);
-                for(var j = 0; j < x.length; j++) {
-                    let y = x[j];
-                    // // console.log(y);
-                    if(y.usageHour !== undefined && y.usageHour.length > 0) {
-                        if(!usageLabel.includes(y.appName)) {
-                            usageLabel.push(y.appName);
-                            usageFreq.push(0);
+                // // console.log(responseAll[3].data);
+
+                const usageData = responseAll[3].data.appUsages;
+                // console.log(usageData);
+                var usageLabel = [], usageFreq = [];
+                for(var i = 0; i < usageData.length; i++) {
+                    let x = usageData[i].appUsages;
+                    // // console.log(x);
+                    for(var j = 0; j < x.length; j++) {
+                        let y = x[j];
+                        // // console.log(y);
+                        if(y.usageHour !== undefined && y.usageHour.length > 0) {
+                            if(!usageLabel.includes(y.appName)) {
+                                usageLabel.push(y.appName);
+                                usageFreq.push(0);
+                            }
+                            let idx = usageLabel.indexOf(y.appName);
+                            usageFreq[idx] += y.usageHour.length;
                         }
-                        let idx = usageLabel.indexOf(y.appName);
-                        usageFreq[idx] += y.usageHour.length;
                     }
                 }
-            }
 
-            //1) combine the arrays:
-            var list = [];
-            for (var j = 0; j < usageLabel.length; j++) 
-                list.push({'name': usageLabel[j], 'age': usageFreq[j]});
+                //1) combine the arrays:
+                var list = [];
+                for (var j = 0; j < usageLabel.length; j++) 
+                    list.push({'name': usageLabel[j], 'age': usageFreq[j]});
 
-            //2) sort:
-            list.sort(function(a, b) {
-                return ((a.age < b.age) ? 1 : ((a.age == b.age) ? 0 : -1));
-                //Sort could be modified to, for example, sort on the age 
-                // if the name is the same.
-            });
+                //2) sort:
+                list.sort(function(a, b) {
+                    return ((a.age < b.age) ? 1 : ((a.age == b.age) ? 0 : -1));
+                    //Sort could be modified to, for example, sort on the age 
+                    // if the name is the same.
+                });
 
-            //3) separate them back out:
-            for (var k = 0; k < list.length; k++) {
-                usageLabel[k] = list[k].name;
-                usageFreq[k] = list[k].age;
-            }
-            // // console.log(usageLabel.slice(0,10));
-            // // console.log(usageFreq.slice(0,10));
-
-            setTopUsageData(usageFreq.slice(0,10));
-            setTopUsageLabel(usageLabel.slice(0,10));
-
-            // console.log(responseAll[4].data);
-            // console.log(responseAll[5].data);
-            var notifCat = [];
-            var notifDat = [];
-            responseAll[5].data.Data.map(e => {
-                notifCat.push(e.category);
-                notifDat.push(0);
-            });
-            responseAll[4].data.resultData.map(e => {
-                for(var i = 0; i < notifDat.length; i++) {
-                    if(e.category === notifCat[i]) {
-                        notifDat[i]++;
-                        break;
-                    }
+                //3) separate them back out:
+                for (var k = 0; k < list.length; k++) {
+                    usageLabel[k] = list[k].name;
+                    usageFreq[k] = list[k].age;
                 }
-            });
-            setNotifData([{name: "Jumlah", data: notifDat}]);
-            setNotifLabel(notifCat);
+                // // console.log(usageLabel.slice(0,10));
+                // // console.log(usageFreq.slice(0,10));
 
-            let topicCountName = [];
-            let topicCountNum = [];
-            let topicViewName = [];
-            let topicViewNum = [];
+                setTopUsageData(usageFreq.slice(0,10));
+                setTopUsageLabel(usageLabel.slice(0,10));
 
-            responseAll[1].data.contents.map(e => {
-                if(e.topics.length <= 0) {
-                    if(topicCountName.includes("Tanpa Topik")) {
-                        topicCountNum[topicCountName.indexOf("Tanpa Topik")]++;
+                // console.log(responseAll[4].data);
+                // console.log(responseAll[5].data);
+                var notifCat = [];
+                var notifDat = [];
+                responseAll[5].data.Data.map(e => {
+                    notifCat.push(e.category);
+                    notifDat.push(0);
+                });
+                responseAll[4].data.resultData.map(e => {
+                    for(var i = 0; i < notifDat.length; i++) {
+                        if(e.category === notifCat[i]) {
+                            notifDat[i]++;
+                            break;
+                        }
                     }
-                    else {
-                        topicCountName.push("Tanpa Topik");
-                        topicCountNum.push(1);
-                    }
-                    // if(e.totalView > 0) {
-                        if(topicViewName.includes("Tanpa Topik")) {
-                            topicViewNum[topicCountName.indexOf("Tanpa Topik")] += e.totalView;
+                });
+                setNotifData([{name: "Jumlah", data: notifDat}]);
+                setNotifLabel(notifCat);
+
+                let topicCountName = [];
+                let topicCountNum = [];
+                let topicViewName = [];
+                let topicViewNum = [];
+
+                responseAll[1].data.contents.map(e => {
+                    if(e.topics.length <= 0) {
+                        if(topicCountName.includes("Tanpa Topik")) {
+                            topicCountNum[topicCountName.indexOf("Tanpa Topik")]++;
                         }
                         else {
-                            topicViewName.push("Tanpa Topik");
-                            topicViewNum.push(e.totalView);
-                        }
-                    // }
-                }
-                else {
-                    for(var i = 0; i < e.topics.length; i++) {
-                        if(topicCountName.includes(e.topics[i])) {
-                            topicCountNum[topicCountName.indexOf(e.topics[i])]++;
-                        }
-                        else {
-                            topicCountName.push(e.topics[i]);
+                            topicCountName.push("Tanpa Topik");
                             topicCountNum.push(1);
                         }
                         // if(e.totalView > 0) {
-                            if(topicViewName.includes(e.topics[i])) {
-                                topicViewNum[topicCountName.indexOf(e.topics[i])] += e.totalView;
+                            if(topicViewName.includes("Tanpa Topik")) {
+                                topicViewNum[topicCountName.indexOf("Tanpa Topik")] += e.totalView;
                             }
                             else {
-                                topicViewName.push(e.topics[i]);
+                                topicViewName.push("Tanpa Topik");
                                 topicViewNum.push(e.totalView);
                             }
                         // }
                     }
-                }
-            });
-            responseAll[2].data.programs.map(e => {
-                if(e.category.length <= 0) {
-                    if(topicCountName.includes("Tanpa Topik")) {
-                        topicCountNum[topicCountName.indexOf("Tanpa Topik")]++;
-                    }
                     else {
-                        topicCountName.push("Tanpa Topik");
-                        topicCountNum.push(1);
+                        for(var i = 0; i < e.topics.length; i++) {
+                            if(topicCountName.includes(e.topics[i])) {
+                                topicCountNum[topicCountName.indexOf(e.topics[i])]++;
+                            }
+                            else {
+                                topicCountName.push(e.topics[i]);
+                                topicCountNum.push(1);
+                            }
+                            // if(e.totalView > 0) {
+                                if(topicViewName.includes(e.topics[i])) {
+                                    topicViewNum[topicCountName.indexOf(e.topics[i])] += e.totalView;
+                                }
+                                else {
+                                    topicViewName.push(e.topics[i]);
+                                    topicViewNum.push(e.totalView);
+                                }
+                            // }
+                        }
                     }
-                }
-                else {
-                    for(var i = 0; i < e.category.length; i++) {
-                        if(topicCountName.includes(e.category[i])) {
-                            topicCountNum[topicCountName.indexOf(e.category[i])]++;
+                });
+                responseAll[2].data.programs.map(e => {
+                    if(e.category.length <= 0) {
+                        if(topicCountName.includes("Tanpa Topik")) {
+                            topicCountNum[topicCountName.indexOf("Tanpa Topik")]++;
                         }
                         else {
-                            topicCountName.push(e.category[i]);
+                            topicCountName.push("Tanpa Topik");
                             topicCountNum.push(1);
                         }
                     }
+                    else {
+                        for(var i = 0; i < e.category.length; i++) {
+                            if(topicCountName.includes(e.category[i])) {
+                                topicCountNum[topicCountName.indexOf(e.category[i])]++;
+                            }
+                            else {
+                                topicCountName.push(e.category[i]);
+                                topicCountNum.push(1);
+                            }
+                        }
+                    }
+                });
+                setTopicCountLabel(topicCountName);
+                topicCountNum.length > 0 ? setTopicCountData([{name: "Jumlah", data: topicCountNum}]) : setTopicCountData([]);
+                setTopicViewLabel(topicViewName);
+                topicViewNum.length > 0 ? setTopicViewData([{name: "Jumlah", data: topicViewNum}]) : setTopicViewData([]);
+                setUsageStudyLevelData([]);
+
+                if(isLoading) setLoading(false);
+                else if(isLoadingSpinner) {
+                    setLoadingSpinner(false);
+                    setLoading(true);
+                    setLoading(false);
                 }
             });
-            setTopicCountLabel(topicCountName);
-            topicCountNum.length > 0 ? setTopicCountData([{name: "Jumlah", data: topicCountNum}]) : setTopicCountData([]);
-            setTopicViewLabel(topicViewName);
-            topicViewNum.length > 0 ? setTopicViewData([{name: "Jumlah", data: topicViewNum}]) : setTopicViewData([]);
-            setUsageStudyLevelData([]);
-
-            if(isLoading) setLoading(false);
-            else if(isLoadingSpinner) {
-                setLoadingSpinner(false);
-                setLoading(true);
-                setLoading(false);
-            }
         });
     }
 
