@@ -10,7 +10,7 @@ import { validationGroupMitraAsuh } from '../../../../../helpers/validation/vali
 import InputComponent from '../../../../../components/UI/Input/Input';
 import {getSchoolList} from '../../../../../components/API/filter';
 
-import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 
 function AddSchoolGroup({
     onAddSchoolGroup,
@@ -19,25 +19,59 @@ function AddSchoolGroup({
 
     const history = useHistory();
     const cobrandEmail = JSON.parse(localStorage.getItem('userData')).cobrandEmail;
-    const [school, setSchool] = useState([]);
+    // const [school, setSchool] = useState([]);
     const [isPasswordVisible, showPassword] = useState(false);
-    const [isCurrentlyLoading, setLoading] = useState(true);
+    const [isCurrentlyLoading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setLoading(true);
-        let params = {
-            cobrandEmail: cobrandEmail
-        }
-        getSchoolList(params)
-        .then(response => {
-            let schoolRaw = [];
-            response.data.Data.map(e => {
-                schoolRaw.push({value: e.nama, label: e.nama});
-            })
-            setSchool(schoolRaw);
-            setLoading(false);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     let params = {
+    //         cobrandEmail: cobrandEmail
+    //     }
+    //     getSchoolList(params)
+    //     .then(response => {
+    //         let schoolRaw = [];
+    //         response.data.Data.map(e => {
+    //             schoolRaw.push({value: e.nama, label: e.nama});
+    //         })
+    //         setSchool(schoolRaw);
+    //         setLoading(false);
+    //     })
+    // },[]);
+    const colourStyles = {
+        control: styles => ({ ...styles, backgroundColor: '#cccccc66', width: '40%', border: 'none' }),
+    };
+
+    const loadOptions = (inputValue, callback) => {
+        setTimeout(() => {
+          getSchoolList({
+            whereKeyValues: {
+              nama: {
+                "$regex": inputValue,
+                "$options": "i"
+              }
+            },
+            orderKeyValues: {
+              nama: 1
+            },
+            limit: 20
+          })
+          .then(response => {
+            console.log(response.data);
+            const options = [];
+            response.data.Data.forEach(e => {
+                options.push({
+                    label: e.nama,
+                    value: e.nama
+                })
+            });
+            callback(options);
         })
-    },[]);
+          .catch(error => {
+              callback([]);
+          });
+        }, 500);
+      };
 
     if(isLoading || isCurrentlyLoading) {
         return <RKLoader/>
@@ -80,16 +114,16 @@ function AddSchoolGroup({
                         </div>
                         <div className="form-group">
                             <label>Anggota Sekolah</label>
-                            <Select
-                                isMulti
-                                value={values.memberSekolah}
-                                onChange={(e) => {
-                                    setFieldValue("memberSekolah", e)
-                                }}
-                                name="community"
-                                options={school}
-                                className="basic-multi-select"
-                                classNamePrefix="select"
+                            <AsyncSelect
+                            cacheOptions defaultOptions isMulti
+                            styles={colourStyles}
+                            placeholder={"Pilih sekolah..."} loadOptions={loadOptions} onChange={(e) => {
+                                console.log(e);
+                                setFieldValue('memberSekolah', e);
+                                console.log(values.memberSekolah);
+                            }}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
                             />
                         </div>
                         <div>
