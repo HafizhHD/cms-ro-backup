@@ -3,7 +3,7 @@ import './Status.scss';
 import RKLoader from '../../../components/UI/RKLoader/RKLoader';
 import Logo from './../../../assets/img/Logo_4.png';
 import {emailTester, absStart} from '../GlobalParam'
-import { getContentList, getProgramList, getUserList, getAppUsageList, getNotificationCategoryList, getNotificationList } from '../../../components/API/filter';
+import {getUserList} from '../../../components/API/filterPublic';
 
 function Status() {
     const [isLoading, setLoading] = useState(true);
