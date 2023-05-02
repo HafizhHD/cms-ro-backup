@@ -139,9 +139,9 @@ function Layout({
                                         document.getElementsByTagName('main')[0].style.overflowY = 'hidden';
                                     }}>Bantuan</NavLink>
                                 </li>
-                                {/* <li>
+                                <li>
                                     <NavLink to="/">Profile</NavLink>
-                                </li> */}
+                                </li>
                                 <li>
                                     <NavLink to="/tools/admin-staff" onClick={onClickDropDown}>Setting</NavLink>
                                 </li>

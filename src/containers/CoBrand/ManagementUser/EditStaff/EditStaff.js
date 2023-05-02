@@ -248,6 +248,8 @@ function EditStaff({
                                     {sekolah === '' ? <AsyncSelect cacheOptions defaultOptions 
                                         isDisabled={sekolah !== ''}
                                         styles={colourStyles}
+                                        key={values.userType}
+                                        menuPlacement='top'
                                         placeholder={"Pilih sekolah..."} loadOptions={loadOptions} onChange={(e) => {
                                         console.log(e);
                                         setFieldValue('sekolah', e.value);
@@ -272,6 +274,8 @@ function EditStaff({
                                 {groupMitraAsuhId === '' ? <AsyncSelect cacheOptions defaultOptions 
                                     isDisabled={groupMitraAsuhId !== ''}
                                     styles={colourStyles}
+                                    key={values.userType}
+                                    menuPlacement='top'
                                     placeholder={"Pilih grup mitra asuh..."} loadOptions={loadOptionsGroup} onChange={(e) => {
                                         console.log(e);
                                         setFieldValue('groupMitraAsuhId', e.value);

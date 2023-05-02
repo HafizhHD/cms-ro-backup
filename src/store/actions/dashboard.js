@@ -11,7 +11,7 @@ import axios from 'axios';
 import { toBase64, getEmbedUrl } from '../../helpers/fileHelper/fileHelper';
 import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, programAddv2, programDelete, programEdit, notificationAdd, audienceAdd, notifCategoryAdd, programCategoryAdd,
     adminAdd, adminEdit, adminDelete, contentTopicAdd, screenTimeAdd, appUserEdit, communityAdd, communityDelete, communityMemberAddAsync, communityMemberDelete,
- schoolGroupAdd, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete,
+ schoolGroupAdd, schoolGroupEdit, schoolGroupDelete, praytimeMessageAdd, praytimeMessageEdit, praytimeMessageDelete,
  appBlockLimitAdd, appBlockLimitDelete, appBlockLimitEdit, modeAsuhAdd, modeAsuhEdit, modeAsuhDelete,
 deviceScheduleAdd, deviceScheduleEdit, deviceScheduleDelete, alwaysOnAppsAdd, alwaysOnAppsDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
@@ -145,7 +145,8 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                         history.push('/cms/program');
                         dispatch(alertSuccess('Program "' + programName + '" berhasil ditambahkan.'));
                         let data2 = {
-                            cobrandEmail,
+                            // cobrandEmail,
+                            appId: "com.byasia.ruangortu",
                             destination: z,
                             messageSubject: "Program Baru Untuk Anak",
                             messageContent: "Hi Papa mama Ada Program Baru Lho! Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
@@ -164,7 +165,8 @@ export const addProgram = (cobrandEmail, programName, ProgramDescription, photo,
                     }
                     else {
                         let data2 = {
-                            cobrandEmail,
+                            // cobrandEmail,
+                            appId: "com.byasia.ruangortu",
                             destination: z,
                             messageSubject: "Hai Papa Mama Ada Program Baru Lho! ",
                             messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa program baru, papa mama bisa bagikan program tersebut ke anak Anda. Yuk ikuti program barunya.",
@@ -522,11 +524,11 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
             if (contentType === 'Video') {
                 // const video = toBase64(contents);
                 if (typeof contents === 'string') {
-                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:75vw;\" frameborder=\"0\" width=\"100%\" height=\"75vw\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
                     const video = toBase64(contents);
                     video.then((hasil) => {
-                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:75vw;\" frameborder=\"0\" width=\"100%\" height=\"75vw\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         let data = {
                             cobrandEmail,
@@ -602,7 +604,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                     })
                                     var z = userEmails.join(',');
                                     let data2 = {
-                                        cobrandEmail,
+                                        // cobrandEmail,
+                                        appId: "com.byasia.ruangortu",
                                         destination: z,
                                         messageSubject: "Hai, Ada Artikel Baru Lho!",
                                         messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -711,7 +714,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                     })
                                     var z = userEmails.join(',');
                                     let data2 = {
-                                        cobrandEmail,
+                                        // cobrandEmail,
+                                        appId: "com.byasia.ruangortu",
                                         destination: z,
                                         messageSubject: "Hai, Ada Artikel Baru Lho!",
                                         messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -817,7 +821,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                                     })
                                     var z = userEmails.join(',');
                                     let data2 = {
-                                        cobrandEmail,
+                                        // cobrandEmail,
+                                        appId: "com.byasia.ruangortu",
                                         destination: z,
                                         messageSubject: "Hai, Ada Artikel Baru Lho!",
                                         messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -944,7 +949,8 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
                             })
                             var z = userEmails.join(',');
                             let data2 = {
-                                cobrandEmail,
+                                // cobrandEmail,
+                                appId: "com.byasia.ruangortu",
                                 destination: z,
                                 messageSubject: "Hai, Ada Artikel Baru Lho!",
                                 messageContent: "Saat ini aplikasi Ruang Ortu by ASIA sudah menambahkan beberapa artikel baru, yuk dicek sekarang.",
@@ -970,12 +976,22 @@ export const addContent = (cobrandEmail, programId, contentName, contentDescript
 }
 
 //edit content di sesuaikan dg ini
-export const editContent = (_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, history) => {
+export const editContent = (_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, photo, contents, startDate, topics, targetAudience, history) => {
     return dispatch => {
         dispatch(loadingStart());
         dispatch({
             type: ALERT_CLOSE
         });
+
+        var topic = [];
+        var audi = [];
+
+        topics.map(e => {
+            topic.push(e.value);
+        })
+        targetAudience.map(e => {
+            audi.push(e.value);
+        })
 
 
         // const [numPages, setNumPages] = useState(null);
@@ -993,12 +1009,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
             if (contentType === 'Video') {
                 // const video = toBase64(contents);
                 if (typeof contents === 'string') {
-                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+                    contents = "<div><iframe src=\"" + getEmbedUrl(contents) + "\" style=\"width:100%;height:75vw;\" frameborder=\"0\" width=\"100%\" height=\"75vw\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
                 } else {
                     
                     const video = toBase64(contents);
                     video.then((hasil) => {
-                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:30vh;\" frameborder=\"0\" width=\"100%\" height=\"30vh\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
+                        contents = "<div><video autoplay controls src=\"" + getEmbedUrl(hasil) + "\" style=\"width:100%;height:75vw;\" frameborder=\"0\" width=\"100%\" height=\"75vw\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></video></div>"
                         // contents = "<img src=\"" + hasil + "\" style=\"width:100%;\"/>" 
                         // const contentThumbnail = result;
                         let datax = {
@@ -1008,10 +1024,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
-                            startDate
+                            startDate,
+                            topics: topic,
+                            targetAudiance: audi,
                         };
 
                         let data = {
@@ -1058,10 +1076,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
-                            startDate
+                            startDate,
+                            topics: topic,
+                            targetAudiance: audi,
                         };
 
                         let data = {
@@ -1105,10 +1125,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                             contentDescription,
                             contentType,
                             contentSource,
-                            // contentThumbnail,
+                            contentThumbnail,
                             contents,
                             // status,
-                            startDate
+                            startDate,
+                            topics: topic,
+                            targetAudiance: audi,
                         };
 
                         let data = {
@@ -1172,10 +1194,12 @@ export const editContent = (_id, cobrandEmail, programId, contentName, contentDe
                 contentDescription,
                 contentType,
                 contentSource,
-                // contentThumbnail,
+                contentThumbnail,
                 contents,
                 // status,
-                startDate
+                startDate,
+                topics: topic,
+                targetAudiance: audi,
             };
 
             let data = {
@@ -1329,7 +1353,8 @@ export const addNotification = (cobrandEmail, destination, messageSubject, messa
         });
         let schedule = useSchedule ? scheduleTime : '';
         let data = {
-            cobrandEmail, destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category, cobrandComunityId
+            // cobrandEmail,
+            appId: "com.byasia.ruangortu", destination: destination.join(','), messageSubject, messageContent, scheduleTime: schedule,  mediaType, category, cobrandComunityId
         };
 
         // console.log(data);
@@ -1588,19 +1613,61 @@ export const addSchoolGroup = (groupMitraAsuhName, cobrandEmail, memberSekolah, 
             memberSekolah: p
         };
 
-        // console.log(data);
+        console.log(data);
         //Call API ....
 
         schoolGroupAdd(data)
             .then(response => {
                 // console.log('Success:', response.data);
                 history.push('/tools/setting/school-group');
-                dispatch(alertSuccess('Kelompok mitra asuh "' + groupMitraAsuhName + '" berhasil ditambahkan.'));
+                dispatch(alertSuccess('Instansi "' + groupMitraAsuhName + '" berhasil ditambahkan.'));
                 dispatch(loadingStop());
             })
             .catch((error) => {
                 console.error('Error:', error);
-                dispatch(alertError('Kelompok mitra asuh "' + groupMitraAsuhName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(alertError('Instansi "' + groupMitraAsuhName + '" gagal ditambahkan. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+            });
+        // console.log(data);
+    }
+
+}
+
+export const editSchoolGroup = ( id, groupMitraAsuhName, cobrandEmail, memberSekolah, history) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        let p = [];
+        for(var i = 0; i < memberSekolah.length; i++) {
+            p.push(memberSekolah[i].value)
+        }
+        let data = {
+            whereValues: {
+                groupMitraAsuhId: id
+            },
+            newKeyValues: {
+                groupMitraAsuhId: groupMitraAsuhName,
+                groupMitraAsuhName,
+                cobrandEmail,
+                memberSekolah: p
+            }
+        };
+
+        console.log(data);
+        //Call API ....
+
+        schoolGroupEdit(data)
+            .then(response => {
+                // console.log('Success:', response.data);
+                history.push('/tools/setting/school-group');
+                dispatch(alertSuccess('Instansi "' + groupMitraAsuhName + '" berhasil diubah.'));
+                dispatch(loadingStop());
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                dispatch(alertError('Instansi "' + groupMitraAsuhName + '" gagal diubah. Coba beberapa saat lagi.'));
                 dispatch(loadingStop());
             });
         // console.log(data);
@@ -1713,6 +1780,7 @@ export const deleteSchoolGroup = (cobrandEmail, schoolGroupId, retrieveList) => 
                 groupMitraAsuhId: schoolGroupId[0]
             }
         }
+        console.log(deleting);
         schoolGroupDelete(deleting)
             .then(response => {
                 // console.log(response.data);
@@ -1882,7 +1950,7 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
                             appId: x.packageId,
                             limit: 0,
                             appCategory: x.appCategory,
-                            status: 'Aktif'
+                            status: 'blacklist'
                         }
                         const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
@@ -1902,12 +1970,13 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
                 else {
                     if(x.mode === '0') {
                         let prm = {
-                            whereValues: {
-                                emailUser: userEmail,
-                                appId: x.packageId
-                            }
+                            emailUser: userEmail,
+                            appId: x.packageId,
+                            limit: 0,
+                            appCategory: x.appCategory,
+                            status: ''
                         }
-                        const pro = appBlockLimitDelete(prm);
+                        const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
                     }
                     else if(x.mode === '1') {
@@ -1916,7 +1985,7 @@ export const childControl = (userEmail, isModeAsuh, appLimitBlock, modeAsuh, dev
                             appId: x.packageId,
                             limit: 0,
                             appCategory: x.appCategory,
-                            status: 'Aktif'
+                            status: 'blacklist'
                         }
                         const pro = appBlockLimitAdd(prm);
                         promises.push(pro);
@@ -2110,7 +2179,160 @@ export const schoolControl = (userEmails, appWhiteListId, deviceSchedule, sekola
 
 }
 
+export const addSchoolSchedule = (userEmails, appWhiteListId, scheduleName, scheduleDescription, scheduleType, deviceUsageDays, deviceUsageStartTime, deviceUsageEndTime, status, sekolah, setReload, setLoading) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        setLoading(true);
+
+        alwaysOnAppsDelete({
+            sekolah: sekolah
+        })
+        .then(() => {
+            var promises = [];
+            
+            let prm = {
+                scheduleName, scheduleDescription, scheduleType, deviceUsageDays, deviceUsageStartTime, deviceUsageEndTime, status
+            };
+            prm.scheduleName = prm.scheduleName + ' ' + sekolah;
+            for(var k = 0; k < userEmails.length; k++) {
+                prm["emailUser"] = userEmails[k];
+                let pro = deviceScheduleAdd(prm);
+                promises.push(pro);
+            }
+
+            let apid = [];
+            for(var t = 0; t < appWhiteListId.length; t++) {
+                apid.push(appWhiteListId[t].value);
+            }
+            let params = {
+                sekolah: sekolah,
+                applications: apid
+            }
+            let prox = alwaysOnAppsAdd(params);
+            promises.push(prox);
 
 
+            Promise.all(promises)
+            .then((response) => {
+                setTimeout(() => {
+                    setReload(true);
+                }, 1000);
+                setTimeout(() => {
+                    setReload(false);
+                    setLoading(false);
+                    dispatch(alertSuccess('Seluruh murid sekolah berhasil dikontrol.'));
+                    dispatch(loadingStop());
+                }, 1000);
+            })
+            .catch(error => {
+                console.log('error: ', error);
+                setLoading(false);
+            })
+        })
+
+        
+
+       
+
+    }
+
+}
+
+export const editSchoolSchedule = (userEmails, appWhiteListId, scheduleName, oldValue, scheduleDescription, scheduleType, deviceUsageDays, deviceUsageStartTime, deviceUsageEndTime, status, sekolah, setReload, setLoading) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        setLoading(true);
+        console.log(scheduleName);
+        console.log(oldValue);
+        console.log("bjir");
+        alwaysOnAppsDelete({
+            sekolah: sekolah
+        })
+        .then(() => {
+            var promises = [];
+            let prm = {
+                whereValues: {
+                    scheduleName: oldValue
+                },
+                newValues: {
+                    scheduleName: scheduleName + " " + sekolah, scheduleDescription, scheduleType, deviceUsageDays, deviceUsageStartTime, deviceUsageEndTime, status
+                }
+            };
+            const pro = deviceScheduleEdit(prm);
+            promises.push(pro);
+
+            let apid = [];
+            for(var t = 0; t < appWhiteListId.length; t++) {
+                apid.push(appWhiteListId[t].value);
+            }
+            let params = {
+                sekolah: sekolah,
+                applications: apid
+            }
+            let prox = alwaysOnAppsAdd(params);
+            promises.push(prox);
 
 
+            Promise.all(promises)
+            .then((response) => {
+                setTimeout(() => {
+                    setReload(true);
+                }, 1000);
+                setTimeout(() => {
+                    setReload(false);
+                    setLoading(false);
+                    dispatch(alertSuccess('Jadwal murid sekolah berhasil diedit'));
+                    dispatch(loadingStop());
+                }, 1000);
+            })
+            .catch(error => {
+                console.log('error: ', error);
+                setLoading(false);
+            })
+        })
+
+        
+
+       
+
+    }
+
+}
+
+export const deleteSchoolSchedule = (scheduleDeleting, setReload, setLoading) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        const deleting = {
+            whereValues: {
+                scheduleName: scheduleDeleting[0]
+            }
+        }
+        deviceScheduleDelete(deleting)
+            .then(response => {
+                setTimeout(() => {
+                    setReload(true);
+                }, 1000);
+                setTimeout(() => {
+                    setReload(false);
+                    setLoading(false);
+                    dispatch(alertSuccess('Jadwal murid "' + scheduleDeleting[1] + '" berhasil dihapus.'));
+                    dispatch(loadingStop());
+                }, 1000);
+            })
+            .catch(error => {
+                // console.log(error);
+                dispatch(alertError('Artikel "' + scheduleDeleting[1] + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                setLoading(false);
+            });
+    }
+}

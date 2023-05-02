@@ -19,6 +19,7 @@ const ContentAsync = lazy(() => import('./../../containers/CoBrand/Content/Conte
 const AddContentAsync = lazy(() => import('./../../containers/CoBrand/Content/AddContent/AddContent'));
 const EditContentAsync = lazy(() => import('./../../containers/CoBrand/Content/EditContent/EditContent'));
 const ViewContentAsync = lazy(() => import('./../../containers/CoBrand/Content/ViewContent/ViewContent'));
+const ViewCommentAsync = lazy(() => import('./../../containers/CoBrand/Content/ViewContent/ViewComment/ViewComment'));
 const RedZoneAsync = lazy(() => import('./../../containers/CoBrand/RedZone/RedZone'));
 const SettingAsync = lazy(() => import('./../../containers/CoBrand/Setting/Setting'));
 const UserManagement = lazy(() => import('./../../containers/CoBrand/User/User'));
@@ -33,6 +34,8 @@ const ProgramReportAsync = lazy(() => import('./../../containers/CoBrand/Report/
 const StepReportAsync = lazy(() => import('./../../containers/CoBrand/Report/ProgramReport/StepReport/StepReport'));
 const ContentReportAsync = lazy(() => import('./../../containers/CoBrand/Report/ContentReport/ContentReport'));
 const RedzoneReportAsync = lazy(() => import('./../../containers/CoBrand/Report/RedzoneReport/RedzoneReport'));
+const AppActivityLogAsync = lazy(() => import('./../../containers/CoBrand/Report/AppActivityLog/AppActivityLog'));
+const CMSActivityLogAsync = lazy(() => import('./../../containers/CoBrand/Report/CMSActivityLog/CMSActivityLog'));
 const CommercialReportAsync = lazy(() => import('./../../containers/CoBrand/Report/CommercialReport/CommercialReport'));
 
 const MonitoringContentAsync = lazy(() => import('./../../containers/CoBrand/Report/MonitoringContent/MonitoringContent'));
@@ -41,7 +44,7 @@ const MonitoringStatusAsync = lazy(() => import('./../../containers/CoBrand/Repo
 const ControllingStatusAsync = lazy(() => import('./../../containers/CoBrand/Report/ControllingStatus/ControllingStatus'));
 
 const AddMessageAsync = lazy(() => import('./../../containers/CoBrand/Message/AddNotification/AddNotification'));
-const MessageListAsync = lazy(() => import('./../../containers/CoBrand/Message/ListBc/ListBc'));
+const MessageListAsync = lazy(() => import('./../../containers/CoBrand/Message/Notification'));
 const Forum = lazy(() => import('./../../containers/CoBrand/Forum/Forum'));
 const ForumList = lazy(() => import('./../../containers/CoBrand/Forum/ListForum/ListForum'));
 const Management = lazy(() => import('../../containers/CoBrand/ManagementUser/AddStaff/AddStaff'));
@@ -67,6 +70,7 @@ const Komunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunita
 const AddKomunitas = lazy(() => import('./../../containers/CoBrand/Setting/Komunitas/AddKomunitas/AddKomunitas'));
 const SchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/SchoolGroup'));
 const AddSchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/AddSchoolGroup/AddSchoolGroup'));
+const EditSchoolGroup = lazy(() => import('./../../containers/CoBrand/Setting/SchoolGroup/EditSchoolGroup/EditSchoolGroup'));
 const PraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/PraytimeMessage'));
 const AddPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/AddPraytimeMessage/AddPraytimeMessage'));
 const EditPraytimeMessage = lazy(() => import('./../../containers/CoBrand/Setting/PraytimeMessage/EditPraytimeMessage/EditPraytimeMessage'));
@@ -241,6 +245,19 @@ function Cobrand({
                     component={CommercialReportAsync}
                 />
                 : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin'  || userLevel === 'Reporter' ?
+                <PrivateRoute
+                    exact
+                    path="/report/app-activity-log"
+                    component={AppActivityLogAsync}
+                /> : null}
+
+                {userLevel === 'Super Admin' || userLevel === 'Admin' ?
+                <PrivateRoute
+                    exact
+                    path="/report/cms-activity-log"
+                    component={CMSActivityLogAsync}
+                /> : null}
 
                 
                 {userLevel === 'Super Admin'  || userLevel === 'Admin' || userLevel === 'Editor' ?
@@ -357,6 +374,12 @@ function Cobrand({
                     path="/cms/content/view"
                     exact
                     component={ViewContentAsync}
+                /> : null}
+                {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
+                <PrivateRoute
+                    path="/cms/content/view/comment"
+                    exact
+                    component={ViewCommentAsync}
                 /> : null}
                 {userLevel === 'Super Admin' || userLevel === 'Admin' || userLevel === 'Editor' ?
                 <PrivateRoute
@@ -493,6 +516,12 @@ function Cobrand({
                     path="/tools/setting/school-group/add"
                     exact
                     component={AddSchoolGroup}
+                /> : null}
+                {(userLevel === 'Super Admin' || userLevel === 'Admin') && ((cobrandComId === '' && groupMitraAsuh === '') ||  schoolId !== '') ?
+                <PrivateRoute
+                    path="/tools/setting/school-group/edit"
+                    exact
+                    component={EditSchoolGroup}
                 /> : null}
                 {userLevel === 'Super Admin' || userLevel === 'Admin' ?
                 <PrivateRoute

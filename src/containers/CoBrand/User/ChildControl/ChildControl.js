@@ -32,6 +32,7 @@ function ChildControl({
 
     const [isScheduleAdded, setScheduleAdded] = useState([]);
     const [scheduleCount, setScheduleCount] = useState(0);
+    const [search, setSearch] = useState('');
 
     // const [categoryList, setCategoryList] = useState([]);
     // const [audience, setAudience] = useState([]);
@@ -97,8 +98,8 @@ function ChildControl({
                 var id = '';
                 for(var j = 0; j < lim.length && appM === 0; j++) {
                     if(lim[j].appId === appL[i].packageId) {
-                        if(lim[j].limit === 0) appM = 1;
-                        else appM = 2;
+                        if(lim[j].limit === 0 && lim[j].status === "blacklist") appM = 1;
+                        else if(lim[j].status === "Aktif") appM = 2;
                         appLim = lim[j].limit;
                         id = lim[j]._id;
                     }
@@ -180,6 +181,15 @@ function ChildControl({
                             </div>
                             <div className="form-group">
                                 <label>Blokir dan Batasi Penggunaan Aplikasi</label>
+                                <input
+                                    type="text"
+                                    className="table_props_input"
+                                    placeholder="Search"
+                                    value={search}
+                                    onChange={(e) => {
+                                        setSearch(e.currentTarget.value);
+                                    }}
+                                />
                                 <table>
                                     <tr>
                                         <th>Nama Aplikasi</th>
@@ -187,7 +197,7 @@ function ChildControl({
                                         <th>Limit Penggunaan (Menit)</th>
                                     </tr>
                                     {values.appLimitBlock.map((x, index) => {
-                                        return (<tr>
+                                        if(x.appName.toLowerCase().includes(search.toLowerCase())) return (<tr>
                                             <td>{x.appName}</td>
                                             <td onChange={(e) => {
                                                 console.log(e);

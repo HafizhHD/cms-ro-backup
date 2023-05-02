@@ -184,6 +184,7 @@ function AddNotification({
                                     else {
                                         setScheduleChecked(false);
                                         setFieldValue("useSchedule", true);
+                                        setFieldValue("scheduleTime", sche.toISOString().slice(0, -8))
                                     }
                                 }}>
                                         </input>

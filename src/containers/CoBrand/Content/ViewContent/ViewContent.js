@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import Heading from '../../../../components/UI/Heading/Heading';
-import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink } from 'react-icons/fi';
+import { FiArrowLeftCircle, FiCalendar, FiEdit, FiFileText, FiTrash2, FiLink, FiMessageSquare } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewContent.scss';
@@ -225,6 +225,9 @@ function ViewContent() {
                 <NavLink to="/cms/content" className="action_btn_nav">
                     <h3><FiArrowLeftCircle /> Kembali ke Daftar Artikel</h3>
                 </NavLink>
+                <NavLink to="/cms/content/view/comment" className="action_btn_nav">
+                    <h3><FiMessageSquare /> Lihat Komentar</h3>
+                </NavLink>
                 <NavLink to="/cms/content/edit" className="action_btn_nav">
                     <h3><FiEdit /> Ubah Artikel Ini</h3>
                 </NavLink>
@@ -331,7 +334,7 @@ function ViewContent() {
                     </div>
                 </div>
             </div>
-            <div className='komentar'>
+            {/* <div className='komentar'>
                 <Button className='btn2' onClick={() => setAdd(true)}> Edit Komentar</Button>
                 <h1 >Komentar</h1>
                 <Table striped bordered hover >
@@ -345,9 +348,9 @@ function ViewContent() {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {console.log(komentar)} */}
+                        {console.log(komentar)}
                         {komentar ? komentar.map((item, index) => {
-                            // console.log(item._id)
+                            console.log(item._id)
                             if (index == newi) {
                                 return (
                                     <tr>
@@ -366,7 +369,7 @@ function ViewContent() {
                                     <td>{item.status}</td>
                                     <td>{item.comment}</td>
                                     <td>{item.dateCreated}</td>
-                                    {/* <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td> */}
+                                    <td><Button variant="danger" className='btn2' onClick={() => onEdit(index)}>Edit</Button></td>
                                     <td><Button variant="danger" className='btn' type='submit' onClick={() => onDelete(index)}>Delete</Button></td>
                                 </tr>
                             )
@@ -377,7 +380,7 @@ function ViewContent() {
 
                     </tbody>
                 </Table>
-            </div>
+            </div> */}
         </div >
     )
 }

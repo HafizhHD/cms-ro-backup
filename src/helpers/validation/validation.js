@@ -210,6 +210,45 @@ export const validationStaff = yup.object({
         then: yup.string().required('Sekolah harus diisi'),
         otherwise: yup.string()
     }),
+});
+
+export const validationRegistration = yup.object({
+    nama: yup.string('Enter your name').required('Name is required'),
+    alamat: yup.string('Enter your address').required('Address is required'),
+    nik: yup.string('Enter your NIK').required('NIK is required').matches(PhoneRegex, 'Invalid NIK format').min(16, 'NIK should consist of 16 numbers').max(16, 'NIK should consist of 16 numbers'),
+    ktp: yup.mixed('Insert your image, 2 MB max').required('Image is required')
+        .test(
+            'imageType', "Incorrect file extension, must be .jpg, .jpeg, or .png",
+            (img) =>
+                img && ["image/png", "image/jpg", "image/jpeg"].includes(img.type)
+        )
+        .test(
+            'imageSize', "Image file size too large, max image file size is 2 MB",
+            (img) => {
+                if(img) {
+                    return img.size <= 2097152;
+                }
+                else {
+                    return true;
+                }
+            }
+        ),
+    emailUser: yup.string('Enter your email').required('Email is required').email('Email not valid'),
+    userName: yup.string('Enter your username').required('Username is required').matches(UserRegex, 'Invalid username format'),
+    phone: yup.string('Enter your phone number').required('Phone number is required').matches(PhoneRegex, 'Invalid phone number format'),
+    password: yup.string('Enter your password').required('Password is required').min(8, 'Password should be 8 characters or more'),
+    userType: yup.string(),
+    userLevel: yup.string(),
+    groupMitraAsuhId: yup.string().when('userType', {
+        is: 'Co-Brand-Group',
+        then: yup.string().required('Grup Mitra Asuh harus diisi'),
+        otherwise: yup.string()
+    }),
+    sekolah: yup.string().when('userType', {
+        is: 'Operator-Sekolah',
+        then: yup.string().required('Sekolah harus diisi'),
+        otherwise: yup.string()
+    }),
 })
 
 export const validationCommunity = yup.object({

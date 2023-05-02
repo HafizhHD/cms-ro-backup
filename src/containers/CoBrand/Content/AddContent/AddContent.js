@@ -280,6 +280,10 @@ function AddContent({
                                 </select> */}
                                 <Select
                                     isMulti
+                                    styles={{
+                                        // Fixes the overlapping problem of the component
+                                        menu: provided => ({ ...provided, zIndex: 9999 })
+                                    }}
                                     value={values.targetAudience}
                                     onChange={(e) => {
                                         setFieldValue("targetAudience", e)
@@ -346,7 +350,9 @@ function AddContent({
                                     <SunEditor 
                                     setOptions={{
                                         buttonList: editorButtonList,
-                                        imageWidth: '360px'
+                                        imageWidth: '360px',
+                                        videoHeight: '270px',
+                                        videoHeightShow: false
                                     }}
                                     onChange={(content) => {
                                         setFieldValue('contents', content);

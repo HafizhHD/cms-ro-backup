@@ -146,7 +146,55 @@ const UserReport = () => {
                         }
                         user['parentName'] = parentNames;
                         user['parentEmail'] = parentEmails;
+                        // user['childrenName'] = [];
+                        // user['childrenEmail'] = [];
                         // console.log(user.parentEmail);
+                    }
+                    // else {
+                    //     var childNames = [];
+                    //     var childEmails = [];
+                    //     for(var j = 0; j < ud.length; j++) {
+                    //         let user2 = ud[j];
+                    //         if(user2.userType === 'child') {
+                    //             if(user2.parentEmail === user.emailUser){
+                    //                 childNames.push(user2.nameUser);
+                    //                 childEmails.push(user2.emailUser);
+                    //             }
+                    //             else if(user2.otherParentEmail.includes(user.emailUser)) {
+                    //                 childNames.push(user2.nameUser);
+                    //                 childEmails.push(user2.emailUser);
+                    //             }
+                    //         }
+                    //     }
+                    //     // user['parentName'] = [];
+                    //     // user['parentEmail'] = [];
+                    //     user['childrenName'] = childNames;
+                    //     user['childrenEmail'] = childEmails;
+                    // }
+                    // user['registerDate'] = new Date(user.dateCreated);
+                }
+                for(var i = 0; i < ud.length; i++) {
+                    let user = ud[i];
+                    if(user.userType === 'parent') {
+                        var childNames = [];
+                        var childEmails = [];
+                        for(var j = 0; j < ud.length; j++) {
+                            let user2 = ud[j];
+                            if(user2.userType === 'child') {
+                                if(user2.parentEmail.includes(user.emailUser)){
+                                    childNames.push(user2.nameUser);
+                                    childEmails.push(user2.emailUser);
+                                }
+                                else if(user2.otherParentEmail.includes(user.emailUser)) {
+                                    childNames.push(user2.nameUser);
+                                    childEmails.push(user2.emailUser);
+                                }
+                            }
+                        }
+                        // user['parentName'] = [];
+                        // user['parentEmail'] = [];
+                        user['childrenName'] = childNames;
+                        user['childrenEmail'] = childEmails;
                     }
                     user['registerDate'] = new Date(user.dateCreated);
                 }

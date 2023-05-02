@@ -26,7 +26,7 @@ function Content({
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     const userData = JSON.parse(localStorage.getItem('userData'));
-    const params =
+    const params = 
     userData.sekolah !== '' ? {
         whereKeyValues: {
             cobrandEmail: userData.cobrandEmail,

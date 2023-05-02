@@ -11,6 +11,7 @@ import InputComponent from '../../../../components/UI/Input/Input';
 import axios from 'axios';
 import RichTextEditor from 'react-rte';
 import { getEmbedUrl } from '../../../../helpers/fileHelper/fileHelper'
+import { getContentTopicList, getAudienceList, getCommunityList, getSchoolGroupList } from '../../../../components/API/filter';
 
 //texteditor
 import { Editor } from "react-draft-wysiwyg";
@@ -23,6 +24,9 @@ import htmlToDraft from 'html-to-draftjs'
 
 import SunEditor, {buttonList} from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
+
+
+import Select from 'react-select';
 
 function EditContent({
     onEditContent,
@@ -42,6 +46,14 @@ function EditContent({
     const onEditorStateChangeArtikel = (editorState) => {
         setArtikel(editorState)
     }
+
+    const [topic, setTopic] = useState([]);
+    const [audi, setAudi] = useState([]);
+    const [topics, setTopics] = useState([]);
+    const [audience, setAudience] = useState([]);
+
+    const [preview, setPreview] = useState();
+    const [preview64, setPreview64] = useState();
 
     const editorButtonList = [
         ['undo', 'redo'],
@@ -141,6 +153,23 @@ function EditContent({
                 .then(response => {
                     // console.log("Response data: ", response.data);
                     setContent(response.data.contents[0]);
+                    setPreview64(response.data.contents[0].contentThumbnail)
+                    console.log(response.data.contents[0]);
+                    var topik = [], audie = [];
+                    response.data.contents[0].topics.map(e => {
+                        topik.push({
+                            label: e, value: e
+                        });
+                    });
+                    response.data.contents[0].targetAudiance.map(e => {
+                        audie.push({
+                            label: e, value: e
+                        });
+                    })
+                    setTopic(topik);
+                    setAudi(audie);
+                    console.log(topik);
+                    console.log(audie);
                     let con = new DOMParser().parseFromString(response.data.contents[0].contents, 'text/html');
                     // console.log(con);
                     if (response.data.contents[0].contentType === 'Artikel') {
@@ -194,21 +223,49 @@ function EditContent({
                         },
                     })
                         .then(response => {
-                            // console.log("Program list: ", response.data);
+                            console.log("Program list: ", response.data);
                             setProgramList(response.data.programs);
-                            setPageLoading(false);
+                            let paramTopic = {};
+                            let paramAudience = {};
+                            console.log("Masuk topik sini bjir");
+                            const promiseTopic = getContentTopicList(paramTopic);
+                            const promiseAudience = getAudienceList(paramAudience);
+                            Promise.all([promiseTopic, promiseAudience]).then(responseAll => {
+                                var topicRaw = [], audienceRaw = [];
+                                responseAll[0].data.Data.map(e => {
+                                    topicRaw.push({value: e.topicName, label: e.topicName});
+                                })
+                                responseAll[1].data.Data.map(e => {
+                                    audienceRaw.push({value: e.audianceName, label: e.audianceName});
+                                });
+                                setTopics(topicRaw);
+                                setAudience(audienceRaw);
+                                setPageLoading(false);
+                            })
                         })
                         .catch(error => {
-                            // console.log(error);
+                            console.log(error);
                             setPageLoading(false);
                         });
                 })
                 .catch(error => {
-                    // console.log(error);
+                    console.log(error);
                     setPageLoading(false);
                 });
         }
     }, []);
+
+    useEffect(() => {
+        if(preview) {
+            console.log("sini anjay");
+            const reader = new FileReader();
+            reader.readAsDataURL(preview);
+            reader.onloadend = function() {
+                var base64data = reader.result;      
+                setPreview64(base64data);
+            }
+        }
+    }, [preview]);
 
 
     if (isPageLoading) {
@@ -229,13 +286,15 @@ function EditContent({
                     contentType: content.contentType,
                     contentSource: content.contentSource,
                     contents: conFromImgVid,
-                    startDate: contentStartDate
+                    startDate: contentStartDate,
+                    topics: topic,
+                    targetAudience: audi,
                 }}
                 validationSchema={validationContentEdit}
                 validateOnChange={true}
                 onSubmit={values => {
                     window.scroll(0,0);
-                    onEditContent(_id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, values.contentThumbnail, values.contents, values.startDate, history)
+                    onEditContent(_id, cobrandEmail, values.programId, values.contentName, values.contentDescription, values.contentType, values.contentSource, preview64, values.contents, values.startDate, values.topics, values.targetAudience, history)
                 }}
             >
 
@@ -261,6 +320,68 @@ function EditContent({
                                 </select>
                             </div>
                             <div className="form-group">
+                                <label>Topik</label>
+                                {/* <select
+                                    name="topics"
+                                    value={values.topics}
+                                    onChange={(e) => {
+                                        setFieldValue("topics", [e.currentTarget.value]);
+                                    }}
+                                >
+                                    {topic.map(e => {
+                                        // console.log(e);
+                                        return <option value={e.topicName}>{e.topicName}</option>
+                                    })}
+                                </select> */}
+                                <Select
+                                    isMulti cacheOptions defaultOptions
+                                    value={values.topics}
+                                    onChange={(e) => {   
+                                        setFieldValue("topics", e)
+                                       if(e.length > 0) localStorage.setItem('Topik', e[0].value)
+                                       else localStorage.removeItem('Topik')
+                                    }}
+                                    name="topics"
+                                    options={topics}
+                                    // only allow user to choose up to 3 options
+                                    isOptionDisabled={() => values.topics.length >= 3}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"                                />
+                                {touched.topics && <span className="message__error">{errors.topics}</span>}
+                            </div>
+                            <div className="form-group">
+                                <label>Target Pembaca</label>
+                                {/* <select
+                                    name="targetAudience"
+                                    value={values.targetAudience}
+                                    onChange={(e) => {
+                                        setFieldValue("targetAudience", [e.currentTarget.value]);
+                                    }}
+                                >
+                                    {audience.map(e => {
+                                        return <option value={e.audianceName}>{e.audianceName}</option>
+                                    })}
+                                </select> */}
+                                <Select
+                                    isMulti cacheOptions defaultOptions
+                                    styles={{
+                                        // Fixes the overlapping problem of the component
+                                        menu: provided => ({ ...provided, zIndex: 9999 })
+                                    }}
+                                    value={values.targetAudience}
+                                    onChange={(e) => {
+                                        setFieldValue("targetAudience", e)
+                                        if(e.length > 0) localStorage.setItem('Target Pembaca', e[0].value)
+                                        else localStorage.removeItem('Target Pembaca')
+                                    }}
+                                    name="targetAudience"
+                                    options={audience}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                />
+                                {touched.targetAudience && <span className="message__error">{errors.targetAudience}</span>}
+                            </div>
+                            <div className="form-group">
                                 <label>Judul</label>
                                 <InputComponent
                                     type="text"
@@ -281,7 +402,9 @@ function EditContent({
                                     defaultValue={values.contents}
                                     setOptions={{
                                         buttonList: editorButtonList,
-                                        imageWidth: '360px'
+                                        imageWidth: '360px',
+                                        videoHeight: '270px',
+                                        videoHeightShow: false
                                     }}
                                     onChange={(content) => {
                                         setFieldValue('contents', content);
@@ -603,7 +726,7 @@ function EditContent({
                             </div>
                             <div className="form-group">
                                 <label>Thumbnail</label>
-                                <img className='photo' src={content.contentThumbnail}></img>
+                                { preview64 ? <img className='photo' src={preview64}/> : <img className='photo' src={content.contentThumbnail}></img> }
                                 <br></br>
                                 <InputComponent
                                     type="file"
@@ -613,8 +736,9 @@ function EditContent({
                                     onChange={(e) => {
                                         let file = e.currentTarget.files[0];
                                         if (file) {
-                                            // console.log("File to upload: ", file);
+                                            console.log("File to upload: ", file);
                                             setFieldValue("contentThumbnail", file);
+                                            setPreview(file);
                                         }
                                     }}
                                 />
@@ -657,8 +781,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEditContent: (_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, history) =>
-            dispatch(editContent(_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, history))
+        onEditContent: (_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, topics, targetAudience, history) =>
+            dispatch(editContent(_id, cobrandEmail, programId, contentName, contentDescription, contentType, contentSource, contentThumbnail, contents, startDate, topics, targetAudience, history))
     }
 }
 

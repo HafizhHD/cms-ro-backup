@@ -38,7 +38,7 @@ export const auth = ( userName, password ) => {
                 dispatch( authSuccess() );
             }
             else {
-                localStorage.setItem('loginMessage', "Incorrect Email/Password.");
+                localStorage.setItem('loginMessage', "Incorrect User Name/Password.");
                 dispatch(authFailed());
             }
         })
@@ -65,41 +65,40 @@ export const logout = (history) => {
     }
 }
 
-export const registerAuth = ( email, accountName, cobrandName, photo, phoneNumber, address, password, confirmPassword, history ) => {
+export const registerAuth = ( nama, alamat, phone, nik, ktp, userName, password, userType, cobrandEmail, userLevel, sekolah, emailUser, cobrandComunityId, groupMitraAsuhId, history ) => {
     return dispatch => {
         dispatch( authStart() );
 
-        const promise = toBase64(photo);
+        const promise = toBase64(ktp);
         promise.then((result) => {
             // console.log(result);
             const thumbnail = result;
 
             setTimeout( () => {
                 let data = {
-                    email,
-                    accountName,
-                    cobrandName,
-                    thumbnail,
-                    phoneNumber,
-                    address,
-                    password,
-                    confirmPassword
+                    nama,
+                    alamat,
+                    phone,
+                    nik,
+                    ktp: thumbnail,
+                    userName, password, userType, cobrandEmail, userLevel, sekolah, emailUser, cobrandComunityId, groupMitraAsuhId
                 };
+                console.log(data);
                 //Call API ....
                 
                 cobrandRegister(data)
                 .then(response => {
                     // console.log('Success:', response.data);
                     localStorage.setItem('loginMessage', "Successfully registered. You can now log in.");
+                    history.push('/');
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-                // console.log(data);
-                history.push('/');
                 dispatch({
                     type: AUTH_LOGOUT
                 });
+                // console.log(data);
             },2000)
         });
     }

@@ -102,7 +102,7 @@ function EditUser({
                 onSubmit = { values => {
                     let finalPhoto = user.imagePhoto;
                     if(values.imagePhoto !== '') finalPhoto = values.imagePhoto
-                    onEditUser( _emailUser, values.nameUser, values.emailUser, values.gender, values.birdDate, values.address, values.imagePhoto, values.phoneNumber, values.community, history)
+                    onEditUser( _emailUser, values.nameUser, values.emailUser, values.gender, values.birdDate, values.address, finalPhoto, values.phoneNumber, values.community, history)
                 }}
             >
             {({handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched}) => (

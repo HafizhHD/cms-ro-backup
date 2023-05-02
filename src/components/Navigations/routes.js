@@ -132,6 +132,17 @@ export const MenuCoBranding = () => {
                             pathName: 'Laporan Keuangan Terestimasi',
                             icon: <FiDollarSign className="Aside__Nav_item-icon" />
                         },
+
+                        {
+                            path: '/app-activity-log', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Log Aktivitas Aplikasi',
+                            icon: <FiMonitor className="Aside__Nav_item-icon" />
+                        },
+                        {
+                            path: '/cms-activity-log', //tadinya content, nanti tolong routenya diganti
+                            pathName: 'Log Aktivitas CMS',
+                            icon: <FiMonitor className="Aside__Nav_item-icon" />
+                        }
                     ]
                 })
         }
@@ -368,6 +379,16 @@ export const MenuCoBranding = () => {
                                 pathName: 'Monitoring Program',
                                 icon: <FiMonitor className="Aside__Nav_item-icon" />
                             },
+                            {
+                                path: '/app-activity-log', //tadinya content, nanti tolong routenya diganti
+                                pathName: 'Log Aktivitas Aplikasi',
+                                icon: <FiMonitor className="Aside__Nav_item-icon" />
+                            },
+                            {
+                                path: '/cms-activity-log', //tadinya content, nanti tolong routenya diganti
+                                pathName: 'Log Aktivitas CMS',
+                                icon: <FiMonitor className="Aside__Nav_item-icon" />
+                            }
                         ]
                     })
             }
