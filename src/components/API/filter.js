@@ -215,6 +215,8 @@ export const getCommunityMemberList = (query) => baseApi(token, query, '/cobrand
 // })
 
 export const getSchoolList = (query) => baseApi(token, query, '/cobrand/rekapDataSekolahFilter');
+
+export const getSchoolListAlAzhar = (query) => baseApi(token, query, '/cobrand/AlAzharSchoolFilter');
 // axios({
 //     method: 'post',
 //     url: url + '/cobrand/rekapDataSekolahFilter',

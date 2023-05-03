@@ -7,7 +7,7 @@ import { addStaff } from '../../../../store/actions/dashboard';
 import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationStaff } from '../../../../helpers/validation/validation';
-import { getCommunityList, getSchoolList, getSchoolGroupList } from '../../../../components/API/filter'
+import { getCommunityList, getSchoolList, getSchoolGroupList, getSchoolListAlAzhar } from '../../../../components/API/filter'
 import InputComponent from '../../../../components/UI/Input/Input';
 import AsyncSelect from 'react-select/async';
 
@@ -32,7 +32,7 @@ function AddStaff({
 
     const loadOptions = (inputValue, callback) => {
         setTimeout(() => {
-          getSchoolList({
+          getSchoolListAlAzhar({
             whereKeyValues: {
               nama: {
                 "$regex": inputValue,

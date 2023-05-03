@@ -8,7 +8,7 @@ import RKLoader from '../../../../components/UI/RKLoaderInner/RKLoader';
 import { connect } from 'react-redux';
 import { validationStaff } from '../../../../helpers/validation/validation';
 import InputComponent from '../../../../components/UI/Input/Input';
-import { getAdminList, getCommunityList, getSchoolList, getSchoolGroupList } from '../../../../components/API/filter';
+import { getAdminList, getCommunityList, getSchoolList, getSchoolGroupList, getSchoolListAlAzhar } from '../../../../components/API/filter';
 import AsyncSelect from 'react-select/async';
 
 function EditStaff({
@@ -35,7 +35,7 @@ function EditStaff({
 
     const loadOptions = (inputValue, callback) => {
         setTimeout(() => {
-          getSchoolList({
+          getSchoolListAlAzhar({
             whereKeyValues: {
               nama: {
                 "$regex": inputValue,
