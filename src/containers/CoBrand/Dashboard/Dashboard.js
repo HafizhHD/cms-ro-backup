@@ -149,6 +149,7 @@ function Dashboard() {
         }
         getSchoolGroupList(prm)
         .then(rsp => {
+            console.log(rsp);
             let schoolList = rsp.data.Data[0] ? rsp.data.Data[0].memberSekolah : [];
             console.log(schoolList);
 
