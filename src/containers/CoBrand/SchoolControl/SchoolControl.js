@@ -274,7 +274,7 @@ function SchoolControl({
                                     />
                                     <label>Hari</label>
                                     <div className="Schedule_days">
-                                    {['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'].map((y) => {
+                                    {['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'].map((y) => {
                                         return <h3 className="Schedule_days_day"><input type="checkbox" name={y} value={y}
                                             checked={values.deviceUsageDays.includes(y)}
                                             onChange={(e) => {
