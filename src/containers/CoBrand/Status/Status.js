@@ -179,10 +179,6 @@ function Status() {
                 })}</h4>
             </div>
             <div className="status-1">
-                <h3>Jumlah Download di Play Store:</h3>
-                <h3>UNDER CONSTRUCTION</h3>
-            </div>
-            <div className="status-1">
                 <h3>Total User:</h3>
                 <h1>{countUser[0]}</h1>
             </div>
