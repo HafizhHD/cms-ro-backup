@@ -1,6 +1,6 @@
 .Pengguna {
   display: grid;
-  grid-template-rows: max-content max-content max-content;
+  grid-template-rows: repeat(4, max-content);
   grid-row-gap: 2rem;
 
   &_mui {
@@ -38,6 +38,23 @@
             transform: scale(1.08);
           }
       }
+  }
+
+  &_filter {
+    align-items: center;
+    width: max-content;
+    justify-content: center;
+
+    & > h3 {
+      font-weight: 500
+    }
+    & > select {
+      padding: 8px;
+      border: solid 1px var(--color-primary);
+      background-color: #FFFFFF;
+      border-radius: 2rem;
+
+    }
   }
 }
 
