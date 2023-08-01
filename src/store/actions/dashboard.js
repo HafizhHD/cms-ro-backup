@@ -16,6 +16,7 @@ import { contentAdd, contentAddAsync, contentDelete, contentEdit, programAdd, pr
 deviceScheduleAdd, deviceScheduleEdit, deviceScheduleDelete, alwaysOnAppsAdd, alwaysOnAppsDelete} from '../../components/API/dashboard';
 import { cobrandEdit, cobrandLogin } from '../../components/API/auth';
 import { getCommunityMemberList, getUserList } from '../../components/API/filter';
+import { deleteUser } from '../../components/API/filterPublic';
 
 ///pdf
 // import { Viewer } from '@react-pdf-viewer/core' //library, plugin
@@ -41,6 +42,40 @@ export const alertSuccess = (message, id) => ({
     message: message,
     idMessage: id
 })
+
+export const deleteAppUser = (userId, userEmail, logout, setToken, setProfile, setRoProfile) => {
+    return dispatch => {
+        dispatch(loadingStart());
+        dispatch({
+            type: ALERT_CLOSE
+        });
+        console.log(userId);
+        const deleting = {
+            userId: userId
+        }
+        deleteUser(deleting)
+            .then(response => {
+                console.log(response.data);
+                alert("Akun Berhasil Dihapus!");
+                logout();
+                setRoProfile(null);
+                setToken(null);
+                setProfile(null);
+                dispatch(alertSuccess('Pengguna "' + userEmail + '" berhasil dihapus!'));
+                dispatch(loadingStop());
+            })
+            .catch(error => {
+                console.log(error);
+                logout();
+                setRoProfile(null);
+                setToken(null);
+                setProfile(null);
+                dispatch(alertError('Pengguna "' + userEmail + '" gagal dihapus. Coba beberapa saat lagi.'));
+                dispatch(loadingStop());
+                // retrieveList();
+            });
+        }
+}
 
 export const addProgram = (cobrandEmail, programName, ProgramDescription, photo, startDate, endDate, category, targetAudience, contentProg, history) => {
     return dispatch => {

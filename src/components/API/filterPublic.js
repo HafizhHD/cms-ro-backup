@@ -9,3 +9,12 @@ export const getUserList = (query) => axios({
         'Content-Type': 'application/json',
     }
 });
+
+export const deleteUser = (query) => axios({
+    method: 'post',
+    url: url + '/user/remove',
+    data: query,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});

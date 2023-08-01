@@ -26,6 +26,7 @@ const UserManagement = lazy(() => import('./../../containers/CoBrand/User/User')
 const RedZoneAdd = lazy(() => import('./../../containers/CoBrand/RedZone/RedzoneAdd/RedzoneAdd'));
 
 const LoginAsync = lazy(() => import('./../../containers/CoBrand/Login/Login'));
+const DeleteUserAsync = lazy(() => import('./../../containers/CoBrand/RequestDeleteUser/RequestDeleteUser'));
 const RegisterAsync = lazy(() => import('./../../containers/CoBrand/Register/Register'));
 const DashboardAsync = lazy(() => import('./../../containers/CoBrand/Dashboard/Dashboard'));
 
@@ -151,6 +152,17 @@ function Cobrand({
                         return (
                             <Suspense fallback={<RKLoader />}>
                                 <RegisterAsync {...props} />
+                            </Suspense>
+                        )
+                    }}
+                />
+                <Route
+                    exact
+                    path="/reqclearaccount"
+                    render={(props) => {
+                        return (
+                            <Suspense fallback={<RKLoader />}>
+                                <DeleteUserAsync {...props} />
                             </Suspense>
                         )
                     }}
