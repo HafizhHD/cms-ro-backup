@@ -221,4 +221,26 @@
       -webkit-transform: scale(0.9);
     }
   }
+
+  .btn-danger {
+    padding: 0.7rem;
+    border-radius: 8px;
+    background-color: #f00;
+    border: none;
+    outline: none;
+    font-weight: 800;
+    color: white;
+    transition: all ease-in 0.3s;
+    box-shadow: 2px 3px 4px rgba(#000, 0.2);
+  
+    &:hover {
+      background-color: white;
+      color: #f00;
+    }
+  
+    &:focus {
+      transform: scale(0.9);
+      -webkit-transform: scale(0.9);
+    }
+  }
   

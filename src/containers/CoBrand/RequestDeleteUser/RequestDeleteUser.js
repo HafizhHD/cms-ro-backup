@@ -85,12 +85,12 @@ function RequestDeleteUser({
                                 alt="Device " 
                                 className="Login-middle-left-img"
                             />
-                            <NavLink
+                            {/* <NavLink
                                 to="/" 
                                 className="Login-middle-left-help"
                                 onClick={() => {
                                 // setShowHelp(true);
-                            }}><FiHelpCircle/>  Bantuan</NavLink>
+                            }}><FiHelpCircle/>  Bantuan</NavLink> */}
                         </div>
                         <div className="Login-middle-right">
                             {!profile ? <div className="Login-middle-right-heading mb-small">
@@ -113,21 +113,21 @@ function RequestDeleteUser({
                                     <h4>Jenis Kelamin: {roProfile.gender}</h4>
                                     <br/>
                                     <h5>Apakah Anda yakin ingin menghapus akun ini? Akun tidak dapat dipulihkan kembali setelah dihapus!</h5>
-                                    <button onClick={() => {
+                                    <button className="btn-danger" onClick={() => {
                                         setDeleteUser(true)
                                     }}>Hapus Pengguna!</button>
                                 </> : 
                                 <h2>Data Anda tidak ditemukan! Silakan logout lalu login kembali dengan akun Google yang terhubung dengan aplikasi.</h2>}
-                                <button onClick={() => {
+                                <button className="btn-login" onClick={() => {
                                     googleLogout();
                                     setRoProfile(null);
                                     setToken(null);
                                     setProfile(null);
                                 }}>
-                                    Logout
+                                    Batal
                                 </button>
                             </div> }
-                            <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p>
+                            {/* <p className="Login-middle-right-joinus">Ingin bermitra dengan kami? <NavLink to="/register">Daftar Sekarang</NavLink> </p> */}
                         </div>
                     </div> 
                 
